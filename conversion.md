@@ -8,4 +8,5 @@ From the directory `linux-training-hogent`, I run the following command to conve
 > ./lib/convert-db2md.sh | tee log/convert-db2md.log
 > ./lib/convert-titles.sh | tee log/convert-titles.log
 > ./lib/remove-indexterm.sh | tee log/remove-indexterm.log
+> cp -r ../linux-training-be/images/ .
 ```
