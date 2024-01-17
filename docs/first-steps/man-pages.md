@@ -11,7 +11,7 @@ Most Unix files and commands have pretty good man pages to explain their
 use. Man pages also come in handy when you are using multiple flavours
 of Unix or several Linux distributions since options and parameters
 sometimes vary.
-# man \$command
+# man $command
 
 Type `man` followed by a command (for which you want help)
 and start reading. Press `q` to quit the manpage. Some man pages contain
@@ -20,14 +20,14 @@ examples (near the end).
     paul@laika:~$ man whois
     Reformatting whois(1), please wait...
 
-# man \$configfile
+# man $configfile
 
 Most `configuration files` have their own manual.
 
     paul@laika:~$ man syslog.conf
     Reformatting syslog.conf(5), please wait...
 
-# man \$daemon
+# man $daemon
 
 This is also true for most `daemons` (background programs)
 on your system..
