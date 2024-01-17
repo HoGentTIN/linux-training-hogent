@@ -1,3 +1,6 @@
+## Local mkdocs deployments
+site/
+
 ## Log directory
 log/
 
