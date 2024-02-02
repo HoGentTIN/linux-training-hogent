@@ -6,7 +6,12 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-readonly debug_lvl=2  # 0 = off, 1 = only errors, 2 = on, 3 = verbose
+
+script_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+readonly VERBOSITY="${VERBOSITY:-2}"
+
+# shellcheck disable=SC1091
+source "${script_dir}/utils.sh"
 
 main() {
   local filename
@@ -22,15 +27,6 @@ increase_header_level() {
   sed -i 's/^### /#### /' "${filename}"
   sed -i 's/^## /### /' "${filename}"
   sed -i 's/^# /## /' "${filename}"
-}
-
-# Usage: log MESSAGE
-# Print MESSAGE to stdout, if debug_lvl is greater than or equal to 2.
-log() {
-  local message="${*}"
-  if [ "${debug_lvl}" -ge 2 ]; then
-    printf '\e[0;33m[LOG] %s\e[0m\n' "${message}"
-  fi
 }
 
 main "${@}"
