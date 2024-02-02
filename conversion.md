@@ -9,7 +9,15 @@ From the directory `linux-training-hogent`, I run the following command to conve
 > ./lib/convert-titles.sh | tee log/convert-titles.log
 > ./lib/remove-indexterm.sh | tee log/remove-indexterm.log
 > cp -r ../linux-training-be/images/ .
+> ./lib/collect-author-info.sh | tee log/author-stats.log
 ```
+
+The scripts perform the following tasks:
+
+- `convert-db2md.sh`: Convert Docbook XML to Markdown using `pandoc`.
+- `convert-titles.sh`: The title of each module is stored in a separate file with contents `<title>TITLE</title>`. Pandoc does not convert this correctly to a Markdown title, so that's where this script comes in.
+- `remove-indexterm.sh`: The original Docbook XML contains `<indexterm>` tags that, when converted to Markdown, are not handled well by some of the tools we use. This script removes them. A static site generator like `mkdocs` with the `mkdocs-material` theme already has full-text search functionality, so we don't really need the index terms. The PDFs won't have an index, but these days, people are more likely to peruse them in electronic form and can use the search function in a PDF reader anyway.
+- `collect-author-info.sh`: By converting the entire work to Markdown we lose the original Git history, and we feel it is important to preserve the authorship information. This script uses Git blame to determine the people who contributed to each module. The person who touched the most lines in a module is considered the author, others as contributors. The script writes the author information to a file `015_authors.md` in the Markdown source directory of each module.
 
 ## Generating mkdocs site
 
