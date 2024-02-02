@@ -1,4 +1,4 @@
-# head
+## head
 
 You can use `head` to display the first ten lines of a
 file.
@@ -30,7 +30,7 @@ And `head` can also display the first `n bytes`.
     paul@debian10~$ head -c14 /etc/passwd
     root:x:0:0:roopaul@debian10~$
 
-# tail
+## tail
 
 Similar to `head`, the `tail` command will display the
 last ten lines of a file.
@@ -59,7 +59,7 @@ You can give `tail` the number of lines you want to see.
 The `tail` command has other useful options, some of which we will use
 during this course.
 
-# cat
+## cat
 
 The `cat` command is one of the most universal tools, yet
 all it does is copy `standard input` to
@@ -74,7 +74,7 @@ scroll to the end.
     search linux-training.be
     nameserver 192.168.1.42
 
-## concatenate
+### concatenate
 
 `cat` is short for `concatenate`. One of the basic uses of `cat` is to
 concatenate files into a bigger (or complete) file.
@@ -99,7 +99,7 @@ concatenate files into a bigger (or complete) file.
     three
     paul@debian8:~$
 
-## create files
+### create files
 
 You can use `cat` to create flat text files. Type the `cat > winter.txt`
 command as shown in the screenshot below. Then type one or more lines,
@@ -116,7 +116,7 @@ The `Ctrl d` key combination will send an
 `EOF` (End of File) to the running process ending the
 `cat` command.
 
-## custom end marker
+### custom end marker
 
 You can choose an end marker for `cat` with `<<` as is shown in this
 screenshot. This construction is called a `here directive`
@@ -131,7 +131,7 @@ and will end the `cat` command.
     Yes it is summer.
     paul@debian8:~$
 
-## copy files
+### copy files
 
 In the third example you will see that cat can be used to copy files. We
 will explain in detail what happens here in the bash shell chapter.
@@ -143,7 +143,7 @@ will explain in detail what happens here in the bash shell chapter.
     It is very cold today!
     paul@debian8:~$
 
-# tac
+## tac
 
 Just one example will show you the purpose of `tac` (cat
 backwards).
@@ -159,14 +159,14 @@ backwards).
     two
     one
 
-# more and less
+## more and less
 
 The `more` command is useful for displaying files that
 take up more than one screen. More will allow you to see the contents of
 the file page by page. Use the space bar to see the next page, or `q` to
 quit. Some people prefer the `less` command to `more`.
 
-# strings
+## strings
 
 With the `strings` command you can display readable ascii
 strings found in (binary) files. This example locates the `ls` binary

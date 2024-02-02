@@ -1,4 +1,4 @@
-# solution: binding and bonding
+## solution: binding and bonding
 
 1\. Add an extra `ip address` to one of your network cards. Test that it
 works (have your neighbour ssh to it)!

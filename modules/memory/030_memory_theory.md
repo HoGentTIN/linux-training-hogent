@@ -1,6 +1,6 @@
-# displaying memory and cache
+## displaying memory and cache
 
-## /proc/meminfo
+### /proc/meminfo
 
 Displaying `/proc/meminfo` will tell you a lot about the
 memory on your Linux computer.
@@ -19,7 +19,7 @@ line is the unused RAM. `Buffers` is RAM used for buffering files,
 amount of swap used as cache. The file gives us much more information
 outside of the scope of this course.
 
-## free
+### free
 
 The `free` tool can display the information provided by
 `/proc/meminfo` in a more readable format. The example below displays
@@ -30,7 +30,7 @@ brief memory information in megabytes.
     Mem:        3740       3519        221          0         42       1994
     Swap:       6234         82       6152
 
-## top
+### top
 
 The `top` tool is often used to look at processes
 consuming most of the cpu, but it also displays memory information on
@@ -44,9 +44,9 @@ Below a screenshot of top on the same ubu1010 from above.
     Mem:   3830176k total,  3613720k used,   216456k free,    45452k buffers
     Swap:  6384636k total,    84988k used,  6299648k free,  2050948k cached
 
-# managing swap space
+## managing swap space
 
-## about swap space
+### about swap space
 
 When the operating system needs more memory than physically present in
 RAM, it can use `swap space`. Swap space is located on
@@ -68,7 +68,7 @@ partitions. You can see the swap space with the `free` command, or with
 The amount of swap space that you need depends heavily on the services
 that the computer provides.
 
-## creating a swap partition
+### creating a swap partition
 
 You can activate or deactivate swap space with the
 `swapon` and `swapoff` commands. New swap
@@ -94,7 +94,7 @@ whereas the `free -om` command only makes a human readable summary.
     Mem:        249      245       4        0        125        54
     Swap:      1535        0    1535
 
-## creating a swap file
+### creating a swap file
 
 Here is one more example showing you how to create a `swap file`. On
 Solaris you can use `mkfile` instead of
@@ -112,7 +112,7 @@ Solaris you can use `mkfile` instead of
     /dev/hda1                         partition   524120  0      -2
     /smallswapfile                    file        4088    0      -3
 
-## swap space in /etc/fstab
+### swap space in /etc/fstab
 
 If you like these swaps to be permanent, then don\'t forget to add them
 to `/etc/fstab`. The lines in /etc/fstab will be similar
@@ -121,7 +121,7 @@ to the following.
     /dev/hda1         swap       swap     defaults      0 0
     /smallswapfile    swap       swap     defaults      0 0
 
-# monitoring memory with vmstat
+## monitoring memory with vmstat
 
 You can find information about `swap usage` using
 `vmstat`.

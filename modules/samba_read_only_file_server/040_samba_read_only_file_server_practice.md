@@ -1,4 +1,4 @@
-# practice: read only file server
+## practice: read only file server
 
 1\. Create a directory in a good location (FHS) to share files for
 everyone to read.

@@ -1,4 +1,4 @@
-# practice: introduction to scripting
+## practice: introduction to scripting
 
 0\. Give each script a different name, keep them for later!
 

@@ -1,4 +1,4 @@
-# practice : samba authentication
+## practice : samba authentication
 
 0\. Make sure you have properly named backups of your smb.conf of the
 previous practices.

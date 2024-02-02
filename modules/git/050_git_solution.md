@@ -1,4 +1,4 @@
-# solution: git
+## solution: git
 
 1.Crate local project called `git_practice`.
 

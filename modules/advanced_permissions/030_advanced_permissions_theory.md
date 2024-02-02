@@ -1,4 +1,4 @@
-# sticky bit on directory
+## sticky bit on directory
 
 You can set the `sticky bit` on a directory to prevent
 users from removing files that they do not own as a user owner. The
@@ -28,7 +28,7 @@ directory.
     root@barry:~# ls -ld /tmp
     drwxrwxrwt 6 root root 4096 2009-06-04 19:02 /tmp
 
-# setgid bit on directory
+## setgid bit on directory
 
 `setgid` can be used on directories to make sure that all
 files inside the directory are owned by the group owner of the
@@ -59,7 +59,7 @@ You can use the `find` command to find all
     /var/local
     ...
 
-# setgid and setuid on regular files
+## setgid and setuid on regular files
 
 These two permissions cause an executable file to be executed with the
 permissions of the `file owner` instead of the `executing owner`. This
@@ -106,7 +106,7 @@ In most cases, setting the `setuid` bit on executables is sufficient.
 Setting the `setgid` bit will result in these programs to run with the
 credentials of their group owner.
 
-# setuid on sudo
+## setuid on sudo
 
 The `sudo` binary has the `setuid` bit set, so any user
 can run it with the effective userid of root.

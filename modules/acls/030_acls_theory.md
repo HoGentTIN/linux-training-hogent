@@ -1,4 +1,4 @@
-# acl in /etc/fstab
+## acl in /etc/fstab
 
 File systems that support `access control lists`, or
 `acls`, have to be mounted with the `acl` option listed in
@@ -11,7 +11,7 @@ root file system has `acl` support, whereas /home/data does not.
     pasha:/home/r    /home/pasha    nfs      defaults        0  0
     wolf:/srv/data   /home/wolf     nfs      defaults        0  0
 
-# getfacl
+## getfacl
 
 Reading `acls` can be done with `/usr/bin/getfacl`. This
 screenshot shows how to read the `acl` of `file33` with
@@ -26,7 +26,7 @@ screenshot shows how to read the `acl` of `file33` with
     mask::rwx
     other::r--
 
-# setfacl
+## setfacl
 
 Writing or changing `acls` can be done with
 `/usr/bin/setfacl`. These screenshots show how to change
@@ -54,7 +54,7 @@ The result is visible with `getfacl`.
     mask::rwx
     other::r--
 
-# remove an acl entry
+## remove an acl entry
 
 The `-x` option of the `setfacl` command will remove an `acl` entry from
 the targeted file.
@@ -68,7 +68,7 @@ the targeted file.
 Note that omitting the `u` or `g` when defining the `acl` for an account
 will default it to a user account.
 
-# remove the complete acl
+## remove the complete acl
 
 The `-b` option of the `setfacl` command will remove the `acl` from the
 targeted file.
@@ -82,7 +82,7 @@ targeted file.
     group::r--
     other::r--
 
-# the acl mask
+## the acl mask
 
 The `acl mask` defines the maximum effective permissions for any entry
 in the `acl`. This `mask` is calculated every time you execute the
@@ -102,7 +102,7 @@ You can prevent the calculation by using the `--no-mask` switch.
     other::r--
             
 
-# eiciel
+## eiciel
 
 Desktop users might want to use `eiciel` to manage
 `acls` with a graphical tool.

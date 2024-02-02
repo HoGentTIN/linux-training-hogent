@@ -1,6 +1,6 @@
-# background processes
+## background processes
 
-## jobs
+### jobs
 
 Stuff that runs in background of your current shell can be displayed
 with the `jobs` command. By default you will not have any
@@ -12,7 +12,7 @@ with the `jobs` command. By default you will not have any
 
 This `jobs` command will be used several times in this section.
 
-## control-Z
+### control-Z
 
 Some processes can be `suspended` with the `Ctrl-Z` key
 combination. This sends a `SIGSTOP` signal to the `Linux kernel`,
@@ -28,7 +28,7 @@ background `vi(m)` can be seen with the `jobs` command.
     [5]+  Stopped                 vim procdemo.txt
             
 
-## & ampersand
+### & ampersand
 
 Processes that are started in background using the `&` character at the
 end of the command line are also visible with the `jobs` command.
@@ -41,7 +41,7 @@ end of the command line are also visible with the `jobs` command.
     [paul@RHEL8a ~]$
             
 
-## jobs -p
+### jobs -p
 
 An interesting option is `jobs -p` to see the `process id` of background
 processes.
@@ -60,7 +60,7 @@ processes.
     [paul@RHEL8b ~]$
             
 
-## fg
+### fg
 
 Running the `fg` command will bring a background job to
 the foreground. The number of the background job to bring forward is the
@@ -74,7 +74,7 @@ parameter of `fg`.
     sleep 2000
             
 
-## bg
+### bg
 
 Jobs that are `suspended` in background can be started in background
 with `bg`. The `bg` will send a `SIGCONT` signal.

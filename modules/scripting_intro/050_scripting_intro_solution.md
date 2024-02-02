@@ -1,4 +1,4 @@
-# solution: introduction to scripting
+## solution: introduction to scripting
 
 0\. Give each script a different name, keep them for later!
 

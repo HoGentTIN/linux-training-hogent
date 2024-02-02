@@ -1,4 +1,4 @@
-# About VNC
+## About VNC
 
 VNC can be configured in gnome or KDE using the
 `Remote Desktop Preferences`. `VNC` can be
@@ -9,7 +9,7 @@ advantage of being operating system independent, a lot of products
 (realvnc, tightvnc, xvnc, \...) use the same protocol on Solaris, Linux,
 BSD and more.
 
-# VNC Server
+## VNC Server
 
 Starting the vnc server for the first time.
 
@@ -33,7 +33,7 @@ Starting the vnc server for the first time.
     [root@RHELv8u3 conf]# 
             
 
-# VNC Client
+## VNC Client
 
 You can now use the `vncviewer` from another machine to
 connect to your vnc server. It will default to a very simple graphical
@@ -86,6 +86,6 @@ Don\'t forget to restart your vnc server after changing this file.
     Log file is /root/.vnc/RHELv8u3.localdomain:2.log
             
 
-# Practice VNC
+## Practice VNC
 
 1\. Use VNC to connect from one machine to another.

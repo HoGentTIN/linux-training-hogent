@@ -1,4 +1,4 @@
-# Debian
+## Debian
 
 Debian is one of the oldest Linux distributions. I use Debian myself on
 almost every computer that I own (including `raspbian` on the
@@ -30,7 +30,7 @@ Debian comes in `releases` named after characters in the movie
 There is never a fixed date for the next `Debian` release. The next
 version is released when it is ready.
 
-# Downloading
+## Downloading
 
 All these screenshots were made in November 2014, which means `Debian 8`
 was still in \'testing\' (but in \'freeze\', so there will be no major
@@ -219,7 +219,7 @@ just type those commands in the terminal (after you logged on).
     root@server42:~# date
     Mon Nov 10 18:21:56 CET 2014
 
-# virtualbox networking
+## virtualbox networking
 
 You can also log on from remote (or from your Windows/Mac/Linux host
 computer) using `ssh` or `putty`. Change the `network` settings in the
@@ -312,7 +312,7 @@ normal user account.
 
 TODO: putty screenshot here\...
 
-# setting the hostname
+## setting the hostname
 
 The hostname of the server is asked during installation, so there is no
 need to configure this manually.
@@ -327,7 +327,7 @@ need to configure this manually.
     127.0.1.1       server42.paul.local     server42
     root@server42:~#
 
-# adding a static ip address
+## adding a static ip address
 
 This example shows how to add a static ip address to your server.
 
@@ -372,7 +372,7 @@ an extra ip address forever.
 
     root@server42:~#
 
-# Debian package management
+## Debian package management
 
 To get all information about the newest packages form the online
 repository:

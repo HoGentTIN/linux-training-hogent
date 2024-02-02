@@ -1,4 +1,4 @@
-# solution : init
+## solution : init
 
 1\. Change `/etc/inittab` so that only two mingetty\'s are respawned.
 Kill the other `mingetty's` and verify that they don\'t come back.

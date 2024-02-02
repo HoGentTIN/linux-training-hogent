@@ -1,6 +1,6 @@
-# package terminology
+## package terminology
 
-## repository
+### repository
 
 A lot of software and documentation for your Linux distribution is
 available as `packages` in one or more centrally distributed
@@ -8,27 +8,27 @@ available as `packages` in one or more centrally distributed
 are tested and very easy to install (or remove) with a graphical or
 command line installer.
 
-## .deb packages
+### .deb packages
 
 Debian, Ubuntu, Mint and all derivatives from Debian and Ubuntu use
 `.deb` packages. To manage software on these systems, you
 can use `aptitude` or `apt-get`, both these
 tools are a front end for `dpkg`.
 
-## .rpm packages
+### .rpm packages
 
 Red Hat, Fedora, CentOS, OpenSUSE, Mandriva, Red Flag and others use
 `.rpm` packages. The tools to manage software packages on
 these systems are `yum` and `rpm`.
 
-## dependency
+### dependency
 
 Some packages need other packages to function. Tools like `apt-get`,
 `aptitude` and `yum` will install all `dependencies` you need. When
 using `dpkg` or `rpm`, or when building from `source`, you will need to
 install dependencies yourself.
 
-## open source
+### open source
 
 These repositories contain a lot of independent `open source software`.
 Often the source code is customized to integrate better with your
@@ -39,7 +39,7 @@ You are free to go to the project website itself (samba.org, apache.org,
 github.com, \...) an download the `vanilla` (= without the
 custom distribution changes) source code.
 
-## GUI software management
+### GUI software management
 
 End users have several graphical applications available via the desktop
 (look for \'add/remove software\' or something similar).

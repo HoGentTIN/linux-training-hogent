@@ -1,4 +1,4 @@
-# practice: input/output redirection
+## practice: input/output redirection
 
 1\. Activate the `noclobber` shell option.
 

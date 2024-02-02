@@ -1,4 +1,4 @@
-# ; semicolon
+## ; semicolon
 
 You can put two or more commands on the same line separated by a
 semicolon `;` . The shell will scan the line until it
@@ -16,7 +16,7 @@ waiting for each command to finish before starting the next one.
     World
     [paul@RHELv8u3 ~]$
 
-# & ampersand
+## & ampersand
 
 When a line ends with an ampersand `&`, the shell will not
 wait for the command to finish. You will get your shell prompt back, and
@@ -33,7 +33,7 @@ command has finished executing in background.
 The technical explanation of what happens in this case is explained in
 the chapter about `processes`.
 
-# \$? dollar question mark
+## \$? dollar question mark
 
 The exit code of the previous command is stored in the shell variable
 `$?`. Actually `$?` is a shell parameter and not a
@@ -51,7 +51,7 @@ variable, since you cannot assign a value to `$?`.
     1
     paul@debian10:~/test$
 
-# && double ampersand
+## && double ampersand
 
 The shell will interpret `&&` as a `logical AND`. When
 using `&&` the second command is executed only if the first one succeeds
@@ -73,7 +73,7 @@ example starts with a working `cd` followed by `ls`, then a non-working
     [paul@RHELv8u3 gen]$ cd gen && ls
     -bash: cd: gen: No such file or directory
 
-# \|\| double vertical bar
+## \|\| double vertical bar
 
 The `||` represents a `logical OR`. The second command is
 executed only when the first command fails (returns a non-zero exit
@@ -96,7 +96,7 @@ Another example of the same `logical OR` principle.
     file1  file3  File55  fileab  FileAB   fileabc
     file2  File4  FileA   Fileab  fileab2
 
-# combining && and \|\|
+## combining && and \|\|
 
 You can use this logical AND and logical OR to write an `if-then-else`
 structure on the command line. This example uses `echo` to display
@@ -109,7 +109,7 @@ whether the `rm` command was successful.
     It failed!
     paul@laika:~/test$
 
-# \# pound sign
+## \# pound sign
 
 Everything written after a `pound sign` (#) is ignored by
 the shell. This is useful to write a `shell comment`, but
@@ -120,7 +120,7 @@ has no influence on the command execution or shell expansion.
     paul@debian4:~/test$ ls       # is it empty ?
     paul@debian4:~/test$
 
-# \\ escaping special characters
+## \\ escaping special characters
 
 The backslash `\` character enables the use of control
 characters, but without the shell interpreting it, this is called
@@ -135,7 +135,7 @@ characters, but without the shell interpreting it, this is called
     [paul@RHELv8u3 ~]$ echo escaping \\\?\*\"\'
     escaping \?*"'
 
-## end of line backslash
+### end of line backslash
 
 Lines ending in a backslash are continued on the next line. The shell
 does not interpret the newline character and will wait on shell

@@ -1,4 +1,4 @@
-# solution: mounting file systems
+## solution: mounting file systems
 
 1\. Mount the small 200MB partition on /home/project22.
 

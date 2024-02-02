@@ -1,4 +1,4 @@
-# solution: packet filtering
+## solution: packet filtering
 
 A possible solution, where leftnet is the internal and rightnet is the
 external network.

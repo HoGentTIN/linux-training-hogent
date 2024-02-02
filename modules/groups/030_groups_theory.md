@@ -1,4 +1,4 @@
-# groupadd
+## groupadd
 
 Groups can be created with the `groupadd` command. The
 example below shows the creation of five (empty) groups.
@@ -9,7 +9,7 @@ example below shows the creation of five (empty) groups.
     root@laika:~# groupadd formula1
     root@laika:~# groupadd salsa
 
-# group file
+## group file
 
 Users can be a member of several groups. Group membership is defined by
 the `/etc/group` file.
@@ -27,7 +27,7 @@ The first field is the group\'s name. The second field is the group\'s
 identification or `GID`. The fourth field is the list of
 members, these groups have no members.
 
-# groups
+## groups
 
 A user can type the `groups` command to see a list of
 groups where the user belongs to.
@@ -36,7 +36,7 @@ groups where the user belongs to.
     harry sports
     [harry@RHEL8b ~]$
 
-# usermod
+## usermod
 
 Group membership can be modified with the useradd or
 `usermod` command.
@@ -59,7 +59,7 @@ Be careful when using `usermod` to add users to groups. By default, the
 a member if the group is not listed in the command! Using the `-a`
 (append) switch prevents this behaviour.
 
-# groupmod
+## groupmod
 
 You can change the group name with the `groupmod` command.
 
@@ -71,7 +71,7 @@ You can change the group name with the `groupmod` command.
     salsa:x:1010:katrien
     darts:x:1008:sandra
 
-# groupdel
+## groupdel
 
 You can permanently remove a group with the `groupdel`
 command.
@@ -79,7 +79,7 @@ command.
     root@laika:~# groupdel tennis
     root@laika:~#
 
-# gpasswd
+## gpasswd
 
 You can delegate control of group membership to another user with the
 `gpasswd` command. In the example below we delegate
@@ -119,7 +119,7 @@ command to set an empty administrators list.
 
     [root@RHEL8b ~]# gpasswd -A "" sports
 
-# newgrp
+## newgrp
 
 You can start a `child shell` with a new temporary `primary group` using
 the `newgrp` command.
@@ -144,7 +144,7 @@ the `newgrp` command.
     exit
     root@rhel65:~/prigroup#
 
-# vigr
+## vigr
 
 Similar to vipw, the `vigr` command can be used to
 manually edit the `/etc/group` file, since it will do proper locking of

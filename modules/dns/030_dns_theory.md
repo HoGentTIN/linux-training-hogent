@@ -1,6 +1,6 @@
-# about dns
+## about dns
 
-## name to ip address resolution
+### name to ip address resolution
 
 The `domain name system` or `dns` is a
 service on a tcp/ip network that enables clients to translate names into
@@ -18,7 +18,7 @@ In wireshark you can use the `dns` filter to see this traffic.
 
 ![](images/dns_01_what_is_dns.ws.jpg)
 
-## history
+### history
 
 In the Seventies, only a few hundred computers were connected to the
 internet. To resolve names, computers had a flat file that contained a
@@ -38,7 +38,7 @@ The old `hosts.txt` file is still active today on most computer systems
 under the name `/etc/hosts` (or C:/Windows/System32/Drivers/etc/hosts).
 We will discuss this file later, as it can influence name resolution.
 
-## forward and reverse lookup queries
+### forward and reverse lookup queries
 
 The question a client asks a dns server is called a
 `query`. When a client queries for an ip address, this is
@@ -80,7 +80,7 @@ screenshot).
 
 ![](images/dns_02_reverse.ws.jpg)
 
-## /etc/resolv.conf
+### /etc/resolv.conf
 
 A client computer needs to know the ip address of the
 `dns server` to be able to send queries to it. This is
@@ -106,9 +106,9 @@ server. For example Google provides a public name server at 8.8.8.8 and
 Please note that on `dhcp clients` this value can be overwritten when
 the `dhcp lease` is renewed.
 
-# dns namespace
+## dns namespace
 
-## hierarchy
+### hierarchy
 
 The `dns namespace` is hierarchical tree structure, with
 the `root servers` (aka dot-servers) at the top. The
@@ -123,7 +123,7 @@ countries have a `tld`. And there are several general `tld`\'s like
 .com, .edu, .org, .gov, .net, .mil, .int and more recently also .aero,
 .info, .museum, \...
 
-## root servers
+### root servers
 
 There are thirteen `root servers` on the internet, they
 are named `A` to `M`. Journalists often refer to these servers as
@@ -138,7 +138,7 @@ all behave as one (using anycast).
     http://f.root-servers.org
     http://en.wikipedia.org/wiki/Root_nameserver.
 
-## root hints
+### root hints
 
 Every `dns server software` will come with a list of
 `root hints` to locate the `root servers`.
@@ -162,7 +162,7 @@ with `bind 9.8.4`.
     M.ROOT-SERVERS.NET.      3600000      A     202.12.27.33
     root@debian10:~#
 
-## domains
+### domains
 
 One level below the `top level domains` are the `domains`.
 Domains can have subdomains (also called child domains).
@@ -175,7 +175,7 @@ linux-training.be (there are millions more).
 DNS domains are registered at the `tld` servers, the `tld` servers are
 registered at the `dot servers`.
 
-## top level domains
+### top level domains
 
 Below the root level are the `top level domains` or
 `tld's`. Originally there were only seven defined:
@@ -240,7 +240,7 @@ useless `tld`\'s were create like `.travel` (for travel agents) and
 In 2012 `ICANN` released a list of 2000 new `tld`\'s that would
 gradually become available.
 
-## fully qualified domain name
+### fully qualified domain name
 
 The `fully qualified domain name` or `fqdn`
 is the combination of the `hostname` of a machine appended with its
@@ -262,7 +262,7 @@ On Linux systems you can use the `hostname` and
     root@gwen:~# cat /etc/debian_version
     6.0.10
 
-## dns zones
+### dns zones
 
 A `zone` (aka a `zone of authority`) is a portion of the
 DNS tree that covers one domain name or child domain name. The picture
@@ -278,9 +278,9 @@ A `dns server` can be `authoritative` over 0, 1 or more
 A `dns zone` consists of `records`, also called `resource records`. We
 will list some of those `resource records` on the next page.
 
-## dns records
+### dns records
 
-### A record
+#### A record
 
 The `A record`, which is also called a
 `host record` contains the ipv4-address of a computer.
@@ -289,44 +289,44 @@ server will resolve the hostname in the query to an ip address. An
 `AAAA record` is similar but contains an ipv6 address
 instead of ipv4.
 
-### PTR record
+#### PTR record
 
 A `PTR record` is the reverse of an A record. It contains
 the name of a computer and can be used to resolve an ip address to a
 hostname.
 
-### NS record
+#### NS record
 
 A `NS record` or `nameserver record` is a record that
 points to a DNS name server (in this zone). You can list all your name
 servers for your DNS zone in distinct NS records.
 
-### glue A record
+#### glue A record
 
 An A record that maps the name of an NS record to an ip address is said
 to be a `glue record`.
 
-### SOA record
+#### SOA record
 
 The SOA record of a zone contains meta information about the zone
 itself. The contents of the SOA record is explained in detail in the
 section about zone transfers. There is exactly one SOA record for each
 zone.
 
-### CNAME record
+#### CNAME record
 
 A `CNAME record` maps a hostname to a hostname, creating
 effectively an alias for an existing hostname. The name of the mail
 server is often aliased to `mail` or `smtp`, and the name
 of a web server to `www`.
 
-### MX record
+#### MX record
 
 The `MX` record points to an `smtp server`. When you send
 an email to another domain, then your mail server will need the MX
 record of the target domain\'s mail server.
 
-# caching only servers
+## caching only servers
 
 A `dns server` that is set up without `authority` over a `zone`, but
 that is connected to other name servers and caches the queries is called
@@ -337,7 +337,7 @@ to other name servers and cache that information.
 There are two kinds of caching only name servers. Those with a
 `forwarder`, and those that use the `root servers`.
 
-## caching only server without forwarder
+### caching only server without forwarder
 
 A caching only server without forwarder will have to get information
 elsewhere. When it receives a query from a client, then it will consult
@@ -371,7 +371,7 @@ each line are cut).
     ns2.openminds.be.domain > 192.168.1.103.7514: 60888*- 1/0/1 A 188.93.155.\
     87 (62)
 
-## caching only server with forwarder
+### caching only server with forwarder
 
 A `caching only server` with a `forwarder` is a DNS server
 that will get all its information from the `forwarder`. The `forwarder`
@@ -399,7 +399,7 @@ looks like this.
            forwarders { 10.104.42.1; };
     };
 
-## iterative or recursive query
+### iterative or recursive query
 
 A `recursive query` is a DNS query where the client that
 is submitting the query expects a complete answer (Like the fat red
@@ -410,7 +410,7 @@ DNS server in the picture above). Iterative queries usually take place
 between name servers. The root name servers do not respond to recursive
 queries.
 
-# authoritative dns servers
+## authoritative dns servers
 
 A DNS server that is controlling a zone, is said to be the
 `authoritative` DNS server for that zone. Remember that a
@@ -418,7 +418,7 @@ A DNS server that is controlling a zone, is said to be the
 
 ![](images/dns_authoritative_zone.jpg)
 
-# primary and secondary
+## primary and secondary
 
 When you set up the first `authoritative` dns server for a zone, then
 this is called the `primary dns server`. This server will
@@ -429,7 +429,7 @@ another `dns server` with authority over that zone. This is called a
 
 ![](images/dns_primary_secondary.jpg)
 
-# zone transfers
+## zone transfers
 
 The slave server receives a copy of the zone database from the master
 server using a `zone transfer`. Zone transfers are
@@ -453,7 +453,7 @@ a transfer of the `fred.local` zone, and shows the log from
     zone fred.local/IN: sending notifies (serial 2)
     root@debian10:/etc/bind#
 
-# master and slave
+## master and slave
 
 When adding a `secondary dns server` to a zone, then you
 will configure this server as a `slave server` to the
@@ -468,7 +468,7 @@ the master for ns4 is ns2.
 
 ![](images/dns_master_slave.jpg)
 
-# SOA record
+## SOA record
 
 The `soa record` contains a `refresh` value. If this is set to 30
 minutes, then the slave server will request a copy of the zone file
@@ -509,7 +509,7 @@ Below a zone transfer captured in wireshark.
 
 ![](images/dns_zone_transfer.jpg)
 
-# full or incremental zone transfers
+## full or incremental zone transfers
 
 When a zone tranfer occurs, this can be either a full zone transfer or
 an incremental zone transfer. The decision depends on the size of the
@@ -519,7 +519,7 @@ changes is smaller than the size of the zone database. Full zone
 transfers use the `axfr` protocol, incremental zone
 transfer use the `ixfr` protocol.
 
-# DNS cache
+## DNS cache
 
 DNS is a caching protocol.
 
@@ -558,7 +558,7 @@ Besides caching the A record for www.linux-training.be, the local server
 will also cache the NS and A record for the linux-training.be name
 server and the .be name server.
 
-# forward lookup zone example
+## forward lookup zone example
 
 The way to set up zones in `/etc/bind/named.conf.local` is
 to create a zone entry with a reference to another file (this other file
@@ -613,7 +613,7 @@ Here is an example of a zone file.
     ns1             IN      A       10.104.33.30
     ;www            IN      A       10.104.33.30
 
-# example: caching only DNS server
+## example: caching only DNS server
 
 1\. installing DNS software on Debian
 
@@ -669,7 +669,7 @@ You should see traffic to a `root name server` whenever you try a new
 which means that repeating a query will generate a lot less traffic
 since your `dns server` will still have the answer in its memory.
 
-# example: caching only with forwarder
+## example: caching only with forwarder
 
 5\. Add the public Google `dns server` as a `forwarder`. The ip address
 of this server is 8.8.8.8 .
@@ -762,7 +762,7 @@ into this:
 11\. When you use `dig` for the first time for a domain, where is the
 answer coming from ? And the second time ? How can you tell ?
 
-# example: primary authoritative server
+## example: primary authoritative server
 
 1\. Instead of only cachng the information from other servers, we will
 now make our server authoritative for our own domain.
@@ -816,7 +816,7 @@ contact the master every hour).
 
 Note that the `www` record is commented out, so it will not resolve.
 
-## using your own DNS server
+### using your own DNS server
 
 If you are confident that your `dns server` works, then set it as
 default and only dns server in `/etc/resolv.conf`.
@@ -855,7 +855,7 @@ Adjust `/etc/hosts` to reflect your `domain name` and verify with
     root@debian10:~# dnsdomainname
     paul.local
 
-## using your own domain
+### using your own domain
 
 Consider the following screenshot:
 
@@ -950,7 +950,7 @@ information here:
     domain name: paul.local
     server name: ns1.paul.local
 
-# example: a DNS slave server
+## example: a DNS slave server
 
 1\. A slave server transfers zone information over the network from a
 master server (a slave can also be a master). A primary server maintains

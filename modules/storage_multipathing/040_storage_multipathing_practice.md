@@ -1,4 +1,4 @@
-# practice: multipathing
+## practice: multipathing
 
 1\. Find a partner and decide who will be iSCSI Target and who will be
 iSCSI Initiator and Multipather. Set up Multipath as we did in the

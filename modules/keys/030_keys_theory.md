@@ -1,4 +1,4 @@
-# about keyboard layout
+## about keyboard layout
 
 Many people (like US-Americans) prefer the default US-qwerty keyboard
 layout. So when you are not from the USA and want a local keyboard
@@ -10,7 +10,7 @@ configuration. So you will not find much information on changing
 keyboard layout on the fly on linux, because not many people need it.
 Below are some tips to help you.
 
-# X Keyboard Layout
+## X Keyboard Layout
 
 This is the relevant portion in /etc/X11/xorg.conf, first for Belgian
 azerty, then for US-qwerty.
@@ -27,7 +27,7 @@ When in Gnome or KDE or any other graphical environment, look in the
 graphical menu in preferences, there will be a keyboard section to
 choose your layout. Use the graphical menu instead of editing xorg.conf.
 
-# shell keyboard layout
+## shell keyboard layout
 
 When in bash, take a look in the /etc/sysconfig/keyboard file. Below a
 sample US-qwerty configuration, followed by a Belgian azerty

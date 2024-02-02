@@ -1,4 +1,4 @@
-# \$ dollar sign
+## \$ dollar sign
 
 Another important character interpreted by the shell is the dollar sign
 `$`. The shell will look for an
@@ -18,7 +18,7 @@ These are some examples using \$HOSTNAME, \$USER, \$UID, \$SHELL, and
     [paul@RHELv8u3 ~]$ echo My homedir is $HOME
     My homedir is /home/paul
 
-# case sensitive
+## case sensitive
 
 This example shows that shell variables are case sensitive!
 
@@ -27,7 +27,7 @@ This example shows that shell variables are case sensitive!
     [paul@RHELv8u3 ~]$ echo Hello $user
     Hello
 
-# creating variables
+## creating variables
 
 This example creates the variable `$MyVar` and sets its value. It then
 uses `echo` to verify the value.
@@ -37,7 +37,7 @@ uses `echo` to verify the value.
     555
     [paul@RHELv8u3 gen]$
 
-# quotes
+## quotes
 
 Notice that double quotes still allow the parsing of variables, whereas
 single quotes prevent this.
@@ -59,14 +59,14 @@ lines, but not in single quoted lines.
     paul@laika:~$ echo 'We are in $city today.'
     We are in $city today. 
 
-# set
+## set
 
 You can use the `set` command to display a list of
 environment variables. On Ubuntu and Debian systems, the `set` command
 will also list shell functions after the shell variables. Use
 `set | more` to see the variables then.
 
-# unset
+## unset
 
 Use the `unset` command to remove a variable from your
 shell environment.
@@ -79,7 +79,7 @@ shell environment.
 
     [paul@RHEL4b ~]$
 
-# \$PS1
+## \$PS1
 
 The `$PS1` variable determines your shell prompt. You can use backslash
 escaped special characters like `\u` for the username or `\w` for the
@@ -109,7 +109,7 @@ for a green user prompt:
     BLUE='\[\033[01;34m\]'
     export PS1="${debian_chroot:+($debian_chroot)}$GREEN\u$WHITE@$BLUE\h$WHITE\w\$ "
 
-# \$PATH
+## \$PATH
 
 The `$PATH` variable is determines where the shell is
 looking for commands to execute (unless the command is builtin or
@@ -145,7 +145,7 @@ to the \$PATH variable.
     /usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:
     [root@RHEL3 ~]#
 
-# env
+## env
 
 The `env` command without options will display a list of
 `exported variables`. The difference with `set` with options is that
@@ -175,7 +175,7 @@ the chapter on file globbing).
     Filea  FileA  Fileb  FileB
     [paul@RHEL4b test]$
 
-# export
+## export
 
 You can export shell variables to other shells with the
 `export` command. This will export the variable to child
@@ -202,7 +202,7 @@ continued).
     three four
     [paul@RHEL4b ~]$
 
-# delineate variables
+## delineate variables
 
 Until now, we have seen that bash interprets a variable starting from a
 dollar sign, continuing until the first occurrence of a non-alphanumeric
@@ -217,7 +217,7 @@ example.
     Hello Superman and Supergirl
     [paul@RHEL4b ~]$
 
-# unbound variables
+## unbound variables
 
 The example below tries to display the value of the `$MyVar` variable,
 but it fails because the variable does not exist. By default the shell

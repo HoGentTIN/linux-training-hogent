@@ -1,4 +1,4 @@
-# download a Linux CD image
+## download a Linux CD image
 
 Start by downloading a Linux CD image (an .ISO file) from the
 distribution of your choice from the Internet. Take care selecting the
@@ -8,7 +8,7 @@ will almost immediately fail to boot the CD.
 
 ![](images/vm1_download.png)
 
-# download Virtualbox
+## download Virtualbox
 
 Step two (when the .ISO file has finished downloading) is to download
 Virtualbox. If you are currently running Microsoft Windows, then
@@ -16,7 +16,7 @@ download and install Virtualbox for Windows!
 
 ![](images/vm2_download.png)
 
-# create a virtual machine
+## create a virtual machine
 
 Now start Virtualbox. Contrary to the screenshot below, your left pane
 should be empty.
@@ -63,7 +63,7 @@ Click `create` to create the virtual machine.
 
 ![](images/vm_wizard9.png)
 
-# attach the CD image
+## attach the CD image
 
 Before we start the virtual computer, let us take a look at some
 settings (click `Settings`).
@@ -96,7 +96,7 @@ Bridged usually will connect your virtual computer to the Internet.
 
 ![](images/vm_settings7.png)
 
-# install Linux
+## install Linux
 
 The virtual machine is now ready to start. When given a choice at boot,
 select `install` and follow the instructions on the screen. When the

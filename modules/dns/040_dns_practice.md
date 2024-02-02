@@ -1,4 +1,4 @@
-# practice: dns
+## practice: dns
 
 1\. Install `bind9` and verify with a sniffer how it works.
 

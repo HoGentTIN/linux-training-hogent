@@ -1,4 +1,4 @@
-# four broadcasts
+## four broadcasts
 
 `dhcp` works with layer 2 broadcasts. A dhcp client that starts, will
 send a `dhcp discover` on the network. All `dhcp servers` (that have a
@@ -14,7 +14,7 @@ In wireshark it looks like this.
 When this procedure is finished, then the client is allowed to use that
 ip-configuration until the end of its lease time.
 
-# picturing dhcp
+## picturing dhcp
 
 Here we have a small network with two `dhcp servers` named DHCP-SRV1 and
 DHCP-SRV2 and two clients (SunWS1 and Mac42). All computers are
@@ -41,7 +41,7 @@ broadcast to 255.255.255.255.
 
 The same story can be read in `rfc 2131`.
 
-# installing a dhcp server
+## installing a dhcp server
 
 dhcp server for Debian/Mint
 
@@ -60,7 +60,7 @@ You get a configuration file with many examples.
     debian10:~# ls -l /etc/dhcp3/dhcpd.conf 
     -rw-r--r-- 1 root root 3551 2011-04-10 21:23 /etc/dhcp3/dhcpd.conf
 
-# dhcp server for RHEL/CentOS
+## dhcp server for RHEL/CentOS
 
 Installing is easy with `yum`.
 
@@ -141,7 +141,7 @@ RHEL/CentOS.
     [root@rhel71 ~]# systemctl start dhcpd
     [root@rhel71 ~]#
 
-# client reservations
+## client reservations
 
 You can reserve an ip configuration for a client using the mac address.
 
@@ -159,7 +159,7 @@ You can add individual options to this reservation.
     option routers 192.168.42.1;
     }
 
-# example config files
+## example config files
 
 Below you see several sections of `/etc/dhcp/dhcpd.conf` on a `Debian 6`
 server.
@@ -194,7 +194,7 @@ Below two client reservations:
       fixed-address vmac.netsec.local;
     }
 
-# older example config files
+## older example config files
 
 For dhcpd.conf on Fedora with dynamic updates for a DNS domain.
 
@@ -263,25 +263,25 @@ Also make sure that `bind` can write to your db.zone file (using
 chmod/chown). For Ubuntu this can be in /etc/bind, for Fedora in
 /var/named.
 
-# advanced dhcp
+## advanced dhcp
 
-## 80/20 rule
+### 80/20 rule
 
 DHCP servers should not be a single point of failure. Let us discuss
 redundant dhcp server setups.
 
-## relay agent
+### relay agent
 
 To avoid having to place a dhcp server on every segment, we can use
 `dhcp relay agents`.
 
-## rogue dhcp servers
+### rogue dhcp servers
 
 Rogue dhcp servers are a problem without a solution. For example
 accidental connection of a (believed to be simple) hub/switch to a
 network with an internal dhcp server.
 
-## dhcp and ddns
+### dhcp and ddns
 
 DHCP can dynamically update DNS when it configures a client computer.
 DDNS can be used with or without secure keys.

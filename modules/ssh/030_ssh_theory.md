@@ -1,6 +1,6 @@
-# about ssh
+## about ssh
 
-## secure shell
+### secure shell
 
 Avoid using `telnet`, `rlogin` and
 `rsh` to remotely connect to your servers. These older
@@ -26,13 +26,13 @@ The `openssh` package is maintained by the `OpenBSD`
 people and is distributed with a lot of operating systems (it may even
 be the most popular package in the world).
 
-## /etc/ssh/
+### /etc/ssh/
 
 Configuration of `ssh` client and server is done in the
 `/etc/ssh` directory. In the next sections we will discuss
 most of the files found in `/etc/ssh/`.
 
-## ssh protocol versions
+### ssh protocol versions
 
 The `ssh` protocol has two versions (1 and 2). Avoid using version 1
 anywhere, since it contains some known vulnerabilities. You can control
@@ -45,7 +45,7 @@ openssh-server daemon.
     paul@ubu1204:/etc/ssh$ grep Protocol sshd_config 
     Protocol 2
 
-## public and private keys
+### public and private keys
 
 The `ssh` protocol uses the well known system of
 `public and private keys`. The below explanation is
@@ -68,7 +68,7 @@ When Bob wants to verify that the message came from Alice, Bob uses the
 `private key`. Since Alice is the only one to have Alice\'s
 `private key`, Bob is sure the message came from Alice.
 
-## rsa and dsa algorithms
+### rsa and dsa algorithms
 
 This chapter does not explain the technical implementation of
 cryptographic algorithms, it only explains how to use the ssh tools with
@@ -78,7 +78,7 @@ these algorithms can be found here:
     http://en.wikipedia.org/wiki/RSA_(algorithm)
     http://en.wikipedia.org/wiki/Digital_Signature_Algorithm
 
-# log on to a remote server
+## log on to a remote server
 
 The following screenshot shows how to use `ssh` to log on to a remote
 computer running Linux. The local user is named `paul` and he is logging
@@ -118,7 +118,7 @@ using `Ctrl-d`.
     Connection to 192.168.1.30 closed.
     paul@ubu1204:~$
 
-# executing a command in remote
+## executing a command in remote
 
 This screenshot shows how to execute the `pwd` command on the remote
 server. There is no need to `exit` the server manually.
@@ -128,7 +128,7 @@ server. There is no need to `exit` the server manually.
     /home/admin42
     paul@ubu1204:~$
 
-# scp
+## scp
 
 The `scp` command works just like `cp`, but allows the source and
 destination of the copy to be behind `ssh`. Here is an example where we
@@ -146,7 +146,7 @@ server.
     admin42@192.168.1.30's password: 
     serverhosts                                  100%  809     0.8KB/s   00:00
 
-# setting up passwordless ssh
+## setting up passwordless ssh
 
 To set up passwordless ssh authentication through public/private keys,
 use `ssh-keygen` to generate a key pair without a passphrase, and then
@@ -160,7 +160,7 @@ access using ssh and the public and private key system. This means that
 even if Bob changes his password on his laptop, Alice will still have
 access.
 
-## ssh-keygen
+### ssh-keygen
 
 The example below shows how Alice uses `ssh-keygen` to
 generate a key pair. Alice does not enter a passphrase.
@@ -179,7 +179,7 @@ generate a key pair. Alice does not enter a passphrase.
 
 You can use `ssh-keygen -t dsa` in the same way.
 
-## \~/.ssh
+### \~/.ssh
 
 While `ssh-keygen` generates a public and a private key, it will also
 create a hidden `.ssh` directory with proper permissions.
@@ -203,7 +203,7 @@ directory, so he needs to manually secure it.
     bob@laika:~$ chmod 700 .ssh/
     bob@laika:~$
 
-## id_rsa and id_rsa.pub
+### id_rsa and id_rsa.pub
 
 The `ssh-keygen` command generate two keys in .ssh. The
 public key is named `~/.ssh/id_rsa.pub`. The private key
@@ -217,7 +217,7 @@ is named `~/.ssh/id_rsa`.
 The files will be named `id_dsa` and
 `id_dsa.pub` when using `dsa` instead of `rsa`.
 
-## copy the public key to the other computer
+### copy the public key to the other computer
 
 To copy the public key from Alice\'s server tot Bob\'s laptop, Alice
 decides to use `scp`.
@@ -235,7 +235,7 @@ Alice could also have used `ssh-copy-id` like in this example.
 
     ssh-copy-id -i .ssh/id_rsa.pub bob@192.168.48.92
 
-## authorized_keys
+### authorized_keys
 
 In your \~/.ssh directory, you can create a file called
 `authorized_keys`. This file can contain one or more
@@ -252,7 +252,7 @@ containing the public key of Alice.
     /vjDGSi3F/bxu691jscrU0VUdIoOSo98HUfEf7jKBRikxGAC7I4HLa+/zX73OIvRFAb2hv\
     tUhn6RHrBtUJUjbSGiYeFTLDfcTQ== alice@RHEL5
 
-## passwordless ssh
+### passwordless ssh
 
 Alice can now use ssh to connect passwordless to Bob\'s laptop. In
 combination with `ssh`\'s capability to execute commands on the remote
@@ -263,7 +263,7 @@ host, this can be useful in pipes across different machines.
     -rw-r--r-- 1 bob bob 393 2008-05-14 17:03 authorized_keys
     [alice@RHEL5 ~]$
 
-# X forwarding via ssh
+## X forwarding via ssh
 
 Another popular feature of `ssh` is called `X11 forwarding` and is
 implemented with `ssh -X`.
@@ -284,7 +284,7 @@ will be displayed on the screen attached locally to paul\'s computer.
     greet@raika:~$ mozilla-thunderbird &
     [1] 30336
 
-# troubleshooting ssh
+## troubleshooting ssh
 
 Use `ssh -v` to get debug information about the ssh connection attempt.
 
@@ -303,7 +303,7 @@ Use `ssh -v` to get debug information about the ssh connection attempt.
     debug1: Enabling compatibility mode for protocol 2.0
     ...
 
-# sshd
+## sshd
 
 The ssh server is called `sshd` and is provided by the
 `openssh-server` package.
@@ -311,7 +311,7 @@ The ssh server is called `sshd` and is provided by the
     root@ubu1204~# dpkg -l openssh-server | tail -1
     ii  openssh-server   1:5.9p1-5ubuntu1    secure shell (SSH) server,... 
 
-# sshd keys
+## sshd keys
 
 The public keys used by the sshd server are located in
 `/etc/ssh` and
@@ -323,7 +323,7 @@ are world readable. The private keys are only readable by root.
     -rw------- 1 root root 1679 Jun  7  2011 /etc/ssh/ssh_host_rsa_key
     -rw-r--r-- 1 root root  390 Jun  7  2011 /etc/ssh/ssh_host_rsa_key.pub
 
-# ssh-agent
+## ssh-agent
 
 When generating keys with `ssh-keygen`, you have the option to enter a
 passphrase to protect access to the keys. To avoid having to type this

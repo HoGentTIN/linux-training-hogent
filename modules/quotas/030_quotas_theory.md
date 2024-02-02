@@ -1,4 +1,4 @@
-# About Disk Quotas
+## About Disk Quotas
 
 To limit the disk space used by user, you can set up
 `disk quotas`. This requires adding
@@ -41,7 +41,7 @@ Issue the `quotaoff` command to stop all complaints.
 
     root@RHELv8u4:~# quotaoff -vaug
 
-# Practice Disk quotas
+## Practice Disk quotas
 
 1\. Implement disk quotas on one of your new partitions. Limit one of
 your users to 10 megabyte.

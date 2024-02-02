@@ -1,4 +1,4 @@
-# practice: user profiles
+## practice: user profiles
 
 1\. Make a list of all the profile files on your system.
 

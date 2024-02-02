@@ -1,4 +1,4 @@
-# tcp en udp
+## tcp en udp
 
 Behalve `tcp` vinden we in `layer 4` ook nog `udp`. U hebt genoteerd dat
 alvorens een `http request` verstuurd wordt, er eerst een
@@ -6,7 +6,7 @@ alvorens een `http request` verstuurd wordt, er eerst een
 geen handshake was. Dat komt omdat `http` gebruikt maakt van `tcp` in
 `layer 4`, terwijl `dns` hier werkt bovenop `udp`.
 
-## tcp
+### tcp
 
 `tcp` staat voor `Transmission Control Protocol`. Het is
 een protocol dat een `connectie` opzet alvorens data te versturen. Als
@@ -22,7 +22,7 @@ netwerk gaan.
 
 ![](images/tcp_sessie.png)
 
-## udp
+### udp
 
 In tegenstelling tot `tcp` is er bij `udp` geen connectie,
 en ook geen handshake. Men noemt `udp` een `connectionless` protocol.
@@ -34,7 +34,7 @@ bereikt, dan ben je het kwijt.
 
 ![](images/udp.png)
 
-## oefening
+### oefening
 
 Bedenk zelf wanneer je udp zou gebruiken, en wanneer tcp.
 
@@ -46,7 +46,7 @@ live radio uitzending van Clijsters tegen Henin ?
 
 dns ?
 
-# ping en arp
+## ping en arp
 
 Het `arp` protocol is een `layer 2` protocol dat een link legt tussen
 het `ip-adres` en het `mac-adres` van een computer. We hebben in de klas
@@ -56,7 +56,7 @@ deze werking aangetoond met behulp van het `ping` commando en de
 
 ![](images/arp_ping.png)
 
-# packetjes
+## packetjes
 
 Op het bord heb ik regelmatig \'packetjes\' getekend. Technisch spreken
 we van een `ethernet frame` en van een `ip datagram`. Het exacte formaat
@@ -77,7 +77,7 @@ netwerk.
 
 ![](images/simple_packet.png)
 
-# onze data op reis
+## onze data op reis
 
 Dit hoofdstuk beschrijft zeer beknopt de weg die onze data bewandelt als
 we in een `browser` zoals `firefox` een
@@ -85,7 +85,7 @@ webpagina van de VRT (van teletekst) bekijken. Je kan dit hoofdstuk
 bekijken als een beknopt overzicht van de hele cursus, alles wat we in
 de cursus bekijken is wel ergens in dit verhaal te plaatsen.
 
-## laag 7: applicatie
+### laag 7: applicatie
 
 De reis begint in de bovenste laag. Dat is laag 7, de applicatielaag. We
 gebruiken als voorbeeld de applicatie genaamd `firefox`
@@ -101,7 +101,7 @@ laag 6.
 
 ![](images/pagina525.png)
 
-## lagen 6 en 5: presentatie en sessie
+### lagen 6 en 5: presentatie en sessie
 
 Deze lagen zijn niet echt van toepassing omdat we met
 `tcp/ip` werken en niet met een 7-lagig osi protocol. Je
@@ -109,7 +109,7 @@ zou kunnen zeggen dat de `browser` in laag 6 een `html` document
 ontvangt van de `webserver`. Dit `html` document kan bestaan uit `ascii`
 of `unicode` karakters.
 
-## laag 4: transport
+### laag 4: transport
 
 In deze laag zien we hoe de `tcp` van `tcp/ip` een
 `sessie` opzet.
@@ -137,7 +137,7 @@ In het screenshot hierboven zie je een `http GET` van
 pagina 511 i.p.v. pagina 525, maar dat heeft geen belang voor de
 theorie.
 
-## laag 3: netwerk
+### laag 3: netwerk
 
 Onze vraag voor een webpagina moet terecht komen bij de `webserver` van
 de vrt. Deze computer staat niet in onze klas (en ook niet bij mij
@@ -168,7 +168,7 @@ zou kunnen dat je het volgende ziet in de sniffer.
 
 ![](images/dnsteletekst.png)
 
-## laag 2: data link
+### laag 2: data link
 
 De `OSI data link layer` is een deel van de `DoD link layer` van
 `tcp/ip`. In deze laag maken we gebruik van het `MAC`
@@ -188,7 +188,7 @@ uit.
 
 ![](images/arpillyria.png)
 
-## laag 1: physical
+### laag 1: physical
 
 De netwerkkaart is gelukkig als het packetje volledig is, en smijt het
 letterlijk op mijn lokaal netwerk. Fysisch is dit een broadcast, alle
@@ -199,7 +199,7 @@ correcte bestemming is mijn lokale `router`.
 In de OSI wereld is dit een aparte laag, in de DoD wereld is dit een
 onderdeel van de `DoD link layer`.
 
-## onze data onderweg
+### onze data onderweg
 
 Onze `http request` voor een teletekst pagina is nu
 onderweg van centrum Antwerpen naar de Reyerslaan in Brussel. Het
@@ -242,7 +242,7 @@ van de VRT beslist heeft om geen `traceroute` door zijn
 `firewall` te laten. Onze `http request` mag gelukkig wel
 door.
 
-## bestemming bereikt
+### bestemming bereikt
 
 Als alles goed gaat, dan bereikt onze data (of onze `http request`) zijn
 bestemming. De laatste `router` gooit onze data op het lokale netwerk
@@ -262,7 +262,7 @@ Verdere `metadata` in het packetje vertelt deze computer dat het een
 De `http server (of webserver)` zelf zoekt dan de gevraagde webpagina,
 en stuurt deze webpagina als antwoord op onze vraag.
 
-## er komt antwoord
+### er komt antwoord
 
 De webserver heeft de bewuste `webpagina` klaar en wil een antwoord
 sturen naar mijn laptop. Deze computer kent mijn
@@ -297,14 +297,14 @@ naar Antwerpen, eventueel via andere `routers`.
 Eens het antwoord terug op ons netwerk is, gaat de data van onder naar
 boven door de lagen, totdat onze `browser` de webpagina kan tonen.
 
-## vragen
+### vragen
 
 1\. Hoe weet de computer van de VRT dat het packetje naar de http-server
 moet ?
 
 2\. Hoe weet mijn laptop voor welke applicatie het packetje is ?
 
-# lagen oefening
+## lagen oefening
 
 0\. Kies een netwerk voor de volgende vragen : thuis, werk, klas
 

@@ -1,11 +1,11 @@
-# login logging
+## login logging
 
 To keep track of who is logging into the system, Linux can maintain the
 `/var/log/wtmp`, `/var/log/btmp`,
 `/var/run/utmp` and `/var/log/lastlog`
 files.
 
-## /var/run/utmp (who)
+### /var/run/utmp (who)
 
 Use the `who` command to see the /var/run/utmp file. This
 command is showing you all the `currently` logged in users. Notice that
@@ -17,7 +17,7 @@ the utmp file is in /var/run and not in /var/log .
     inge     pts/3        Feb 14 12:01 (192.168.1.33)
     els      pts/4        Feb 14 14:33 (192.168.1.19)
 
-## /var/log/wtmp (last)
+### /var/log/wtmp (last)
 
 The /var/log/wtmp file is updated by the `login program`.
 Use `last` to see the /var/run/wtmp file.
@@ -43,7 +43,7 @@ The last command can also be used to get a list of last reboots.
     wtmp begins Tue May 30 23:11:45 2006
     [paul@rekkie ~]
 
-## /var/log/lastlog (lastlog)
+### /var/log/lastlog (lastlog)
 
 Use `lastlog` to see the /var/log/lastlog file.
 
@@ -60,7 +60,7 @@ Use `lastlog` to see the /var/log/lastlog file.
     kornuserrm       pts/5  rhel4            Tue Feb 13 10:06:17 +0100 2007
     [root@RHEL8a ~]#
 
-## /var/log/btmp (lastb)
+### /var/log/btmp (lastb)
 
 There is also the `lastb` command to display the
 `/var/log/btmp` file. This file is updated by the login
@@ -99,7 +99,7 @@ Failed logins via tty are.
     btmp begins Mon Jul 30 07:09:32 2007
     [root@RHEL8b ~]#
 
-## su and ssh logins
+### su and ssh logins
 
 Depending on the distribution, you may also have the
 `/var/log/secure` file being filled with messages from the
@@ -143,9 +143,9 @@ following line tot syslog.conf.
 
     auth.*,authpriv.*                 /var/log/customsec.log
 
-# syslogd
+## syslogd
 
-## about syslog
+### about syslog
 
 The standard method of logging on Linux was through the
 `syslogd` daemon. Syslog was developed by
@@ -157,7 +157,7 @@ display messages on terminals and forward logs to other syslogd daemons
 on other machines. The syslogd daemon is configured in
 `/etc/syslog.conf`.
 
-## about rsyslog
+### about rsyslog
 
 The new method is called `reliable and extended syslogd` and uses the
 `rsyslogd` daemon and the `/etc/rsyslogd.conf`
@@ -168,7 +168,7 @@ the message is coming from. It also contains a `priority` for the
 severity of the message, and an `action` to decide on what to do with
 the message.
 
-## modules
+### modules
 
 The new `rsyslog` has many more features that can be expanded by using
 modules. Modules allow for example exporting of syslog logging to a
@@ -181,7 +181,7 @@ chapter).
     root@rhel65:/etc# man rsyslogd
     root@rhel65:/etc#
 
-## facilities
+### facilities
 
 The `man rsyslog.conf` command will explain the different default
 facilities for certain daemons, such as mail, lpr, news and kern(el)
@@ -204,7 +204,7 @@ deprecated.
     uucp
     local0-7
 
-## priorities
+### priorities
 
 The worst severity a message can have is `emerg` followed by `alert` and
 `crit`. Lowest priority should go to `info` and `debug` messages.
@@ -225,7 +225,7 @@ error and panic are deprecated.
     alert
     emerg (panic)
 
-## actions
+### actions
 
 The default action is to send a message to the username listed as
 action. When the action is prefixed with a `/` then rsyslog will send
@@ -243,7 +243,7 @@ syslog server. Here is a list of all possible actions.
 In addition, you can prefix actions with a - to omit syncing the file
 after every logging.
 
-## configuration
+### configuration
 
 Below a sample configuration of custom local4 messages in
 `/etc/rsyslog.conf`.
@@ -252,7 +252,7 @@ Below a sample configuration of custom local4 messages in
     local4.=crit                           /var/log/onlycrit
     local4.*                               /var/log/alllocal4
 
-## restarting rsyslogd
+### restarting rsyslogd
 
 Don\'t forget to restart the server after changing its configuration.
 
@@ -261,7 +261,7 @@ Don\'t forget to restart the server after changing its configuration.
     Starting system logger:                                    [  OK  ]
     root@rhel65:/etc#
 
-# logger
+## logger
 
 The logger command can be used to generate syslog test messages. You can
 also use it in scripts. An example of testing syslogd with the
@@ -285,7 +285,7 @@ The results of the tests with logger.
     Feb 14 19:55:28 RHEL8a paul: l4 emerg
     [root@RHEL8a ~]#
 
-# watching logs
+## watching logs
 
 You might want to use the `tail -f` command to look at the
 last lines of a log file. The `-f` option will dynamically display lines
@@ -316,7 +316,7 @@ every two seconds, will appear on the screen.
     paul     pts/0        2011-07-17 13:31 (192.168.1.30)
     paul     pts/1        2011-07-17 15:19 (192.168.1.30)
 
-# rotating logs
+## rotating logs
 
 A lot of log files are always growing in size. To keep this within
 bounds, you may want to use `logrotate` to rotate,

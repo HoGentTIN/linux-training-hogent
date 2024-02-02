@@ -1,4 +1,4 @@
-# set up a directory to share
+## set up a directory to share
 
 In this second example, we will create a share where everyone can create
 files and write to files. Again, we start by creating a directory
@@ -6,7 +6,7 @@ files and write to files. Again, we start by creating a directory
     [root@RHEL52 samba]# mkdir -p /srv/samba/writable
     [root@RHEL52 samba]# chmod 777 /srv/samba/writable/
 
-# share section in smb.conf
+## share section in smb.conf
 
 There are two parameters to make a share writable. We can use
 `read only` or `writable`. This example
@@ -19,7 +19,7 @@ access to a share.
 
     read only = no
 
-# configure the share
+## configure the share
 
 Then we simply add a share to our file server by editing
 `smb.conf`. Below the check with testparm. (We could have
@@ -49,7 +49,7 @@ changed the description of the server\...)
         path = /srv/samba/readonly
         guest ok = Yes
 
-# test connection with windows
+## test connection with windows
 
 We can now test the connection on a windows 2003 computer. We use the
 `net use` for this.
@@ -58,7 +58,7 @@ We can now test the connection on a windows 2003 computer. We use the
     net use L: \\teacher0\pubwrite
     The command completed successfully.
 
-# test writing with windows
+## test writing with windows
 
 We mounted the `pubwrite` share on the L: drive in windows. Below we
 test that we can write to this share.
@@ -77,7 +77,7 @@ test that we can write to this share.
                    1 File(s)              6 bytes
                    2 Dir(s)  13.496.238.080 bytes free
 
-# How is this possible ?
+## How is this possible ?
 
 Linux (or any Unix) always needs a user account to gain access to a
 system. The windows computer did not provide the samba server with a

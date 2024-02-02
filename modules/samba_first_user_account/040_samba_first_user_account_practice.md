@@ -1,4 +1,4 @@
-# practice: first samba user account
+## practice: first samba user account
 
 1\. Create a user account for use with samba.
 

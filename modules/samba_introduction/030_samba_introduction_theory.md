@@ -1,6 +1,6 @@
-# verify installed version
+## verify installed version
 
-## .rpm based distributions
+### .rpm based distributions
 
 To see the version of samba installed on Red Hat, Fedora or CentOS use
 `rpm -q samba`.
@@ -18,7 +18,7 @@ version 3.5 installed.
     [root@centos6 ~]# rpm -q samba
     samba-3.5.10-116.el6_2.i686
 
-## .deb based distributions
+### .deb based distributions
 
 Use `dpkg -l` or `aptitide show` on Debian
 or Ubuntu. Both Debian 7.0 (Wheezy) and Ubuntu 12.04 (Precise) use
@@ -32,9 +32,9 @@ Ubuntu 12.04 is currently at Samba version 3.6.3.
     root@ubu1204:~# dpkg -l samba | tail -1
     ii samba 2:3.6.3-2ubuntu2.1 SMB/CIFS file, print, and login server for Unix
 
-# installing samba
+## installing samba
 
-## .rpm based distributions
+### .rpm based distributions
 
 Samba is installed by default on Red Hat Enterprise Linux. If Samba is
 not yet installed, then you can use the graphical menu (Applications \--
@@ -52,7 +52,7 @@ CentOS.
 
     [root@centos6 ~]# yum install samba
 
-## .deb based distributions
+### .deb based distributions
 
 Ubuntu and Debian users can use the `aptitude` program (or
 use a graphical tool like Synaptic).
@@ -65,9 +65,9 @@ use a graphical tool like Synaptic).
     Do you want to continue? [Y/n/?]
     ...
 
-# documentation
+## documentation
 
-## samba howto
+### samba howto
 
 Samba comes with excellent documentation in html and pdf format (and
 also as a free download from samba.org and it is for sale as a printed
@@ -93,13 +93,13 @@ files are in a separate package named `samba-doc-pdf`.
       samba-doc-pdf
     ...
 
-## samba by example
+### samba by example
 
 Besides the howto, there is also an excellent book called
 `Samba By Example` (again available as printed edition in shops, and as
 a free pdf and html).
 
-# starting and stopping samba
+## starting and stopping samba
 
 You can start the daemons by invoking
 `/etc/init.d/smb start` (some systems use
@@ -128,12 +128,12 @@ Red Hat derived systems are happy with
     Starting NMB services:                                     [  OK  ]
     [root@RHEL8b ~]#
 
-# samba daemons
+## samba daemons
 
 Samba 3 consists of three daemons, they are named `nmbd`,
 `smbd` and `winbindd`.
 
-## nmbd
+### nmbd
 
 The `nmbd` daemon takes care of all the names and naming. It registers
 and resolves names, and handles browsing. According to the Samba
@@ -143,7 +143,7 @@ documentation, it should be the first daemon to start.
       PID TTY          TIME CMD
      5681 ?        00:00:00 nmbd
 
-## smbd
+### smbd
 
 The `smbd` daemon manages file transfers and authentication.
 
@@ -152,7 +152,7 @@ The `smbd` daemon manages file transfers and authentication.
      5678 ?        00:00:00 smbd
      5683 ?        00:00:00 smbd
 
-## winbindd
+### winbindd
 
 The `winbind daemon` (winbindd) is only started to handle
 Microsoft Windows domain membership.
@@ -171,9 +171,9 @@ only one d for the script).
 On Debian and Ubuntu, the winbindd daemon is installed via a separate
 package called `winbind`.
 
-# the SMB protocol
+## the SMB protocol
 
-## brief history
+### brief history
 
 Development of this protocol was started by `IBM` in the
 early eighties. By the end of the eighties, most develpment was done by
@@ -190,21 +190,21 @@ December 20th 2007 Microsoft came to an agreement. The Samba team now
 has access to SMB/CIFS, Windows for Workgroups and Active Directory
 documentation.
 
-## broadcasting protocol
+### broadcasting protocol
 
 SMB uses the NetBIOS `service location protocol`, which is
 a broadcasting protocol. This means that NetBIOS names have to be unique
 on the network (even when you have different IP-addresses). Having
 duplicate names on an SMB network can seriously harm communications.
 
-## NetBIOS names
+### NetBIOS names
 
 NetBIOS names are similar to `hostnames`,
 but are always uppercase and only 15 characters in length. Microsoft
 Windows computers and Samba servers will broadcast this name on the
 network.
 
-## network bandwidth
+### network bandwidth
 
 Having many broadcasting SMB/CIFS computers on your
 network can cause bandwidth issues. A solution can be the use of a

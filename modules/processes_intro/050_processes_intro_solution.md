@@ -1,4 +1,4 @@
-# solution : basic process management
+## solution : basic process management
 
 1\. Use `ps` to search for the `init` process by name.
 

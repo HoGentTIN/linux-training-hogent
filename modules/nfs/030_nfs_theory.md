@@ -1,4 +1,4 @@
-# nfs protocol versions
+## nfs protocol versions
 
 The older `nfs` versions 2 and 3 are stateless
 (`udp`) by default (but they can use `tcp`).
@@ -10,7 +10,7 @@ NFS version 4 was defined in `rfc 3010` in 2000 and
 supports `Kerberos` user authentication as an option when
 mounting a share. NFS versions 2 and 3 authenticate only the host.
 
-# rpcinfo
+## rpcinfo
 
 Clients connect to the server using `rpc` (on Linux this
 can be managed by the `portmap` daemon). Look at
@@ -62,7 +62,7 @@ The same `rpcinfo` command when `nfs` is started.
     100005    3   udp   1004  mountd
     100005    3   tcp   1007  mountd
 
-# server configuration
+## server configuration
 
 `nfs` is configured in `/etc/exports`. You might want some
 way (`ldap`?) to synchronize userid\'s across computers
@@ -72,7 +72,7 @@ The `rootsquash` option will change UID 0 to the UID of a
 `nobody` (or similar) user account. The `sync` option will write writes
 to disk before completing the client request.
 
-# /etc/exports
+## /etc/exports
 
 Here is a sample `/etc/exports` to explain the syntax:
 
@@ -107,7 +107,7 @@ like this:
     # same, but without root squashing for barry
     /var/ftp pasha(rw,no_subtree_check) barry(rw,no_root_squash,no_subtree_check)
 
-# exportfs
+## exportfs
 
 You don\'t need to restart the nfs server to start exporting your newly
 created exports. You can use the `exportfs -va` command to
@@ -121,7 +121,7 @@ do this. It will write the exported directories to
     exporting barry:/var/www
     exporting *:/srv/iso
 
-# client configuration
+## client configuration
 
 We have seen the `mount` command and the
 `/etc/fstab` file before.

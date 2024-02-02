@@ -1,4 +1,4 @@
-# practice: iSCSI devices
+## practice: iSCSI devices
 
 1\. Set up a target (using an LVM and a SCSI device) and an initiator
 that connects to both.

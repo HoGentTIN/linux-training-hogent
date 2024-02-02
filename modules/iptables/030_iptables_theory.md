@@ -1,4 +1,4 @@
-# iptables tables
+## iptables tables
 
 By default there are three `tables` in the kernel that
 contain sets of rules.
@@ -33,7 +33,7 @@ processing of packets.
 Series of rules in each table are called a `chain`. We
 will discuss chains and the nat table later in this chapter.
 
-# starting and stopping iptables
+## starting and stopping iptables
 
 The following screenshot shows how to stop and start `iptables` on Red
 Hat/Fedora/CentOS and compatible distributions.
@@ -48,16 +48,16 @@ an uninstall.
 
     root@debian6~# aptitude purge iptables
 
-# the filter table
+## the filter table
 
-## about packet filtering
+### about packet filtering
 
 `Packet filtering` is a bit more than `packet forwarding`.
 While `packet forwarding` uses only a routing table to make decisions,
 `packet filtering` also uses a list of rules. The kernel will inspect
 packets and decide based on these rules what to do with each packet.
 
-## filter table
+### filter table
 
 The filter table in `iptables` has three chains (sets of rules). The
 INPUT chain is used for any packet coming into the system. The OUTPUT
@@ -83,7 +83,7 @@ rules.
 As you can see, all three chains in the filter table are set to ACCEPT
 everything. ACCEPT is the default behaviour.
 
-## setting default rules
+### setting default rules
 
 The default for the default rule is indeed to ACCEPT everything. This is
 not the most secure firewall.
@@ -108,7 +108,7 @@ inside a remote ssh shell.
     Chain OUTPUT (policy DROP)
     target     prot opt source               destination
 
-## changing policy rules
+### changing policy rules
 
 To start, let\'s set the default policy for all three chains to drop
 everything. Note that you might lose your connection when typing this
@@ -142,7 +142,7 @@ default table).
     target     prot opt source               destination
     ACCEPT     all  --  0.0.0.0/0            0.0.0.0/0
 
-## Allowing ssh over eth0
+### Allowing ssh over eth0
 
 This example show how to add two rules to allow ssh access to your
 system from outside.
@@ -168,7 +168,7 @@ is added for more verbose output).
         0     0 ACCEPT tcp  --  *     eth0  0.0.0.0/0  0.0.0.0/0  tcp spt:22
     [root@RHEL5 ~]#
 
-## Allowing access from a subnet
+### Allowing access from a subnet
 
 This example shows how to allow access from any computer in the
 10.1.1.0/24 network, but only through eth1. There is no port
@@ -195,7 +195,7 @@ Together with the previous examples, the policy is expanding.
         0     0 ACCEPT tcp  --  *     eth0  0.0.0.0/0   0.0.0.0/0  tcp spt:22
         0     0 ACCEPT tcp  --  *     eth1  0.0.0.0/0   10.1.1.0/24
 
-## iptables save
+### iptables save
 
 Use `iptables save` to automatically implement these rules
 when the firewall is (re)started.
@@ -204,7 +204,7 @@ when the firewall is (re)started.
     Saving firewall rules to /etc/sysconfig/iptables:          [  OK  ]
     [root@RHEL5 ~]#
 
-## scripting example
+### scripting example
 
 You can write a simple script for these rules. Below is an example
 script that implements the firewall rules that you saw before in this
@@ -234,7 +234,7 @@ chapter.
     iptables -A INPUT -i eth1 -s 10.1.1.0/24 -p tcp -j ACCEPT
     iptables -A OUTPUT -o eth1 -d 10.1.1.0/24 -p tcp -j ACCEPT
 
-## Allowing ICMP(ping)
+### Allowing ICMP(ping)
 
 When you enable iptables, you will get an `'Operation not permitted'`
 message when trying to ping other hosts.

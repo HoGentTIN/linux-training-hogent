@@ -1,4 +1,4 @@
-# practice : lvm
+## practice : lvm
 
 1\. Create a volume group that contains a complete disk and a partition
 on another disk.

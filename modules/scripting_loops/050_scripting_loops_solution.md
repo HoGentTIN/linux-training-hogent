@@ -1,4 +1,4 @@
-# solution: scripting tests and loops
+## solution: scripting tests and loops
 
 1\. Write a script that uses a `for` loop to count from 3 to 7.
 

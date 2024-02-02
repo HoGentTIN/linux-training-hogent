@@ -1,4 +1,4 @@
-# systemd
+## systemd
 
 ![](images/systemd_diagram.png){width="14cm"}
 
@@ -39,7 +39,7 @@ Debian 10 uses parts of `systemd`, but still has `init` as `pid 1`.
     16353 pts/4    S+     0:00              \_ grep systemd
     root@debian10:~#
 
-## systemd targets
+### systemd targets
 
 The first command to learn is `systemctl list-units --type=target` (or
 the shorter version `systemctl -t target`). It will show you the
@@ -102,7 +102,7 @@ To change the default target, we again use this `systemctl` command
 This command removed the file `/etc/systemd/system/default.target` and
 replaced it with a symbolic link to the `multi-user-.target` target.
 
-## systemd dependencies
+### systemd dependencies
 
 Dependencies are no longer defined by alfabetical order of running
 scripts, but by configuration in `/etc/systemd/system/`. For example
@@ -142,7 +142,7 @@ get a list of all services on your system.
     abrt-xorg.service    loaded  active    running  ABRT         Xorg     log
     [root@rhel8 ~]#
 
-## service status
+### service status
 
 Below is a (truncated) screenshot showing how to see the status of the
 `sshd` service. (This RHEL server was attacked using brute force ssh on
@@ -186,7 +186,7 @@ as pid 1.
     sshd is running.
     root@debian8:~#
 
-## systemd services configuration
+### systemd services configuration
 
 The `chkconfig` and `service` commands are considered \'legacy\'. They
 are replaced with `systemctl`.
@@ -232,7 +232,7 @@ This screenshot shows how to enable and start the service again.
     UnitFileState=enabled
     [root@rhel8 ~]#
 
-## systemd signalling
+### systemd signalling
 
 You can also use `systemd` to `kill` problematic services.
 
@@ -249,7 +249,7 @@ You can also use `systemd` to `kill` problematic services.
     UnitFileState=enabled
     [root@rhel8 ~]#
 
-## systemd shutdown
+### systemd shutdown
 
 The `poweroff`, `halt` and `reboot` commands are considered legacy now
 and are handeld by `systemctl`. The table below shows the legacy
@@ -271,7 +271,7 @@ commands on the left and their new `systemd` equivalent on the right.
 
   : systemd power management
 
-## remote systemd
+### remote systemd
 
 The `systemctl` utility has a buil-in remote control providing there is
 an `ssh daemon` running on the remote system.
@@ -290,7 +290,7 @@ other RHEL server.
        CGroup: /system.slice/sshd.service
     [root@rhel8 ~]#
 
-## there is more systemd
+### there is more systemd
 
 There are other tools\...
 

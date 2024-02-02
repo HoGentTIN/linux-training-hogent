@@ -1,4 +1,4 @@
-# user management
+## user management
 
 User management on Linux can be done in three complementary ways. You
 can use the `graphical` tools provided by your distribution. These tools
@@ -17,7 +17,7 @@ A third and rather extremist way is to
 `edit the local configuration files` directly using vi (or vipw/vigr).
 Do not attempt this as a novice on production systems!
 
-# /etc/passwd
+## /etc/passwd
 
 The local user database on Linux (and on most Unixes) is
 `/etc/passwd`.
@@ -42,7 +42,7 @@ More information can be found by typing `man 5 passwd`.
 
     [root@RHEL5 ~]# man 5 passwd
 
-# root
+## root
 
 The `root` user also called the `superuser`
 is the most powerful account on your Linux system. This user can do
@@ -52,7 +52,7 @@ always has userid 0 (regardless of the name of the account).
     [root@RHEL5 ~]# head -1 /etc/passwd
     root:x:0:0:root:/root:/bin/bash
 
-# useradd
+## useradd
 
 You can add users with the `useradd` command. The example
 below shows how to add a user named yanina (last parameter) and at the
@@ -66,7 +66,7 @@ name of the home directory (-d), and setting a description (-c).
 The user named yanina received userid 529 and
 `primary group` id 529.
 
-# /etc/default/useradd
+## /etc/default/useradd
 
 Both Red Hat Enterprise Linux and Debian/Ubuntu have a file called
 `/etc/default/useradd` that contains some default user
@@ -81,14 +81,14 @@ options. Besides using cat to display this file, you can also use
     SHELL=/bin/bash
     SKEL=/etc/skel
 
-# userdel
+## userdel
 
 You can delete the user yanina with `userdel`. The -r
 option of userdel will also remove the home directory.
 
     [root@RHEL5 ~]# userdel -r yanina
 
-# usermod
+## usermod
 
 You can modify the properties of a user with the `usermod`
 command. This example uses `usermod` to change the description of the
@@ -100,7 +100,7 @@ user harry.
     [root@RHEL4 ~]# tail -1 /etc/passwd
     harry:x:516:520:wizard:/home/harry:/bin/bash
 
-# creating home directories
+## creating home directories
 
 The easiest way to create a home directory is to supply the `-m` option
 with `useradd` (it is likely set as a default option on
@@ -118,7 +118,7 @@ chapter).
     [root@RHEL5 ~]# ls -ld /home/laura/
     drwx------ 2 laura laura 4096 Jun 24 15:17 /home/laura/
 
-# /etc/skel/
+## /etc/skel/
 
 When using `useradd` the `-m` option, the `/etc/skel/`
 directory is copied to the newly created home directory. The
@@ -135,7 +135,7 @@ profile.
     -rw-r--r--  1 root root   176 Jul 12  2006 .bash_profile
     -rw-r--r--  1 root root   124 Jul 12  2006 .bashrc
 
-# deleting home directories
+## deleting home directories
 
 The -r option of `userdel` will make sure that the home
 directory is deleted together with the user account.
@@ -146,7 +146,7 @@ directory is deleted together with the user account.
     [root@RHEL5 ~]# ls -ld /home/wim/
     ls: /home/wim/: No such file or directory
 
-# login shell
+## login shell
 
 The `/etc/passwd` file specifies the `login shell` for the
 user. In the screenshot below you can see that user annelies will log in
@@ -162,7 +162,7 @@ You can use the usermod command to change the shell for a user.
     [root@RHEL5 ~]# tail -1 /etc/passwd
     laura:x:528:534:art dealer:/home/laura:/bin/bash
 
-# chsh
+## chsh
 
 Users can change their login shell with the `chsh`
 command. First, user harry obtains a list of available shells (he could

@@ -1,4 +1,4 @@
-# installing mysql
+## installing mysql
 
 On Debian/Ubuntu you can use
 `aptitude install mysql-server` to install the
@@ -33,9 +33,9 @@ Red Hat/Fedora/CentOS.
 You will need at least version 5.0 to work with
 `triggers`.
 
-# accessing mysql
+## accessing mysql
 
-## Linux users
+### Linux users
 
 The installation of `mysql` creates a user account in
 `/etc/passwd` and a group account in
@@ -52,7 +52,7 @@ this user and group.
     root@ubu1204~# ps -eo uid,user,gid,group,comm | grep mysqld
       120 mysql      131 mysql    mysqld
 
-## mysql client application
+### mysql client application
 
 You can now use mysql from the commandline by just typing
 `mysql -u root -p` and you \'ll be asked for the password
@@ -84,7 +84,7 @@ would be able to read your mysql root password.
     Welcome to the MySQL monitor.  Commands end with ; or \g.
     ...
 
-## \~/.my.cnf
+### \~/.my.cnf
 
 You can save configuration in your home directory in the hidden file
 `.my.cnf`. In the screenshot below we put the root user
@@ -106,7 +106,7 @@ This enables us to log on as the `root mysql` user just by typing
     Your MySQL connection id is 56
     Server version: 5.5.24-0ubuntu0.12.04.1 (Ubuntu)
 
-## the mysql command line client
+### the mysql command line client
 
 You can use the `mysql` command to take a look at the
 databases, and to execute SQL queries on them. The screenshots below
@@ -128,9 +128,9 @@ terminated by a delimiter. The default delimiter is `;` (the semicolon).
 
 We will use this prompt in the next sections.
 
-# mysql databases
+## mysql databases
 
-## listing all databases
+### listing all databases
 
 You can use the `mysql` command to take a look at the
 databases, and to execute SQL queries on them. The screenshots below
@@ -162,7 +162,7 @@ our mysql server.
     +--------------------+
     4 rows in set (0.00 sec)
 
-## creating a database
+### creating a database
 
 You can create a new database with the `create database`
 command.
@@ -182,7 +182,7 @@ command.
     +--------------------+
     5 rows in set (0.00 sec)
 
-## using a database
+### using a database
 
 Next we tell `mysql` to use one particular database with the
 `use $database` command. This screenshot shows how to make
@@ -192,7 +192,7 @@ wikidb the current database (in use).
     Database changed
     mysql>
 
-## access to a database
+### access to a database
 
 To give someone access to a mysql database, use the
 `grant` command.
@@ -200,7 +200,7 @@ To give someone access to a mysql database, use the
     mysql> grant all on famouspeople.* to kevin@localhost IDENTIFIED BY "hunter2";
     Query OK, 0 rows affected (0.00 sec)
 
-## deleting a database
+### deleting a database
 
 When a database is no longer needed, you can permanently remove it with
 the `drop database` command.
@@ -209,7 +209,7 @@ the `drop database` command.
     Query OK, 1 row affected (0.09 sec)
             
 
-## backup and restore a database
+### backup and restore a database
 
 You can take a backup of a database, or move it to another computer
 using the `mysql` and `mysqldump` commands. In the screenshot below, we
@@ -221,9 +221,9 @@ Here is a screenshot of a database restore operation from this backup.
 
     mysql -u root famouspeople < famouspeople.backup.20120708.sql
 
-# mysql tables
+## mysql tables
 
-## listing tables
+### listing tables
 
 You can see a list of tables in the current database with the
 `show tables;` command. Our `famouspeople` database has no
@@ -234,7 +234,7 @@ tables yet.
     mysql> show tables;
     Empty set (0.00 sec)
 
-## creating a table
+### creating a table
 
 The `create table` command will create a new table.
 
@@ -273,7 +273,7 @@ administrators often use multiple lines to improve readability.
     ary key (countrycode) );
     Query OK, 0 rows affected (0.18 sec)
 
-## describing a table
+### describing a table
 
 To see a description of the structure of a table, issue the
 `describe $tablename` command as shown below.
@@ -289,7 +289,7 @@ To see a description of the structure of a table, issue the
     +----------------+-------------+------+-----+---------+-------+
     4 rows in set (0.00 sec)
 
-## removing a table
+### removing a table
 
 To remove a table from a database, issue the
 `drop table $tablename` command as shown below.
@@ -297,9 +297,9 @@ To remove a table from a database, issue the
     mysql> drop table country;
     Query OK, 0 rows affected (0.00 sec)
 
-# mysql records
+## mysql records
 
-## creating records
+### creating records
 
 Use `insert` to enter data into the table. The screenshot
 shows several insert statements that insert values depending on the
@@ -325,7 +325,7 @@ Note that you get an error when using a duplicate `primary key`.
     mysql> insert into country values ('DE','Germany','82000000','Berlin');
     ERROR 1062 (23000): Duplicate entry 'DE' for key 'PRIMARY'
 
-## viewing all records
+### viewing all records
 
 Below an example of a simple `select` query to look at the
 contents of a table.
@@ -345,7 +345,7 @@ contents of a table.
     +-------------+---------------+------------+----------------+
     8 rows in set (0.00 sec)
 
-## updating records
+### updating records
 
 Consider the following `insert` statement. The capital of Spain is not
 Barcelona, it is Madrid.
@@ -377,7 +377,7 @@ We can use a `select` statement to verify this change.
     +-------------+---------------+------------+----------------+
     9 rows in set (0.00 sec)
 
-## viewing selected records
+### viewing selected records
 
 Using a `where` clause in a `select` statement, you can
 specify which record(s) you want to see.
@@ -400,7 +400,7 @@ Another example of the `where` clause.
     +-------------+-------------+------------+----------------+
     1 row in set (0.00 sec)
 
-## primary key in where clause ?
+### primary key in where clause ?
 
 The `primary key` of a table is a field that uniquely identifies every
 record (every row) in the table. when using another field in the `where`
@@ -418,7 +418,7 @@ clause, it is possible to get multiple rows returned.
     +-------------+-------------+------------+----------------+
     2 rows in set (0.00 sec)
 
-## ordering records
+### ordering records
 
 We know that `select` allows us to see all records in a table. Consider
 this table.
@@ -460,7 +460,7 @@ which the records are presented.
     +---------------+------------+
     10 rows in set (0.00 sec)
 
-## grouping records
+### grouping records
 
 Consider this table of people. The screenshot shows how to use the `avg`
 function to calculate an average.
@@ -502,7 +502,7 @@ field.
     +-----------+--------------------+
     3 rows in set (0.00 sec)
 
-## deleting records
+### deleting records
 
 You can use the `delete` to permanently remove a record
 from a table.
@@ -513,9 +513,9 @@ from a table.
     mysql> select * from country where countryname='Spain';
     Empty set (0.00 sec)
 
-# joining two tables
+## joining two tables
 
-## inner join
+### inner join
 
 With an `inner join` you can take values from two tables and combine
 them in one result. Consider the country and the people tables from the
@@ -542,7 +542,7 @@ previous section when looking at this screenshot of an `inner join`.
 This `inner join` will show only records with a match on `countrycode`
 in both tables.
 
-## left join
+### left join
 
 A `left join` is different from an `inner join` in that it will take all
 rows from the left table, regardless of a match in the right table.
@@ -573,9 +573,9 @@ rows from the left table, regardless of a match in the right table.
 You can see that some countries are present, even when they have no
 matching records in the `people` table.
 
-# mysql triggers
+## mysql triggers
 
-## using a before trigger
+### using a before trigger
 
 Consider the following `create table` command. The last
 field (`amount`) is the multiplication of the two fields named
@@ -615,7 +615,7 @@ Looking at the record proves that the trigger works.
     +----------+------------+-----------+-----------+--------+
     1 row in set (0.00 sec)
 
-## removing a trigger
+### removing a trigger
 
 When a `trigger` is no longer needed, you can delete it with the
 `drop trigger` command.

@@ -1,4 +1,4 @@
-# git
+## git
 
 Linus Torvalds created `git` back in 2005 when Bitkeeper
 changed its license and the Linux kernel developers where no longer able
@@ -16,7 +16,7 @@ Besides `source code` for software, you can also find German and
 Icelandic `law` on github (and probably much more by the time you are
 reading this).
 
-# installing git
+## installing git
 
 We install `git` with `aptitude install git` as seen in
 this screenshot on Debian 6.
@@ -31,7 +31,7 @@ this screenshot on Debian 6.
     Setting up liberror-perl (0.17-1) ...
     Setting up git (1:1.7.2.5-3) ...
 
-# starting a project
+## starting a project
 
 First we create a project directory, with a simple file in it.
 
@@ -39,7 +39,7 @@ First we create a project directory, with a simple file in it.
     paul@debian6~$ cd project42/
     paul@debian6~/project42$ echo "echo The answer is 42." >> question.sh
 
-## git init
+### git init
 
 Then we tell `git` to create an empty git repository in this directory.
 
@@ -57,7 +57,7 @@ Then we tell `git` to create an empty git repository in this directory.
     drwxrwxr-x  7 paul paul 4096 Dec  8 16:44 .git
     -rw-rw-r--  1 paul paul   23 Dec  8 16:41 question.sh
 
-## git config
+### git config
 
 Next we use `git config` to set some global options.
 
@@ -74,7 +74,7 @@ We can verify this config in `~/.gitconfig`:
     [core]
         editor = vi
 
-## git add
+### git add
 
 Time now to add file to our project with `git add`, and verify that it
 is added with `git status`.
@@ -93,7 +93,7 @@ is added with `git status`.
 
 The `git status` tells us there is a new file ready to be committed.
 
-## git commit
+### git commit
 
 With `git commit` you force git to record all added files (and all
 changes to those files) permanently.
@@ -106,7 +106,7 @@ changes to those files) permanently.
     # On branch master
     nothing to commit (working directory clean)
 
-## changing a committed file
+### changing a committed file
 
 The screenshots below show several steps. First we change a file:
 
@@ -137,7 +137,7 @@ Next we add it to the git repository.
     # On branch master
     nothing to commit (working directory clean)
 
-## git log
+### git log
 
 We can see all our commits again using `git log`.
 
@@ -166,7 +166,7 @@ The log format can be customized a lot.
     Paul: 8 minutes ago :adding a she-bang to the main script
     Paul: 11 minutes ago :starting a project
 
-## git mv
+### git mv
 
 Renaming a file can be done with `mv` followed by a `git remove` and a
 `git add` of the new filename. But it can be done easier and in one
@@ -185,7 +185,7 @@ command using `git mv`.
      1 file changed, 0 insertions(+), 0 deletions(-)
      rename question.sh => thequestion.sh (100%)
 
-# git branches
+## git branches
 
 Working on the project can be done in one or more `git branches`. Here
 we create a new branch that will make changes to the script. We will
@@ -257,7 +257,7 @@ The newheader branch can now be deleted.
     paul@debian6~/project42$ git branch
     * master
 
-# to be continued\...
+## to be continued\...
 
 The `git` story is not finished.
 
@@ -267,7 +267,7 @@ you one Google query:
     http://gitimmersion.com/
     http://git-scm.com/book
 
-# github.com
+## github.com
 
 Create an account on `github.com`. This website is a
 frontend for an immense git server with over two and a half million
@@ -278,7 +278,7 @@ Android, Ruby on Rails, Wine, X.org, VLC\...)
 
 This account is free of charge, we will use it in the examples below.
 
-# add your public key to github
+## add your public key to github
 
 I prefer to use github with a `public key`, so it probably
 is a good idea that you also upload your public key to github.com.

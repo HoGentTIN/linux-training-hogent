@@ -1,4 +1,4 @@
-# practice: introduction to nfs
+## practice: introduction to nfs
 
 1\. Create two directories with some files. Use `nfs` to share one of
 them as read only, the other must be writable. Have your neighbour

@@ -1,4 +1,4 @@
-# solution: shell history
+## solution: shell history
 
 1\. Issue the command
 `echo The answer to the meaning of life, the universe and everything is 42`.

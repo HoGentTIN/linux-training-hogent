@@ -1,4 +1,4 @@
-# whoami
+## whoami
 
 The `whoami` command tells you your username.
 
@@ -6,7 +6,7 @@ The `whoami` command tells you your username.
     paul
     [paul@centos7 ~]$
 
-# who
+## who
 
 The `who` command will give you information about who is
 logged on the system.
@@ -18,7 +18,7 @@ logged on the system.
     tania    pts/3        2014-10-10 23:39 (10.104.33.91)
     [paul@centos7 ~]$
 
-# who am i
+## who am i
 
 With `who am i` the `who` command will display only the
 line pointing to your current session.
@@ -27,7 +27,7 @@ line pointing to your current session.
     paul     pts/1        2014-10-10 23:30 (10.104.33.101)
     [paul@centos7 ~]$
 
-# w
+## w
 
 The `w` command shows you who is logged on and what they
 are doing.
@@ -39,7 +39,7 @@ are doing.
     paul     pts/1     23:30    7.00s  0.00s  0.00s w
     [paul@centos7 ~]$
 
-# id
+## id
 
 The `id` command will give you your user id, primary group
 id, and a list of the groups that you belong to.
@@ -54,7 +54,7 @@ command.
     uid=0(root) gid=0(root) groups=0(root) context=unconfined_u:unconfined_r\
     :unconfined_t:s0-s0:c0.c1023
 
-# su to another user
+## su to another user
 
 The `su` command allows a user to run a shell as another
 user.
@@ -63,7 +63,7 @@ user.
     Password:
     tania@debian9:/home/laura$
 
-# su to root
+## su to root
 
 Yes you can also `su` to become `root`, when you know the
 `root password`.
@@ -72,7 +72,7 @@ Yes you can also `su` to become `root`, when you know the
     Password:
     root@debian9:/home/laura#
 
-# su as root
+## su as root
 
 You need to know the password of the user you want to substitute to,
 unless your are logged in as `root`. The `root` user can become any
@@ -83,7 +83,7 @@ existing user without knowing that user\'s password.
     root@debian9:~# su - valentina
     valentina@debian9:~$
 
-# su - \$username
+## su - \$username
 
 By default, the `su` command maintains the same shell environment. To
 become another user and also get the target user\'s environment, issue
@@ -96,7 +96,7 @@ the `su -` command followed by the target username.
     laura@debian9:~$ pwd
     /home/laura
 
-# su -
+## su -
 
 When no username is provided to `su` or `su -`, the command will assume
 `root` is the target.
@@ -105,7 +105,7 @@ When no username is provided to `su` or `su -`, the command will assume
     Password:
     root@debian9:~#
 
-# run a program as another user
+## run a program as another user
 
 The sudo program allows a user to start a program with the credentials
 of another user. Before this works, the system administrator has to set
@@ -129,7 +129,7 @@ But with `sudo` it works.
     [sudo] password for paul:
     paul@debian9:~$
 
-# visudo
+## visudo
 
 Check the man page of `visudo` before playing with the
 `/etc/sudoers` file. Editing the `sudoers` is out of scope for this
@@ -139,7 +139,7 @@ fundamentals book.
     visudo               (8)  - edit the sudoers file
     paul@rhel610:~$
 
-# sudo su -
+## sudo su -
 
 On some Linux systems like Ubuntu and Xubuntu, the `root`
 user does not have a password set. This means that it is not possible to
@@ -162,7 +162,7 @@ not for su.
     Password:
     root@laika:~#
 
-# sudo logging
+## sudo logging
 
 Using `sudo` without authorization will result in a severe warning:
 

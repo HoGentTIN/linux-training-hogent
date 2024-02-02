@@ -1,4 +1,4 @@
-# passwd
+## passwd
 
 Passwords of users can be set with the `passwd` command.
 Users will have to provide their old password before twice entering the
@@ -27,7 +27,7 @@ new password twice.
     Retype new UNIX password:
     passwd: password updated successfully
 
-# shadow file
+## shadow file
 
 User passwords are encrypted and kept in `/etc/shadow`.
 The /etc/shadow file is read only and can only be read by root. We will
@@ -57,7 +57,7 @@ before disabling the account, and the day the account was disabled
 
 All the passwords in the screenshot above are hashes of `hunter2`.
 
-# encryption with passwd
+## encryption with passwd
 
 Passwords are stored in an encrypted format. This encryption is done by
 the `crypt` function. The easiest (and recommended) way to
@@ -73,7 +73,7 @@ password with `passwd`.
     passwd: all authentication tokens updated successfully.
     [root@RHEL4 ~]#
 
-# encryption with openssl
+## encryption with openssl
 
 Another way to create users with a password is to use the -p option of
 useradd, but that option requires an encrypted password. You can
@@ -108,7 +108,7 @@ This example shows how to create a user with password.
 
 *Note that this command puts the password in your command history!*
 
-# encryption with crypt
+## encryption with crypt
 
 A third option is to create your own C program using the crypt function,
 and compile this into a command.
@@ -166,7 +166,7 @@ use the password as the salt!
     paul@rhel65:~$ ./MyCrypt hunter2 '$1$hunter2'
     $1$hunter2$YVxrxDmidq7Xf8Gdt6qM2.
 
-# /etc/login.defs
+## /etc/login.defs
 
 The `/etc/login.defs` file contains some default settings
 for user passwords like password aging and length settings. (You will
@@ -195,7 +195,7 @@ Debian also has this file.
     # NO_PASSWORD_CONSOLE
     root@debian10:~#
 
-# chage
+## chage
 
 The `chage` command can be used to set an expiration date
 for a user account (-E), set a minimum (-m) and maximum (-M) password
@@ -214,7 +214,7 @@ chage will list these settings for a user.
     Number of days of warning before password expires       : 7
     root@rhel65:~#
 
-# disabling a password
+## disabling a password
 
 Passwords in `/etc/shadow` cannot begin with an exclamation mark. When
 the second field in `/etc/passwd` starts with an exclamation mark, then
@@ -260,7 +260,7 @@ local files when using features like
 `"disabling, suspending, or locking"` on user accounts and their
 passwords.
 
-# editing local files
+## editing local files
 
 If you still want to manually edit the `/etc/passwd` or
 `/etc/shadow`, after knowing these commands for password

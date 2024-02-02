@@ -1,4 +1,4 @@
-# command mode and insert mode
+## command mode and insert mode
 
 The vi editor starts in `command mode`. In command mode,
 you can type commands. Some commands will bring you into
@@ -14,7 +14,7 @@ you can type commands. Some commands will bring you into
 
   : getting to command mode
 
-# start typing (a A i I o O)
+## start typing (a A i I o O)
 
 The difference between a A i I o and O is the location where you can
 start typing. a will append after the current character and A will
@@ -43,7 +43,7 @@ before the current line.
 
   : switch to insert mode
 
-# replace and delete a character (r x X)
+## replace and delete a character (r x X)
 
 When in command mode (it doesn\'t hurt to hit the escape key more than
 once) you can use the x key to delete the current character. The big X
@@ -69,7 +69,7 @@ return you immediately to command mode.
 
   : replace and delete
 
-# undo, redo and repeat (u .)
+## undo, redo and repeat (u .)
 
 When in command mode, you can undo your mistakes with u. Use `ctrl-r` to
 redo the undo.
@@ -89,7 +89,7 @@ your last command).
 
   : undo and repeat
 
-# cut, copy and paste a line (dd yy p P)
+## cut, copy and paste a line (dd yy p P)
 
 When in command mode, dd will cut the current line. yy will copy the
 current line. You can paste the last copied or cut line after (p) or
@@ -109,7 +109,7 @@ before (P) the current line.
 
   : cut, copy and paste a line
 
-# cut, copy and paste lines (3dd 2yy)
+## cut, copy and paste lines (3dd 2yy)
 
 When in command mode, before typing dd or yy, you can type a number to
 repeat the command a number of times. Thus, 5dd will cut 5 lines and 4yy
@@ -126,7 +126,7 @@ bottom left corner as \"4 line yanked\".
 
   : cut, copy and paste lines
 
-# start and end of a line (0 or \^ and \$)
+## start and end of a line (0 or \^ and \$)
 
 When in command mode, the 0 and the caret \^ will bring you to the start
 of the current line, whereas the \$ will put the cursor at the end of
@@ -152,7 +152,7 @@ the current line.
 
   : start and end of line
 
-# join two lines (J) and more
+## join two lines (J) and more
 
 When in command mode, pressing `J` will append the next line to the
 current line. With `yyp` you duplicate a line and with `ddp` you switch
@@ -170,7 +170,7 @@ two lines.
 
   : join two lines
 
-# words (w b)
+## words (w b)
 
 When in command mode, `w` will jump to the next word and `b` will move
 to the previous word. w and b can also be combined with d and y to copy
@@ -196,7 +196,7 @@ and cut words (dw db yw yb).
 
   : words
 
-# save (or not) and exit (:w :q :q! )
+## save (or not) and exit (:w :q :q! )
 
 Pressing the colon : will allow you to give instructions to vi
 (technically speaking, typing the colon will open the `ex` editor). `:w`
@@ -230,7 +230,7 @@ you are the owner) and will `chmod` it back when the write succeeds.
 This should always work when you are root (and the file system is
 writable).
 
-# Searching (/ ?)
+## Searching (/ ?)
 
 When in command mode typing / will allow you to search in vi for strings
 (can be a regular expression). Typing /foo will do a forward search for
@@ -257,7 +257,7 @@ the string foo and typing ?bar will do a backward search for bar.
 
   : searching
 
-# replace all ( :1,\$ s/foo/bar/g )
+## replace all ( :1,\$ s/foo/bar/g )
 
 To replace all occurrences of the string foo with bar, first switch to
 ex mode with : . Then tell vi which lines to use, for example 1,\$ will
@@ -275,7 +275,7 @@ occurrences of foo with bar.
 
   : replace
 
-# reading files (:r :r !cmd)
+## reading files (:r :r !cmd)
 
 When in command mode, :r foo will read the file named foo, :r !foo will
 execute the command foo. The result will be put at the current location.
@@ -292,7 +292,7 @@ file.
 
   : read files and input
 
-# text buffers
+## text buffers
 
 There are 36 buffers in vi to store text. You can use them with the `"`
 character.
@@ -309,7 +309,7 @@ character.
 
   : text buffers
 
-# multiple files
+## multiple files
 
 You can edit multiple files with vi. Here are some tips.
 
@@ -330,7 +330,7 @@ You can edit multiple files with vi. Here are some tips.
 
   : multiple files
 
-# abbreviations
+## abbreviations
 
 With `:ab` you can put abbreviations in vi. Use `:una` to undo the
 abbreviation.
@@ -346,7 +346,7 @@ abbreviation.
 
   : abbreviations
 
-# key mappings
+## key mappings
 
 Similarly to their abbreviations, you can use mappings with `:map` for
 command mode and `:map!` for insert mode.
@@ -358,7 +358,7 @@ state.
 
     :map <F6> :set number!<bar>set number?<CR>
 
-# setting options
+## setting options
 
 Some options that you can set in vim.
 

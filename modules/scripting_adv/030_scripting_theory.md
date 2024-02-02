@@ -1,4 +1,4 @@
-# eval
+## eval
 
 `eval` reads arguments as input to the shell (the
 resulting commands are executed). This allows using the value of a
@@ -33,7 +33,7 @@ fails unless we use `eval`.
     paul@debian6~$ eval $lastweek
     Thu Mar  8 21:36:39 CET 2012
 
-# (( ))
+## (( ))
 
 The `(( ))` allows for evaluation of numerical
 expressions.
@@ -51,7 +51,7 @@ expressions.
     paul@deb106:~/test42$ (( 42 == var42 )) && echo true || echo false
     false
 
-# let
+## let
 
 The `let` built-in shell function instructs the shell to
 perform an evaluation of arithmetic expressions. It will return 0 unless
@@ -94,7 +94,7 @@ assigning a value).
     kahlan@solexp11$ echo $dec $oct $hex
     15 15 15
 
-# case
+## case
 
 You can sometimes simplify nested if statements with a
 `case` construct.
@@ -138,7 +138,7 @@ You can sometimes simplify nested if statements with a
     [paul@RHEL8b ~]$            
             
 
-# shell functions
+## shell functions
 
 Shell `functions` can be used to group commands in a
 logical way.

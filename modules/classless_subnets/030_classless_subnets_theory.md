@@ -1,4 +1,4 @@
-# binaire subnets
+## binaire subnets
 
 Stel je eens voor dat computers `binair` rekenen i.p.v.
 decimaal ;-)
@@ -36,7 +36,7 @@ Voor de volledigheid volgt ook nog eens het aantal computers dat in een
 
   : max computers classful subnets
 
-# supernetting
+## supernetting
 
 Zoals je ziet, begint de subnet mask binair steeds met eentjes en
 eindigt steeds met nulletjes. Wat als we nu een eentje meer of minder
@@ -141,7 +141,7 @@ tabel ziet er dan als volgt uit:
 
   : /26 binair bekijken
 
-# binaire subnets decimaal voorstellen
+## binaire subnets decimaal voorstellen
 
 We weten al dat 255 `decimaal` gelijk is aan 11111111
 `binair` en dat 0 decimaal gelijk is aan 00000000 binair
@@ -173,7 +173,7 @@ bij het decimaal neerschrijven van een binair subnet mask.
 
   : decimale waarde binaire subnet bytes
 
-# 32 binaire subnet masks
+## 32 binaire subnet masks
 
 Bij supernetting zijn er theoretisch 32 `binaire`
 `subnet masks` i.p.v. de drie `classful`
@@ -247,7 +247,7 @@ Bij supernetting zijn er theoretisch 32 `binaire`
 
   : 31 binaire subnets
 
-# aantal computers
+## aantal computers
 
 We kunnen de tabel uitbreiden met een kolom die het aantal computers
 telt dat we in deze `binaire` netwerkjes kunnen plaatsen.
@@ -312,7 +312,7 @@ tot de achtste.
 
 Zie ook eens op `http://www.rfc-editor.org/rfc/rfc1878.txt`.
 
-# network id en host id vinden
+## network id en host id vinden
 
 Als we een `ip-adres` krijgen, kunnen we dan het
 `network id` en het `host id` vinden ?
@@ -361,7 +361,7 @@ Decimaal wordt dat dan:
     network id  : 192.168.196.0
     host id     :           3.233
 
-# voorbeeldoefening binaire subnets
+## voorbeeldoefening binaire subnets
 
 De vraag \"Zitten de volgende computers in hetzelfde netwerk?\" was met
 classful subnets niet zo moeilijk. Deze vraag komt bijna letterlijk
@@ -465,7 +465,7 @@ Hieronder de oplossing van de andere helft.
 
   : oplossing andere helft 192.168.234.234/17
 
-# oefeningen binaire subnets
+## oefeningen binaire subnets
 
 Probeer nu dezelfde oefening voor:
 
@@ -611,12 +611,12 @@ Hieronder eerst drie lege tabellen om te oefenen, dan de oplossing.
 
   : oplossing 168.190.248.199/27
 
-# zelfde of ander netwerk ?
+## zelfde of ander netwerk ?
 
 Zitten de computers 192.168.117.5/18 en 192.168.34.18/18 in hetzelfde
 netwerk ?
 
-# subnetworks
+## subnetworks
 
 Je beheert een departement met 200 computers, verdeeld over vier
 verdiepingen in eenzelfde gebouw, met ongeveer vijftig computers per

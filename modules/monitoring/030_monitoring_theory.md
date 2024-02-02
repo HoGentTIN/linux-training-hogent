@@ -1,4 +1,4 @@
-# four basic resources
+## four basic resources
 
 The four basic resources to monitor are:
 
@@ -7,7 +7,7 @@ The four basic resources to monitor are:
 -   ram memory
 -   storage
 
-# top
+## top
 
 To start monitoring, you can use `top`. This tool will
 monitor ram memory, cpu and swap. Top will automatically refresh. Inside
@@ -36,7 +36,7 @@ display only the processes that you find interesting.
 
     [paul@RHELv8u3 ~]$ top p 3456 p 8732 p 9654
 
-# free
+## free
 
 The `free` command is common on Linux to monitor free
 memory. You can use free to display information every x seconds, but the
@@ -53,7 +53,7 @@ output is not ideal.
             
     [paul@RHELv8u3 gen]$
 
-# watch
+## watch
 
 It might be more interesting to combine free with the
 `watch` program. This program can run commands with a
@@ -67,7 +67,7 @@ delay, and can highlight changes (with the -d switch).
     Mem:           249        230         19          0         56        109
     Swap:          511          0        511
 
-# vmstat
+## vmstat
 
 To monitor CPU, disk and memory statistics in one line there is
 `vmstat`. The screenshot below shows vmstat running every
@@ -94,7 +94,7 @@ from 16.7MB to 12.9MB. See man vmstat for the rest.
             
     [paul@RHELv8u3 ~]$
 
-# iostat
+## iostat
 
 The `iostat` tool can display disk and cpu statistics. The
 -d switch below makes iostat only display disk information (500 times
@@ -145,7 +145,7 @@ statistics with `iostat -c`.
             
         [paul@RHELv8u3 ~]$
 
-# mpstat
+## mpstat
 
 On multi-processor machines, `mpstat` can display
 statistics for all, or for a selected cpu.
@@ -159,7 +159,7 @@ statistics for all, or for a selected cpu.
       1  1.81   0.03   1.27    0.13   0.00    0.00    0.00   96.76     0.00
     paul@laika:~$
 
-# sadc and sar
+## sadc and sar
 
 The `sadc` tool writes system utilization data to
 `/var/log/sa/sa??`, where ?? is replaced with the current
@@ -190,13 +190,13 @@ There are other useful sar options, like `sar -I PROC` to display
 interrupt activity per interrupt and per CPU, or `sar -r`
 for memory related statistics. Check the manual page of sar for more.
 
-# ntop
+## ntop
 
 The `ntop` tool is not present in default Red Hat
 installs. Once run, it will generate a very extensive analysis of
 network traffic in html on http://localhost:3000 .
 
-# iftop
+## iftop
 
 The `iftop` tool will display bandwidth by socket
 statistics for a specific network device. Not available on default Red
@@ -219,7 +219,7 @@ Hat servers.
     laika.local        => ik-in-f83.google.com          0b      0b     39b
                        <=                               0b      0b     21b
 
-# iptraf
+## iptraf
 
 Use `iptraf` for a colourful display of ip traffic over the network
 cards.
@@ -227,7 +227,7 @@ cards.
     [root@centos65 ~]# iptraf 
     [root@centos65 ~]# iptraf -i eth0
 
-# nload
+## nload
 
 `nload` displays current network traffic in the command line. Use the
 arrow keys to walk through devices.
@@ -253,13 +253,13 @@ arrow keys to walk through devices.
                                                                 Max: 518.48 kBit/s
      ..                                  ............    ..     Ttl: 672.49 MByte
 
-# nmon
+## nmon
 
 Another popular and all round tool is `nmon`.
 
 ![](images/nmon.png)
 
-# htop
+## htop
 
 You can use `htop` instead of top.
 

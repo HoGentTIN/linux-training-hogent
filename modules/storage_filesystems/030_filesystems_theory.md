@@ -1,4 +1,4 @@
-# about file systems
+## about file systems
 
 A file system is a way of organizing files on your partition. Besides
 file-based storage, file systems usually include
@@ -12,13 +12,13 @@ files, you will have to learn how this is implemented! Access control in
 file systems is tracked by user ownership (and group owner- and
 membership) in combination with one or more access control lists.
 
-## man fs
+### man fs
 
 The manual page about filesystems is accessed by typing `man fs`.
 
     [root@rhel65 ~]# man fs
 
-## /proc/filesystems
+### /proc/filesystems
 
 The Linux kernel will inform you about currently loaded file system
 drivers in `/proc/filesystems`.
@@ -28,7 +28,7 @@ drivers in `/proc/filesystems`.
         iso9660
         ext3
 
-## /etc/filesystems
+### /etc/filesystems
 
 The `/etc/filesystems` file contains a list of autodetected filesystems
 (in case the `mount` command is used without the `-t` option.
@@ -37,9 +37,9 @@ Help for this file is provided by `man mount`.
 
     [root@rhel65 ~]# man mount
 
-# common file systems
+## common file systems
 
-## ext2 and ext3
+### ext2 and ext3
 
 Once the most common Linux file systems is the `ext2` (the
 second extended) file system. A disadvantage is that file system checks
@@ -55,7 +55,7 @@ system. Journaling keeps the file system in a consistent state, so you
 don\'t need a file system check after an unclean shutdown or power
 failure.
 
-## creating ext2 and ext3
+### creating ext2 and ext3
 
 You can create these file systems with the `/sbin/mkfs` or
 `/sbin/mke2fs` commands. Use `mke2fs -j` to create an
@@ -66,7 +66,7 @@ mount an ext3 file system as ext2, but then you lose the journaling. Do
 not forget to run `mkinitrd` if you are booting from this
 device.
 
-## ext4
+### ext4
 
 The newest incarnation of the ext file system is named `ext4` and is
 available in the Linux kernel since 2008. `ext4` supports larger files
@@ -77,7 +77,7 @@ Development started by making `ext3` fully capable for 64-bit. When it
 turned out the changes were significant, the developers decided to name
 it `ext4`.
 
-## xfs
+### xfs
 
 Redhat Enterprise Linux 7 will have `XFS` as the default file system.
 This is a highly scalable high-performance file system.
@@ -86,7 +86,7 @@ This is a highly scalable high-performance file system.
 in `FreeBSD`. It is supported by the Linux kernel, but rarely used in
 dsitributions outside of the Redhat/CentOS realm.
 
-## vfat
+### vfat
 
 The `vfat` file system exists in a couple of forms :
 `fat12` for floppy disks, `fat16` on `ms-dos`, and
@@ -96,7 +96,7 @@ and links. `fat` disks can be read by every operating system, and are
 used a lot for digital cameras, `usb` sticks and to exchange data
 between different OS\'ses on a home user\'s computer.
 
-## iso 9660
+### iso 9660
 
 `iso 9660` is the standard format for cdroms. Chances are
 you will encounter this file system also on your hard disk in the form
@@ -109,29 +109,29 @@ ownership and symbolic links. Another extensions to `iso 9660` is
 filename. The `el torito` standard extends `iso 9660` to
 be able to boot from CD-ROM\'s.
 
-## udf
+### udf
 
 Most optical media today (including cd\'s and dvd\'s) use
 `udf`, the Universal Disk Format.
 
-## swap
+### swap
 
 All things considered, swap is not a file system. But to use a partition
 as a `swap partition` it must be formatted and mounted as
 swap space.
 
-## gfs
+### gfs
 
 Linux clusters often use a dedicated cluster filesystem like GFS, GFS2,
 ClusterFS, \...
 
-## and more\...
+### and more\...
 
 You may encounter `reiserfs` on older Linux systems. Maybe
 you will see Sun\'s `zfs` or the open source
 `btrfs`. This last one requires a chapter on itself.
 
-## /proc/filesystems
+### /proc/filesystems
 
 The `/proc/filesystems` file displays a list of supported
 file systems. When you mount a file system without explicitly defining
@@ -167,7 +167,7 @@ containing only an asterisk (\*) then both files are probed.
     nodev   autofs
     paul@RHELv8u4:~$
 
-# putting a file system on a partition
+## putting a file system on a partition
 
 We now have a fresh partition. The system binaries to make file systems
 can be found with ls.
@@ -214,7 +214,7 @@ want to use options like -m0 and -j.
     This filesystem will be automatically checked every 37 mounts or
     180 days, whichever comes first.  Use tune2fs -c or -i to override.
 
-# tuning a file system
+## tuning a file system
 
 You can use `tune2fs` to list and set file system
 settings. The first screenshot lists the reserved space for root (which
@@ -237,7 +237,7 @@ in this example).
     Reserved block count:     10430
     [root@rhel4 ~]#
 
-# checking a file system
+## checking a file system
 
 The `fsck` command is a front end tool used to check a
 file system for errors.

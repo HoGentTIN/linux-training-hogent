@@ -1,4 +1,4 @@
-# practice: vi(m)
+## practice: vi(m)
 
 1\. Start the vimtutor and do some or all of the exercises. You might
 need to run `aptitude install vim` on xubuntu.

@@ -1,9 +1,9 @@
-# prerequisites
+## prerequisites
 
 You should have read and understood `part III shell expansion` and
 `part IV pipes and commands` before starting this chapter.
 
-# hello world
+## hello world
 
 Just like in every programming course, we start with a simple
 `hello_world` script. The following script will output `Hello World`.
@@ -21,7 +21,7 @@ the path to the script for the shell to be able to find it.
     Hello World
     [paul@RHEL8a ~]$
 
-# she-bang
+## she-bang
 
 Let\'s expand our example a little further by putting `#!/bin/bash` on
 the first line of the script. The `#!` is called a
@@ -71,7 +71,7 @@ due its usefulness it was incorporated in windows10 operational
 system(WSL). thus its knowledge is more needed, then you might have
 known.
 
-# comments
+## comments
 
 When writing Bash scripts, it is always a good practice to make your
 code clean and easily understandable. Organizing your code in blocks,
@@ -93,7 +93,7 @@ Let\'s expand our example a little further by adding comment lines.
     # this is more modern way of calling for subshell with dollar and brackets $()
     #NOTICE: backtick might not work in future versions of bash shell
 
-# variables
+## variables
 
 Here is a simple example of a variable inside a script.
 
@@ -115,7 +115,7 @@ shell, the variables do not survive the end of the script.
 
     [paul@RHEL8a ~]$
 
-# sourcing a script
+## sourcing a script
 
 Luckily, you can force a script to run in the same shell; this is called
 `sourcing` a script.
@@ -136,7 +136,7 @@ The above is identical to the below.
     [paul@RHEL8a ~]$ 
             
 
-# troubleshooting a script
+## troubleshooting a script
 
 Another way to run a script in a separate shell is by typing `bash` with
 the name of the script as a parameter.
@@ -160,7 +160,7 @@ that the shell is executing (after shell expansion).
 Notice the absence of the commented (#) line, and the replacement of the
 variable before execution of `echo`.
 
-# prevent setuid root spoofing
+## prevent setuid root spoofing
 
 Some user may try to perform `setuid` based script
 `root spoofing`. This is a rare but possible attack. To improve script

@@ -1,4 +1,4 @@
-# practice: package management
+## practice: package management
 
 1\. Verify whether gcc, sudo and wesnoth are installed.
 

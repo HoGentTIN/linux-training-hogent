@@ -1,4 +1,4 @@
-# solution: sticky, setuid and setgid bits
+## solution: sticky, setuid and setgid bits
 
 1a. Set up a directory, owned by the group sports.
 

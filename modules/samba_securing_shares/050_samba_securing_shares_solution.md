@@ -1,4 +1,4 @@
-# solution: securing shares
+## solution: securing shares
 
 1\. Create a writable share called sales, and a readonly share called
 budget. Test that it works.

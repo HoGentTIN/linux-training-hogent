@@ -1,4 +1,4 @@
-# arguments
+## arguments
 
 One of the primary features of a shell is to perform a
 `command line scan`. When you enter a command at the
@@ -9,7 +9,7 @@ the line, the shell may make many changes to the `arguments` you typed.
 This process is called `shell expansion`. When the shell
 has finished scanning and modifying that line, then it will be executed.
 
-# white space removal
+## white space removal
 
 Parts that are separated by one or more consecutive
 `white spaces` (or tabs) are considered separate
@@ -34,7 +34,7 @@ The `echo` command will display each argument it receives
 from the shell. The `echo` command will also add a new white space
 between the arguments it received.
 
-# single quotes
+## single quotes
 
 You can prevent the removal of white spaces by quoting the spaces. The
 contents of the quoted string are considered as one argument. In the
@@ -44,7 +44,7 @@ screenshot below the `echo` receives only one `argument`.
     A line with      single    quotes
     [paul@RHEL8b ~]$
 
-# double quotes
+## double quotes
 
 You can also prevent the removal of white spaces by double quoting
  the spaces. Same as above, `echo` only receives one
@@ -57,7 +57,7 @@ You can also prevent the removal of white spaces by double quoting
 Later in this book, when discussing `variables` we will see important
 differences between single and double quotes.
 
-# echo and quotes
+## echo and quotes
 
 Quoted lines can include special escaped characters recognised by the
 `echo` command (when using `echo -e`). The screenshot
@@ -79,9 +79,9 @@ eight white spaces).
 The echo command can generate more than white spaces, tabs and newlines.
 Look in the man page for a list of options.
 
-# commands
+## commands
 
-## external or builtin commands ?
+### external or builtin commands ?
 
 Not all commands are external to the shell, some are `builtin`.
 `External commands` are programs that have their own binary and reside
@@ -89,7 +89,7 @@ somewhere in the file system. Many external commands are located in
 `/bin` or `/sbin`. `Builtin commands` are an
 integral part of the shell program itself.
 
-## type
+### type
 
 To find out whether a command given to the shell will be executed as an
 `external command` or as a `builtin command`, use the
@@ -109,7 +109,7 @@ You can also use this command to show you whether the command is
     paul@laika:~$ type ls
     ls is aliased to `ls --color=auto'
 
-## running external commands
+### running external commands
 
 Some commands have both builtin and external versions. When one of these
 commands is executed, the builtin version takes priority. To run the
@@ -121,7 +121,7 @@ external version, you must enter the full path to the command.
     paul@laika:~$ /bin/echo Running the external echo command... 
     Running the external echo command...
 
-## which
+### which
 
 The `which` command will search for binaries in the
 `$PATH` environment variable (variables will be explained
@@ -136,9 +136,9 @@ commands.
     /bin/mkdir
     /bin/pwd
 
-# aliases
+## aliases
 
-## create an alias
+### create an alias
 
 The shell allows you to create `aliases`. Aliases are
 often used to create an easier to remember name for an existing command
@@ -154,7 +154,7 @@ or to easily supply parameters.
     two
     one
 
-## abbreviate commands
+### abbreviate commands
 
 An `alias` can also be useful to abbreviate an existing
 command.
@@ -163,7 +163,7 @@ command.
     paul@laika:~$ alias c='clear'
     paul@laika:~$
 
-## default options
+### default options
 
 Aliases can be used to supply commands with default options. The example
 below shows how to set the `-i` option default when typing
@@ -183,7 +183,7 @@ below shows how to set the `-i` option default when typing
 Some distributions enable default aliases to protect users from
 accidentally erasing files (\'rm -i\', \'mv -i\', \'cp -i\')
 
-## viewing aliases
+### viewing aliases
 
 You can provide one or more aliases as arguments to the `alias` command
 to get their definitions. Providing no arguments gives a complete list
@@ -193,7 +193,7 @@ of current aliases.
     alias c='clear'
     alias ll='ls -lh --color=auto'
 
-## unalias
+### unalias
 
 You can undo an alias with the `unalias` command.
 
@@ -208,7 +208,7 @@ You can undo an alias with the `unalias` command.
     /bin/rm
     [paul@RHEL8b ~]$
 
-# displaying shell expansion
+## displaying shell expansion
 
 You can display shell expansion with `set -x`, and stop
 displaying it with `set +x`. You might want to use this

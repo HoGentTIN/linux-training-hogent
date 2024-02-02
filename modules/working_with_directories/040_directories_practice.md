@@ -1,4 +1,4 @@
-# practice: working with directories
+## practice: working with directories
 
 1\. Display your current directory.
 

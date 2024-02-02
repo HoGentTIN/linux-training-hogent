@@ -1,4 +1,4 @@
-# install multipath
+## install multipath
 
 RHEL and CentOS need the `device-mapper-multipath`
 package.
@@ -16,7 +16,7 @@ There is no `/etc/multipath.conf` until you initialize it with
     [root@server2 ~]# wc -l /etc/multipath.conf 
     99 /etc/multipath.conf
 
-# configure multipath
+## configure multipath
 
 You can now choose to either edit `/etc/multipath.conf` or use
 `mpathconf` to change this file for you.
@@ -33,7 +33,7 @@ You can now choose to either edit `/etc/multipath.conf` or use
         user_friendly_names yes
     #   user_friendly_names yes
 
-# network
+## network
 
 This example uses three networks, make sure the iSCSI Target is
 connected to all three networks.
@@ -70,7 +70,7 @@ above).
     [root@centos7 ~]# iscsiadm -m discovery -t st -p 192.168.3.150
     192.168.3.150:3260,1 iqn.2015-04.be.linux:target1
 
-# start multipathd and iscsi
+## start multipathd and iscsi
 
 Time to start (or restart) both the multipathd and iscsi services:
 
@@ -129,7 +129,7 @@ to yes. The bottom three are the multipath devices to use.
     Disk identifier: 0x00000000
     [root@server2 ~]#
 
-# multipath list
+## multipath list
 
 You can list the multipath connections and devices with `multipath -ll`.
 
@@ -177,7 +177,7 @@ the Target server.
                 SCSI ID: IET     00010003
                 Backing store path: /dev/sdd
 
-# using the device
+## using the device
 
 The rest is standard mkfs, mkdir, mount:
 

@@ -1,4 +1,4 @@
-# cat
+## cat
 
 When between two `pipes`, the `cat` command does nothing
 (except putting `stdin` on `stdout`).
@@ -11,7 +11,7 @@ When between two `pipes`, the `cat` command does nothing
     one
     [paul@RHEL8b pipes]$
 
-# tee
+## tee
 
 Writing long `pipes` in Unix is fun, but sometimes you may want
 intermediate results. This is were `tee` comes in handy.
@@ -33,7 +33,7 @@ it has two identical outputs.
     one
     [paul@RHEL8b pipes]$
 
-# grep
+## grep
 
 The `grep` filter is famous among Unix users. The most
 common use of `grep` is to filter lines of text containing (or not
@@ -105,7 +105,7 @@ lines (using e.g. A2, B4 or C20).
     Justine Henin, Bel
     Serena Williams, usa
 
-# cut
+## cut
 
 The `cut` filter can select columns from files, depending
 on a delimiter or a count of bytes. The screenshot below uses `cut` to
@@ -140,7 +140,7 @@ of `/etc/passwd`.
     ermion
     [paul@RHEL8b pipes]$
 
-# tr
+## tr
 
 You can translate characters with `tr`. The screenshot
 shows the translation of all occurrences of e to E.
@@ -209,7 +209,7 @@ This last example uses `tr -d` to delete characters.
     Srna Williams, usa
     Vnus Williams, USA
 
-# wc
+## wc
 
 Counting words, lines and characters is easy with `wc`.
 
@@ -223,7 +223,7 @@ Counting words, lines and characters is easy with `wc`.
     100 tennis.txt
     [paul@RHEL8b pipes]$
 
-# sort
+## sort
 
 The `sort` filter will default to an alphabetical sort.
 
@@ -270,7 +270,7 @@ and a numerical sort (both on the third column).
     Iran, Teheran, 70
     Germany, Berlin, 100
 
-# uniq
+## uniq
 
 With `uniq` you can remove duplicates from a
 `sorted list`.
@@ -297,7 +297,7 @@ With `uniq` you can remove duplicates from a
           1 Brel
           2 Queen
 
-# comm
+## comm
 
 Comparing streams (or files) can be done with the `comm`.
 By default `comm` will output three columns. In this example, Abba, Cure
@@ -337,7 +337,7 @@ displayed.
     Bowie
     Sweet
 
-# od
+## od
 
 European humans like to work with ascii characters, but computers store
 files in bytes. The example below creates a simple file, and then uses
@@ -362,7 +362,7 @@ And here is the file in ascii (or backslashed) characters.
     0000000   a   b   c   d   e   f   g  \n   1   2   3   4   5   6   7  \n
     0000020
 
-# sed
+## sed
 
 The `s`tream `ed`itor `sed` can perform editing functions
 in the stream, using `regular expressions`.
@@ -396,9 +396,9 @@ With `d` you can remove lines from a stream containing a character.
     Martina Hingis, SUI
     Serena williams, USA
 
-# pipe examples
+## pipe examples
 
-## who \| wc
+### who \| wc
 
 How many users are logged  on to this system ?
 
@@ -410,7 +410,7 @@ How many users are logged  on to this system ?
     [paul@RHEL8b pipes]$ who | wc -l
     4
 
-## who \| cut \| sort
+### who \| cut \| sort
 
 Display a sorted  list of logged on users.
 
@@ -428,7 +428,7 @@ only once .
     paul
     root
 
-## grep \| cut
+### grep \| cut
 
 Display a list of all bash `user accounts` on this
 computer. Users accounts are explained in detail later.

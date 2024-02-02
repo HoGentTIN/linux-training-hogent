@@ -1,4 +1,4 @@
-# practice: shell embedding
+## practice: shell embedding
 
 1\. Find the list of shell options in the man page of `bash`. What is
 the difference between `set -u` and `set -o nounset`?

@@ -1,4 +1,4 @@
-# practice: shell globbing
+## practice: shell globbing
 
 1\. Create a test directory and enter it.
 

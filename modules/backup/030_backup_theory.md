@@ -1,11 +1,11 @@
-# About tape devices
+## About tape devices
 
 Don\'t forget that the name of a device strictly speaking has no meaning
 since the kernel will use the major and minor number to find the
 hardware! See the man page of `mknod` and the devices.txt
 file in the Linux kernel source for more info.
 
-## SCSI tapes
+### SCSI tapes
 
 On the official Linux device list
 (http://www.lanana.org/docs/device-list/) we find the names for SCSI
@@ -36,7 +36,7 @@ compression level, append one of the letters l (low), m (medium) or a
     /dev/nst2m  Third no rewind medium compression tape device
             
 
-## IDE tapes
+### IDE tapes
 
 On the official Linux device list
 (http://www.lanana.org/docs/device-list/) we find the names for IDE
@@ -49,7 +49,7 @@ tape device. No rewind and compression is similar to SCSI tapes.
     /dev/ht0m  First medium compression IDE tape device
             
 
-## mt
+### mt
 
 To manage your tapes, use `mt` (Magnetic Tape). Some
 examples.
@@ -70,7 +70,7 @@ To erase a tape\...
 
     mt -f /dev/st0 erase
 
-# Compression
+## Compression
 
 It can be beneficial to compress files before backup. The two most
 popular tools for compression of regular files on Linux are
@@ -109,7 +109,7 @@ compresses a lot better. Let us compare the two.
     paul@RHELv8u4:~/test$ 
         
 
-# tar
+## tar
 
 The `tar` utility gets its name from `Tape ARchive`. This
 tool will receive and send files to a destination (typically a tape or a
@@ -222,7 +222,7 @@ Same as the previous, but let ssh handle the compression
     cat backup.tar | ssh -C bashuser@192.168.1.105 "cat - > backup.tar"
         
 
-# Backup Types
+## Backup Types
 
 Linux uses `multilevel incremental` backups using distinct levels. A
 full backup is a backup at level 0. A higher level x backup will include
@@ -236,7 +236,7 @@ all changes since Wednesday (the last level 3-1). Another level 3 on
 Friday will also contain all changes since Wednesday. A level 2 backup
 on Saturday would take all changes since the last level 1 from Tuesday.
 
-# dump and restore
+## dump and restore
 
 While `dump` is similar to tar, it is also very different
 because it looks at the file system. Where tar receives a lists of files
@@ -281,7 +281,7 @@ To extract only one file or directory from a dump, use the -x option.
     restore -xf /dev/st0 /etc
         
 
-# cpio
+## cpio
 
 Different from tar and dump is `cpio` (Copy Input and
 Output). It can be used to receive filenames, but copies the actual
@@ -311,16 +311,16 @@ machine
 
     ssh user@host "find path -depth -print | cpio -oaV" | cpio -imVd
 
-# dd
+## dd
 
-## About dd
+### About dd
 
 Some people use `dd` to create backups. This can be very
 powerful, but dd backups can only be restored to very similar partitions
 or devices. There are however a lot of useful things possible with dd.
 Some examples.
 
-## Create a CDROM image
+### Create a CDROM image
 
 The easiest way to create a `.ISO file` from any CD. The
 if switch means Input File, of is the Output File. Any good tool can
@@ -328,7 +328,7 @@ burn a copy of the CD with this .ISO file.
 
     dd if=/dev/cdrom of=/path/to/cdrom.ISO
 
-## Create a floppy image
+### Create a floppy image
 
 A little outdated maybe, but just in case : make an image file from a
 1.44MB floppy. Blocksize is defined by bs, and count contains the number
@@ -337,21 +337,21 @@ of blocks to copy.
     dd if=/dev/floppy of=/path/to/floppy.img bs=1024 count=1440
         
 
-## Copy the master boot record
+### Copy the master boot record
 
 Use dd to copy the `MBR` (Master Boot Record) of hard disk
 /dev/hda to a file.
 
     dd if=/dev/hda of=/MBR.img bs=512 count=1
 
-## Copy files
+### Copy files
 
 This example shows how dd can copy files. Copy the file summer.txt to
 copy_of_summer.txt .
 
     dd if=~/summer.txt of=~/copy_of_summer.txt
 
-## Image disks or partitions
+### Image disks or partitions
 
 And who needs ghost when dd can create a (compressed) image of a
 partition.
@@ -360,7 +360,7 @@ partition.
     dd if=/dev/hdb2 | gzip > /image_of_hdb2.IMG.gz
         
 
-## Create files of a certain size
+### Create files of a certain size
 
 dd can be used to create a file of any size. The first example creates a
 one MEBIbyte file, the second a one MEGAbyte file.
@@ -369,7 +369,7 @@ one MEBIbyte file, the second a one MEGAbyte file.
     dd if=/dev/zero of=file1MB count=1000 bs=1024
         
 
-## CDROM server example
+### CDROM server example
 
 And there are of course endless combinations with ssh and bzip2. This
 example puts a bzip2 backup of a cdrom on a remote server.
@@ -377,7 +377,7 @@ example puts a bzip2 backup of a cdrom on a remote server.
     dd if=/dev/cdrom |bzip2|ssh user@host "cat - > /backups/cd/cdrom.iso.bz2"
         
 
-# split
+## split
 
 The `split` command is useful to split files into smaller
 files. This can be useful to fit the file onto multiple instances of a

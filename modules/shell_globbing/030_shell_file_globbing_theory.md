@@ -1,4 +1,4 @@
-# \* asterisk
+## \* asterisk
 
 The asterisk `*` is interpreted by the shell as a sign to
 generate filenames, matching the asterisk to any combination of
@@ -21,7 +21,7 @@ filenames in the current directory. See the man page of
     File55
     [paul@RHELv8u3 gen]$
 
-# ? question mark
+## ? question mark
 
 Similar to the asterisk, the question mark `?` is
 interpreted by the shell as a sign to generate filenames, matching the
@@ -39,7 +39,7 @@ question mark with exactly one character.
     File55  Fileab  FileAB
     [paul@RHELv8u3 gen]$
 
-# \[\] square brackets
+## \[\] square brackets
 
 The square bracket `[` is interpreted by the shell as a
 sign to generate filenames, matching any of the characters between `[`
@@ -77,7 +77,7 @@ combinations of these `wild cards`.
     fileab
     [paul@RHELv8u3 gen]$
 
-# a-z and 0-9 ranges
+## a-z and 0-9 ranges
 
 The bash shell will also understand ranges of characters between
 brackets.
@@ -93,7 +93,7 @@ brackets.
     fileab2
     [paul@RHELv8u3 gen]$
 
-# \$LANG and square brackets
+## \$LANG and square brackets
 
 But, don\'t forget the influence of the `LANG` variable.
 Some languages include lower case letters in an upper case range (and
@@ -117,7 +117,7 @@ vice versa).
 If `$LC_ALL` is set, then this will also need to be reset to prevent
 file globbing.
 
-# preventing file globbing
+## preventing file globbing
 
 The screenshot below should be no surprise. The `echo *`
 will echo a \* when in an empty directory. And it will echo the names of

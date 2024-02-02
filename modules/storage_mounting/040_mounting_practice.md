@@ -1,4 +1,4 @@
-# practice: mounting file systems
+## practice: mounting file systems
 
 1\. Mount the small 200MB partition on /home/project22.
 

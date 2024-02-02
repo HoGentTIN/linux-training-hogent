@@ -1,4 +1,4 @@
-# practice: network sniffing
+## practice: network sniffing
 
 1\. Install wireshark on your computer (not inside a virtual machine).
 

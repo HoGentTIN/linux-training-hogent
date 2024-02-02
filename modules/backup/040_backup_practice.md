@@ -1,4 +1,4 @@
-# practice: backup
+## practice: backup
 
 !! Careful with tar options and the position of the backup file,
 mistakes can destroy your system!!

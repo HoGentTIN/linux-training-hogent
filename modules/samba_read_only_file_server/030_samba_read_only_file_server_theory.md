@@ -1,4 +1,4 @@
-# Setting up a directory to share
+## Setting up a directory to share
 
 Let\'s start with setting up a very simple read only file server with
 Samba. Everyone (even anonymous guests) will receive read access.
@@ -15,9 +15,9 @@ The first step is to create a directory and put some test files in it.
     -rw-r--r-- 1 root root 18 Jan 21 05:49 winter.txt
     [root@RHEL52 readonly]#
 
-# configure the share
+## configure the share
 
-## smb.conf \[global\] section
+### smb.conf \[global\] section
 
 In this example the samba server is a member of WORKGROUP (the default
 workgroup). We also set a descriptive server string, this
@@ -40,7 +40,7 @@ is one way of using the SMB/CIFS protocol. The other way (called
 combination, before the server knows which share the client wants to
 access.
 
-## smb.conf \[share\] section
+### smb.conf \[share\] section
 
 The share is called pubread and the path is set to our newly created
 directory. Everyone is allowed access (`guest ok = yes`)
@@ -78,7 +78,7 @@ same config on Debian 6, as good as identical.
     read only = yes
     guest ok = yes
 
-# restart the server
+## restart the server
 
 After testing with `testparm`, restart the samba server (so you don\'t
 have to wait).
@@ -89,9 +89,9 @@ have to wait).
     Starting SMB services:                                     [  OK  ]
     Starting NMB services:                                     [  OK  ]
 
-# verify the share
+## verify the share
 
-## verify with smbclient
+### verify with smbclient
 
 You can now verify the existence of the share with
 `smbclient`. Our `pubread` is listed as the fourth share.
@@ -116,7 +116,7 @@ You can now verify the existence of the share with
         ---------            -------
         WORKGROUP            W2003EE
 
-## verify on windows
+### verify on windows
 
 The final test is to go to a Microsoft windows computer and read a file
 on the Samba server. First we use the `net use` command to
@@ -152,7 +152,7 @@ Or you can use windows explorer\...
 
 ![](images/sambareadonly.jpg)
 
-# a note on netcat
+## a note on netcat
 
 The Windows command line screenshot is made in a Linux console, using
 `netcat` as a pipe to a Windows command shell.

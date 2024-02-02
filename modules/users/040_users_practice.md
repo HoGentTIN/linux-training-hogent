@@ -1,4 +1,4 @@
-# practice: introduction to users
+## practice: introduction to users
 
 1\. Run a command that displays only your currently logged on user name.
 

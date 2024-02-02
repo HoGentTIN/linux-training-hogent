@@ -1,6 +1,6 @@
-# about Domain Controllers
+## about Domain Controllers
 
-## Windows NT4
+### Windows NT4
 
 Windows NT4 works with single master replication domain controllers.
 There is exactly one PDC (Primary Domain Controller) in the domain, and
@@ -9,14 +9,14 @@ features found in Windows NT4 PDC and BDC, and more. This includes file
 and print serving, domain control with single logon, logon scripts, home
 directories and roaming profiles.
 
-## Windows 200x
+### Windows 200x
 
 With Windows 2000 came Active Directory. AD includes multimaster
 replication and group policies. Samba 3 can only be a member server in
 Active Directory, it cannot manage group policies. Samba 4 can do this
 (in beta).
 
-## Samba 3
+### Samba 3
 
 Samba 3 can act as a domain controller in its own domain. In a Windows
 NT4 domain, with one Windows NT4 PDC and zero or more BDC\'s, Samba 3
@@ -24,15 +24,15 @@ can only be a member server. The same is valid for Samba 3 in an Active
 Directory Domain. In short, a Samba 3 domain controller can not share
 domain control with Windows domain controllers.
 
-## Samba 4
+### Samba 4
 
 Samba 4 can be a domain controller in an Active Directory domain,
 including managing group policies. As of this writing, Samba 4 is not
 released for production!
 
-# About security modes
+## About security modes
 
-## security = share
+### security = share
 
 The \'Windows for Workgroups\' way of working, a client requests
 connection to a share and provides a password for that connection.
@@ -40,31 +40,31 @@ Aanyone who knows a password for a share can access that share. This
 security model was common in Windows 3.11, Windows 95, Windows 98 and
 Windows ME.
 
-## security = user
+### security = user
 
 The client will send a userid + password before the server knows which
 share the client wants to access. This mode should be used whenever the
 samba server is in control of the user database. Both for standalone and
 samba domain controllers.
 
-## security = domain
+### security = domain
 
 This mode will allow samba to verify user credentials using NTLM in
 Windows NT4 and in all Active Directory domains. This is similar to
 Windows NT4 BDC\'s joining a native Windows 2000/3 Active Directory
 domain.
 
-## security = ads
+### security = ads
 
 This mode will make samba use Kerberos to connect to the Active
 Directory domain.
 
-## security = server
+### security = server
 
 This mode is obsolete, it can be used to forward authentication to
 another server.
 
-# About password backends
+## About password backends
 
 The previous chapters all used the `smbpasswd` user
 database. For domain control we opt for the `tdbsam`
@@ -73,13 +73,13 @@ will benefit from using LDAP instead of the not so scalable tdbsam. When
 you need more than one Domain Controller, then the Samba team advises to
 not use tdbsam.
 
-# \[global\] section in smb.conf
+## \[global\] section in smb.conf
 
 Now is a good time to start adding comments in your smb.conf. First we
 will take a look at the naming of our domain and server in the
 `[global]` section, and at the domain controlling parameters.
 
-## security
+### security
 
 The security must be set to user (which is the default). This mode will
 make samba control the user accounts, so it will allow samba to act as a
@@ -87,7 +87,7 @@ domain controller.
 
     security = user
 
-## os level
+### os level
 
 A samba server is the most stable computer in the network, so it should
 win all browser elections (`os level` above 32) to become the
@@ -95,28 +95,28 @@ win all browser elections (`os level` above 32) to become the
 
     os level = 33
 
-## passdb backend
+### passdb backend
 
 The `passdb backend` parameter will determine whether samba uses
 `smbpasswd`, `tdbsam` or ldap.
 
     passdb backend = tdbsam
 
-## preferred master
+### preferred master
 
 Setting the `preferred master` parameter to yes will make the nmbd
 daemon force an election on startup.
 
     preferred master = yes
 
-## domain logons
+### domain logons
 
 Setting the `domain logons` parameter will make this samba server a
 domain controller.
 
     domain logons = yes
 
-## domain master
+### domain master
 
 Setting the `domain master` parameter can cause samba to claim the
 `domain master browser` role for its workgroup. Don\'t use this
@@ -124,7 +124,7 @@ parameter in a workgroup with an active NT4 PDC.
 
     domain master = yes
 
-## \[global\] section
+### \[global\] section
 
 The screenshot below shows a sample \[global\] section for a samba
 domain controller.
@@ -142,7 +142,7 @@ domain controller.
         domain logons = Yes
             
 
-# netlogon share
+## netlogon share
 
 Part of the microsoft definition for a domain controller is that it
 should have a `netlogon share`. This is the relevant part of smb.conf to
@@ -156,7 +156,7 @@ create this netlogon share on Samba.
     browseable = No
         
 
-# other \[share\] sections
+## other \[share\] sections
 
 We create some sections for file shares, to test the samba server. Users
 can all access the general sports file share, but only group members can
@@ -181,7 +181,7 @@ access their own sports share.
     read only = No
         
 
-# Users and Groups
+## Users and Groups
 
 To be able to use users and groups in the samba domain controller, we
 can first set up some groups on the Linux computer.
@@ -221,7 +221,7 @@ It is always safe to verify creation of users, groups and passwords in
     pfaff:x:517:
         
 
-# tdbsam
+## tdbsam
 
 Next we must make these users known to samba with the smbpasswd tool.
 When you add the first user to `tdbsam`, the file
@@ -243,7 +243,7 @@ already created.
     Added user root.
         
 
-# about computer accounts
+## about computer accounts
 
 Every NT computer (Windows NT, 2000, XP, Vista) can become a member of a
 domain. Joining the domain (by right-clicking on My Computer) means that
@@ -282,7 +282,7 @@ Linux account that can create users (usually only root can do this). If
 the Microsoft computer complains with `The parameter is incorrect`, then
 you possibly forgot to add the `add machine script`.
 
-# local or roaming profiles
+## local or roaming profiles
 
 For your information, if you want to force local profiles instead of
 roaming profiles, then simply add the following two lines to the global
@@ -334,7 +334,7 @@ the user log on and off, the profile of the user will look like this.
     drwxr-xr-x  2 Venus Venus   4096 Jul  5 10:03 Templates
         
 
-# Groups in NTFS acls
+## Groups in NTFS acls
 
 We have users on Unix, we have groups on Unix that contain those users.
 
@@ -373,7 +373,7 @@ to map unix groups to windows groups. To do this, we use the
 Now you can use the Samba groups on all NTFS volumes on members of the
 domain.
 
-# logon scripts
+## logon scripts
 
 Before testing a logon script, make sure it has the proper carriage
 returns that DOS files have.

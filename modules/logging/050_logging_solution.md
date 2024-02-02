@@ -1,4 +1,4 @@
-# solution : logging
+## solution : logging
 
 1\. Display the /var/run/utmp file.
 

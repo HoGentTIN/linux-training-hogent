@@ -1,4 +1,4 @@
-# script parameters
+## script parameters
 
 A `bash` shell script can have parameters. The numbering
 you see in the script below continues if you have more parameters. You
@@ -50,7 +50,7 @@ the name of the script.
     paul@debian6~$ ./test42 
     this script is called ./test42
 
-# shift through parameters
+## shift through parameters
 
 The `shift` statement can parse all `parameters` one by
 one. This is a sample script.
@@ -83,7 +83,7 @@ Below is some sample output of the script above.
     kahlan@solexp11$ ./shift.ksh                           
     You have to give at least one parameter.
 
-# runtime input
+## runtime input
 
 You can ask the user for input with the `read` command in
 a script.
@@ -93,7 +93,7 @@ a script.
     read number
             
 
-# sourcing a config file
+## sourcing a config file
 
 The `source` (as seen in the shell chapters) can be used
 to source a configuration file.
@@ -128,7 +128,7 @@ configuration file.
     There are 5 quines
     [paul@RHEL8a scripts]$
 
-# get script options with getopts
+## get script options with getopts
 
 The `getopts` function allows you to parse options given
 to a command. The following script allows for any combination of the
@@ -212,7 +212,7 @@ This is sample output from the script above.
     received -z
     option -f needs an argument
 
-# get shell options with shopt
+## get shell options with shopt
 
 You can toggle the values of variables controlling optional shell
 behaviour with the `shopt` built-in shell command. The

@@ -1,4 +1,4 @@
-# solution: hard disk devices
+## solution: hard disk devices
 
 1\. Use `dmesg` to make a list of hard disk devices detected at boot-up.
 

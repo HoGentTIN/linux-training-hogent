@@ -1,4 +1,4 @@
-# buying the hardware
+## buying the hardware
 
 This picture shows four `Raspberry Pi's`. The two on the left are made
 in UK, those on the right are made in China. I noticed no difference in
@@ -28,7 +28,7 @@ to label the cards.
 I will use the usb cable and power adapter from my old HTC Hero
 smartphone to power the `Raspberry Pi`.
 
-# downloading the images
+## downloading the images
 
 Download two images from `http://raspberrypi.org/downloads`. In this
 module I continue with the `raspbian` and the `pidora` images.
@@ -46,7 +46,7 @@ After the download, you will have two zipfiles in `/tmp`.
     -rw-r--r-- 1 paul paul 549M Jul 26 20:51 /tmp/Pidora-2014-R2-1.zip
     paul@debian10:~$
 
-# writing the SD cards
+## writing the SD cards
 
 Find out the devicename of your SD card.
 
@@ -96,7 +96,7 @@ written to the SD card.
     /dev/sdb1            8192      122879       57344    c  W95 FAT32 (LBA)
     /dev/sdb2          122880     5785599     2831360   83  Linux
 
-# adjusting network settings
+## adjusting network settings
 
 We will configure the network before inserting the `sd card` in the
 `Raspberry Pi`. To do this we will mount the Linux partition and edit
@@ -126,7 +126,7 @@ ethernet cable).
     wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf
     iface default inet dhcp
 
-# connecting the hardware
+## connecting the hardware
 
 Besides a `Raspberry Pi`, we also use a network utp cable, the sd card
 labeled `raspbian` and a usb power source (I use the adapter and usb
@@ -137,7 +137,7 @@ picture.
 
 ![](images/raspberrypi.png)
 
-# connecting with ssh
+## connecting with ssh
 
 First we try to ping the device. I use my ghost network address. The
 `Pi` also received an address from the DHCP server, so if you have
@@ -179,7 +179,7 @@ Now we login with the user `raspberry` and the password `pi`.
 
 ![](images/raspberrypi.png)
 
-# camera module
+## camera module
 
 There is a cheap HD camera module for the raspberry pi. In this picture
 the module is connected.
@@ -190,18 +190,18 @@ To disble the camera led:
 
 ![](images/raspberrypi_camera_connect.jpg)
 
-# 
+## 
 
 ![](images/raspberrypi.png)
 
-# building a stack of pi\'s
+## building a stack of pi\'s
 
 Here are some pictures of a `Raspberry Pi` stack held together by Lego
 Technic.
 
 ![](images/raspberrypi_legostack.jpg)
 
-# sending mail from the pi
+## sending mail from the pi
 
 install exim4
 
@@ -245,7 +245,7 @@ dpkg-reconfigure exim4-config (smarthost)
 
     mail -s "test2" paul.cobbaut@gmail.com
 
-# disable ipv6
+## disable ipv6
 
     root@raspberrypi:~# tail -3 /etc/sysctl.conf
 
@@ -253,8 +253,8 @@ dpkg-reconfigure exim4-config (smarthost)
     net.ipv6.conf.all.disable_ipv6 = 1
     root@raspberrypi:~#
 
-# 
+## 
 
-# 
+## 
 
-# 
+## 

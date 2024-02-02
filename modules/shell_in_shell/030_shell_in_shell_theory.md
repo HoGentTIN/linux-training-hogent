@@ -1,4 +1,4 @@
-# shell embedding
+## shell embedding
 
 Shells can be `embedded` on the command line, or in other
 words, the command line scan can spawn new processes containing a fork
@@ -23,7 +23,7 @@ This screenshot shows an embedded shell inside an embedded shell.
     paul@deb503:~$ echo $C$B$A $(B=sub;echo $C$B$A; echo $(C=sub;echo $C$B$A))
     shell subshell subsubshell
 
-## backticks
+### backticks
 
 Single embedding can be useful to avoid changing your current directory.
 The screenshot below uses `backticks` instead of dollar-bracket to
@@ -36,7 +36,7 @@ embed.
 You can only use the `$()` notation to nest embedded
 shells, `backticks` cannot do this.
 
-## backticks or single quotes
+### backticks or single quotes
 
 Placing the embedding between `backticks` uses one
 character less than the dollar and parenthesis combo. Be careful
@@ -50,7 +50,7 @@ significant!
     var1=5;echo $var1
     [paul@RHELv8u3 gen]$
 
-# shell options
+## shell options
 
 Both `set` and `unset` are builtin shell
 commands. They can be used to set options of the bash shell itself. The

@@ -1,4 +1,4 @@
-# Samba 4 alpha 6
+## Samba 4 alpha 6
 
 A quick view on Samba 4 alpha 6 (January 2009). You can also follow this
 guide http://wiki.samba.org/index.php/Samba4/HOWTO

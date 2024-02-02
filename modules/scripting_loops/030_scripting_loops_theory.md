@@ -1,4 +1,4 @@
-# test \[ \]
+## test \[ \]
 
 The `test` command can test whether something is true or
 false. Let\'s start by testing whether 10 is greater than 55.
@@ -53,7 +53,7 @@ Tests can be combined with logical AND and OR.
     paul@RHEL8b:~$ [ 66 -gt 55 -o 660 -lt 500 ] && echo true || echo false
     true
 
-# if then else
+## if then else
 
 The `if then else` construction is about choice. If a
 certain condition is met, then execute something, else execute something
@@ -76,7 +76,7 @@ If we name the above script \'choice\', then it executes like this.
     isit.txt exists!
     [paul@RHEL8a scripts]$
 
-# if then elif
+## if then elif
 
 You can nest a new `if` inside an `else` with `elif`. This
 is a simple example.
@@ -93,7 +93,7 @@ is a simple example.
       echo "Not enough."
     fi
 
-# for loop
+## for loop
 
 The example below shows the syntax of a classical
 `for loop` in bash.
@@ -131,7 +131,7 @@ the instruction on the command line has identical functionality.
     kahlan@solexp11$ ls                                                 
     count.ksh  count.ksh.backup  go.ksh  go.ksh.backup 
 
-# while loop
+## while loop
 
 Below a simple example of a `while loop`.
 
@@ -154,7 +154,7 @@ shells.
      sleep 1
     done
 
-# until loop
+## until loop
 
 Below a simple example of an `until loop`.
 

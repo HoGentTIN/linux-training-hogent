@@ -1,4 +1,4 @@
-# lsof
+## lsof
 
 List open files with `lsof`.
 
@@ -61,7 +61,7 @@ To see all open files, but not those open by root:
 
     lsof -u^root
 
-# fuser
+## fuser
 
 The `fuser` command will display the \'user\' of a file
 system.
@@ -121,7 +121,7 @@ specific file.
     UID        PID  PPID  C STIME TTY          TIME CMD
     root     13938  3110  0 15:47 pts/0    00:00:00 vi /srv/project33/busyfile.txt
 
-# chroot
+## chroot
 
 The `chroot` command creates a shell with an alternate
 root directory. It effectively hides anything outside of this directory.
@@ -177,7 +177,7 @@ To exit the `chrooted` file system:
     boot  etc     initrd.img  media  proc  sbin     sys  var
     dev   file42  lib         mnt    root  selinux  tmp  vmlinuz
 
-# iostat
+## iostat
 
 `iostat` reports IO statitics every given period of time.
 It also includes a small cpu usage summary. This example shows `iostat`
@@ -240,7 +240,7 @@ Or to show statistics per partition:
 
     iostat -p sde -p sdf 5
 
-# iotop
+## iotop
 
 `iotop` works like the `top` command but orders processes
 by input/output instead of by CPU.
@@ -294,7 +294,7 @@ can be omitted). The `-a` switch accumulates I/O over time.
      5216 be/4 vagrant       0.00 B    920.69 M  0.00 %  0.00 % gzip
     Total DISK READ: 21.71 M/s | Total DISK WRITE: 11.99 M/s
 
-# vmstat
+## vmstat
 
 While `vmstat` is mainly a memory monitoring tool, it is
 worth mentioning here for its reporting on summary I/O data for block

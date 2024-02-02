@@ -1,6 +1,6 @@
-# file ownership
+## file ownership
 
-## user owner and group owner
+### user owner and group owner
 
 The `users` and `groups` of a system can be locally managed in
 `/etc/passwd` and `/etc/group`, or they can
@@ -23,7 +23,7 @@ snooker, file2 by the group tennis.
 The last file is called stuff.txt and is owned by the root user and the
 root group.
 
-## listing user accounts
+### listing user accounts
 
 You can use the following command to list all local user accounts.
 
@@ -51,7 +51,7 @@ You can use the following command to list all local user accounts.
     statd           joost           marc            bjorn           tom2
     sshd            arno            thomas          ronald
 
-## chgrp
+### chgrp
 
 You can change the group owner of a file using the `chgrp`
 command.
@@ -63,7 +63,7 @@ command.
     -rw-r--r--. 1 root snooker 185 Apr  8 18:46 file2
     root@rhel65:/home/paul/owners#
 
-## chown
+### chown
 
 The user owner of a file can be changed with `chown`
 command.
@@ -83,7 +83,7 @@ owner.
     root@laika:/home/paul# ls -l FileForPaul 
     -rw-r--r-- 1 root project42 0 2008-08-06 14:11 FileForPaul
 
-# list of special files
+## list of special files
 
 When you use `ls -l`, for each file you can see ten
 characters before the user and group owner. The first character tells us
@@ -126,9 +126,9 @@ And here you can see a directory, a regular file and a symbolic link.
     -rw-r--r--   1 root root   372 Dec 10 17:36 /etc/hosts
     lrwxrwxrwx   1 root root    13 Dec  5 10:36 /etc/motd -> /var/run/motd
 
-# permissions
+## permissions
 
-## rwx
+### rwx
 
 The nine characters following the file type denote the permissions in
 three triplets. A permission can be `r` for read access, `w` for write
@@ -150,7 +150,7 @@ files from a directory.
 
   : standard Unix file permissions
 
-## three sets of rwx
+### three sets of rwx
 
 We already know that the output of `ls -l` starts with ten
 characters for each file. This screenshot shows a regular file (because
@@ -187,7 +187,7 @@ When you are not the `user owner` of a file and you do not belong to the
 `group owner`, then the `others permissions` apply to you. The rest of
 the permissions have no influence on your access to the file.
 
-## permission examples
+### permission examples
 
 Some example combinations on files and directories are seen in this
 screenshot. The name of the file explains the permissions.
@@ -208,7 +208,7 @@ specifies permissions for all members of that group. The third triplet
 defines permissions for all `other` users that are not the user owner
 and are not a member of the group owner.
 
-## setting permissions (chmod)
+### setting permissions (chmod)
 
 Permissions can be changed with `chmod`. The first example
 gives the user owner execute permissions.
@@ -261,7 +261,7 @@ Even fishy combinations are accepted by chmod.
     paul@laika:~/perms$ ls -l permissions.txt 
     -rwxrw-r-- 1 paul paul 0 2007-02-07 22:34 permissions.txt
 
-## setting octal permissions
+### setting octal permissions
 
 Most Unix administrators will use the `old school` octal
 system to talk about and set permissions. Look at the triplet bitwise,
@@ -303,7 +303,7 @@ these numbers.
     paul@laika:~/perms$ ls -l permissions.txt 
     -rwxr-x--- 1 paul paul 0 2007-02-07 22:34 permissions.txt
 
-## umask
+### umask
 
 When creating a file or directory, a set of default permissions are
 applied. These default permissions are determined by the
@@ -325,7 +325,7 @@ executable by default. You have to explicitly do a
 the 1 bit in the `umask` has no meaning\--a `umask` of 0022 is the same
 as 0033.
 
-## mkdir -m
+### mkdir -m
 
 When creating directories with `mkdir` you can use the
 `-m` option to set the `mode`. This screenshot explains.
@@ -336,7 +336,7 @@ When creating directories with `mkdir` you can use the
     drwx------ 2 paul paul 4096 2011-10-16 19:16 MyDir/
     drwxrwxrwx 2 paul paul 4096 2011-10-16 19:16 Public/
 
-## cp -p
+### cp -p
 
 To preserve permissions and time stamps from source files, use `cp -p`.
 

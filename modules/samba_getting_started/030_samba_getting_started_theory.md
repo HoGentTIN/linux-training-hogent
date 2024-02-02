@@ -1,6 +1,6 @@
-# /etc/samba/smb.conf
+## /etc/samba/smb.conf
 
-## smbd -b
+### smbd -b
 
 Samba configuration is done in the `smb.conf` file. The
 file can be edited manually, or you can use a web based interface like
@@ -10,7 +10,7 @@ You can find the exact location with `smbd -b`.
     [root@RHEL8b ~]# smbd -b | grep CONFIGFILE
     CONFIGFILE: /etc/samba/smb.conf
 
-## the default smb.conf
+### the default smb.conf
 
 The default smb.conf file contains a lot of examples with explanations.
 
@@ -23,7 +23,7 @@ explanations.
     paul@laika:~$ ls -l /etc/samba/smb.conf 
     -rw-r--r-- 1 root root 10515 2007-05-24 00:21 /etc/samba/smb.conf
 
-## minimal smb.conf
+### minimal smb.conf
 
 Below is an example of a very minimalistic `smb.conf`. It allows samba
 to start, and to be visible to other computers (Microsoft shows
@@ -35,7 +35,7 @@ computers in Network Neighborhood or My Network Places).
     [firstshare]
     path = /srv/samba/public
 
-## net view
+### net view
 
 Below is a screenshot of the `net view` command on
 Microsoft Windows Server 2003 sp2. It shows how a Red Hat Enterprise
@@ -50,7 +50,7 @@ smb.conf, are visible to Microsoft computers nearby.
     \\W2003                                                                        
     The command completed successfully.
 
-## long lines in smb.conf
+### long lines in smb.conf
 
 Some parameters in smb.conf can get a long list of values behind them.
 You can continue a line (for clarity) on the next by ending the line
@@ -60,7 +60,7 @@ with a backslash.
                   Kim, Justine, Sabine \
                   Amelie, Marie, Suzanne
 
-## curious smb.conf
+### curious smb.conf
 
 Curious but true: smb.conf accepts synonyms like `create mode` and
 `create mask`, and (sometimes) minor spelling errors like `browsable`
@@ -68,7 +68,7 @@ and `browseable`. And on occasion you can even switch words, the
 `guest only` parameter is identical to `only guest`. And
 `writable = yes` is the same as `readonly = no`.
 
-## man smb.conf
+### man smb.conf
 
 You can access a lot of documentation when typing
 `man smb.conf`.
@@ -86,9 +86,9 @@ You can access a lot of documentation when typing
     tdbbackup        (8)  - tool for backing up and ... of samba .tdb files
     [root@RHEL8b samba]#
 
-# /usr/bin/testparm
+## /usr/bin/testparm
 
-## syntax check smb.conf
+### syntax check smb.conf
 
 To verify the syntax of the smb.conf file, you can use
 `testparm`.
@@ -100,7 +100,7 @@ To verify the syntax of the smb.conf file, you can use
     Server role: ROLE_STANDALONE
     Press enter to see a dump of your service definitions
 
-## testparm -v
+### testparm -v
 
 An interesting option is `testparm -v`, which will output
 all the global options with their default value.
@@ -128,7 +128,7 @@ all the global options with their default value.
 There were about 350 default values for smb.conf parameters in Samba
 3.0.x. This number grew to almost 400 in Samba 3.5.x.
 
-## testparm -s
+### testparm -s
 
 The samba daemons are constantly (once every 60 seconds) checking the
 smb.conf file, so it is good practice to keep this file small. But it is
@@ -173,9 +173,9 @@ option are no longer there.
     path = /srv/samba/public
     [root@RHEL8b samba]#
 
-# /usr/bin/smbclient
+## /usr/bin/smbclient
 
-## smbclient looking at Samba
+### smbclient looking at Samba
 
 With `smbclient` you can see browsing and share
 information from your smb server. It will display all your shares, your
@@ -204,7 +204,7 @@ the name of the host to check.
     ---------            -------
     WORKGROUP            WINXP
 
-## smbclient anonymous
+### smbclient anonymous
 
 The screenshot below uses `smbclient` to display information about a
 remote smb server (in this case a computer with Ubuntu 11.10).
@@ -228,7 +228,7 @@ remote smb server (in this case a computer with Ubuntu 11.10).
         LINUXTR              DEBIAN6
         WORKGROUP            UBU1110
 
-## smbclient with credentials
+### smbclient with credentials
 
 Windows versions after xp sp2 and 2003 sp1 do not accept guest access
 (the NT_STATUS_ACCESS_DENIED error). This example shows how to provide
@@ -244,7 +244,7 @@ credentials with `smbclient`.
         ADMIN$          Disk      Remote Admin
     ...  
 
-# /usr/bin/smbtree
+## /usr/bin/smbtree
 
 Another useful tool to troubleshoot Samba or simply to browse the SMB
 network is `smbtree`. In its simplest form, smbtree will
@@ -357,7 +357,7 @@ Administrator credentials (which are the same on all computers).
 As you can see, this gives a very nice overview of all SMB computers and
 their shares.
 
-# server string
+## server string
 
 The comment seen by the `net view` and the `smbclient`
 commands is the default value for the `server string` option. Simply
@@ -378,7 +378,7 @@ computers.
     \\RHEL53               Red Hat Server in Paris                                 
     \\W2003
 
-# Samba Web Administration Tool (SWAT)
+## Samba Web Administration Tool (SWAT)
 
 Samba comes with a web based tool to manage your samba configuration
 file. `SWAT` is accessible with a web browser on port 901

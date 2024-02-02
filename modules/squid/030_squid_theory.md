@@ -1,4 +1,4 @@
-# installing squid
+## installing squid
 
 This screenshot shows how to install squid on Debian with `aptitude`.
 Use `yum` if you are on Red Hat/CentOS.
@@ -24,7 +24,7 @@ in great detail.
     root@debian10:~# wc -l /etc/squid/squid.conf
     4948 /etc/squid/squid.conf
 
-# port 3128
+## port 3128
 
 By default the `squid proxy server` will lsiten to `port 3128`.
 
@@ -32,7 +32,7 @@ By default the `squid proxy server` will lsiten to `port 3128`.
     http_port 3128
     root@debian10:~#
 
-# starting and stopping
+## starting and stopping
 
 You can manage `squid` with the standard `service` command as shown in
 this screenshot.
@@ -47,7 +47,7 @@ this screenshot.
     Stopping Squid HTTP proxy: squid.
     root@debian10:~#
 
-# client proxy settings
+## client proxy settings
 
 To enable a proxy server in `Firefox` or `Iceweasel` go to
 `Edit Preferences` and configure as shown in this screenshot (replace
@@ -71,7 +71,7 @@ message similar to this screenshot.
 
 ![](images/chromium_noproxy.png)
 
-# upside down images
+## upside down images
 
 A proxy server sits inbetween your browser and the internet. So besides
 caching of internet data (the original function of a proxy server) and
@@ -152,7 +152,7 @@ Test that it works after restarting `squid` and `apache2`.
 
 ![](images/proxy_upsidedown_xkcd.png)
 
-# /var/log/squid
+## /var/log/squid
 
 The standard log file location for squid is
 `/var/log/squid`.
@@ -162,7 +162,7 @@ The standard log file location for squid is
     # cache_log /var/log/squid/cache.log
     # cache_store_log /var/log/squid/store.log
 
-# access control
+## access control
 
 The default squid setup only allows localhost access. To enable access
 for a private network range, look for the \"INSERT YOUR OWN RULE(S)
@@ -174,7 +174,7 @@ screenshot below.
     acl company_network src 192.168.1.0/24
     http_access allow company_network
 
-# testing squid
+## testing squid
 
 First, make sure that the server running squid has access to the
 internet.
@@ -200,7 +200,7 @@ simplify the screenshot).
     -rw-r--r-- 1 root root 2269 Sep 18  2008 index.html
     [root@RHEL5 ~]#
 
-# name resolution
+## name resolution
 
 You need name resolution working on the `squid` server, but you don\'t
 need name resolution on the clients.

@@ -1,4 +1,4 @@
-# solution: troubleshooting tools
+## solution: troubleshooting tools
 
 0\. It is imperative that you practice these tools `before` trouble
 arises. It will help you get familiar with the tools and allow you to

@@ -1,6 +1,6 @@
-# changes in smb.conf
+## changes in smb.conf
 
-## workgroup
+### workgroup
 
 The `workgroup` option in the global section should match the netbios
 name of the Active Directory domain.
@@ -8,7 +8,7 @@ name of the Active Directory domain.
     workgroup = STARGATE
             
 
-## security mode
+### security mode
 
 Authentication will not be handled by samba now, but by the Active
 Directory domain controllers, so we set the `security` option to domain.
@@ -16,7 +16,7 @@ Directory domain controllers, so we set the `security` option to domain.
     security = Domain
             
 
-## Linux uid\'s
+### Linux uid\'s
 
 Linux requires a user account for every user accessing its file system,
 we need to provide Samba with a range of uid\'s and gid\'s that it can
@@ -28,7 +28,7 @@ The first Active Directory user to connect will receive Linux uid 20000.
     idmap gid = 20000-22000
             
 
-## winbind use default domain
+### winbind use default domain
 
 The `winbind use default domain` parameter makes sure
 winbind also operates on users without a domain component in their name.
@@ -36,7 +36,7 @@ winbind also operates on users without a domain component in their name.
     winbind use default domain = yes
             
 
-## \[global\] section in smb.conf
+### \[global\] section in smb.conf
 
 Below is our new global section in `smb.conf`.
 
@@ -49,7 +49,7 @@ Below is our new global section in `smb.conf`.
      winbind use default domain = yes
             
 
-## realm in /etc/krb5.conf
+### realm in /etc/krb5.conf
 
 To connect to a Windows 2003 sp2 (or later) you will need to adjust the
 kerberos realm in `/etc/krb5.conf` and set both lookup statements to
@@ -61,7 +61,7 @@ true.
      dns_lookup_kdc = true
             
 
-## \[share\] section in smb.conf
+### \[share\] section in smb.conf
 
 Nothing special is required for the share section in smb.conf. Remember
 that we do not manually create users in smbpasswd or on the Linux
@@ -73,7 +73,7 @@ that we do not manually create users in smbpasswd or on the Linux
      read only = No
             
 
-# joining an Active Directory domain
+## joining an Active Directory domain
 
 While the Samba server is stopped, you can use
 `net rpc join` to join the Active Directory domain.
@@ -91,9 +91,9 @@ computer account is created for this samba server.
 
 ![](images/sambacomputeraccount.jpg)
 
-# winbind
+## winbind
 
-## adding winbind to nsswitch.conf
+### adding winbind to nsswitch.conf
 
 The `winbind daemon` is talking with the Active Directory
 domain.
@@ -108,7 +108,7 @@ user group and host names can be resolved against the winbind daemon.
     hosts:      files dns winbind
             
 
-## starting samba and winbindd
+### starting samba and winbindd
 
 Time to start Samba followed by `winbindd`.
 
@@ -120,9 +120,9 @@ Time to start Samba followed by `winbindd`.
     [root@RHEL8b samba]# 
             
 
-# wbinfo
+## wbinfo
 
-## verify the trust
+### verify the trust
 
 You can use `wbinfo -t` to verify the trust between your
 samba server and Active Directory.
@@ -131,7 +131,7 @@ samba server and Active Directory.
     checking the trust secret via RPC calls succeeded
             
 
-## list all users
+### list all users
 
 We can obtain a list of all user with the `wbinfo -u` command. The
 domain is not shown when the `winbind use default domain` parameter is
@@ -150,7 +150,7 @@ set.
     STARGATE\harry
             
 
-## list all groups
+### list all groups
 
 We can obtain a list of all domain groups with the `wbinfo -g` command.
 The domain is not shown when the `winbind use default domain` parameter
@@ -170,7 +170,7 @@ is set.
     BATMAN\dnsupdateproxy
             
 
-## query a user
+### query a user
 
 We can use `wbinfo -a` to verify authentication of a user
 against Active Directory. Assuming a user account `harry` with password
@@ -182,7 +182,7 @@ screenshot.
     challenge/response password authentication succeeded
             
 
-# getent
+## getent
 
 We can use `getent` to verify that winbindd is working and
 actually adding the Active directory users to /etc/passwd.
@@ -206,7 +206,7 @@ shown. This is because winbind is configured in
 All the Active Directory users can now easily connect to the Samba
 share. Files created by them, belong to them.
 
-# file ownership
+## file ownership
 
     [root@RHEL8b samba]# ll /srv/samba/domaindata/
     total 0

@@ -1,4 +1,4 @@
-# solution: first samba user account
+## solution: first samba user account
 
 1\. Create a user account for use with samba.
 

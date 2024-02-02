@@ -1,13 +1,13 @@
-# mounting local file systems
+## mounting local file systems
 
-## mkdir
+### mkdir
 
 This example shows how to create a new `mount point` with
 `mkdir`.
 
     root@RHELv8u2:~# mkdir /home/project42
 
-## mount
+### mount
 
 When the `mount point` is created, and a `file system` is present on the
 partition, then `mount` can `mount` the `file system` on the
@@ -17,7 +17,7 @@ partition, then `mount` can `mount` the `file system` on the
 
 Once mounted, the new file system is accessible to users.
 
-## /etc/filesystems
+### /etc/filesystems
 
 Actually the explicit `-t ext2` option to set the file system is not
 always necessary. The `mount` command is able to automatically detect a
@@ -37,7 +37,7 @@ system, then `mount` will first probe
     vfat
     hfs
 
-## /proc/filesystems
+### /proc/filesystems
 
 When `/etc/filesystems` does not exist, or ends with a single \* on the
 last line, then `mount` will read `/proc/filesystems`.
@@ -47,18 +47,18 @@ last line, then `mount` will read `/proc/filesystems`.
         iso9660
         ext3
 
-## umount
+### umount
 
 You can `unmount` a mounted file system using the `umount` command.
 
     root@pasha:~# umount /home/reet
 
-# displaying mounted file systems
+## displaying mounted file systems
 
 To display all mounted file systems, issue the `mount` command. Or look
 at the files `/proc/mounts` and `/etc/mtab`.
 
-## mount
+### mount
 
 The simplest and most common way to view all mounts is by issuing the
 `mount` command without any arguments.
@@ -66,7 +66,7 @@ The simplest and most common way to view all mounts is by issuing the
     root@RHELv8u2:~# mount | grep /dev/sdb
     /dev/sdb1 on /home/project42 type ext2 (rw)
 
-## /proc/mounts
+### /proc/mounts
 
 The kernel provides the info in `/proc/mounts` in file form, but
 `/proc/mounts` does not exist as a file on any hard disk. Looking at
@@ -76,7 +76,7 @@ kernel.
     root@RHELv8u2:~# cat /proc/mounts | grep /dev/sdb
     /dev/sdb1 /home/project42 ext2 rw 0 0
 
-## /etc/mtab
+### /etc/mtab
 
 The `/etc/mtab` file is not updated by the kernel, but is maintained by
 the `mount` command. Do not edit `/etc/mtab` manually.
@@ -84,7 +84,7 @@ the `mount` command. Do not edit `/etc/mtab` manually.
     root@RHELv8u2:~# cat /etc/mtab | grep /dev/sdb
     /dev/sdb1 /home/project42 ext2 rw 0 0
 
-## df
+### df
 
 A more user friendly way to look at mounted file systems is
 `df`. The `df (diskfree)` command has the added benefit of
@@ -107,7 +107,7 @@ commands, `df` supports the `-h` switch to make the output more
     none                  125M     0  125M   0% /dev/shm
     /dev/sdb1             107M  1.6M  100M   2% /home/project42
 
-## df -h
+### df -h
 
 In the `df -h` example below you can see the size, free
 space, used gigabytes and percentage and mount point of a partition.
@@ -116,7 +116,7 @@ space, used gigabytes and percentage and mount point of a partition.
     Filesystem            Size Used Avail Use% Mounted on
     /dev/sdb2              92G   83G  8.6G  91% /media/sdb2
 
-## du
+### du
 
 The `du` command can summarize `disk usage` for files and
 directories. By using `du` on a mount point you effectively get the disk
@@ -131,7 +131,7 @@ gives the total amount used by the file system in that partition.
     6.2M    /boot
     1.1T    /srv/wolf
 
-# from start to finish
+## from start to finish
 
 Below is a screenshot that show a summary roadmap starting with
 detection of the hardware (/dev/sdb) up until mounting on `/mnt`.
@@ -183,13 +183,13 @@ detection of the hardware (/dev/sdb) up until mounting on `/mnt`.
     20K     /mnt
     [root@centos65 ~]# umount /mnt
 
-# permanent mounts
+## permanent mounts
 
 Until now, we performed all mounts manually. This works nice, until the
 next reboot. Luckily there is a way to tell your computer to
 automatically mount certain file systems during boot.
 
-## /etc/fstab
+### /etc/fstab
 
 The file system table located in `/etc/fstab` contains a
 list of file systems, with an option to automtically mount each of them
@@ -211,7 +211,7 @@ system.
 
     /dev/sdb1                /home/project42      ext2    defaults    0 0
 
-## mount /mountpoint
+### mount /mountpoint
 
 Adding an entry to `/etc/fstab` has the added advantage that you can
 simplify the `mount` command. The command in the screenshot below forces
@@ -219,12 +219,12 @@ simplify the `mount` command. The command in the screenshot below forces
 
     root@rhel65:~# mount /home/project42
 
-# securing mounts
+## securing mounts
 
 File systems can be secured with several `mount options`. Here are some
 examples.
 
-## ro
+### ro
 
 The `ro` option will mount a file system as read only, preventing anyone
 from writing.
@@ -233,7 +233,7 @@ from writing.
     root@rhel53 ~# touch /home/project42/testwrite
     touch: cannot touch `/home/project42/testwrite': Read-only file system
 
-## noexec
+### noexec
 
 The `noexec` option will prevent the execution of binaries
 and scripts on the mounted file system.
@@ -247,7 +247,7 @@ and scripts on the mounted file system.
     root@rhel53 ~# /home/project42/helloscript 
     -bash: /home/project42/helloscript: Permission denied
 
-## nosuid
+### nosuid
 
 The `nosuid` option will ignore `setuid` bit
 set binaries on the mounted file system.
@@ -271,7 +271,7 @@ But users cannot exploit the `setuid` feature.
     paul      2876  2853  0 17:58 pts/0    S      0:00 /home/project42/sleep 500
     [paul@rhel53 ~]$
 
-## noacl
+### noacl
 
 To prevent cluttering permissions with `acl's`, use the
 `noacl` option.
@@ -280,9 +280,9 @@ To prevent cluttering permissions with `acl's`, use the
 
 More `mount options` can be found in the manual page of `mount`.
 
-# mounting remote file systems
+## mounting remote file systems
 
-## smb/cifs
+### smb/cifs
 
 The Samba team (samba.org) has a Unix/Linux service that is compatible
 with the SMB/CIFS protocol. This protocol is mainly used by networked
@@ -301,7 +301,7 @@ named `data2`.
 
 The above requires `yum install cifs-client`.
 
-## nfs
+### nfs
 
 Unix servers often use `nfs` (aka the network file system) to share
 directories over the network. Setting up an nfs server is discussed
@@ -322,7 +322,7 @@ If this `server42` has ip-address `10.0.0.42` then you can also write:
     10.0.0.42:/srv/data on /home/data type nfs (rw,vers=4,addr=10.0.0.42,clienta\
     ddr=10.0.0.33)
 
-## nfs specific mount options
+### nfs specific mount options
 
     bg If mount fails, retry in background.
     fg (default)If mount fails, retry in foreground.

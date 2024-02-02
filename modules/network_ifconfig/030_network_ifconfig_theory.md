@@ -1,4 +1,4 @@
-# to gui or not to gui
+## to gui or not to gui
 
 Recent Linux distributions often include a graphical application to
 configure the network. Some people complain that these applications mess
@@ -20,14 +20,14 @@ networking on two (large but distinct) Linux distribution families.
 We start with `Debian` (this should also work on Ubuntu and Mint), then
 continue with `RHEL` (which is identical to CentOS and Fedora).
 
-# Debian nic configuration
+## Debian nic configuration
 
-## /etc/network/interfaces
+### /etc/network/interfaces
 
 The `/etc/network/interfaces` file is a core network
 interface card configuration file on `debian`.
 
-### dhcp client
+#### dhcp client
 
 The screenshot below shows that our computer is configured for
 `dhcp` on `eth0` (the first network
@@ -47,7 +47,7 @@ interface card or nic).
 Configuring network cards for `dhcp` is good practice for clients, but
 servers usually require a `fixed ip address`.
 
-### fixed ip
+#### fixed ip
 
 The screenshot below shows `/etc/network/interfaces` configured with a
 `fixed ip address`.
@@ -67,7 +67,7 @@ The screenshot above also shows that you can provide more configuration
 than just the ip address. See `interfaces(5)` for help on setting a
 `gateway`, `netmask` or any of the other options.
 
-## /sbin/ifdown
+### /sbin/ifdown
 
 It is adviced (but not mandatory) to down an interface before changing
 its configuration. This can be done with the `ifdown`
@@ -89,7 +89,7 @@ fixed ip address. However `ifconfig` will no longer show the interface.
 
 An interface that is down cannot be used to connect to the network.
 
-## /sbin/ifup
+### /sbin/ifup
 
 Below a screenshot of `ifup` bringing the `eth0` ethernet
 interface up using dhcp. (Note that this is a Ubuntu 10.10 screenshot,
@@ -118,9 +118,9 @@ Ubuntu 11.04 omits `ifup` output by default.)
 The details of `dhcp` are covered in a separate chapter in the
 `Linux Servers` course.
 
-# RHEL nic configuration
+## RHEL nic configuration
 
-## /etc/sysconfig/network
+### /etc/sysconfig/network
 
 The `/etc/sysconfig/network` file is a global (across all
 network cards) configuration file. It allows us to define whether we
@@ -141,14 +141,14 @@ install (with networking enabled).
     [root@rhel76 ~]# cat /etc/sysconfig/network
     # Created by anaconda
 
-## /etc/sysconfig/network-scripts/ifcfg-
+### /etc/sysconfig/network-scripts/ifcfg-
 
 Each network card can be configured individually using the
 `/etc/sysconfig/network-scripts/ifcfg-*` files. When you
 have only one network card, then this will probably be
 `/etc/sysconfig/network-scripts/ifcfg-eth0`.
 
-### dhcp client
+#### dhcp client
 
 Below a screenshot of `/etc/sysconfig/network-scripts/ifcfg-eth0`
 configured for dhcp (BOOTPROTO=\"dhcp\"). Note also the NM_CONTROLLED
@@ -189,7 +189,7 @@ RHEL7 adds `ipv6` variables to this file.
     ONBOOT="yes"
     [root@rhel71 network-scripts]#
 
-### fixed ip
+#### fixed ip
 
 Below a screenshot of a `fixed ip` configuration in
 `/etc/sysconfig/network-scripts/ifcfg-eth0`.
@@ -213,7 +213,7 @@ in the same `ifcfg-ethx` file.
 The BROADCAST= and NETWORK= parameters from previous RHEL/Fedora
 versions are obsoleted.
 
-## nmcli
+### nmcli
 
 On RHEL7 you should run `nmcli connection reload` if you changed
 configuration files in `/etc/sysconfig/` to enable your changes.
@@ -223,7 +223,7 @@ line in RHEL7/CentOS8
 
     man nmcli
 
-## nmtui
+### nmtui
 
 Another recommendation for RHEL7/CentOS8 is to use `nmtui`. This tool
 will use a \'windowed\' interface in command line to manage network
@@ -231,7 +231,7 @@ interfaces.
 
     nmtui
 
-## /sbin/ifup and /sbin/ifdown
+### /sbin/ifup and /sbin/ifdown
 
 The `ifup` and `ifdown` commands will set an
 interface up or down, using the configuration discussed above. This is
@@ -248,7 +248,7 @@ identical to their behaviour in Debian and Ubuntu.
          collisions:0 txqueuelen:1000 
          RX bytes:257036 (251.0 KiB)  TX bytes:184767 (180.4 KiB)
 
-# ifconfig
+## ifconfig
 
 The use of `/sbin/ifconfig` without any arguments will
 present you with a list of all active network interface cards, including
@@ -309,7 +309,7 @@ will have to type the full path, as seen here on Debian.
          collisions:0 txqueuelen:1000 
          RX bytes:13095386 (12.4 MiB)  TX bytes:25767221 (24.5 MiB)
 
-## up and down
+### up and down
 
 You can also use `ifconfig` to bring an interface up or
 down. The difference with `ifup` is that
@@ -330,7 +330,7 @@ bring the interface up.
          collisions:0 txqueuelen:1000 
          RX bytes:339030 (331.0 KiB)  TX bytes:191583 (187.0 KiB)
 
-## setting ip address
+### setting ip address
 
 You can `temporary` set an ip address with `ifconfig`. This ip address
 is only valid until the next `ifup/ifdown` cycle or until
@@ -345,7 +345,7 @@ the next `reboot`.
     [root@rhel610 ~]# ifconfig eth0 | grep 192
          inet addr:192.168.1.99  Bcast:192.168.1.255  Mask:255.255.255.0
 
-## setting mac address
+### setting mac address
 
 You can also use `ifconfig` to set another `mac address`
 than the one hard coded in the network card. This screenshot shows you
@@ -357,7 +357,7 @@ how.
     [root@rhel610 ~]# ifconfig eth0 | grep HWaddr
     eth0 Link encap:Ethernet  HWaddr 00:42:42:42:42:42
 
-# ip
+## ip
 
 The `ifconfig` tool is deprecated on some systems. Use the `ip` tool
 instead.
@@ -379,7 +379,7 @@ To see ip addresses on RHEL7 for example, use this command:
            valid_lft forever preferred_lft forever
     [root@rhel76 ~]#
 
-# dhclient
+## dhclient
 
 Home and client Linux desktops often have `/sbin/dhclient`
 running. This is a daemon that enables a network interface to lease an
@@ -390,7 +390,7 @@ is configured for `dhcp` or `bootp`, then `/sbin/ifup` will start the
 When a lease is renewed, `dhclient` will override your `ifconfig` set ip
 address!
 
-# hostname
+## hostname
 
 Every host receives a `hostname`, often placed in a
 `DNS name space` forming the `fqdn` or Fully Qualified
@@ -438,7 +438,7 @@ hostname.
     [root@rhel610 ~]# hostname
     rhel610
 
-# arp
+## arp
 
 The `ip to mac` resolution is handled by the `layer two broadcast`
 protocol `arp`. The `arp table` can be displayed with the
@@ -482,7 +482,7 @@ You can use `arp -d` to remove an entry from the
     ubuntu1604          ether   00:26:bb:12:7a:5e   C                eth0
     anya                ether   00:02:cf:aa:68:f0   C                eth0
 
-# route
+## route
 
 You can see the computer\'s local routing table with the
 `/sbin/route` command (and also with
@@ -514,7 +514,7 @@ Unless you configure the gateway in one of the `/etc/` file from the
 start of this chapter, your computer will forget this `gateway` after a
 reboot.
 
-# ping
+## ping
 
 If you can `ping` to another host, then `tcp/ip` is
 configured.
@@ -531,7 +531,7 @@ configured.
     rtt min/avg/max/mdev = 0.419/251.574/1004.186/434.520 ms, pipe 2
     [root@rhel610 ~]#
 
-# optional: ethtool
+## optional: ethtool
 
 To display or change network card settings, use `ethtool`.
 The results depend on the capabilities of your network card. The example

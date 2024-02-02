@@ -1,6 +1,6 @@
-# binding on Redhat/Fedora
+## binding on Redhat/Fedora
 
-## binding extra ip addresses
+### binding extra ip addresses
 
 To bind more than one `ip address` to the same interface,
 use `ifcfg-eth0:0`, where the last zero can be anything
@@ -13,7 +13,7 @@ else. Only two directives are required in the files.
     DEVICE="eth0:0"
     IPADDR="192.168.1.142"
 
-## enabling extra ip-addresses
+### enabling extra ip-addresses
 
 To activate a virtual network interface, use `ifup`, to
 deactivate it, use `ifdown`.
@@ -30,7 +30,7 @@ deactivate it, use `ifdown`.
               inet addr:192.168.1.142  Bcast:192.168.1.255  Mask:255.255.255.0
               inet addr:127.0.0.1  Mask:255.0.0.0
 
-## verifying extra ip-addresses
+### verifying extra ip-addresses
 
 Use `ping` from another computer to check the activation, or use
 `ifconfig` like in this screenshot.
@@ -53,9 +53,9 @@ Use `ping` from another computer to check the activation, or use
            inet addr:192.168.1.142  Bcast:192.168.1.255  Mask:255.255.255.0
            UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
 
-# binding on Debian/Ubuntu
+## binding on Debian/Ubuntu
 
-## binding extra ip addresses
+### binding extra ip addresses
 
 The configuration of multiple ip addresses on the same network card is
 done in `/etc/network/interfaces` by adding `eth0:x`
@@ -87,14 +87,14 @@ devices. Adding the `netmask` is mandatory.
     address 192.168.1.242
     netmask 255.255.255.0
 
-## enabling extra ip-addresses
+### enabling extra ip-addresses
 
 Use `ifup` to enable the extra addresses.
 
     debian10:~# ifup eth0:0
     debian10:~# ifup eth0:1
 
-## verifying extra ip-addresses
+### verifying extra ip-addresses
 
 Use `ping` from another computer to check the activation, or use
 `ifconfig` like in this screenshot.
@@ -105,7 +105,7 @@ Use `ping` from another computer to check the activation, or use
           inet addr:192.168.1.242  Bcast:192.168.1.255  Mask:255.255.255.0
           inet addr:127.0.0.1  Mask:255.0.0.0
 
-# bonding on Redhat/Fedora
+## bonding on Redhat/Fedora
 
 We start with `ifconfig -a` to get a list of all the
 network cards on our system.
@@ -189,7 +189,7 @@ The `bond` should also be visible in `/proc/net/bonding`.
     Link Failure Count: 0
     Permanent HW addr: 08:00:27:40:03:3b
 
-# bonding on Debian/Ubuntu
+## bonding on Debian/Ubuntu
 
 We start with `ifconfig -a` to get a list of all the
 network cards on our system.

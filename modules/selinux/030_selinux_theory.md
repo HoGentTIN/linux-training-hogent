@@ -1,4 +1,4 @@
-# selinux modes
+## selinux modes
 
 `selinux` knows three modes: enforcing, permissive and disabled. The
 `enforcing` mode will enforce policies, and may deny access based on
@@ -6,7 +6,7 @@
 can still log actions that would have been denied in `enforcing` mode.
 The `disabled` mode disables `selinux`.
 
-# logging
+## logging
 
 Verify that `syslog` is running and activated on boot to enable logging
 of deny messages in `/var/log/messages`.
@@ -42,7 +42,7 @@ Or that it is enabled.
     root@deb106:~# grep SELinux /var/log/messages | grep -i Init
     Jun 25 15:09:52 deb106 kernel: [    0.084094] SELinux:  Initializing.
 
-# activating selinux
+## activating selinux
 
 On RHEL you can use the GUI tool to activate `selinux`, on Debian there
 is the `selinux-activate` command. Activation requires a
@@ -59,7 +59,7 @@ reboot.
 
     SE Linux is activated.  You may need to reboot now.
 
-# getenforce
+## getenforce
 
 Use `getenforce` to verify whether selinux is `enforced`,
 `disabled` or `permissive`.
@@ -73,7 +73,7 @@ permissive mode is active.
     root@fedora13 ~# cat /selinux/enforce 
     1root@fedora13 ~#
 
-# setenforce
+## setenforce
 
 You can use `setenforce` to switch between the
 `Permissive` or the `Enforcing` state once `selinux` is activated..
@@ -95,7 +95,7 @@ Or you could just use 0 and 1 as argument.
     Permissive
     [root@centos65 ~]#
 
-# sestatus
+## sestatus
 
 You can see the current `selinux` status and policy with
 the `sestatus` command.
@@ -108,7 +108,7 @@ the `sestatus` command.
     Policy version:                 21
     Policy from config file:        targeted
 
-# policy
+## policy
 
 Most Red Hat server will have the `targeted` policy. Only
 NSA/FBI/CIA/DOD/HLS use the `mls` policy.
@@ -116,7 +116,7 @@ NSA/FBI/CIA/DOD/HLS use the `mls` policy.
 The targted policy will protect hundreds of processes, but lets other
 processes run \'unconfined\' (= they can do anything).
 
-# /etc/selinux/config
+## /etc/selinux/config
 
 The main configuration file for `selinux` is
 `/etc/selinux/config`. When in `permissive` mode, the file
@@ -136,7 +136,7 @@ The targeted policy is selected in `/etc/selinux/config`.
     #       strict - Full SELinux protection.
     SELINUXTYPE=targeted
 
-# DAC or MAC
+## DAC or MAC
 
 Standard Unix permissions use `Discretionary Access Control` to set
 permissions on files. This means that a user that owns a file, can make
@@ -157,7 +157,7 @@ The format of the labels is as follows:
 
 We only use the `type` label in the targeted policy.
 
-# ls -Z
+## ls -Z
 
 To see the DAC permissions on a file, use `ls -l` to display user and
 group `owner` and permissions.
@@ -175,7 +175,7 @@ of `admin_home_t`.
     [root@centos65 ~]# ls -Z /home/pol/.bashrc
     -rw-r--r--. pol pol unconfined_u:object_r:user_home_t:s0 /home/pol/.bashrc
 
-# -Z
+## -Z
 
 There are also some other tools with the -Z switch:
 
@@ -185,7 +185,7 @@ There are also some other tools with the -Z switch:
     netstat -Z
     ...
 
-# /selinux
+## /selinux
 
 When selinux is active, there is a new virtual file system named
 `/selinux`. (You can compare it to /proc and /dev.)
@@ -225,7 +225,7 @@ see if selinux is running in enforced mode.
     [root@RHEL5 ~]# echo $(cat /selinux/enforce) 
     1
 
-# identity
+## identity
 
 The `SELinux Identity` of a user is distinct from the user
 ID. An identity is part of a security context, and (via domains)
@@ -235,13 +235,13 @@ identity `user_u`.
     [root@rhel55 ~]# id -Z
     user_u:system_r:unconfined_t
 
-# role
+## role
 
 The `selinux role` defines the domains that can be used. A
 `role` is denied to enter a domain, unless the `role` is explicitely
 authorized to do so.
 
-# type (or domain)
+## type (or domain)
 
 The `selinux context` is the security context of a
 process. An `selinux type` determines what a process can do. The
@@ -300,7 +300,7 @@ You can also get a list of ports that are managed by SELinux:
     zented_port_t                  udp      1229
     zope_port_t                    tcp      8021
 
-# security context
+## security context
 
 The combination of identity, role and domain or type make up the
 `selinux security context`. The `id` will show you your
@@ -336,7 +336,7 @@ type of `/proc/1/` are both `init_t`.
 
 Don\'t try to use `chcon` on /proc! It will not work.
 
-# transition
+## transition
 
 An `selinux transition` (aka an selinux labelling)
 determines the security context that will be assigned. A transition of
@@ -351,7 +351,7 @@ An example of file type transition.
     [pol@centos65 ~]$ ls -Z /tmp/test
     -rw-rw-r--. pol pol unconfined_u:object_r:user_tmp_t:s0 /tmp/test
 
-# extended attributes
+## extended attributes
 
 Extended attributes are used by `selinux` to store security contexts.
 These attributes can be viewed with `ls` when `selinux` is
@@ -374,7 +374,7 @@ to use.
     # file: hosts
     security.selinux="system_u:object_r:etc_t:s0\000"
 
-# process security context
+## process security context
 
 A new option is added to `ps` to see the selinux security
 context of processes.
@@ -384,7 +384,7 @@ context of processes.
     system_u:system_r:getty_t        2941 tty1     00:00:00 mingetty
     system_u:system_r:getty_t        2942 tty2     00:00:00 mingetty
 
-# chcon
+## chcon
 
 Use `chcon` to change the selinux security context.
 
@@ -399,7 +399,7 @@ This example shows how to use `chcon` to change the `type` of a file.
 
 Be sure to read `man chcon`.
 
-# an example
+## an example
 
 The `Apache2 webserver` is by default targeted with `SELinux`. The next
 screenshot shows that any file created in `/var/www/html` will by
@@ -483,7 +483,7 @@ The log file gives you a cryptic message\...
 
 And `/var/log/messages` mentions nothing of the failed download.
 
-# setroubleshoot
+## setroubleshoot
 
 The log file above was not very helpful, but these two packages can make
 your life much easier.
@@ -549,7 +549,7 @@ We follow the friendly advice and try again to download our file:
 
 It works!
 
-# booleans
+## booleans
 
 Booleans are on/off switches
 

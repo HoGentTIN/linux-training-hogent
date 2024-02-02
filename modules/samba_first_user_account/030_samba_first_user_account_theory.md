@@ -1,4 +1,4 @@
-# creating a samba user
+## creating a samba user
 
 We will create a user for our samba file server and make this user the
 owner of the directory and all of its files. This anonymous user gets a
@@ -12,7 +12,7 @@ clear description, but does not get a login shell.
     Retype new UNIX password: 
     passwd: all authentication tokens updated successfully.
 
-# ownership of files
+## ownership of files
 
 We can use this user as owner of files and directories, instead of using
 the root account. This approach is clear and more secure.
@@ -24,7 +24,7 @@ the root account. This approach is clear and more secure.
     drwxr-xr-x 6 sambanobody sambanobody 4096 Jan 21 06:11 ..
     -rwxr--r-- 1 sambanobody sambanobody    6 Jan 21 06:16 hoi.txt
 
-# /usr/bin/smbpasswd
+## /usr/bin/smbpasswd
 
 The sambanobody user account that we created in the previous examples is
 not yet used by samba. It just owns the files and directories that we
@@ -42,7 +42,7 @@ do this by adding the account to `smbpasswd`.
     Retype new SMB password:
     Added user sambanobody.
 
-# /etc/samba/smbpasswd
+## /etc/samba/smbpasswd
 
 To find out where Samba keeps this information (for now), use
 `smbd -b`. The PRIVATE_DIR variable will show you where
@@ -60,7 +60,7 @@ password (it is secret).
     [root@RHEL52 samba]# cat smbpasswd 
     sambanobody:503:AE9 ... 9DB309C528E540978:[U          ]:LCT-4976B05B:
 
-# passdb backend
+## passdb backend
 
 Note that recent versions of Samba have `tdbsam` as
 default for the `passdb backend` paramater.
@@ -69,7 +69,7 @@ default for the `passdb backend` paramater.
 
         passdb backend = tdbsam
 
-# forcing this user
+## forcing this user
 
 Now that Samba knows about this user, we can adjust our writable share
 to force the ownership of files created through it. For this we use the

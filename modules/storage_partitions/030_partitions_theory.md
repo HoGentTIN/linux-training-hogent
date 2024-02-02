@@ -1,6 +1,6 @@
-# about partitions
+## about partitions
 
-## primary, extended and logical
+### primary, extended and logical
 
 Linux requires you to create one or more `partitions`. The
 next paragraphs will explain how to create and use partitions.
@@ -24,7 +24,7 @@ determines the computers operating system or the partitions file system.
 
   : primary, extended and logical partitions
 
-## partition naming
+### partition naming
 
 We saw before that hard disk devices are named /dev/hdx or /dev/sdx with
 x depending on the hardware configuration. Next is the partition number,
@@ -55,9 +55,9 @@ an extended partition is a container holding logical drives.
 
 ![](images/storage_disk_partitions.png)
 
-# discovering partitions
+## discovering partitions
 
-## fdisk -l
+### fdisk -l
 
 In the `fdisk -l` example below you can see that two
 partitions exist on `/dev/sdb`. The first partition spans 31 cylinders
@@ -76,7 +76,7 @@ bigger.
     root@laika:~#       
             
 
-## /proc/partitions
+### /proc/partitions
 
 The `/proc/partitions` file contains a table with major
 and minor number of partitioned devices, their number of blocks and the
@@ -109,7 +109,7 @@ The `minor` number is a unique identification of an
 instance of this device type. The `devices.txt` file in
 the kernel tree contains a full list of major and minor numbers.
 
-## parted and others
+### parted and others
 
 You may be interested in alternatives to `fdisk` like `parted`,
 `cfdisk`, `sfdisk` and `gparted`. This course mainly uses `fdisk` to
@@ -138,14 +138,14 @@ Below a screenshot of `parted` on CentOS.
 
     (parted)
 
-# partitioning new disks
+## partitioning new disks
 
 In the example below, we bought a new disk for our system. After the new
 hardware is properly attached, you can use `fdisk` and
 `parted` to create the necessary partition(s). This
 example uses `fdisk`, but there is nothing wrong with using `parted`.
 
-## recognising the disk
+### recognising the disk
 
 First, we check with `fdisk -l` whether Linux can see the new disk. Yes
 it does, the new disk is seen as /dev/sdb, but it does not have any
@@ -168,7 +168,7 @@ partitions yet.
     Disk /dev/sdb doesn't contain a valid partition table
             
 
-## opening the disk with fdisk
+### opening the disk with fdisk
 
 Then we create a partition with fdisk on /dev/sdb. First we start the
 fdisk tool with /dev/sdb as argument. Be very very careful not to
@@ -183,7 +183,7 @@ partition the wrong disk!!
     Warning: invalid flag 0x0000 of partition table 4 will be corrected...
             
 
-## empty partition table
+### empty partition table
 
 Inside the fdisk tool, we can issue the `p` command to see
 the current disks partition table.
@@ -196,7 +196,7 @@ the current disks partition table.
             
     Device Boot      Start         End      Blocks   Id  System
 
-## create a new partition
+### create a new partition
 
 No partitions exist yet, so we issue `n` to create a new partition. We
 choose p for primary, 1 for the partition number, 1 for the start
@@ -233,7 +233,7 @@ the fdisk tool.
     Syncing disks.
     root@RHELv8u2:~#
 
-## display the new partition
+### display the new partition
 
 Let\'s verify again with `fdisk -l` to make sure reality
 fits our dreams. Indeed, the screenshot below now shows a partition on
@@ -257,9 +257,9 @@ fits our dreams. Indeed, the screenshot below now shows a partition on
     /dev/sdb1               1          14      112423+  83  Linux
     root@RHELv8u2:~#
 
-# about the partition table
+## about the partition table
 
-## master boot record
+### master boot record
 
 The `partition table` information (primary and extended
 partitions) is written in the `master boot record` or
@@ -281,7 +281,7 @@ Or to wipe out the whole partition or disk.
 
     dd if=/dev/zero of=/dev/sda
 
-## partprobe
+### partprobe
 
 Don\'t forget that after restoring a `master boot record` with `dd`,
 that you need to force the kernel to reread the partition table with
@@ -291,7 +291,7 @@ be used again.
     [root@RHEL5 ~]# partprobe 
     [root@RHEL5 ~]#
 
-## logical drives
+### logical drives
 
 The `partition table` does not contain information about
 `logical drives`. So the `dd` backup of the
@@ -309,7 +309,7 @@ The following example copies the `mbr` and all `logical drive` info from
 
     sfdisk -d /dev/sda | sfdisk /dev/sdb
 
-# GUID partition table
+## GUID partition table
 
 `gpt` was developed because of the limitations of the 1980s `mbr`
 partitioning scheme (for example only four partitions can be defined,
@@ -322,7 +322,7 @@ Newer versions of `fdisk` work fine with `gpt`, but most production
 servers today (mid 2015) still have an older `fdisk.`. You can use
 `parted` instead.
 
-# labeling with parted
+## labeling with parted
 
 `parted` is an interactive tool, just like `fdisk`. Type
 `help` in `parted` for a list of commands and options.
@@ -358,7 +358,7 @@ We create an `mbr` label.
     Yes/No? Y
     (parted)
 
-## partitioning with parted
+### partitioning with parted
 
 Once labeled it is easy to create partitions with
 `parted`. This screenshot starts with an unpartitioned

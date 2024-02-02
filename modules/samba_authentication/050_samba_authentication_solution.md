@@ -1,4 +1,4 @@
-# solution: samba authentication
+## solution: samba authentication
 
 1\. Create three users (on the Linux and on the samba), remember their
 passwords!

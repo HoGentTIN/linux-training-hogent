@@ -1,4 +1,4 @@
-# introduction
+## introduction
 
 With `libraries` we are talking about dynamically linked
 libraries (aka shared objects). These are binaries that contain
@@ -9,7 +9,7 @@ Several programs can use the same library. The name of the library file
 usually starts with `lib`, followed by the actual name of the library,
 then the chracters `.so` and finally a version number.
 
-# /lib and /usr/lib
+## /lib and /usr/lib
 
 When you look at the `/lib` or the
 `/usr/lib` directory, you will see a lot of symbolic
@@ -21,7 +21,7 @@ major version number.
     lrwxrwxrwx 1 root root   16 Feb 18 16:36 /lib/libext2fs.so.2 -> libext2fs.so.2.4
     -rwxr-xr-x 1 root root 113K Jun 30  2009 /lib/libext2fs.so.2.4
 
-# ldd
+## ldd
 
 Many programs have dependencies on the installation of certain
 libraries. You can display these dependencies with `ldd`.
@@ -38,7 +38,7 @@ This example shows the dependencies of the `su` command.
         libaudit.so.0 => /lib/libaudit.so.0 (0x0049f000)
         /lib/ld-linux.so.2 (0x4769c000)
 
-# ltrace
+## ltrace
 
 The `ltrace` program allows to see all the calls made to
 library functions by a program. The example below uses the -c option to
@@ -64,7 +64,7 @@ when executing `su - serena` as root.
     ------ ----------- ----------- --------- --------------------
     100.00    0.020079                    11 total
 
-# dpkg -S and debsums
+## dpkg -S and debsums
 
 Find out on Debian/Ubuntu to which package a library
 belongs.
@@ -95,7 +95,7 @@ Should a library be broken, then reinstall it with
       e2fslibs 
     ...
 
-# rpm -qf and rpm -V
+## rpm -qf and rpm -V
 
 Find out on Red Hat/Fedora to which package a library
 belongs.
@@ -129,7 +129,7 @@ The package verification now reports no problems with the library.
     root@rhel53 lib# rpm -V e2fsprogs-libs
     root@rhel53 lib#
 
-# tracing with strace
+## tracing with strace
 
 More detailed tracing of all function calls can be done with
 `strace`. We start by creating a read only file.

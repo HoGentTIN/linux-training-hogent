@@ -1,4 +1,4 @@
-# regex versions
+## regex versions
 
 There are three different versions of regular expression syntax:
 
@@ -18,9 +18,9 @@ The `sed` tool also has options to choose a regex syntax.
 
 `Read the manual of the tools you use!`
 
-# grep
+## grep
 
-## print lines matching a pattern
+### print lines matching a pattern
 
 `grep` is a popular Linux tool to search for lines that
 match a certain pattern. Below are some examples of the simplest
@@ -48,7 +48,7 @@ character are returned.
 The pattern matching in this example should be very straightforward; if
 the given character occurs on a line, then `grep` will return that line.
 
-## concatenating characters
+### concatenating characters
 
 Two concatenated characters will have to be concatenated in the same way
 to have a match.
@@ -66,7 +66,7 @@ V`a`lent`i`na and `in` will match Valent`in`a but not Ta`ni`a.
     Valentina
     paul@rhel65:~$
 
-## one or the other
+### one or the other
 
 PRCE and ERE both use the pipe symbol to signify OR. In this example we
 `grep` for lines containing the letter i or the letter a.
@@ -88,7 +88,7 @@ We need to `escape` the pipe symbol in a BRE to get the same logical OR.
     Tania
     Laura
 
-## one or more
+### one or more
 
 The `*` signifies zero, one or more occurences of the previous and the
 `+` signifies one or more of the previous.
@@ -109,7 +109,7 @@ The `*` signifies zero, one or more occurences of the previous and the
     loool
     paul@debian10:~$
 
-## match the end of a string
+### match the end of a string
 
 For the following examples, we will use this file.
 
@@ -131,7 +131,7 @@ the end of a string.
     Fleur
     Floor
 
-## match the start of a string
+### match the start of a string
 
 The `caret character (^)` will match a string at the start (or the
 beginning) of a line.
@@ -146,7 +146,7 @@ Given the same file as above, here are two examples.
 
 Both the dollar sign and the little hat are called `anchors` in a regex.
 
-## separating words
+### separating words
 
 Regular expressions use a `\b` sequence to reference a word separator.
 Take for example this file:
@@ -183,7 +183,7 @@ Note that `grep` also has a `-w` option to grep for words.
     Can you get over there?
     paul@debian10:~$ 
 
-## grep features
+### grep features
 
 Sometimes it is easier to combine a simple regex with `grep` options,
 than it is to write a more complex regex. These options where discussed
@@ -196,7 +196,7 @@ before:
     grep -B5
     grep -C5
 
-## preventing shell expansion of a regex
+### preventing shell expansion of a regex
 
 The dollar sign is a special character, both for the regex and also for
 the shell (remember variables and embedded shells). Therefore it is
@@ -206,9 +206,9 @@ advised to always quote the regex, this prevents shell expansion.
     Fleur
     Floor
 
-# rename
+## rename
 
-## the rename command
+### the rename command
 
 On Debian Linux the `/usr/bin/rename` command is a link to
 `/usr/bin/prename` installed by the `perl`
@@ -223,7 +223,7 @@ perl script manually).
 
 `There is often confusion on the internet about the rename command because solutions that work fine in Debian (and Ubuntu, xubuntu, Mint, ...) cannot be used in Red Hat (and CentOS, Fedora, ...).`
 
-## perl
+### perl
 
 The `rename` command is actually a perl script that uses
 `perl regular expressions`. The complete manual for these can be found
@@ -246,7 +246,7 @@ by typing `perldoc perlrequick` (after installing
 
     root@pi:~# perldoc perlrequick
 
-## well known syntax
+### well known syntax
 
 The most common use of the `rename` is to search for
 filenames matching a certain `string` and replacing this string with an
@@ -290,7 +290,7 @@ The next example shows what can go wrong with this syntax.
 
 Only the first occurrence of the searched string is replaced.
 
-## a global replace
+### a global replace
 
 The syntax used in the previous example can be described as
 `s/regex/replacement/`. This is simple and straightforward, you enter a
@@ -309,7 +309,7 @@ s signifies `switch` and g stands for `global`.
 Note that this example used the `-n` switch to show what is being done
 (instead of actually renaming the file).
 
-## case insensitive replace
+### case insensitive replace
 
 Another `modifier` that can be useful is `i`. this example shows how to
 replace a case insensitive string with another string.
@@ -321,7 +321,7 @@ replace a case insensitive string with another string.
     file1.txt  file2.txt  file3.txt
     paul@debian10:~/files$ 
 
-## renaming extensions
+### renaming extensions
 
 Command line Linux has no knowledge of MS-DOS like extensions, but many
 end users and graphical application do use them.
@@ -341,9 +341,9 @@ filename.
 Note that the `dollar sign` in the regex means `at the end`. Without the
 dollar sign this command would fail on the really.txt.txt file.
 
-# sed
+## sed
 
-## stream editor
+### stream editor
 
 The `stream editor` or short `sed` uses `regex` for stream
 editing.
@@ -363,7 +363,7 @@ be handy in some cases to improve readability.
     echo Sunday | sed 's|Sun|Mon|'
     Monday
 
-## interactive editor
+### interactive editor
 
 While `sed` is meant to be used in a stream, it can also be used
 interactively on a file.
@@ -375,7 +375,7 @@ interactively on a file.
     paul@debian10:~/files$ cat today 
     Monday
 
-## simple back referencing
+### simple back referencing
 
 The `ampersand` character can be used to reference the searched (and
 found) string.
@@ -388,7 +388,7 @@ found string.
     echo Sunday | sed 's/day/&&/'
     Sundayday
 
-## back referencing
+### back referencing
 
 Parentheses (often called round brackets) are used to group sections of
 the regex so they can leter be referenced.
@@ -400,7 +400,7 @@ Consider this simple example:
     paul@debian10:~$ echo Sunday | sed 's_\(Sun\)_\1ny \1_'
     Sunny Sunday
 
-## a dot for any character
+### a dot for any character
 
 In a `regex` a simple dot can signify any character.
 
@@ -409,7 +409,7 @@ In a `regex` a simple dot can signify any character.
     paul@debian10:~$ echo abcd-ef-gh | sed 's/....-..-../YYYY-MM-DD/'
     YYYY-MM-DD
 
-## multiple back referencing
+### multiple back referencing
 
 When more than one pair of `parentheses` is used, each of them can be
 referenced separately by consecutive numbers.
@@ -421,7 +421,7 @@ referenced separately by consecutive numbers.
 
 This feature is called `grouping`.
 
-## white space
+### white space
 
 The `\s` can refer to white space such as a space or a tab.
 
@@ -433,7 +433,7 @@ with 1 space.
     paul@debian10:~$ echo -e 'today\tis\twarm' | sed 's_\s_ _g'
     today is warm
 
-## optional occurrence
+### optional occurrence
 
 A question mark signifies that the previous is `optional`.
 
@@ -454,7 +454,7 @@ o is optional.
     lAl
     lAl
 
-## exactly n times
+### exactly n times
 
 You can demand an exact number of times the oprevious has to occur.
 
@@ -474,7 +474,7 @@ This example wants exactly three o\'s.
     lAl
     paul@debian10:~$
 
-## between n and m times
+### between n and m times
 
 And here we demand exactly from minimum 2 to maximum 3 times.
 
@@ -496,7 +496,7 @@ And here we demand exactly from minimum 2 to maximum 3 times.
     lAl
     paul@debian10:~$
 
-# bash history
+## bash history
 
 The `bash shell` can also interprete some regular
 expressions.

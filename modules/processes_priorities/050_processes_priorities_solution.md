@@ -1,4 +1,4 @@
-# solution : process priorities
+## solution : process priorities
 
 1\. Create a new directory and create six `pipes` in that directory.
 

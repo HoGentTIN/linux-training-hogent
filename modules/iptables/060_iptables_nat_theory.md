@@ -1,6 +1,6 @@
-# network address translation
+## network address translation
 
-## about NAT
+### about NAT
 
 A NAT device is a router that is also changing the source and/or target
 ip-address in packets. It is typically used to connect multiple
@@ -31,7 +31,7 @@ below shows an empty NAT table.
     target     prot opt source               destination         
     [root@RHEL5 ~]#
 
-## SNAT (Source NAT)
+### SNAT (Source NAT)
 
 The goal of source nat is to change the source address inside a packet
 before it leaves the system (e.g. to the internet). The destination will
@@ -52,7 +52,7 @@ set to 11.12.13.14. (Note that this is a one line command!)
 Of course there must exist a proper iptables filter setup to allow the
 packet to traverse from one network to the other.
 
-## SNAT example setup
+### SNAT example setup
 
 This example script uses a typical nat setup. The internal (eth0)
 network has access via SNAT to external (eth1) webservers (port 80).
@@ -74,7 +74,7 @@ network has access via SNAT to external (eth1) webservers (port 80).
     --to-source 11.12.13.14
     echo 1 > /proc/sys/net/ipv4/ip_forward
 
-## IP masquerading
+### IP masquerading
 
 IP masquerading is very similar to SNAT, but is meant for dynamic
 interfaces. Typical example are broadband \'router/modems\' connected to
@@ -86,7 +86,7 @@ one line.
 
     iptables -t nat -A POSTROUTING -o eth1 -s 10.1.1.0/24 -j MASQUERADE
 
-## DNAT (Destination NAT)
+### DNAT (Destination NAT)
 
 DNAT is typically used to allow packets from the internet to be
 redirected to an internal server (in your DMZ) and in a private address

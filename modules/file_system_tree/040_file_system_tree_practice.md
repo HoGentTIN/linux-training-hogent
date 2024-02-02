@@ -1,4 +1,4 @@
-# practice: file system tree
+## practice: file system tree
 
 1\. Does the file `/bin/cat` exist ? What about `/bin/dd` and
 `/bin/echo`. What is the type of these files ?

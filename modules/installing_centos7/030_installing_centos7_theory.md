@@ -1,4 +1,4 @@
-# download a CentOS 7 image
+## download a CentOS 7 image
 
 This demonstration uses a laptop computer with `Virtualbox` to install
 `CentOS 7` as a virtual machine. The first task is to download an `.iso`
@@ -40,7 +40,7 @@ Do not worry if you do no understand the above command. Just try to make
 sure that the size of this file is the same as the size that is
 mentioned on the `CentOS 7` website.
 
-# Virtualbox
+## Virtualbox
 
 This screenshot shows up when I start Virtualbox. I already have four
 virtual machines, you might have none.
@@ -96,7 +96,7 @@ This is a screenshot with the `.iso` file properly attached.
 
 ![](../images/centos8_cdiso.png)
 
-# CentOS 7 installing
+## CentOS 7 installing
 
 The screenshots below will show every step from starting the virtual
 machine for the first time (with the .iso file attached) until the first
@@ -207,7 +207,7 @@ When using `ssh` the same commands will give this screenshot:
 If the last part is a bit too fast, take a look at the next topic
 `CentOS 7 first logon`.
 
-# CentOS 7 first logon
+## CentOS 7 first logon
 
 All you have to log on, after finishing the installation, is this screen
 in Virtualbox.
@@ -219,7 +219,7 @@ But there are more ways to access your virtual machine, the next
 chapters discuss some of these and will also introduce some basic system
 configuration.
 
-## setting the hostname
+### setting the hostname
 
 Setting the hostname is a simple as changing the `/etc/hostname` file.
 As you can see here, it is set to `localhost.localdomain` by default.
@@ -249,7 +249,7 @@ For some reason the documentation on the `centos.org` and
 
     [root@localhost ~]# systemctl restart systemd-hostnamed
 
-# Virtualbox network interface
+## Virtualbox network interface
 
 By default `Virtualbox` will connect your virtual machine over a `nat`
 interface. This will show up as a 10.0.2.15 (or similar).
@@ -289,7 +289,7 @@ execute this command:
            valid_lft forever preferred_lft forever
     [root@server33 ~]#
 
-# configuring the network
+## configuring the network
 
 The new way of changing network configuration is through the `nmtui`
 tool. If you want to manually play with the files in
@@ -319,7 +319,7 @@ Also, forget `ifconfig` and instead use `ip a`.
         inet6 fe80::a00:27ff:fe1c:f5ab/64 scope link
     [root@server33 ~]#
 
-# adding one static ip address
+## adding one static ip address
 
 This example shows how to add one static ip address to your computer.
 
@@ -343,7 +343,7 @@ And verify with `ip` (not with `ifconfig`):
         inet6 fe80::a00:27ff:fe1c:f5ab/64 scope link
     [root@server33 ~]#
 
-# package management
+## package management
 
 Even with a network install, `CentOS 7` did not install the latest
 version of some packages. Luckily there is only one command to run (as
@@ -373,7 +373,7 @@ run `yum update` from time to time.
 Refer to the package management chapter for more information on
 installing and removing packages.
 
-# logon from Linux and MacOSX
+## logon from Linux and MacOSX
 
 You can now open a terminal on Linux or MacOSX and use `ssh` to log on
 to your virtual machine.
@@ -385,7 +385,7 @@ to your virtual machine.
     server33.netsec.local
     [root@server33 ~]#
 
-# logon from MS Windows
+## logon from MS Windows
 
 There is no `ssh` installed on MS Windows, but you can download
 `putty.exe` from

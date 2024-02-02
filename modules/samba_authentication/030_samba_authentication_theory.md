@@ -1,4 +1,4 @@
-# creating the users on Linux
+## creating the users on Linux
 
 The goal of this example is to set up a file share accessible to a
 number of different users. The users will need to authenticate with
@@ -26,7 +26,7 @@ we add these users to Linux.
     passwd: all authentication tokens updated successfully.
         
 
-# creating the users on samba
+## creating the users on samba
 
 Then we add them to the `smbpasswd` file, with the same
 password.
@@ -45,7 +45,7 @@ password.
     Added user martina.
             
 
-# security = user
+## security = user
 
 Remember that we set samba\'s security mode to share with the
 `security = share` directive in the \[global\] section ?
@@ -63,7 +63,7 @@ Our \[global\] section now looks like this.
      security = user
         
 
-# configuring the share
+## configuring the share
 
 We add the following \[share\] section to our smb.conf (and we do not
 forget to create the directory /srv/samba/authwrite).
@@ -75,7 +75,7 @@ forget to create the directory /srv/samba/authwrite).
     guest ok = no
         
 
-# testing access with net use
+## testing access with net use
 
 After restarting samba, we test with different users from within
 Microsoft computers. The screenshots use the
@@ -103,7 +103,7 @@ in writing her files, but fails to overwrite the file from serena.
     Access is denied.
             
 
-# testing access with smbclient
+## testing access with smbclient
 
 You can also test connecting with authentication with
 `smbclient`. First we test with a wrong password.
@@ -125,7 +125,7 @@ file on the share.
     smb: \> q
         
 
-# verify ownership
+## verify ownership
 
 We now have a simple standalone samba file server with authenticated
 access. And the files in the shares belong to their proper owners.
@@ -137,9 +137,9 @@ access. And the files in the shares belong to their proper owners.
     -rwxr--r-- 1 serena  serena   6 Jan 21 20:09 ser.txt
         
 
-# common problems
+## common problems
 
-## NT_STATUS_BAD_NETWORK_NAME
+### NT_STATUS_BAD_NETWORK_NAME
 
 You can get `NT_STATUS_BAD_NETWORK_NAME` when you forget
 to create the target directory.
@@ -150,7 +150,7 @@ to create the target directory.
     tree connect failed: NT_STATUS_BAD_NETWORK_NAME
             
 
-## NT_STATUS_LOGON_FAILURE
+### NT_STATUS_LOGON_FAILURE
 
 You can get `NT_STATUS_LOGON_FAILURE` when you type the
 wrong password or when you type an unexisting username.
@@ -159,7 +159,7 @@ wrong password or when you type an unexisting username.
     session setup failed: NT_STATUS_LOGON_FAILURE
             
 
-## usernames are (not) case sensitive
+### usernames are (not) case sensitive
 
 Remember that usernames om Linux are case sensitive.
 

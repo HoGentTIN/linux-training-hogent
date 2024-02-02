@@ -1,4 +1,4 @@
-# practice: user management
+## practice: user management
 
 1\. Create a user account named `serena`, including a home directory and
 a description (or comment) that reads `Serena Williams`. Do all this in

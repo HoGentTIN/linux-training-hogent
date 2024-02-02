@@ -1,13 +1,13 @@
-# priority and nice values
+## priority and nice values
 
-## introduction
+### introduction
 
 All processes have a `priority` and a `nice` value. Higher
 priority processes will get more `cpu time` than lower priority
 processes. You can influence this with the `nice` and
 `renice` commands.
 
-## pipes (mkfifo)
+### pipes (mkfifo)
 
 Processes can communicate with each other via `pipes`.
 These `pipes` can be created with the `mkfifo` command.
@@ -27,7 +27,7 @@ directory).
     paul@ubuntu910:~/procs$
             
 
-## some fun with cat
+### some fun with cat
 
 To demonstrate the use of the `top` and `renice` commands we will make
 the `cat` command use the previously created `pipes` to generate a full
@@ -54,7 +54,7 @@ The commands you see above will create two `proj33` processes that use
 `cat` to bounce the x character between `pipe33a` and `pipe33b`. And
 ditto for the z character and `proj42`.
 
-## top
+### top
 
 Just running `top` without options or arguments will display all
 processes and an overview of innformation. The top of the `top` screen
@@ -71,7 +71,7 @@ Notice the `cpu idle time (0.0%id)` is zero. This is because our `cat`
 processes are consuming the whole `cpu`. Results can vary on systems
 with four or more `cpu cores`.
 
-## top -p
+### top -p
 
 The `top -p 1670,1671,1673,1674` screenshot below shows four processes,
 all of then using approximately 25 percent of the `cpu`.
@@ -90,7 +90,7 @@ All four processes have an equal `priority (PR)`, and are battling for
 varying `priority values`, but the result will still be four processes
 fighting for `cpu time`.
 
-## renice
+### renice
 
 Since the processes are already running, we need to use the
 `renice` command to change their `nice value (NI)`.
@@ -108,7 +108,7 @@ they own. Only the `root` user can use negative nice values. Be very
 careful with negative nice values, since they can make it impossible to
 use the keyboard or ssh to a system.
 
-## impact of nice values
+### impact of nice values
 
 The impact of a nice value on running processes can vary. The screenshot
 below shows the result of our `renice +8` command. Look at the `%CPU`
@@ -125,7 +125,7 @@ Important to remember is to always make less important processes nice to
 more important processes. Using `negative nice values` can have a severe
 impact on a system\'s usability.
 
-## nice
+### nice
 
 The `nice` works identical to the `renice` but it is used
 when starting a command.

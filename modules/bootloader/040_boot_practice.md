@@ -1,4 +1,4 @@
-# practice: bootloader
+## practice: bootloader
 
 0\. Find out whether your system is using lilo, grub or grub2. Only do
 the practices that are appropriate for your system.

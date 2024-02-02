@@ -1,6 +1,6 @@
-# network layers
+## network layers
 
-## seven OSI layers
+### seven OSI layers
 
 When talking about protocol layers, people usually mention the seven
 layers of the `osi` protocol (Application, Presentation, Session,
@@ -11,7 +11,7 @@ administrators use words like \"this is a layer 2 device\" or \"this is
 a layer 3 broadcast\", and you should be able to understand what they
 are talking about.
 
-## four DoD layers
+### four DoD layers
 
 The `DoD` (or tcp/ip) model has only four layers, roughly mapping its
 `network access layer` to OSI layers 1 and 2 (Physical and Datalink),
@@ -24,7 +24,7 @@ devices.
 
 ![](images/networklayers.png)
 
-## short introduction to the physical layer
+### short introduction to the physical layer
 
 The physical layer, or `layer 1`, is all about voltage, electrical
 signals and mechanical connections. Some networks might still use `coax`
@@ -44,7 +44,7 @@ layer.
 
 This is all we have to say about `layer 1` in this book.
 
-## short introduction to the data link layer
+### short introduction to the data link layer
 
 The data link layer, or `layer 2` is about frames. A frame has a `crc`
 (cyclic redundancy check). In the case of ethernet (802.3), each network
@@ -59,7 +59,7 @@ addresses.
 In this book we will discuss commands like `arp` and `ifconfig` to
 explore this layer.
 
-## short introduction to the network layer
+### short introduction to the network layer
 
 `Layer 3` is about ip packets. This layer gives every host a unique
 32-bit ip address. But `ip` is not the only protocol on this layer,
@@ -71,17 +71,17 @@ devices that know (and have) an ip address.
 
 In tcp/ip this layer is commonly referred to as the `internet layer`.
 
-## short introduction to the transport layer
+### short introduction to the transport layer
 
 We will discuss the `tcp` and `udp` protocols in the context of layer 4.
 The DoD model calls this the host-to-host layer.
 
-## layers 5, 6 and 7
+### layers 5, 6 and 7
 
 The tcp/ip application layer includes layers 5, 6 and 7. Details on the
 difference between these layers are out of scope of this course.
 
-## network layers in this book
+### network layers in this book
 
 Stacking of layers in this book is based on the `Protocols in Frame`
 explanation in the `wireshark` sniffer. When sniffing a dhcp packet, we
@@ -106,9 +106,9 @@ does not contain all protocols.
 
 ![](images/networkprotocols.png)
 
-# unicast, multicast, broadcast, anycast
+## unicast, multicast, broadcast, anycast
 
-## unicast
+### unicast
 
 A `unicast` communication originates from one computer and is destined
 for exactly one other computer (or host). It is common for computers to
@@ -116,7 +116,7 @@ have many `unicast` communications.
 
 ![](images/unicast.png)
 
-## multicast
+### multicast
 
 A `multicast` is destined for a group (of computers).
 
@@ -125,7 +125,7 @@ A `multicast` is destined for a group (of computers).
 Some examples of `multicast` are Realplayer (.sdp files) and `ripv2` (a
 routing protocol).
 
-## broadcast
+### broadcast
 
 A `broadcast` is meant for everyone.
 
@@ -140,7 +140,7 @@ Careful, a `layer 2 broadcast` is very different from a
 cards on the same segment (it does not pass any router), whereas a layer
 3 broadcast is received by all hosts in the same ip subnet.
 
-## anycast
+### anycast
 
 The `root name servers` of the internet use
 `anycast`. An `anycast` signal goes the the
@@ -151,7 +151,7 @@ The `root name servers` of the internet use
 With thanks to the nice anonymous wikipedia contributor to put these
 pictures in the public domain.
 
-# lan-wan-man
+## lan-wan-man
 
 The term `lan` is used for local area networks, as opposed to a `wan`
 for wide area networks. The difference between the two is determined by
@@ -159,7 +159,7 @@ the `distance` between the computers, and not by the number of computers
 in a network. Some protocols like `atm` are designed for use in a `wan`,
 others like `ethernet` are designed for use in a `lan`.
 
-## lan
+### lan
 
 A `lan` (Local Area Network) is a local network. This can
 be one room, or one floor, or even one big building. We say `lan` as
@@ -171,14 +171,14 @@ three `lan`\'s that together make up one `lan`.
 
 ![](images/LAN_en.jpg)
 
-## man
+### man
 
 A `man` (Metropolitan Area Network) is something inbetween
 a `lan` and a `wan`, often comprising several buildings on the same
 campus or in the same city. A `man` can use `fddi` or `ethernet` or
 other protocols for connectivity.
 
-## wan
+### wan
 
 A `wan` (Wide Area Network) is a network with a lot of
 distance between the computers (or hosts). These hosts are often
@@ -199,12 +199,12 @@ The acronym `wan` is also used for large surface area networks like the
 `routers` that connect many `lan` networks using `wan`
 protocols.
 
-## pan-wpan
+### pan-wpan
 
 Your home network is called a `pan` (Personal Area
 Network). A wireless `pan` is a `wpan`.
 
-# internet - intranet - extranet
+## internet - intranet - extranet
 
 The `internet` is a global network. It connects many networks using the
 `tcp/ip` protocol stack.
@@ -225,9 +225,9 @@ within one organization.
 An `extranet` is similar to an `intranet`, but some trusted
 organizations (partners/clients/suppliers/\...) also get access.
 
-# tcp/ip
+## tcp/ip
 
-## history of tcp/ip
+### history of tcp/ip
 
 In the Sixties development of the `tcp/ip` protocol stack was started by
 the US Department of Defense. In the Eighties a lot of commercial
@@ -241,7 +241,7 @@ In my humble opinion, the main reason for the survival of `tcp/ip` over
 all the other protocols is its openness. Everyone is free to develop and
 use the tcp/ip protocol suite.
 
-## rfc (request for comment)
+### rfc (request for comment)
 
 The protocols that are used on the internet are defined in `rfc's`. An
 rfc or `request for comment` describes the inner working of all internet
@@ -253,7 +253,7 @@ website contains all rfc\'s in plain text, for example rfc2132 (which
 defines dhcp and bootp) is accessible at
 http://www.rfc-editor.org/rfc/rfc2132.txt.
 
-## many protocols
+### many protocols
 
 For reliable connections, you use `tcp`, whereas
 `udp` is connectionless but faster. The
@@ -266,7 +266,7 @@ are listed in the `/etc/protocols` file.
     paul@debian10:~$ grep tcp /etc/protocols 
     tcp     6       TCP             # transmission control protocol
 
-## many services
+### many services
 
 Network cards are uniquely identified by their `mac address`, hosts by
 their `ip address` and applications by their `port number`.

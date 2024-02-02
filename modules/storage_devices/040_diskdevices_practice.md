@@ -1,4 +1,4 @@
-# practice: hard disk devices
+## practice: hard disk devices
 
 `About this lab:` To practice working with hard disks, you will need
 some hard disks. When there are no physical hard disk available, you can

@@ -1,4 +1,4 @@
-# solution: ssh
+## solution: ssh
 
 0\. Make sure that you have access to `two Linux computers`, or work
 together with a partner for this exercise. For this practice, we will

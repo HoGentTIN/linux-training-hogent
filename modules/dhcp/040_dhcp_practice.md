@@ -1,4 +1,4 @@
-# Practice: dhcp
+## Practice: dhcp
 
 1\. Make sure you have a unique fixed ip address for your DNS and DHCP
 server (easier on the same machine).

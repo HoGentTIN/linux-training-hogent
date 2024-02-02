@@ -1,4 +1,4 @@
-# vol_id (legacy)
+## vol_id (legacy)
 
 Older versions of Linux have a `vol_id` utility to display
 the `uuid` of a file system.
@@ -16,7 +16,7 @@ Debian/Ubuntu/Mint.
 This utility is not available in standard installations of RHEL6/7 or
 Debian6/7/8.
 
-# lsblk -f
+## lsblk -f
 
 You can quickly locate the `uuid` of file systems with `lsblk -f`. This
 is a screenshot from a Macbook Pro Retina with Debian 8.
@@ -45,7 +45,7 @@ The same command will also work on recent RHEL and CentOS servers.
       └─c...-root xfs            fd931dbd-cdea-41e8-9943-1d9668d39857   /
     [root@centos7 ~]#
 
-# tune2fs
+## tune2fs
 
 Use `tune2fs` to find the `uuid` of a file system.
 
@@ -54,7 +54,7 @@ Use `tune2fs` to find the `uuid` of a file system.
     [root@RHEL5 ~]# /lib/udev/vol_id -u /dev/sda1
     11cfc8bc-07c0-4c3f-9f64-78422ef1dd5c
 
-# uuid
+## uuid
 
 There is more information in the manual of `uuid`, a tool that can
 generate uuid\'s.
@@ -63,7 +63,7 @@ generate uuid\'s.
     (output truncated)
     [root@rhel65 ~]# man uuid
 
-# uuid in /etc/fstab
+## uuid in /etc/fstab
 
 You can use the `uuid` to make sure that a volume is universally
 uniquely identified in `/etc/fstab`. The device name can change
@@ -101,7 +101,7 @@ the same disk as before.
     [root@RHEL5 ~]# df -h | grep sdb
     /dev/sdb1             397M   11M  366M   3% /home/pro42
 
-# uuid as a boot device
+## uuid as a boot device
 
 Recent Linux distributions (Debian, Ubuntu, \...) use `grub` with a
 `uuid` to identify the root file system.

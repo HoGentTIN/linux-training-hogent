@@ -1,6 +1,6 @@
-# terminology
+## terminology
 
-## platter, head, track, cylinder, sector
+### platter, head, track, cylinder, sector
 
 Data is commonly stored on magnetic or optical
 `disk platters`. The platters are rotated (at high
@@ -22,13 +22,13 @@ drive, you will notice that most of that time is taken by movement of
 the heads (about 65%) and `rotational latency` (about
 30%).
 
-## ide or scsi
+### ide or scsi
 
 Actually, the title should be `ata` or
 `scsi`, since ide is an ata compatible device. Most
 desktops use `ata devices`, most servers use `scsi`.
 
-## ata
+### ata
 
 An `ata controller` allows two devices per bus, one
 `master` and one `slave`. Unless your
@@ -40,7 +40,7 @@ ata was renamed to `parallel ata`. Optical drives often
 use `atapi`, which is an ATA interface using the SCSI
 communication protocol.
 
-## scsi
+### scsi
 
 A `scsi controller` allows more than two devices. When using
 `SCSI (small computer system interface)`, each device gets a unique
@@ -52,7 +52,7 @@ the bus speeds was doubled to 10Mhz, this was known as `fast SCSI`.
 Doubling to 20Mhz made it `ultra SCSI`. Take a look at
 http://en.wikipedia.org/wiki/SCSI for more SCSI standards.
 
-## block device
+### block device
 
 Random access hard disk devices have an abstraction layer called
 `block device` to enable formatting in fixed-size (usually
@@ -111,7 +111,7 @@ Old hard disks (and floppy disks) use
 the disk. Most current disks use
 `LBA (Logical Block Addressing)`.
 
-## solid state drive
+### solid state drive
 
 A `solid state drive` or `ssd` is a block
 device without moving parts. It is comparable to `flash memory`. An
@@ -123,9 +123,9 @@ In this book we will use the following pictograms for `spindle disks`
 
 ![](images/storage_disk_devices_template.png)
 
-# device naming
+## device naming
 
-## ata (ide) device naming
+### ata (ide) device naming
 
 All `ata` drives on your system will start with `/dev/hd`
 followed by a unit letter. The master hdd on the first `ata controller`
@@ -145,7 +145,7 @@ It is possible to have only `/dev/hda` and `/dev/hdd`. The first one is
 a single ata hard disk, the second one is the cdrom (by default
 configured as slave).
 
-## scsi device naming
+### scsi device naming
 
 `scsi` drives follow a similar scheme, but all start with
 `/dev/sd`. When you run out of letters (after /dev/sdz),
@@ -176,9 +176,9 @@ A modern Linux system will use `/dev/sd*` for scsi and sata devices, and
 also for sd-cards, usb-sticks, (legacy) ATA/IDE devices and solid state
 drives.
 
-# discovering disk devices
+## discovering disk devices
 
-## fdisk
+### fdisk
 
 You can start by using `/sbin/fdisk` to find out what kind
 of disks are seen by the kernel. Below the result on old Debian desktop,
@@ -230,7 +230,7 @@ disk device.
 Later we will use fdisk to do dangerous stuff like creating and deleting
 partitions.
 
-## dmesg
+### dmesg
 
 Kernel boot messages can be seen after boot with `dmesg`.
 Since hard disk devices are detected by the kernel during boot, you can
@@ -265,7 +265,7 @@ Third and last example of `dmesg` running on RHEL5.3.
     sd 0:0:3:0: Attached scsi disk sdb
     sd 0:0:6:0: Attached scsi disk sdc
 
-## /sbin/lshw
+### /sbin/lshw
 
 The `lshw` tool will `list hardware`. With the right options `lshw` can
 show a lot of information about disks (and partitions).
@@ -310,7 +310,7 @@ Below a truncated screenshot on Debian 6:
 
 Redhat and CentOS do not have this tool (unless you add a repository).
 
-## /sbin/lsscsi
+### /sbin/lsscsi
 
 The `lsscsi` command provides a nice readable output of
 all scsi (and scsi emulated devices). This first screenshot shows
@@ -351,7 +351,7 @@ This screenshot shows the classic output of `lsscsi`.
       Vendor: ATA      Model: ST3750330AS      Rev: SD04
       Type:   Direct-Access                    ANSI SCSI revision: 05
 
-## /proc/scsi/scsi
+### /proc/scsi/scsi
 
 Another way to locate `scsi` (or sd) devices is via
 `/proc/scsi/scsi`.
@@ -409,7 +409,7 @@ present).
       Vendor: ATA      Model: VBOX HARDDISK    Rev: 1.0 
       Type:   Direct-Access                    ANSI  SCSI revision: 05
 
-# erasing a hard disk
+## erasing a hard disk
 
 Before selling your old hard disk on the internet, it may be a good idea
 to erase it. By simply repartitioning, or by using the Microsoft Windows
@@ -445,7 +445,7 @@ block device.
 
     [root@rhel65 ~]# dd if=/dev/zero of=/dev/sdb
 
-# advanced hard disk settings
+## advanced hard disk settings
 
 Tweaking of hard disk settings (dma, gap, \...) are not covered in this
 course. Several tools exists, `hdparm` and `sdparm` are two of them.

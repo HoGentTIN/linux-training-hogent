@@ -1,46 +1,46 @@
-# terminology
+## terminology
 
-## process
+### process
 
 A `process` is compiled source code that is currently
 running on the system.
 
-## PID
+### PID
 
 All processes have a `process id` or `PID`.
 
-## PPID
+### PPID
 
 Every process has a parent process (with a `PPID`). The
 `child` process is often started by the `parent` process.
 
-## init
+### init
 
 The `init` process always has process ID 1. The `init`
 process is started by the `kernel` itself so technically it does not
 have a parent process. `init` serves as a `foster parent` for `orphaned`
 processes.
 
-## kill
+### kill
 
 When a process stops running, the process dies, when you want a process
 to die, you `kill` it.
 
-## daemon
+### daemon
 
 Processes that start at system startup and keep running forever are
 called `daemon` processes or `daemons`. These `daemons`
 never die.
 
-## zombie
+### zombie
 
 When a process is killed, but it still shows up on the system, then the
 process is referred to as `zombie`. You cannot kill
 zombies, because they are already dead.
 
-# basic process management
+## basic process management
 
-## \$\$ and \$PPID
+### \$\$ and \$PPID
 
 Some shell environment variables contain information about processes.
 The `$$` variable will hold your current `process ID`, and
@@ -54,7 +54,7 @@ Below we use `echo` to display the values of `$$` and
     4224 4223
             
 
-## pidof
+### pidof
 
 You can find all process id\'s by name using the `pidof`
 command.
@@ -63,7 +63,7 @@ command.
     2819 2798 2797 2796 2795 2794
             
 
-## parent and child
+### parent and child
 
 Processes have a `parent-child` relationship. Every process has a parent
 process.
@@ -89,7 +89,7 @@ original values for `$$` and `$PPID`.
     [paul@RHEL8b ~]$
             
 
-## fork and exec
+### fork and exec
 
 A process starts another process in two phases. First the process
 creates a `fork` of itself, an identical copy. Then the
@@ -104,7 +104,7 @@ process with the target child process.
     [paul@RHEL8b ~]$
             
 
-## exec
+### exec
 
 With the `exec` command, you can execute a process without forking a new
 process. In the following screenshot a `Korn shell` (ksh) is started and
@@ -127,7 +127,7 @@ not to the `Korn shell` (which does not exist anymore).
     4224
             
 
-## ps
+### ps
 
 One of the most common tools on Linux to look at processes is
 `ps`. The following screenshot shows the parent child
@@ -182,7 +182,7 @@ partial output from `ps fax`.
     5077 pts/1    R+     0:00              \_ ps fax
             
 
-## pgrep
+### pgrep
 
 Similar to the `ps -C`, you can also use `pgrep` to search
 for a process by its command name.
@@ -202,7 +202,7 @@ You can also list the command name of the process with pgrep.
     9661 sleep
             
 
-## top
+### top
 
 Another popular tool on Linux is `top`. The `top` tool can
 order processes according to `cpu usage` or other properties. You can
@@ -211,9 +211,9 @@ also `kill` processes from within top. Press `h` inside `top` for help.
 In case of trouble, top is often the first tool to fire up, since it
 also provides you memory and swap space information.
 
-# signalling processes
+## signalling processes
 
-## kill
+### kill
 
 The `kill` command will kill (or stop) a process. The
 screenshot shows how to use a standard `kill` to stop the process with
@@ -225,7 +225,7 @@ screenshot shows how to use a standard `kill` to stop the process with
 
 By using the `kill` we are sending a `signal` to the process.
 
-## list signals
+### list signals
 
 Running processes can receive signals from each other or from the users.
 You can have a list of signals by typing `kill -l`, that
@@ -251,7 +251,7 @@ is a letter `l`, not the number 1.
     [paul@RHEL8a ~]$ 
             
 
-## kill -1 (SIGHUP)
+### kill -1 (SIGHUP)
 
 It is common on Linux to use the first signal `SIGHUP` (or
 HUP or 1) to tell a process that it should re-read its configuration
@@ -266,7 +266,7 @@ It is up to the developer of the process to decide whether the process
 can do this running, or whether it needs to stop and start. It is up to
 the user to read the documentation of the program.
 
-## kill -15 (SIGTERM)
+### kill -15 (SIGTERM)
 
 The `SIGTERM` signal is also called a `standard kill`. Whenever `kill`
 is executed without specifying the signal, a `kill -15` is assumed.
@@ -277,7 +277,7 @@ Both commands in the screenshot below are identical.
     paul@ubuntu910:~$ kill -15 1942
             
 
-## kill -9 (SIGKILL)
+### kill -9 (SIGKILL)
 
 The `SIGKILL` is different from most other signals in that it is not
 being sent to the process, but to the `Linux kernel`. A `kill -9` is
@@ -287,7 +287,7 @@ a developer you have no means to intercept a `kill -9` signal.
     root@rhel53 ~# kill -9 3342
             
 
-## SIGSTOP and SIGCONT
+### SIGSTOP and SIGCONT
 
 A running process can be `suspended` when it receives a `SIGSTOP`
 signal. This is the same as `kill -19` on Linux, but might have a
@@ -299,7 +299,7 @@ Linux).
 
 Both signals will be used in the section about `background` processes.
 
-## pkill
+### pkill
 
 You can use the `pkill` command to kill a process by its
 command name.
@@ -311,7 +311,7 @@ command name.
     [paul@RHEL5 ~]$ 
             
 
-## killall
+### killall
 
 The `killall` command will send a
 `signal 15` to all processes with a certain name.
@@ -329,7 +329,7 @@ The `killall` command will send a
     paul@rhel65:~$ jobs
     paul@rhel65:~$
 
-## killall5
+### killall5
 
 Its SysV counterpart `killall5` can by used when shutting down the
 system. This screenshot shows how Red Hat Enterprise Linux 5.3 uses
@@ -339,7 +339,7 @@ system. This screenshot shows how Red Hat Enterprise Linux 5.3 uses
     action $"Sending all processes the TERM signal..." /sbin/killall5 -15
     action $"Sending all processes the KILL signal..."  /sbin/killall5 -9
 
-## top
+### top
 
 Inside `top` the `k` key allows you to select a `signal`
 and `pid` to kill. Below is a partial screenshot of the line just below

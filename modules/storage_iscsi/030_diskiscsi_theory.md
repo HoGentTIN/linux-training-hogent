@@ -1,4 +1,4 @@
-# iSCSI terminology
+## iSCSI terminology
 
 `iSCSI` is a protocol that enables SCSI over IP. This
 means that you can have local SCSI devices (like /dev/sdb) without
@@ -13,7 +13,7 @@ called an `Initiator`. An initiator will send SCSI
 commands over IP instead of directly to the hardware. The Initiator will
 connect to the Target.
 
-# iSCSI Target in RHEL/CentOS
+## iSCSI Target in RHEL/CentOS
 
 This section will describe iSCSI Target setup on RHEL6, RHEL7 and
 CentOS.
@@ -106,7 +106,7 @@ three LUN\'s (and also LUN 0 for the controller).
         ACL information:
             ALL
 
-# iSCSI Initiator in RHEL/CentOS
+## iSCSI Initiator in RHEL/CentOS
 
 This section will describe iSCSI Initiator setup on RHEL6, RHEL7 and
 CentOS.
@@ -201,7 +201,7 @@ You can verify iscsi status with:
 
     service iscsi status
 
-# iSCSI target on Debian
+## iSCSI target on Debian
 
 Installing the software for the target server requires `iscsitarget` on
 Ubuntu and Debian, and an extra `iscsitarget-dkms` for the kernel
@@ -235,7 +235,7 @@ The iSCSI target server is disabled by default, so we enable it.
     root@debby6:~# cat /etc/default/iscsitarget 
     ISCSITARGET_ENABLE=true
 
-# iSCSI target setup with dd files
+## iSCSI target setup with dd files
 
 You can use LVM volumes (/dev/md0/lvol0), physical partitions (/dev/sda)
 ,raid devices (/dev/md0) or just plain files for storage. In this demo,
@@ -317,7 +317,7 @@ Verify activation of the storage devices in `/proc/net/iet`:
     tid:2 name:iqn.2010-02.be.linux-training:storage.lun2
     tid:1 name:iqn.2010-02.be.linux-training:storage.lun1
 
-# ISCSI initiator on ubuntu
+## ISCSI initiator on ubuntu
 
 First we install the iSCSi client software (on another computer than the
 target).
@@ -402,7 +402,7 @@ The Target (the server) now shows active sessions.
             cid:0 ip:192.168.1.35 state:active hd:none dd:none
     root@debby6:/etc/iet# 
 
-# using iSCSI devices
+## using iSCSI devices
 
 There is no difference between using SCSI or iSCSI devices once they are
 connected : partition, make filesystem, mount.
@@ -426,7 +426,7 @@ connected : partition, make filesystem, mount.
     /dev/sdc1 on /mnt/is2 type ext3 (rw)
     /dev/sdd1 on /mnt/is3 type ext4 (rw)
 
-# iSCSI Target RHEL7/CentOS7
+## iSCSI Target RHEL7/CentOS7
 
 The prefered tool to setup an iSCSI Target on RHEL is `targetcli`.
 
@@ -569,7 +569,7 @@ The total configuration is visible using `ls` from the root.
 
 The iSCSI Target is now ready.
 
-# iSCSI Initiator RHEL7/CentOS7
+## iSCSI Initiator RHEL7/CentOS7
 
 This is identical to the RHEL6/CentOS6 procedure:
 

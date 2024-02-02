@@ -1,4 +1,4 @@
-# about ipv6
+## about ipv6
 
 The `ipv6` protocol is designed to replace `ipv4`. Where `ip version 4`
 supports a maximum of four billion unique addresses, `ip version 6`
@@ -38,7 +38,7 @@ The ipv6 `localhost` address is
     paul@debian10:~/github/lt/images$ /sbin/ifconfig lo | grep inet6
               inet6 addr: ::1/128 Scope:Host
 
-# network id and host id
+## network id and host id
 
 One of the few similarities between ipv4 and ipv6 is that addresses have
 a host part and a network part determined by a subnet mask. Using the
@@ -53,7 +53,7 @@ The localhost address looks like this with cidr:
 
     ::1/128
 
-# host part generation
+## host part generation
 
 The host part of an automatically generated (stateless) ipv6 address
 contains part of the hosts mac address:
@@ -65,7 +65,7 @@ contains part of the hosts mac address:
 
 Some people are concerned about privacy here\...
 
-# ipv4 mapped ipv6 address
+## ipv4 mapped ipv6 address
 
 Some applications use ipv4 addresses embedded in an ipv6 address. (Yes
 there will be an era of migration with both ipv4 and ipv6 in use.) The
@@ -75,7 +75,7 @@ ipv6 address then looks like this:
 
 Indeed a mix of decimal and hexadecimal characters\...
 
-# link local addresses
+## link local addresses
 
 `ipv6` addresses starting with `fe8.` can only be used on the local
 segment (replace the dot with an hexadecimal digit). This is the reason
@@ -90,7 +90,7 @@ These `link local` addresses all begin with `fe8.`.
 
 Every ipv6 enabled nic will get an address in this range.
 
-# unique local addresses
+## unique local addresses
 
 The now obsolete system of `site local addresses` similar to ipv4
 private ranges is replaced with a system of globally unique local ipv6
@@ -99,7 +99,7 @@ addresses. This to prevent duplicates when joining of networks within
 
 All `unique local` addresses strat with `fd..`.
 
-# globally unique unicast addresses
+## globally unique unicast addresses
 
 Since `ipv6` was designed to have multiple ip addresses per interface,
 the `global ipv6 address` can be used next to the `link local address`.
@@ -107,7 +107,7 @@ the `global ipv6 address` can be used next to the `link local address`.
 These `globally unique` addresses all begin with `2...` or `3...` as the
 first 16-bits.
 
-# 6to4
+## 6to4
 
 `6to4` is defined in rfc\'s 2893 and 3056 as one possible way to
 transition between ipv4 and ipv6 by creating an ipv6 tunnel.
@@ -123,12 +123,12 @@ You can use the command below to convert any ipv4 address to this range.
     |tr "./" "  "`
     2002:c0a8:012a:0018::1
 
-# ISP
+## ISP
 
 Should you be so lucky to get an ipv6 address from an `isp`, then it
 will start with `2001:`.
 
-# non routable addresses
+## non routable addresses
 
 Comparable to `example.com` for DNS, the following ipv6 address ranges
 are reserved for examples, and not routable on the internet.
@@ -136,7 +136,7 @@ are reserved for examples, and not routable on the internet.
     3fff:ffff::/32
     2001:0db8::/32
 
-# ping6
+## ping6
 
 Use `ping6` to test connectivity between ipv6 hosts. You need to specify
 the interface (there is no routing table for \'random\' generated ipv6
@@ -160,7 +160,7 @@ the same network.
     64 bytes from fe80::8e7b:9dff:fed6:dff2: icmp_seq=2 ttl=64 time=1.79 ms (DUP!)
     64 bytes from fe80::a00:27ff:fecd:7ffc: icmp_seq=2 ttl=64 time=2.48 ms (DUP!)
 
-# Belgium and ipv6
+## Belgium and ipv6
 
 A lot of information on ipv6 in Belgium can be found at
 www.ipv6council.be.
@@ -169,7 +169,7 @@ Sites like ipv6.belgium.be, www.bipt.be and www.bricozone.be are enabled
 for ipv6. Some Universities also: fundp.ac.be (Namur) and ulg.ac.be
 (Liege).
 
-# other websites
+## other websites
 
 Other useful websites for testing ipv6 are:
 
@@ -186,7 +186,7 @@ valid accessible ipv6 address.
 
 ![](images/ipv6_test2_ok.jpg)
 
-# 6to4 gateways
+## 6to4 gateways
 
 To access ipv4 only websites when on ipv6 you can use sixxs.net (more
 specifically http://www.sixxs.net/tools/gateway/) as a gatway.
@@ -194,26 +194,26 @@ specifically http://www.sixxs.net/tools/gateway/) as a gatway.
 For example use http://www.slashdot.org.sixxs.org/ instead of
 http://slashdot.org
 
-# ping6 and dns
+## ping6 and dns
 
 Below a screenshot of a `ping6` from behind a 6to4 connection.
 
 ![](images/ipv6_ping6_dns.jpg)
 
-# ipv6 and tcp/http
+## ipv6 and tcp/http
 
 Below a screenshot of a tcp handshake and http connection over ipv6.
 
 ![](images/tcp_over_ipv6.jpg)
 
-# ipv6 PTR record
+## ipv6 PTR record
 
 As seen in the DNS chapter, ipv6 PTR records are in the ip6.net domain,
 and have 32 generations of child domains.
 
 ![](images/ipv6_PTR_record.jpg)
 
-# 6to4 setup on Linux
+## 6to4 setup on Linux
 
 Below a transcript of a 6to4 setup on Linux.
 

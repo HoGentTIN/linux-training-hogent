@@ -1,4 +1,4 @@
-# solution : more scripting
+## solution : more scripting
 
 1\. Write a script that asks for two numbers, and outputs the sum and
 product (as shown here).

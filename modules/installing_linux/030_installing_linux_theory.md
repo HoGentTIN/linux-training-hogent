@@ -1,4 +1,4 @@
-# about
+## about
 
 The past couple of years the installation of Linux has become a lot
 easier than before, at least for end users installing a distro like
@@ -6,12 +6,12 @@ Ubuntu, Fedora, Debian or Mandrake on their home computer. Servers
 usually come pre-installed, and if not pre-installed, then setup of a
 Linux server today is very easy.
 
-# legacy content
+## legacy content
 
 Everything below this paragraph was written betweem 2003 and 2009 or so.
 I will rewrite this when I find the time.
 
-## about
+### about
 
 Linux can be installed in many different ways. End users most commonly
 use cdrom\'s or dvd\'s for installation, most of the time with a working
@@ -21,7 +21,7 @@ network installations using protocols like `tftp`,
 or response file solutions like `Red Hat Kickstart` or
 `Solaris Jumpstart`.
 
-## installation by cdrom
+### installation by cdrom
 
 Installation of Linux from cdrom is easy! Most distributions ask very
 few questions during install (keyboard type, language, username) and
@@ -30,7 +30,7 @@ third-party drivers from the internet. The GUI installation gives
 options like Desktop (for end users), Workstation (for developers),
 Server or minimal (usually without graphical interface).
 
-## installation with rarp and tftp
+### installation with rarp and tftp
 
 Installing over the network involves powering on the machine, have it
 find a rarpd server to get an ip-address, then let it find an tftps
@@ -74,7 +74,7 @@ accomplished with symbolic links.
 Time to enter `boot net` now in the openboot prompt. Twenty minutes
 later the three servers where humming with Linux.
 
-## about Red Hat kickstart
+### about Red Hat kickstart
 
 Automating Linux installations with response files can be done with
 `Red Hat kickstart`. One way to set it up is by using the
@@ -98,7 +98,7 @@ Red Hat System Administration Guide contains about 25 pages describing
 all the options, most of them are easy ti understand if you already
 performed a couple of installations.
 
-## using kickstart
+### using kickstart
 
 To use kickstart, name your kickstart file `ks.cfg` and
 put it in the root directory of your installation cdrom (or on a usb

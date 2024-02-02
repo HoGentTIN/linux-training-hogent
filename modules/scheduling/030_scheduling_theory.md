@@ -1,6 +1,6 @@
-# one time jobs with at
+## one time jobs with at
 
-## at
+### at
 
 Simple scheduling can be done with the `at` command. This
 screenshot shows the scheduling of the date command at 22:01 and the
@@ -18,7 +18,7 @@ sleep command at 22:03.
 
 *In real life you will hopefully be scheduling more useful commands ;-)*
 
-## atq
+### atq
 
 It is easy to check when jobs are scheduled with the `atq`
 or `at -l` commands.
@@ -47,7 +47,7 @@ schedule commands the next day and at four in the afternoon.
     5       Thu Aug  2 10:05:00 2007 a root
     root@laika:~#
 
-## atrm
+### atrm
 
 Jobs in the at queue can be removed with `atrm`.
 
@@ -59,7 +59,7 @@ Jobs in the at queue can be removed with `atrm`.
     6       Thu Aug  2 16:00:00 2007 a root
     root@laika:~#
 
-## at.allow and at.deny
+### at.allow and at.deny
 
 You can also use the `/etc/at.allow` and
 `/etc/at.deny` files to manage who can schedule jobs with
@@ -71,9 +71,9 @@ can use `at` unless their username is listed in `/etc/at.deny`.
 
 If none of these files exist, then everyone can use `at`.
 
-# cron
+## cron
 
-## crontab file
+### crontab file
 
 The `crontab(1)` command can be used to maintain the
 `crontab(5)` file. Each user can have their own crontab
@@ -101,14 +101,14 @@ Instead of these five fields, you can also type one of these: \@reboot,
 \@yearly or \@annually, \@monthly, \@weekly, \@daily or \@midnight, and
 \@hourly.
 
-## crontab command
+### crontab command
 
 Users should not edit the crontab file directly, instead they should
 type `crontab -e` which will use the editor defined in the EDITOR or
 VISUAL environment variable. Users can display their cron table with
 `crontab -l`.
 
-## cron.allow and cron.deny
+### cron.allow and cron.deny
 
 The `cron daemon` `crond` is reading the cron tables, taking into
 account the `/etc/cron.allow` and
@@ -120,7 +120,7 @@ you cannot use `cron`. When the `cron.allow` file does not exists, then
 your username cannot be in the `cron.deny` file if you want to use
 `cron`.
 
-## /etc/crontab
+### /etc/crontab
 
 The `/etc/crontab` file contains entries for when to run
 hourly/daily/weekly/monthly tasks. It will look similar to this output.
@@ -132,7 +132,7 @@ hourly/daily/weekly/monthly tasks. It will look similar to this output.
     40 3 * * 7        root    run-parts --report /etc/cron.weekly
     55 3 1 * *        root    run-parts --report /etc/cron.monthly
 
-## /etc/cron.\*
+### /etc/cron.\*
 
 The directories shown in the next screenshot contain the tasks that are
 run at the times scheduled in `/etc/crontab`. The
@@ -146,7 +146,7 @@ jobs that require finer control than hourly/daily/weekly/monthly.
     drwxr-xr-x 2 root root 4096 2008-04-11 09:14 /etc/cron.monthly
     drwxr-xr-x 2 root root 4096 2008-04-11 09:14 /etc/cron.weekly
 
-## /etc/cron.\*
+### /etc/cron.\*
 
 Note that Red Hat uses `anacron` to schedule daily, weekly and monthly
 cron jobs.

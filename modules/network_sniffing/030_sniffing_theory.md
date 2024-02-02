@@ -1,6 +1,6 @@
-# wireshark
+## wireshark
 
-## installing wireshark
+### installing wireshark
 
 This example shows how to install `wireshark` on `.deb` based
 distributions (including Debian, Mint, Xubuntu, and others).
@@ -19,7 +19,7 @@ On `.rpm` based distributions like CentOS, RHEL and Fedora you can use
     Loading mirror speeds from cached hostfile
     ... (output truncated)
 
-## selecting interface
+### selecting interface
 
 When you start `wireshark` for the first time, you will need to select
 an interface. You will see a dialog box that looks similar to this one.
@@ -34,7 +34,7 @@ Or you can follow the general advice to sniff using `tcpdump` or any
 other tool, and save the capture to a file. Any saved capture can be
 analyzed using `wireshark` at a later time.
 
-## minimize traffic
+### minimize traffic
 
 Sniffing a network can generate many thousands of packets in a very
 short time. This can be overwhelming. Try to mitigate by isolating your
@@ -48,7 +48,7 @@ devices like smartphones and tablets to minimize the traffic.
 Even more important than this is the use of `filters` which will be
 discussed in this chapter.
 
-## sniffing ping
+### sniffing ping
 
 I started the sniffer and captured all packets while doing these three
 `ping` commands (there is no need for root to do this):
@@ -84,7 +84,7 @@ become clearer when you enter `icmp` in the filter field and press the
 
 ![](images/wireshark_ping.png)
 
-## sniffing ping and dns
+### sniffing ping and dns
 
 Using the same capture as before, but now with a different `filter`. We
 want to see both `dns` and `icmp` traffic, so we enter both in the
@@ -103,7 +103,7 @@ the dns client is the same computer as the dns server.
 The same is true for packets 31 and 32, since the machine is actually
 pinging itself.
 
-## specific ip address
+### specific ip address
 
 This is a screenshot that filters for `dns` packets that contain a
 certain `ip address`. The filter in use is
@@ -118,7 +118,7 @@ happened in the packets between 93 and 98 ? Try to answer this before
 reading on (it always helps to try to predict what you will see, and
 then checking your prediction).
 
-## filtering by frame
+### filtering by frame
 
 The correct technical term for a `packet` as sniffed is a `frame`
 (because we sniff on layer two). So to display packets with certain
@@ -126,7 +126,7 @@ numbers, we use `frame.number` in the filter.
 
 ![](images/wireshark_framenumber.png)
 
-## looking inside packets
+### looking inside packets
 
 The middle pane can be expanded. When selecting a line in this pane, you
 can see the corresponding bytes in the frame in the bottom panel.
@@ -142,7 +142,7 @@ sniffing with for example `tcpdump -i any` you will end up with
 
 ![](images/wireshark_cooked.png)
 
-## other filter examples
+### other filter examples
 
 You can combine two protocols with a logical `or` between them. The
 example below shows how to filter only `arp` and `bootp`
@@ -155,7 +155,7 @@ containing a certain `ip address`.
 
 ![](images/wireshark_dns_ipaddress.png)
 
-# tcpdump
+## tcpdump
 
 Sniffing on the command line can be done with `tcpdump`.
 Here are some examples.

@@ -1,4 +1,4 @@
-# about software licenses
+## about software licenses
 
 There are two predominant software paradigms:
 `Free and Open Source Software` (FOSS) and
@@ -28,7 +28,7 @@ software without paying a licensing fee. You are not authorised to
 distribute copies and you are not authorised to modify the closed source
 code.
 
-# public domain software and freeware
+## public domain software and freeware
 
 Software that is original in the sense that it is an intellectual
 creation of the author benefits `copyright` protection.
@@ -51,7 +51,7 @@ Examples of freeware are `Adobe Reader`, `Skype` and
 `Command and Conquer: Tiberian Sun` (this game was sold as proprietary
 in 1999 and is since 2011 available as freeware).
 
-# Free Software or Open Source Software
+## Free Software or Open Source Software
 
 Both the `Free Software` (translates to
 `vrije software` in Dutch and to
@@ -85,7 +85,7 @@ available here:
 
     http://www.debian.org/social_contract#guidelines
 
-# GNU General Public License
+## GNU General Public License
 
 More and more software is being released under the
 `GNU GPL` (in 2006 Java was released under the GPL). This
@@ -101,7 +101,7 @@ GPL software (or compatible, see below). It is not possible to
 incorporate copyright protected parts of GNU GPL software in a
 proprietary licensed work. The GPL has been upheld in court.
 
-# using GPLv3 software
+## using GPLv3 software
 
 You can use `GPLv3 software` almost without any
 conditions. If you solely run the software you even don't have to accept
@@ -121,7 +121,7 @@ license carefully.
 You create output with GPLv3 software: The GPLv3 does not automatically
 apply to the output.
 
-# BSD license
+## BSD license
 
 There are several versions of the original Berkeley Distribution
 License. The most common one is the 3-clause license (\"New BSD
@@ -136,12 +136,12 @@ This difference is of less importance when you merely use the software,
 but kicks in when you start redistributing verbatim copies of the
 software or your own modified versions.
 
-# other licenses
+## other licenses
 
 FOSS or not, there are many kind of licenses on software. You should
 read and understand them before using any software.
 
-# combination of software licenses
+## combination of software licenses
 
 When you use several sources or wishes to redistribute your software
 under a different license, you need to verify whether all licenses are

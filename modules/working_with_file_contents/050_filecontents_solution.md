@@ -1,4 +1,4 @@
-# solution: file contents
+## solution: file contents
 
 1\. Display the first 12 lines of `/etc/services`.
 

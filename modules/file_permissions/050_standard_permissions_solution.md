@@ -1,4 +1,4 @@
-# solution: standard file permissions
+## solution: standard file permissions
 
 1\. As normal user, create a directory \~/permissions. Create a file
 owned by yourself in there.

@@ -1,4 +1,4 @@
-# ip address classes
+## ip address classes
 
 In the previous chapter we divided ip addresses into classes.
 
@@ -18,7 +18,7 @@ In the previous chapter we divided ip addresses into classes.
 
   : ip address classes
 
-# classful subnet masks
+## classful subnet masks
 
 The first three classes of ipv4 addresses each have a default
 `subnet mask`.
@@ -52,7 +52,7 @@ bits set to 0. This gives us the following tables.
 
   : default binary subnet mask
 
-# practice default subnet masks
+## practice default subnet masks
 
 Write down the default subnet mask for the following ip addresses:
 
@@ -78,7 +78,7 @@ Write down the default subnet mask for the following ip addresses:
 
   : practice default subnet masks
 
-# network id en host id
+## network id en host id
 
 Bij het uitvoeren van `ifconfig` op een Unix/Linux en
 `ipconfig` op een MS Windows computer merkt je dat je
@@ -118,7 +118,7 @@ Een overzichtje met voorbeelden:
 
   : network id en host id
 
-# oefening network id en host id
+## oefening network id en host id
 
 1\. Noteer de `network id` en `host id` voor de volgende ip-adressen.
 
@@ -134,7 +134,7 @@ Een overzichtje met voorbeelden:
 
     193.42.17.18
 
-# lokale computer of niet ?
+## lokale computer of niet ?
 
 Wat is het nut van het kennen van een `network id`? Wel het `network id`
 bepaalt of een computer lokaal in je netwerk staat of niet.
@@ -162,7 +162,7 @@ Een overzichtje met voorbeelden (gebruik standaard subnet mask):
 
   : local or remote computer?
 
-# oefening lokale computer of niet?
+## oefening lokale computer of niet?
 
 1\. Staan de volgende computers in hetzelfde netwerk ?
 
@@ -180,7 +180,7 @@ Een overzichtje met voorbeelden (gebruik standaard subnet mask):
 
     9.1.2.3 en 9.123.234.42
 
-# subnet notatie
+## subnet notatie
 
 We kunnen de notatie van `ip-adres/subnet mask` afkorten
 als we voor de subnet mask enkel het aantal bits vernoemen dat op 1
@@ -202,7 +202,7 @@ subnet mask 255.255.255.0 .
 
   : cidr notatie
 
-# computers in een netwerk tellen
+## computers in een netwerk tellen
 
 Hoeveel computers kan je zetten in een netwerk? Houd rekening met de
 `network id` die zelf al een ip-adres gebruikt. Elk
@@ -226,7 +226,7 @@ Bijvoorbeeld:
 
   : aantal computers in een subnet
 
-# te weinig ip-adressen ?
+## te weinig ip-adressen ?
 
 Is vier miljard dan niet genoeg ? We verspillen enorm veel ip-adressen
 door de verkoop van klasse A en klasse B aan organisaties die eigenlijk
@@ -237,7 +237,7 @@ een klasse B range, maar dan verspil je meer dan 90
 procent. Je kan ook zeggen dat 8 klasse C adressen voldoen
 voor 2000 computers, maar dan vergroot je de `routing tables` weer.
 
-## ip-adressen verdelen
+### ip-adressen verdelen
 
 `Klasse A` adressen kunnen dus een dikke 16 miljoen
 computers bevatten, `klasse B` een goeie 65 duizend en
@@ -254,7 +254,7 @@ jaren zijn er meer dan een miljard computers verbonden met internet. Met
 een totaal van vier miljard (256\*256\*256\*256) ip-adressen kunnen we
 ons niet langer veroorloven om ip-adressen te verspillen.
 
-## probleem voor de routing tables
+### probleem voor de routing tables
 
 Je zou kunnen argumenteren op het vorige dat je ook twaalf
 `klasse C` kan gebruiken voor een netwerk met 3000
@@ -265,7 +265,7 @@ bij krijgen i.p.v. slechts eentje.
 Alle grote netwerken opbouwen met klasse C ip ranges is dus ook geen
 oplosssing. (routing tables bespreken we later)
 
-## Is nat een oplossing ?
+### Is nat een oplossing ?
 
 Een andere verzachtende techniek voor het naderende tekort aan
 ip-adressen is `nat`. Een `nat` toestel kan meerdere

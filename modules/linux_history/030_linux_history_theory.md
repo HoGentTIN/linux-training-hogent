@@ -1,4 +1,4 @@
-# 1969
+## 1969
 
 All modern operating systems have their roots in 1969 when
 `Dennis Ritchie` and `Ken Thompson`
@@ -20,7 +20,7 @@ BSD and PC-BSD is still active today.
     https://en.wikipedia.org/wiki/BSD
     https://en.wikipedia.org/wiki/Comparison_of_BSD_operating_systems
 
-# 1980s
+## 1980s
 
 In the Eighties many companies started developing their own Unix:
 IBM created AIX, Sun
@@ -39,7 +39,7 @@ command line tools that you use today on `Linux` are GNU tools.
     https://en.wikipedia.org/wiki/IBM_AIX
     https://en.wikipedia.org/wiki/HP-UX
 
-# 1990s
+## 1990s
 
 The Nineties started with `Linus Torvalds`, a Swedish
 speaking Finnish student, buying a 386 computer and writing a brand new
@@ -54,7 +54,7 @@ say, is history.
     https://lwn.net
     http://www.levenez.com/unix/   (a huge Unix history poster)
 
-# 2015
+## 2015
 
 Today more than 97 percent of the world\'s supercomputers (including the
 complete top 10), more than 80 percent of all smartphones, many millions

@@ -1,6 +1,6 @@
-# inodes
+## inodes
 
-## inode contents
+### inode contents
 
 An `inode` is a data structure that contains metadata about a file. When
 the file system stores a new file on the hard disk, it stores not only
@@ -15,7 +15,7 @@ contents, as seen in this screenshot.
     root@rhel53 ~# ls -ld /home/project42/
     drwxr-xr-x 4 root pro42 4.0K Mar 27 14:29 /home/project42/
 
-## inode table
+### inode table
 
 The `inode table` contains all of the `inodes` and is
 created when you create the file system (with `mkfs`). You
@@ -37,7 +37,7 @@ In the `df -i` screenshot above you can see the `inode` usage for
 several mounted `file systems`. You don\'t see numbers for `/dev/sdb5`
 because it is a `fat` file system.
 
-## inode number
+### inode number
 
 Each `inode` has a unique number (the inode number). You can see the
 `inode` numbers with the `ls -li` command.
@@ -57,7 +57,7 @@ different `inodes` (the first column). All the information you see with
 this `ls` command resides in the `inode`, except for the filename (which
 is contained in the directory).
 
-## inode and file contents
+### inode and file contents
 
 Let\'s put some data in one of the files.
 
@@ -75,9 +75,9 @@ The data that is displayed by the `cat` command is not in the `inode`,
 but somewhere else on the disk. The `inode` contains a pointer to that
 data.
 
-# about directories
+## about directories
 
-## a directory is a table
+### a directory is a table
 
 A `directory` is a special kind of file that contains a
 table which maps filenames to inodes. Listing our current directory with
@@ -92,16 +92,16 @@ table which maps filenames to inodes. Listing our current directory with
     817268 -rw-rw-r--   1 paul paul    0 Feb  5 15:38 file3
     paul@RHELv8u4:~/test$
 
-## . and ..
+### . and ..
 
 You can see five names, and the mapping to their five inodes. The dot
 `.` is a mapping to itself, and the dotdot
 `..` is a mapping to the parent directory. The three other
 names are mappings to different inodes.
 
-# hard links
+## hard links
 
-## creating hard links
+### creating hard links
 
 When we create a `hard link` to a file with
 `ln`, an extra entry is added in the directory. A new file
@@ -123,7 +123,7 @@ original file, the hardlinked file will remain. The inode contains a
 counter, counting the number of hard links to itself. When the counter
 drops to zero, then the inode is emptied.
 
-## finding hard links
+### finding hard links
 
 You can use the `find` command to look for files with a
 certain inode. The screenshot below shows how to search for all
@@ -134,7 +134,7 @@ filenames that point to `inode` 817270. Remember that an
     /home/paul/test/file2
     /home/paul/test/hardlink_to_file2
 
-# symbolic links
+## symbolic links
 
 Symbolic links (sometimes called `soft links`) do not link
 to inodes, but create a name to name mapping. Symbolic links are created
@@ -156,7 +156,7 @@ the target apply. Hard links are limited to their own partition (because
 they point to an inode), symbolic links can link anywhere (other file
 systems, even networked).
 
-# removing links
+## removing links
 
 Links can be removed with `rm`.
 

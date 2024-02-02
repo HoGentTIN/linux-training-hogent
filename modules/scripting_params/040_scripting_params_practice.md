@@ -1,4 +1,4 @@
-# practice: parameters and options
+## practice: parameters and options
 
 1\. Write a script that receives four parameters, and outputs them in
 reverse order.

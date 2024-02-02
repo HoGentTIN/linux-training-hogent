@@ -1,4 +1,4 @@
-# practice: getting started with samba
+## practice: getting started with samba
 
 1\. Take a backup copy of the original smb.conf, name it smb.conf.orig
 

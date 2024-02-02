@@ -1,4 +1,4 @@
-# solution: shell globbing
+## solution: shell globbing
 
 1\. Create a test directory and enter it.
 

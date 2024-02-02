@@ -1,4 +1,4 @@
-# practice: file contents
+## practice: file contents
 
 1\. Display the first 12 lines of `/etc/services`.
 

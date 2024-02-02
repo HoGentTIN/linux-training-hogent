@@ -1,6 +1,6 @@
-# buses
+## buses
 
-## about buses
+### about buses
 
 Hardware components communicate with the
 `Central Processing Unit` or `cpu` over a
@@ -12,7 +12,7 @@ Hardware components communicate with the
 Older `x86` computers often had `isa` buses, which can be
 configured using `jumpers` or `dip switches`.
 
-## /proc/bus
+### /proc/bus
 
 To list the buses recognised by the Linux kernel on your computer, look
 at the contents of the `/proc/bus/` directory (screenshot
@@ -28,7 +28,7 @@ from Ubuntu 7.04 and RHEL4u4 below).
 
 Can you guess which of these two screenshots was taken on a laptop ?
 
-## /usr/sbin/lsusb
+### /usr/sbin/lsusb
 
 To list all the usb devices connected to your system, you could read the
 contents of `/proc/bus/usb/devices` (if it exists) or you
@@ -42,7 +42,7 @@ executed here on a SPARC system with Ubuntu.
     root@shaka:~#   
             
 
-## /var/lib/usbutils/usb.ids
+### /var/lib/usbutils/usb.ids
 
 The `/var/lib/usbutils/usb.ids` file contains a gzipped
 list of all known usb devices.
@@ -60,7 +60,7 @@ list of all known usb devices.
     # $Id: usb.ids,v 1.225 2006/07/13 04:18:02 dbrownell Exp $
             
 
-## /usr/sbin/lspci
+### /usr/sbin/lspci
 
 To get a list of all pci devices connected, you could take a look at
 `/proc/bus/pci` or run `lspci` (partial
@@ -79,9 +79,9 @@ output below).
     ...
             
 
-# interrupts
+## interrupts
 
-## about interrupts
+### about interrupts
 
 An `interrupt request` or `IRQ` is a request
 from a device to the CPU. A device raises an interrupt when it requires
@@ -94,7 +94,7 @@ Interrupt 0 is always reserved for the timer, interrupt 1 for the
 keyboard. IRQ 2 is used as a channel for IRQ\'s 8 to 15, and thus is the
 same as IRQ 9.
 
-## /proc/interrupts
+### /proc/interrupts
 
 You can see a listing of interrupts on your system in
 `/proc/interrupts`.
@@ -117,7 +117,7 @@ You can see a listing of interrupts on your system in
     24:     1585      1  IO-APIC-fasteoi   VIA82XX-MODEM, VIA8237
             
 
-## dmesg
+### dmesg
 
 You can also use `dmesg` to find irq\'s allocated at boot
 time.
@@ -127,9 +127,9 @@ time.
     [ 28.930071] ata4: PATA max UDMA/133 cmd 0x170 ctl 0x376 bmdma 0x2098 irq 15
             
 
-# io ports
+## io ports
 
-## about io ports
+### about io ports
 
 Communication in the other direction, from CPU to device, happens
 through `IO ports`. The CPU writes data or control codes
@@ -137,7 +137,7 @@ to the IO port of the device. But this is not only a one way
 communication, the CPU can also use a device\'s IO port to read status
 information about the device. Unlike interrupts, ports cannot be shared!
 
-## /proc/ioports
+### /proc/ioports
 
 You can see a listing of your system\'s IO ports via
 `/proc/ioports`.
@@ -158,16 +158,16 @@ You can see a listing of your system\'s IO ports via
     ...
             
 
-# dma
+## dma
 
-## about dma
+### about dma
 
 A device that needs a lot of data, interrupts and ports can pose a heavy
 load on the cpu. With `dma` or `Direct Memory Access` a
 device can gain (temporary) access to a specific range of the `ram`
 memory.
 
-## /proc/dma
+### /proc/dma
 
 Looking at `/proc/dma` might not give you the information
 that you want, since it only contains currently assigned `dma` channels

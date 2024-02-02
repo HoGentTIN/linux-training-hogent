@@ -1,4 +1,4 @@
-# example: DNS round robin
+## example: DNS round robin
 
 When you create multiple A records for the same name, then
 `bind` will do a `round robin` of the order in which the
@@ -38,7 +38,7 @@ Notice the order of ip addresses returned.
 Try to set up a website on two web servers (with a small difference so
 you can distinguish the websites) and test the `round robin`.
 
-# DNS delegation
+## DNS delegation
 
 You can `delegate` a child domain to another DNS server. The child
 domain then becomes a new zone, with authority at the new dns server.
@@ -48,7 +48,7 @@ domain then becomes a new zone, with authority at the new dns server.
 When `delegation` is properly set up, then clients that query your
 parent zone will also be able to resolve the delegated child zones.
 
-# example: DNS delegation
+## example: DNS delegation
 
 We have another `Linux server` named `debian10b` and we want to make it
 responsible for the child domain `test42.paul.local`.
@@ -151,7 +151,7 @@ Testing on the parent server:
     root@debian10:~# dig debian10b.test42.paul.local +short
     10.104.33.31
 
-# example: split-horizon dns
+## example: split-horizon dns
 
 Suppose you want to answer dns queries depending on who is asking. For
 example when someone from the 10.104.15.0/24 network (managed by Jesse)
@@ -213,12 +213,12 @@ while computers from 10.104.42.0/24 (Keith) will receive 10.104.33.31.
     db.paul.local.jesse:www         IN      A       10.104.33.30
     db.paul.local.keith:www         IN      A       10.104.33.31
 
-# old dns topics
+## old dns topics
 
 All the dns things below this paragraph are old and in urgent need of
 review.
 
-## old example: reverse DNS
+### old example: reverse DNS
 
 1\. We can add ip to name resolution to our dns-server using a reverse
 dns zone.
@@ -258,7 +258,7 @@ servers):
 
     root@ubu1010srv:/etc/bind# dig 1.168.192.in-addr.arpa AXFR
 
-## old DNS load balancing
+### old DNS load balancing
 
 Not as above. When you have more than one DNS server authoritative for a
 zone, you can spread queries amongst all server. One way to do this is
@@ -267,7 +267,7 @@ balancing of external queries.
 
 You could also configure different name servers on internal clients.
 
-## old DNS notify
+### old DNS notify
 
 The original design of DNS in rfc 1034 and rfc 1035 implemented a
 `refresh` time in the `SOA` record to configure a time loop for slaves
@@ -286,7 +286,7 @@ Notify can be disabled as in this screenshot.
             file "/etc/bind/db.192";
     };
 
-## old testing IXFR and AXFR
+### old testing IXFR and AXFR
 
 Full zone transfers (AXFR) are initiated when you restart the bind
 server, or when you manually update the zone database file directly.
@@ -301,7 +301,7 @@ You need DDNS allowed for `nsupdate` to work.
     > send
     update failed: REFUSED
 
-## old DDNS integration with DHCP
+### old DDNS integration with DHCP
 
 Some organizations like to have all their client computers in DNS. This
 can be cumbersome to maintain. Luckily `rfc 2136` describes integration
@@ -309,7 +309,7 @@ of DHCP servers with a DNS server. Whenever DHCP acknowledges a client
 ip configuration, it can notify DNS with this clients ip-address and
 name. This is called `dynamic updates` or DDNS.
 
-## old reverse is forward in-addr.arpa
+### old reverse is forward in-addr.arpa
 
 Reverse lookup is actually iomplemented as a forward lookup in the
 `in-addr.arpa` domain. This domain has 256 child domains (from
@@ -317,32 +317,32 @@ Reverse lookup is actually iomplemented as a forward lookup in the
 256 child domains. And this twice more to a structure of over four
 billion (2 to the power 32) domains.
 
-## old ipv6
+### old ipv6
 
 With rfc 3596 came ipv6 extensions for DNS. There is the AAAA record for
 ipv6 hosts on the network, and there is the `ip6.int` domain for reverse
 lookup (having 16 child domains from 0.ip6.int to f.ip6.int, each of
 those having again 16 child domains\...and this 16 times.
 
-## old DNS security: file corruption
+### old DNS security: file corruption
 
 To mitigate file corruption on the `zone files` and the
 `bind configuration` files protect them with Unix permissions and take
 regular backups.
 
-## old DNS security: zone transfers
+### old DNS security: zone transfers
 
 Limit zone transfers to certain ip addresses instead of to `any`.
 Nevermind that ip-addresses can be spoofed, still use this.
 
-## old DNS security: zone transfers, ip spoofing
+### old DNS security: zone transfers, ip spoofing
 
 You could setup DNSSEC (which is not the easiest to maintain) and with
 rfc 2845(tsig?) and with rfc 2930(tkey, but this is open to brute
 force), or you could disable all zone transfers and use a script with
 ssh to copy them manually.
 
-## old DNS security: queries
+### old DNS security: queries
 
 Allow recursion only from the local network, and iterative queries from
 outside only when necessary. This can be configured on master and slave
@@ -378,16 +378,16 @@ Or only allow recursive queries from internal clients.
             allow-recursion { 192.168.42.0/24; localhost; };
     };
 
-## old DNS security: chrooted bind
+### old DNS security: chrooted bind
 
 Most Linux distributions allow an easy setup of bind in a `chrooted`
 environment.
 
-## old DNS security: DNSSEC
+### old DNS security: DNSSEC
 
 DNSSEC uses public/private keys to secure communications, this is
 described in rfc\'s 4033, 4034 and 4035.
 
-## old DNS security: root
+### old DNS security: root
 
 Do not run bind as root. Do not run any application daemon as root.

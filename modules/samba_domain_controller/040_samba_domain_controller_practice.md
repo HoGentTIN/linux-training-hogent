@@ -1,4 +1,4 @@
-# practice: samba domain controller
+## practice: samba domain controller
 
 1\. Setup Samba as a domain controller.
 

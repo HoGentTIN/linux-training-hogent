@@ -1,4 +1,4 @@
-# solution: input/output redirection
+## solution: input/output redirection
 
 1\. Activate the `noclobber` shell option.
 

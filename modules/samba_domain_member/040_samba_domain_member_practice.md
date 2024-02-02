@@ -1,4 +1,4 @@
-# practice : samba domain member
+## practice : samba domain member
 
 1\. Verify that you have a working Active Directory (AD) domain.
 

@@ -1,4 +1,4 @@
-# practice: partitions
+## practice: partitions
 
 1\. Use `fdisk -l` to display existing partitions and sizes.
 

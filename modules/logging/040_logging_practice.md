@@ -1,4 +1,4 @@
-# practice : logging
+## practice : logging
 
 1\. Display the /var/run/utmp file with the proper command (not with cat
 or vi).

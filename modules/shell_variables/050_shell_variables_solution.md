@@ -1,4 +1,4 @@
-# solution: shell variables
+## solution: shell variables
 
 1\. Use echo to display Hello followed by your username. (use a bash
 variable!)

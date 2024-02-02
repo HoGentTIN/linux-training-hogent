@@ -1,4 +1,4 @@
-# boot terminology
+## boot terminology
 
 The exact order of things that happen when starting a computer system,
 depends on the hardware architecture (`Intel x86` is
@@ -7,7 +7,7 @@ different from `Sun Sparc` etc), on the boot loader
 `Solaris`, `BSD` etc). Most of this chapter
 is focused on booting `Linux` on `Intel x86` with `grub`.
 
-## post
+### post
 
 A computer starts booting the moment you turn on the power (no kidding).
 This first process is called `post` or
@@ -16,7 +16,7 @@ the `bios`. If all goes not so well, then you might hear nothing, or
 hear beeping, or see an error message on the screen, or maybe see smoke
 coming out of the computer (burning hardware smells bad!).
 
-## bios
+### bios
 
 All `Intel x86` computers will have a `basic input/output system` or
 `bios` to detect, identify and initialize hardware. The
@@ -28,7 +28,7 @@ key (often `Del` or `F2`) to press to enter the `bios` setup.
 
 ![](images/bios.png)
 
-## openboot
+### openboot
 
 Sun `sparc` systems start with `openboot` to
 test the hardware and to boot the operating system.
@@ -36,14 +36,14 @@ test the hardware and to boot the operating system.
 Administration books. The details of `openboot` are not the focus of
 this course.
 
-## boot password
+### boot password
 
 The `bios` allows you to set a password. Do not forget this password, or
 you will have to open up the hardware to reset it. You can sometimes set
 a password to boot the system, and another password to protect the
 `bios` from being modified.
 
-## boot device
+### boot device
 
 The `bios` will look for a `boot device` in the order configured in the
 bios setup. Usually an operating system on a production server boots of
@@ -51,7 +51,7 @@ a hard disk.
 
 ![](images/bootdevice.png)
 
-## master boot record
+### master boot record
 
 The `master boot record` or `mbr` is the
 first sector of a hard disk. The partitioning of a disk in
@@ -62,7 +62,7 @@ The `mbr` is 512 bytes long and can be copied with `dd`.
 
     dd if=/dev/sda of=bootsect.mbr count=1 bs=512
 
-## bootloader
+### bootloader
 
 The `mbr` is executed by the `bios` and contains either (a small)
 `bootloader` or code to load a `bootloader`.
@@ -84,7 +84,7 @@ use `yaboot` (yet another boot loader).
 
 Bootable cd\'s and dvd\'s often use `syslinux`.
 
-## kernel
+### kernel
 
 The goal of all this is to load an operating system, or rather the
 `kernel` of an operating system. A typical bootloader like `grub` will
@@ -96,9 +96,9 @@ it. From that moment on, the kernel is in control of the system. After
 discussing bootloaders, we continue with the `init system` that starts
 all the daemons.
 
-# grub
+## grub
 
-## /boot/grub/grub.cfg
+### /boot/grub/grub.cfg
 
 Debian switched to `grub2`, which will be discussed in the
 next section. The main boot menu configuration file for `grub2` is
@@ -108,7 +108,7 @@ next section. The main boot menu configuration file for `grub2` is
     -r--r--r-- 1 root root 2453 May 13 17:22 /boot/grub/grub.cfg
     root@debian10:~#
 
-## /boot/grub/grub.conf
+### /boot/grub/grub.conf
 
 Distributions like Red Hat Enterprise Linux 6 use
 `grub.conf` and provide a symbolic link from
@@ -153,11 +153,11 @@ The file currently (RHEL 6.5) looks like this:
             initrd /initramfs-2.6.32-431.el6.x86_64.img
     [root@centos65 ~]#
 
-## menu commands
+### menu commands
 
 The `menu commands` must be at the top of `grub`\'s configuration file.
 
-### default
+#### default
 
 The `default` command sets a default `entry` to start. The
 first `entry` has number 0.
@@ -166,34 +166,34 @@ first `entry` has number 0.
 
 Each entry or `stanza` starts with a `title` directive.
 
-### fallback
+#### fallback
 
 In case the `default` does not boot, use the `fallback`
 entry instead.
 
     fallback=1
 
-### timeout
+#### timeout
 
 The `timeout` will wait a number of seconds before booting
 the `default` entry.
 
     timeout=5
 
-### hiddenmenu
+#### hiddenmenu
 
 The `hiddenmenu` will hide the `grub` menu unless the user
 presses `Esc` before the `timeout` expires.
 
     hiddenmenu
 
-### title
+#### title
 
 With `title` we can start a new `entry` or `stanza`.
 
     title CentOS (2.6.32-431.11.2.el6.x86_64)
 
-### password
+#### password
 
 You can add a `password` to prevent interactive selection
 of a boot environment while `grub` is running.
@@ -207,13 +207,13 @@ Use the `grub` interactive shell to create the password hash.
     Password: ********
     Encrypted: $1$Ec.id/$T2C2ahI/EG3WRRsmmu/HN/
 
-## stanza commands
+### stanza commands
 
 Every `operating system` or `kernel` that you want to boot with `grub`
 will have a `stanza` aka an `entry` of a couple of lines.
 Listed here are some of the common `stanza` commands.
 
-### boot
+#### boot
 
 Technically the `boot` command is only mandatory when
 running the `grub command line`. This command does not have any
@@ -221,7 +221,7 @@ parameters and can only be set as the last command of a stanza.
 
     boot
 
-### kernel
+#### kernel
 
 The `kernel` command points to the location of the kernel.
 To boot Linux this means booting a `gzip` compressed
@@ -240,7 +240,7 @@ All parameters in the kernel line can be read by the kernel itself or by
 any other program (which are started later) by reading
 `/proc/cmdline`
 
-### initrd
+#### initrd
 
 Many `Linux` installations will need an `initial ramdisk` at boot time.
 This can be set in `grub` with the `initrd` command.
@@ -253,7 +253,7 @@ And the same for Red Hat Enterprise Linux 5
 
     initrd /initrd-2.6.18-128.el5.img
 
-### root
+#### root
 
 The `root` command accepts the root device as a parameter.
 
@@ -265,7 +265,7 @@ partition on that disk.
 
     root (hd0,0)
 
-### savedefault
+#### savedefault
 
 The `savedefault` command can be used together with
 `default saved` as a menu command. This combination will
@@ -285,7 +285,7 @@ set the currently booted stanza as the next default stanza to boot.
     chainloader +1
     savedefault
 
-## chainloading
+### chainloading
 
 With `grub` booting, there are two choices: loading an operating system
 or `chainloading` another bootloader. The `chainloading`
@@ -316,7 +316,7 @@ Here is a complete example to `chainload` an old operating system.
     makeactive
     chainloader +1
 
-## simple stanza examples
+### simple stanza examples
 
 This is a screenshot of a `Debian 4` stanza.
 
@@ -332,7 +332,7 @@ Here a screenshot of a `Red Hat Enterprise Linux 5` stanza.
      kernel /vmlinuz-2.6.18-98.el5 ro root=/dev/VolGroup00/LogVol00 rhgb quiet
      initrd /initrd-2.6.18-98.el5.img
 
-## editing grub at boot time
+### editing grub at boot time
 
 At boot time, when the `grub` menu is displayed, you can type `e` to
 edit the current stanza. This enables you to add parameters to the
@@ -352,7 +352,7 @@ parameter.
 Note that some distributions will disable this option at kernel compile
 time.
 
-## installing grub
+### installing grub
 
 Run the `grub-install` command to install `grub`. The
 command requires a destination for overwriting the `boot sector` or
@@ -364,9 +364,9 @@ You will rarely have to do this manually, since grub is installed when
 installing the operating system and does not need any re-install when
 changing configuration (as is the case for `lilo`).
 
-# grub2
+## grub2
 
-## grub 2.0 ?
+### grub 2.0 ?
 
 The main configuration file is now `/boot/grub/grub.cfg`. And while this
 file may look familiar, one should never edit this file directly
@@ -379,7 +379,7 @@ file may look familiar, one should never edit this file directly
     # DO NOT EDIT THIS FILE
     #
 
-## /etc/grub.d/40_custom
+### /etc/grub.d/40_custom
 
 The `/etc/grub.d/40_custom` file can be changed to include
 custom entries. These entries are automatically added to grub.
@@ -393,7 +393,7 @@ custom entries. These entries are automatically added to grub.
     # menu entries you want to add after this comment.  Be careful not to change
     # the 'exec tail' line above.
 
-## /etc/default/grub
+### /etc/default/grub
 
 The new configuration file for changing grub is now
 `/etc/default/grub`.
@@ -410,7 +410,7 @@ The new configuration file for changing grub is now
     GRUB_CMDLINE_LINUX_DEFAULT="quiet"
     GRUB_CMDLINE_LINUX="debian-installer=en_US"
 
-## update-grub
+### update-grub
 
 Whenever the `/etc/default/grub` file is changed, you will need to run
 `update-grub` to apply the changes.
@@ -422,14 +422,14 @@ Whenever the `/etc/default/grub` file is changed, you will need to run
     Found initrd image: /boot/initrd.img-3.2.0-4-amd64
     done
 
-# lilo
+## lilo
 
-## Linux loader
+### Linux loader
 
 `lilo` used to be the most used Linux bootloader, but is
 steadily being replaced with `grub` and recently `grub2`.
 
-## lilo.conf
+### lilo.conf
 
 Here is an example of a `lilo.conf` file. The `delay`
 switch receives a number in tenths of a second. So the delay below is

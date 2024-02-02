@@ -1,1 +1,1 @@
-
+# GNU Free Documentation License

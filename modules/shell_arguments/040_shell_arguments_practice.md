@@ -1,4 +1,4 @@
-# practice: commands and arguments
+## practice: commands and arguments
 
 1\. How many `arguments` are in this line (not counting the command
 itself).

@@ -1,4 +1,4 @@
-# practice: apache
+## practice: apache
 
 1\. Verify that Apache is installed and running.
 

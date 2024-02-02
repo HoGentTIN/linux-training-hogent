@@ -1,4 +1,4 @@
-# filesystem hierarchy standard
+## filesystem hierarchy standard
 
 Many Linux distributions partially follow the
 `Filesystem Hierarchy Standard`. The `FHS` may help make
@@ -10,7 +10,7 @@ distribution developers, package developers, and system implementers.
 However, it is primarily intended to be a reference and is not a
 tutorial on how to manage a Unix filesystem or directory hierarchy.\"
 
-# man hier
+## man hier
 
 There are some differences in the filesystems between
 `Linux distributions`. For help about your machine, enter
@@ -18,7 +18,7 @@ There are some differences in the filesystems between
 hierarchy. This manual will explain the directory structure on your
 computer.
 
-# the root directory /
+## the root directory /
 
 All Linux systems have a directory structure that starts at the
 `root directory`. The root directory is represented by a
@@ -31,13 +31,13 @@ brief look at the contents of the root directory.
     boot  etc  lib   misc   opt  root  selinux  sys  tmp       var
         
 
-# binary directories
+## binary directories
 
 `Binaries` are files that contain compiled source code (or machine
 code). Binaries can be `executed` on the computer. Sometimes binaries
 are called `executables`.
 
-## /bin
+### /bin
 
 The `/bin` directory contains `binaries` for
 use by all users. According to the FHS the `/bin` directory should
@@ -67,7 +67,7 @@ this book.
     cat              kill              pidof            umount
     ...
 
-## other /bin directories
+### other /bin directories
 
 You can find a `/bin subdirectory` in many other directories. A user
 named `serena` could put her own programs in `/home/serena/bin`.
@@ -76,7 +76,7 @@ Some applications, often when installed directly from source will put
 themselves in `/opt`. A `samba server` installation can use
 `/opt/samba/bin` to store its binaries.
 
-## /sbin
+### /sbin
 
 `/sbin` contains binaries to configure the operating
 system. Many of the `system binaries` require `root`
@@ -90,7 +90,7 @@ address, partition a disk and create an ext4 file system.
     -rwxr-xr-x 1 root root 65708 2010-07-02 09:27 /sbin/ifconfig
     -rwxr-xr-x 5 root root 55140 2010-08-18 18:01 /sbin/mkfs.ext4
 
-## /lib
+### /lib
 
 Binaries found in `/bin` and `/sbin` often use `shared libraries`
 located in `/lib`. Below is a screenshot of the partial
@@ -102,13 +102,13 @@ contents of `/lib`.
     /lib/libcap.so.1.10  /lib/libcidn.so.1       /lib/libconsole.so.0.0.0  
     /lib/libcfont.so.0   /lib/libcom_err.so.2    /lib/libcrypt-2.5.so
 
-### /lib/modules
+#### /lib/modules
 
 Typically, the `Linux kernel` loads kernel modules from
 `/lib/modules/$kernel-version/`. This directory is
 discussed in detail in the Linux kernel chapter.
 
-### /lib32 and /lib64
+#### /lib32 and /lib64
 
 We currently are in a transition between `32-bit` and `64-bit` systems.
 Therefore, you may encounter directories named `/lib32`
@@ -129,7 +129,7 @@ demonstrate the difference.
 The ELF `(Executable and Linkable Format)` is used in
 almost every Unix-like operating system since `System V`.
 
-## /opt
+### /opt
 
 The purpose of `/opt` is to store `optional` software. In many cases
 this is software from outside the distribution repository. You may find
@@ -140,9 +140,9 @@ subdirectories within `/opt/$packagename/`. If for example the package
 is called wp, then it installs in `/opt/wp`, putting binaries in
 `/opt/wp/bin` and manpages in `/opt/wp/man`.
 
-# configuration directories
+## configuration directories
 
-## /boot
+### /boot
 
 The `/boot` directory contains all files needed to boot
 the computer. These files don\'t change very often. On Linux systems you
@@ -151,7 +151,7 @@ typically find the `/boot/grub` directory here.
 may still have `/boot/grub/grub.conf`) which defines the
 boot menu that is displayed before the kernel starts.
 
-## /etc
+### /etc
 
 All of the machine-specific `configuration files` should be located in
 `/etc`. Historically `/etc` stood for `etcetera`, today
@@ -177,27 +177,27 @@ application, daemon, or protocol with `.conf` added as the extension.
 
 There is much more to be found in `/etc`.
 
-### /etc/init.d/
+#### /etc/init.d/
 
 A lot of Unix/Linux distributions have an `/etc/init.d`
 directory that contains scripts to start and stop `daemons`. This
 directory could disappear as Linux migrates to systems that replace the
 old `init` way of starting all `daemons`.
 
-### /etc/X11/
+#### /etc/X11/
 
 The graphical display (aka `X Window System` or just
 `X`) is driven by software from the X.org foundation. The
 configuration file for your graphical display is
 `/etc/X11/xorg.conf`.
 
-### /etc/skel/
+#### /etc/skel/
 
 The `skeleton` directory `/etc/skel` is
 copied to the home directory of a newly created user. It usually
 contains hidden files like a `.bashrc` script.
 
-### /etc/sysconfig/
+#### /etc/sysconfig/
 
 This directory, which is not mentioned in the FHS, contains a lot of
 `Red Hat Enterprise Linux` configuration files. We will discuss some of
@@ -250,9 +250,9 @@ directory `/lib/kbd/keymaps/`.
 We will discuss networking files in this directory in the networking
 chapter.
 
-# data directories
+## data directories
 
-## /home
+### /home
 
 Users can store personal or project data under `/home`. It
 is common (but not mandatory by the fhs) practice to name the users home
@@ -274,13 +274,13 @@ files of the Unix user profiles contain settings specific for that user.
     /home/paul/.bash_history  /home/paul/.lesshst
             
 
-## /root
+### /root
 
 On many systems `/root` is the default location for
 personal data and profile of the `root user`. If it does not exist by
 default, then some administrators create it.
 
-## /srv
+### /srv
 
 You may use `/srv` for data that is
 `served by your system`. The FHS allows locating cvs, rsync, ftp and www
@@ -290,7 +290,7 @@ data in this location. The FHS also approves administrative naming in
 On Sun Solaris (or Oracle Solaris) `/export` is used for
 this purpose.
 
-## /media
+### /media
 
 The `/media` directory serves as a mount point for
 `removable media devices` such as CD-ROM\'s, digital cameras, and
@@ -302,7 +302,7 @@ distributions today mount all removable media in `/media`.
     paul@debian10:~$ ls /media/
     cdrom  cdrom0  usbdisk
 
-## /mnt
+### /mnt
 
 The `/mnt` directory should be empty and should only be used for
 temporary mount points (according to the FHS).
@@ -312,22 +312,22 @@ Unix and Linux administrators used to create many directories here, like
 one directory created and/or mounted inside `/mnt` to be used for
 various local and remote filesystems.
 
-## /tmp
+### /tmp
 
 Applications and users should use `/tmp` to store
 temporary data when needed. Data stored in `/tmp` may use either disk
 space or RAM. Both of which are managed by the operating system. Never
 use `/tmp` to store data that is important or which you wish to archive.
 
-# in memory directories
+## in memory directories
 
-## /dev
+### /dev
 
 Device files in `/dev` appear to be ordinary files, but
 are not actually located on the hard disk. The `/dev` directory is
 populated with files as the kernel is recognising hardware.
 
-### common physical devices
+#### common physical devices
 
 Common hardware such as hard disk devices are represented by device
 files in `/dev`. Below a screenshot of SATA device files on a laptop and
@@ -350,7 +350,7 @@ devices will be discussed later.)
 Besides representing physical hardware, some device files are special.
 These special devices can be very useful.
 
-### /dev/tty and /dev/pts
+#### /dev/tty and /dev/pts
 
 For example, `/dev/tty1` represents a terminal or console
 attached to the system. (Don\'t break your head on the exact terminology
@@ -359,7 +359,7 @@ interface.) When typing commands in a terminal that is part of a
 graphical interface like Gnome or KDE, then your terminal will be
 represented as `/dev/pts/1` (1 can be another number).
 
-### /dev/null
+#### /dev/null
 
 On Linux you will find other special devices such as
 `/dev/null` which can be considered a black hole; it has
@@ -368,7 +368,7 @@ speaking, anything written to /dev/null will be discarded. /dev/null can
 be useful to discard unwanted output from commands. */dev/null is not a
 good location to store your backups ;-)*.
 
-## /proc conversation with the kernel
+### /proc conversation with the kernel
 
 `/proc` is another special directory, appearing to be
 ordinary files, but not taking up disk space. It is actually a view of
@@ -478,7 +478,7 @@ Most of the files in /proc are read only, some require root privileges,
 some files are writable, and many files in `/proc/sys` are
 writable. Let\'s discuss some of the files in /proc.
 
-### /proc/interrupts
+#### /proc/interrupts
 
 On the x86 architecture, `/proc/interrupts` displays the
 interrupts.
@@ -521,7 +521,7 @@ On a machine with two CPU\'s, the file looks like this.
     LOC:    860000   859994 
     ERR:         0
 
-### /proc/kcore
+#### /proc/kcore
 
 The physical memory is represented in `/proc/kcore`. Do
 not try to cat this file, instead use a debugger. The size of
@@ -531,7 +531,7 @@ not try to cat this file, instead use a debugger. The size of
     -r-------- 1 root root 2.0G 2007-01-30 08:57 /proc/kcore
     paul@laika:~$
 
-## /sys Linux 2.6 hot plugging
+### /sys Linux 2.6 hot plugging
 
 The `/sys` directory was created for the Linux 2.6 kernel.
 Since 2.6, Linux uses `sysfs` to support
@@ -543,7 +543,7 @@ info (or visit http://linux-hotplug.sourceforge.net/ ).
 Basically the `/sys` directory contains kernel information about
 hardware.
 
-# /usr Unix System Resources
+## /usr Unix System Resources
 
 Although `/usr` is pronounced like user, remember that it
 stands for `Unix System Resources`. The `/usr` hierarchy should contain
@@ -551,7 +551,7 @@ stands for `Unix System Resources`. The `/usr` hierarchy should contain
 only. This can be done from its own partition or from a read only NFS
 share (NFS is discussed later).
 
-## /usr/bin
+### /usr/bin
 
 The `/usr/bin` directory contains a lot of commands.
 
@@ -560,7 +560,7 @@ The `/usr/bin` directory contains a lot of commands.
 
 (On Solaris the `/bin` directory is a symbolic link to `/usr/bin`.)
 
-## /usr/include
+### /usr/include
 
 The `/usr/include` directory contains general use include
 files for C.
@@ -573,7 +573,7 @@ files for C.
     aliases.h      features.h          mntent.h         shadow.h
     ...
 
-## /usr/lib
+### /usr/lib
 
 The `/usr/lib` directory contains libraries that are not
 directly executed by users or scripts.
@@ -587,7 +587,7 @@ directly executed by users or scripts.
     avahi
     bonobo
 
-## /usr/local
+### /usr/local
 
 The `/usr/local` directory can be used by an administrator
 to install software locally.
@@ -597,7 +597,7 @@ to install software locally.
     paul@deb508:~$ du -sh /usr/local/
     128K    /usr/local/
 
-## /usr/share
+### /usr/share
 
 The `/usr/share` directory contains architecture
 independent data. As you can see, this is a fairly large directory.
@@ -622,7 +622,7 @@ data (so no high-scores or play logs).
     paul@ubu1010:~$ ls /usr/share/games/
     openttd  wesnoth
 
-## /usr/src
+### /usr/src
 
 The `/usr/src` directory is the recommended location for
 kernel source files.
@@ -633,12 +633,12 @@ kernel source files.
     drwxr-xr-x 18 root root 4096 2011-02-01 14:43 linux-headers-2.6.26-2-common
     drwxr-xr-x  3 root root 4096 2009-10-28 16:01 linux-kbuild-2.6.26
 
-# /var variable data
+## /var variable data
 
 Files that are unpredictable in size, such as log, cache and spool
 files, should be located in `/var`.
 
-## /var/log
+### /var/log
 
 The `/var/log` directory serves as a central point to
 contain all log files.
@@ -659,7 +659,7 @@ contain all log files.
     cron            maillog   ppp         secure.2         Xorg.0.log
     cron.1          maillog.1 prelink.log secure.3         Xorg.0.log.old
 
-## /var/log/messages
+### /var/log/messages
 
 A typical first file to check when troubleshooting on Red Hat (and
 derivatives) is the `/var/log/messages` file. By default
@@ -678,7 +678,7 @@ The file is called `/var/log/syslog` on Debian and Ubuntu.
     Jul 30 05:16:46 sshd(pam_unix)[3662]: session opened for user paul by... 
     Jul 30 06:06:37 su(pam_unix)[3904]: session opened for user root by paul
 
-## /var/cache
+### /var/cache
 
 The `/var/cache` directory can contain `cache data` for
 several applications.
@@ -689,13 +689,13 @@ several applications.
     cups     fontconfig             jockey    pppconfig
     debconf  fonts                  ldconfig  samba
 
-## /var/spool
+### /var/spool
 
 The `/var/spool` directory typically contains spool
 directories for `mail` and `cron`, but also serves as a parent directory
 for other spool files (for example print spool files).
 
-## /var/lib
+### /var/lib
 
 The `/var/lib` directory contains application state
 information.
@@ -703,7 +703,7 @@ information.
 Red Hat Enterprise Linux for example keeps files pertaining to
 `rpm` in `/var/lib/rpm/`.
 
-## /var/\...
+### /var/\...
 
 `/var` also contains Process ID files in `/var/run` (soon
 to be replaced with `/run`) and temporary files that

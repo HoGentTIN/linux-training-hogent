@@ -1,4 +1,4 @@
-# stdin, stdout, and stderr
+## stdin, stdout, and stderr
 
 The bash shell has three basic streams; it takes input from `stdin`
 (stream `0`), it sends output to `stdout` (stream `1`)
@@ -18,9 +18,9 @@ users know that separating output from errors can be very useful.
 
 The next sections will explain how to redirect these streams.
 
-# output redirection
+## output redirection
 
-## \> stdout
+### \> stdout
 
 `stdout` can be redirected with a `greater than` sign. While scanning
 the line, the shell will see the `>` sign and will clear
@@ -47,7 +47,7 @@ of this command:
 the shell only counts two arguments (echo = argument 0, hello = argument
 1). The redirection is removed before the argument counting takes place.
 
-## output file is erased
+### output file is erased
 
 While scanning the line, the shell will see the \> sign and
 `will clear the file`! Since this happens before resolving `argument 0`,
@@ -61,7 +61,7 @@ cleared!
     [paul@RHELv8u3 ~]$ cat winter.txt 
     [paul@RHELv8u3 ~]$
 
-## noclobber
+### noclobber
 
 Erasing a file while using \> can be prevented by setting the
 `noclobber` option.
@@ -74,7 +74,7 @@ Erasing a file while using \> can be prevented by setting the
     [paul@RHELv8u3 ~]$ set +o noclobber
     [paul@RHELv8u3 ~]$
 
-## overruling noclobber
+### overruling noclobber
 
 The `noclobber` can be overruled with `>|`.
 
@@ -86,7 +86,7 @@ The `noclobber` can be overruled with `>|`.
     It is very cold today!
     [paul@RHELv8u3 ~]$
 
-## \>\> append
+### \>\> append
 
 Use `>>` to `append` output to a file.
 
@@ -99,9 +99,9 @@ Use `>>` to `append` output to a file.
     Where is the summer ?
     [paul@RHELv8u3 ~]$
 
-# error redirection
+## error redirection
 
-## 2\> stderr
+### 2\> stderr
 
 Redirecting `stderr` is done with `2>`. This can be very
 useful to prevent error messages from cluttering your screen.
@@ -115,7 +115,7 @@ same as \>.
     [paul@RHELv8u3 ~]$ find / > allfiles.txt 2> /dev/null
     [paul@RHELv8u3 ~]$
 
-## 2\>&1
+### 2\>&1
 
 To redirect both `stdout` and `stderr` to the same file, use
 `2>&1`.
@@ -137,7 +137,7 @@ directs only the standard output to file dirlist, because the standard
 error made a copy of the standard output before the standard output was
 redirected to dirlist.
 
-# output redirection and pipes
+## output redirection and pipes
 
 By default you cannot grep inside `stderr` when using pipes on the
 command line, because only `stdout` is passed.
@@ -167,7 +167,7 @@ You need a third stream to switch stdout and stderr after a pipe symbol.
     paul@debian10:~$ rm file42 3>&1 1>&2 2>&3 | sed 's/file42/FILE42/' 
     rm: cannot remove ‘FILE42’: No such file or directory
 
-# joining stdout and stderr
+## joining stdout and stderr
 
 The `&>` construction will put both `stdout` and `stderr` in one stream
 (to a file).
@@ -180,9 +180,9 @@ The `&>` construction will put both `stdout` and `stderr` in one stream
     file42
     paul@debian10:~$ 
 
-# input redirection
+## input redirection
 
-## \< stdin
+### \< stdin
 
 Redirecting `stdin` is done with \< (short for 0\<).
 
@@ -194,7 +194,7 @@ Redirecting `stdin` is done with \< (short for 0\<).
     ZZO
     [paul@RHEL8b ~]$
 
-## \<\< here document
+### \<\< here document
 
 The `here document` (sometimes called here-is-document) is
 a way to append input until a certain sequence (usually EOF) is
@@ -216,7 +216,7 @@ can be called with Ctrl-D.
     [paul@RHEL8b ~]$
             
 
-## \<\<\< here string
+### \<\<\< here string
 
 The `here string` can be used to directly pass strings to
 a command. The result is the same as using `echo string | command` (but
@@ -229,7 +229,7 @@ you have one less process running).
 
 See rfc 3548 for more information about `base64`.
 
-# confusing redirection
+## confusing redirection
 
 The shell will scan the whole line before applying redirection. The
 following command line is very readable and is correct.
@@ -244,7 +244,7 @@ Even this will be understood perfectly by the shell.
 
     < winter.txt > snow.txt 2> errors.txt cat
 
-# quick file clear
+## quick file clear
 
 So what is the quickest way to clear a file ?
 

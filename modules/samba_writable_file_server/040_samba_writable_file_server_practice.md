@@ -1,4 +1,4 @@
-# practice: writable file server
+## practice: writable file server
 
 1\. Create a directory and share it with Samba.
 

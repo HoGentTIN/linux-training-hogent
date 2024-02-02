@@ -1,4 +1,4 @@
-# practice: interface configuration
+## practice: interface configuration
 
 1\. Verify whether `dhclient` is running.
 

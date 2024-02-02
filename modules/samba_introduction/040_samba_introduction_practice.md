@@ -1,4 +1,4 @@
-# practice: introduction to samba
+## practice: introduction to samba
 
 0\. !! Make sure you know your student number, anything \*ANYTHING\* you
 name must include your student number!

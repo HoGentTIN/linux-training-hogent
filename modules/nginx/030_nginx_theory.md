@@ -1,6 +1,6 @@
-# introduction to apache
+## introduction to apache
 
-## installing on Debian
+### installing on Debian
 
 This screenshot shows that there is no `apache` server installed, nor
 does the `/var/www` directory exist.
@@ -34,7 +34,7 @@ different result:
     ii apache2.2-bin 2.2.22-13+deb7u1 amd64 Apache HTTP Server common binary files
     ii apache2.2-common 2.2.22-13+deb7u1 amd64 Apache HTTP Server common files
 
-## installing on RHEL/CentOS
+### installing on RHEL/CentOS
 
 Note that Red Hat derived distributions use `httpd` as package and
 process name instead of `apache`.
@@ -63,7 +63,7 @@ apache installed and the `/var/www` directory exists.
     drwxr-xr-x. 3 root root 4096 May  6 13:08 icons
     [root@centos65 ~]#
 
-## running apache on Debian
+### running apache on Debian
 
 This is how you start `apache2` on Debian.
 
@@ -115,7 +115,7 @@ determine the fqdn\' message when restarting apache.
     Restarting web server: apache2 ... waiting .
     root@debian10:~#
 
-## running apache on CentOS
+### running apache on CentOS
 
 Starting the `httpd` on RHEL/CentOS is done with the
 `service` command.
@@ -155,7 +155,7 @@ the following command.
     Starting httpd:                                            [  OK  ]
     [root@centos65 ~]#
 
-## index file on CentOS
+### index file on CentOS
 
 CentOS does not provide a standard index.html or index.php file. A
 simple `wget` gives an error.
@@ -202,7 +202,7 @@ as an index for this web server.
     [root@centos65 ~]# cat index.html
     Welcome to my website
 
-## default website
+### default website
 
 Changing the default website of a freshly installed apache web server is
 easy. All you need to do is create (or change) an index.html file in the
@@ -239,7 +239,7 @@ will automatically be used as default page.
     ody></html>
     [root@centos65 ~]#
 
-## apache configuration
+### apache configuration
 
 There are many similarities, but also a couple of differences when
 configuring `apache` on Debian or on CentOS. Both Linux families will
@@ -272,9 +272,9 @@ Debian (and ubuntu/mint/\...) use `/etc/apache2`.
     drwxr-xr-x 2 root root  4096 May  6 13:19 sites-enabled
     root@debian10:~#
 
-# port virtual hosts on Debian
+## port virtual hosts on Debian
 
-## default virtual host
+### default virtual host
 
 Debian has a virtualhost configuration file for its default website in
 `/etc/apache2/sites-available/default`.
@@ -283,7 +283,7 @@ Debian has a virtualhost configuration file for its default website in
     <VirtualHost *:80>
             ServerAdmin webmaster@localhost
 
-## three extra virtual hosts
+### three extra virtual hosts
 
 In this scenario we create three additional websites for three customers
 that share a clubhouse and want to jointly hire you. They are a model
@@ -319,7 +319,7 @@ we specified a unique `DocumentRoot` for each website.
 Are you using `Ubuntu` or `Mint`, then these configfiles need to end in
 `.conf`.
 
-## three extra ports
+### three extra ports
 
 We need to enable these three ports on apache in the `ports.conf` file.
 Open this file with `vi` and add three lines to `listen` on three extra
@@ -335,7 +335,7 @@ Verify with `grep` that the `Listen` directives are added correctly.
     Listen 8000
     Listen 9000
 
-## three extra websites
+### three extra websites
 
 Next we need to create three `DocumentRoot` directories.
 
@@ -351,7 +351,7 @@ And we have to put some really simple website in those directories.
     ml
     root@debian10:~# echo 'HaCkInG iS fUn At HuNtEr2' > /var/www/hunter2/index.html
 
-## enabling extra websites
+### enabling extra websites
 
 The last step is to enable the websites with the `a2ensite` command.
 This command will create links in `sites-enabled`.
@@ -387,7 +387,7 @@ The links are created, so we can tell `apache`.
     Reloading web server config: apache2.
     root@debian10:/etc/apache2#
 
-## testing the three websites
+### testing the three websites
 
 Testing the model train club named `Choo Choo` on port 7000.
 
@@ -443,9 +443,9 @@ Cleaning up the temporary files.
 
 Try testing from another computer using the ip-address of your server.
 
-# named virtual hosts on Debian
+## named virtual hosts on Debian
 
-## named virtual hosts
+### named virtual hosts
 
 The chess club and the model train club find the port numbers too hard
 to remember. They would prefere to have their website accessible by
@@ -483,7 +483,7 @@ We start by creating three new virtualhosts.
 Notice that they all listen on `port 80` and have an extra `ServerName`
 directive.
 
-## name resolution
+### name resolution
 
 We need some way to resolve names. This can be done with DNS, which is
 discussed in another chapter. For this demo it is also possible to
@@ -496,7 +496,7 @@ quickly add the three names to the `/etc/hosts` file.
 
 Note that you may have another ip address\...
 
-## enabling virtual hosts
+### enabling virtual hosts
 
 Next we enable them with `a2ensite`.
 
@@ -513,7 +513,7 @@ Next we enable them with `a2ensite`.
     To activate the new configuration, you need to run:
       service apache2 reload
 
-## reload and verify
+### reload and verify
 
 After a `service apache2 reload` the websites should be available by
 name.
@@ -536,7 +536,7 @@ name.
     root@debian10:/etc/apache2/sites-available# cat index.html 
     Welcome to chess club 42
 
-# password protected website on Debian
+## password protected website on Debian
 
 You can secure files and directories in your website with a `.htaccess`
 file that refers to a `.htpasswd` file. The `htpasswd`
@@ -594,16 +594,16 @@ this screenshot shows (with line numbers on debian10, your may vary).
 
 Now restart the apache2 server and test that it works!
 
-# port virtual hosts on CentOS
+## port virtual hosts on CentOS
 
-## default virtual host
+### default virtual host
 
 Unlike Debian, CentOS has no virtualHost configuration file for its
 default website. Instead the default configuration will throw a standard
 error page when no index file can be found in the default location
 (/var/www/html).
 
-## three extra virtual hosts
+### three extra virtual hosts
 
 In this scenario we create three additional websites for three customers
 that share a clubhouse and want to jointly hire you. They are a model
@@ -636,7 +636,7 @@ on a different port. This screenshot shows three newly created
 Notice the different port numbers 7000, 8000 and 9000. Notice also that
 we specified a unique `DocumentRoot` for each website.
 
-## three extra ports
+### three extra ports
 
 We need to enable these three ports on apache in the `httpd.conf` file.
 
@@ -647,7 +647,7 @@ We need to enable these three ports on apache in the `httpd.conf` file.
     Listen 8000
     Listen 9000
 
-## SELinux guards our ports
+### SELinux guards our ports
 
 If we try to restart our server, we will notice the following error:
 
@@ -667,7 +667,7 @@ need to tell SELinux we want to use these ports for http traffic
     Stopping httpd:                                            [  OK  ]
     Starting httpd:                                            [  OK  ]
 
-## three extra websites
+### three extra websites
 
 Next we need to create three `DocumentRoot` directories.
 
@@ -684,7 +684,7 @@ And we have to put some really simple website in those directories.
     [root@CentOS65 ~]# echo 'HaCkInG iS fUn At HuNtEr2' > /var/www/html/hunter2/ind\
     ex.html
 
-## enabling extra websites
+### enabling extra websites
 
 The only way to enable or disable configurations in RHEL/CentOS is by
 renaming or moving the configuration files. Any file in
@@ -698,7 +698,7 @@ The files are created, so we can tell `apache`.
     [root@CentOS65 ~]# service httpd reload
     Reloading httpd: 
 
-## testing the three websites
+### testing the three websites
 
 Testing the model train club named `Choo Choo` on port 7000.
 
@@ -752,7 +752,7 @@ Cleaning up the temporary files.
 
     [root@CentOS65 ~]# rm index.html index.html.1 index.html.2 
 
-## firewall rules
+### firewall rules
 
 If we attempt to access the site from another machine however, we will
 not be able to view the website yet. The firewall is blocking incoming
@@ -769,9 +769,9 @@ save them
     [root@CentOS65 ~]# service iptables save
     iptables: Saving firewall rules to /etc/sysconfig/iptables:[  OK  ]
 
-# named virtual hosts on CentOS
+## named virtual hosts on CentOS
 
-## named virtual hosts
+### named virtual hosts
 
 The chess club and the model train club find the port numbers too hard
 to remember. They would prefere to have their website accessible by
@@ -816,7 +816,7 @@ Next we need to create three new virtualhosts.
 Notice that they all listen on `port 80` and have an extra `ServerName`
 directive.
 
-## name resolution
+### name resolution
 
 We need some way to resolve names. This can be done with DNS, which is
 discussed in another chapter. For this demo it is also possible to
@@ -829,7 +829,7 @@ quickly add the three names to the `/etc/hosts` file.
 
 Note that you may have another ip address\...
 
-## reload and verify
+### reload and verify
 
 After a `service httpd reload` the websites should be available by name.
 
@@ -850,7 +850,7 @@ After a `service httpd reload` the websites should be available by name.
     [root@CentOS65 ~]# cat index.html
     Welcome to chess club 42
 
-# password protected website on CentOS
+## password protected website on CentOS
 
 You can secure files and directories in your website with a `.htaccess`
 file that refers to a `.htpasswd` file. The `htpasswd`
@@ -934,7 +934,7 @@ subdirectory of the default website, we will need to adjust the
 
 Now restart the apache2 server and test that it works!
 
-# troubleshooting apache
+## troubleshooting apache
 
 When apache restarts, it will verify the syntax of files in the
 configuration folder `/etc/apache2` on debian or `/etc/httpd` on CentOS
@@ -976,7 +976,7 @@ As you can see, apache will tell you exactly what is wrong.
 You can also troubleshoot by connecting to the website via a browser and
 then checking the apache log files in `/var/log/apache`.
 
-# virtual hosts example
+## virtual hosts example
 
 Below is a sample virtual host configuration. This virtual hosts
 overrules the default Apache `ErrorDocument` directive.
@@ -996,7 +996,7 @@ overrules the default Apache `ErrorDocument` directive.
     </VirtualHost>
             
 
-# aliases and redirects
+## aliases and redirects
 
 Apache supports aliases for directories, like this example shows.
 
@@ -1006,7 +1006,7 @@ Similarly, content can be redirected to another website or web server.
 
     Redirect permanent /foo http://www.foo.com/bar
 
-# more on .htaccess
+## more on .htaccess
 
 You can do much more with `.htaccess`. One example is to
 use .htaccess to prevent people from certain domains to access your
@@ -1025,12 +1025,12 @@ blocked from the website.
     RewriteRule .* - [F,L]
     paul@lounge:~/cobbaut.be$
 
-# traffic
+## traffic
 
 Apache keeps a log of all visitors. The `webalizer` is
 often used to parse this log into nice html statistics.
 
-# self signed cert on Debian
+## self signed cert on Debian
 
 Below is a very quick guide on setting up Apache2 on Debian 7 with a
 self-signed certificate.
@@ -1122,7 +1122,7 @@ certificate.
 
 ![](images/apache_selfsigned.png)
 
-# self signed cert on RHEL/CentOS
+## self signed cert on RHEL/CentOS
 
 Below is a quick way to create a self signed cert for https on
 RHEL/CentOS. You may need these packages:

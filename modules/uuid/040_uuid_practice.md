@@ -1,4 +1,4 @@
-# practice: uuid and filesystems
+## practice: uuid and filesystems
 
 1\. Find the `uuid` of one of your `ext3` partitions with `tune2fs` (
 and `vol_id` if you are on RHEL5).

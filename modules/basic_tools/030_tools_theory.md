@@ -1,4 +1,4 @@
-# find
+## find
 
 The `find` command can be very useful at the start of a
 pipe to search for files. Here are some examples. You might want to add
@@ -40,7 +40,7 @@ for every file found.
 
     find /data -name "*.odf" -ok rm {} \;
 
-# locate
+## locate
 
 The `locate` tool is very different from `find` in that it
 uses an index to locate files. This is a lot faster than traversing all
@@ -62,7 +62,7 @@ Enterprise Linux) with the `updatedb` command.
 Most Linux distributions will schedule the `updatedb` to run once every
 day.
 
-# date
+## date
 
 The `date` command can display the date, time, time zone
 and more.
@@ -88,7 +88,7 @@ When will this seconds counter reach two thousand million ?
     paul@rhel55 ~$ date -d '1970-01-01 + 2000000000 seconds'
     Wed May 18 04:33:20 CEST 2033
 
-# cal
+## cal
 
 The `cal` command displays the current month, with the
 current day highlighted.
@@ -112,7 +112,7 @@ You can select any month in the past or the future.
     15 16 17 18 19 20 21
     22 23 24 25 26 27 28
 
-# sleep
+## sleep
 
 The `sleep` command is sometimes used in scripts to wait a
 number of seconds. This example shows a five second `sleep`.
@@ -120,7 +120,7 @@ number of seconds. This example shows a five second `sleep`.
     paul@rhel55 ~$ sleep 5
     paul@rhel55 ~$
 
-# time
+## time
 
 The `time` command can display how long it takes to
 execute a command. The `date` command takes only a little time.
@@ -150,7 +150,7 @@ This `bzip2` command compresses a file and uses a lot of
     user    0m0.847s
     sys     0m0.539s
 
-# gzip - gunzip
+## gzip - gunzip
 
 Users never have enough disk space, so compression comes in handy. The
 `gzip` command can make files take up less space.
@@ -167,7 +167,7 @@ You can get the original back with `gunzip`.
     paul@rhel55 ~$ ls -lh text.txt
     -rw-rw-r-- 1 paul paul 6.4M Apr 17 13:11 text.txt
 
-# zcat - zmore
+## zcat - zmore
 
 Text files that are compressed with `gzip` can be viewed
 with `zcat` and `zmore`.
@@ -184,7 +184,7 @@ with `zcat` and `zmore`.
     /opt/VBoxGuestAdditions-3.1.6
     /opt/VBoxGuestAdditions-3.1.6/routines.sh
 
-# bzip2 - bunzip2
+## bzip2 - bunzip2
 
 Files can also be compressed with `bzip2` which takes a
 little more time than `gzip`, but compresses better.
@@ -199,7 +199,7 @@ Files can be uncompressed again with `bunzip2`.
     paul@rhel55 ~$ ls -lh text.txt 
     -rw-rw-r-- 1 paul paul 6.4M Apr 17 13:11 text.txt
 
-# bzcat - bzmore
+## bzcat - bzmore
 
 And in the same way `bzcat` and `bzmore` can
 display files compressed with `bzip2`.

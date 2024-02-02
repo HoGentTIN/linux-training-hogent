@@ -1,4 +1,4 @@
-# all files are case sensitive
+## all files are case sensitive
 
 Files on Linux (or any Unix) are `case sensitive`. This
 means that `FILE1` is different from `file1`, and `/etc/hosts` is
@@ -15,7 +15,7 @@ case `W`, the other with lower case `w`.
     paul@laika:~/Linux$ cat Winter.txt
     It is very cold!
 
-# everything is a file
+## everything is a file
 
 A `directory` is a special kind of `file`, but it is still a (case
 sensitive!) `file`. Each terminal window (for example `/dev/pts/4`), any
@@ -23,7 +23,7 @@ hard disk or partition (for example `/dev/sdb1`) and any process are all
 represented somewhere in the `file system` as a `file`. It will become
 clear throughout this course that everything on Linux is a `file`.
 
-# file
+## file
 
 The `file` utility determines the file type. Linux does
 not use extensions to determine the file type. The command line does not
@@ -55,9 +55,9 @@ It is interesting to point out `file -s` for special files like those in
     root@debian6~# file -s /proc/cpuinfo
     /proc/cpuinfo: ASCII C++ program text
 
-# touch
+## touch
 
-## create an empty file
+### create an empty file
 
 One easy way to create an empty file is with `touch`. (We
 will see many other ways for creating files later in this book.)
@@ -75,7 +75,7 @@ This screenshot starts with an empty directory, creates two files with
     -rw-r--r-- 1 paul paul 0 Oct 15 08:56 file42
     paul@debian10:~$
 
-## touch -t
+### touch -t
 
 The `touch` command can set some properties while creating empty files.
 Can you determine what is set by looking at the next screenshot? If not,
@@ -91,9 +91,9 @@ check the manual for `touch`.
     -rw-r--r-- 1 paul paul 0 May  5  2005 SinkoDeMayo
     paul@debian10:~$
 
-# rm
+## rm
 
-## remove forever
+### remove forever
 
 When you no longer need a file, use `rm` to remove it.
 Unlike some graphical user interfaces, the command line in general does
@@ -108,7 +108,7 @@ removing files!
     file33  file42  SinkoDeMayo
     paul@debian10:~$
 
-## rm -i
+### rm -i
 
 To prevent yourself from accidentally removing a file, you can type
 `rm -i`.
@@ -123,7 +123,7 @@ To prevent yourself from accidentally removing a file, you can type
     file42  SinkoDeMayo
     paul@debian10:~$
 
-## rm -rf
+### rm -rf
 
 By default, `rm -r` will not remove non-empty directories. However `rm`
 accepts several options that will allow you to remove any directory. The
@@ -142,9 +142,9 @@ file system by accident.
     ls: cannot access test: No such file or directory
     paul@debian10:~$
 
-# cp
+## cp
 
-## copy one file
+### copy one file
 
 To copy a file, use `cp` with a source and a target
 argument.
@@ -155,7 +155,7 @@ argument.
     paul@debian10:~$ ls
     file42  file42.copy  SinkoDeMayo
 
-## copy to another directory
+### copy to another directory
 
 If the target is a directory, then the source files are copied to that
 target directory.
@@ -165,7 +165,7 @@ target directory.
     paul@debian10:~$ ls dir42/
     SinkoDeMayo
 
-## cp -r
+### cp -r
 
 To copy complete directories, use `cp -r` (the `-r` option
 forces `recursive` copying of all files in all subdirectories).
@@ -178,7 +178,7 @@ forces `recursive` copying of all files in all subdirectories).
     paul@debian10:~$ ls dir33/
     SinkoDeMayo
 
-## copy multiple files to directory
+### copy multiple files to directory
 
 You can also use cp to copy multiple files into a directory. In this
 case, the last argument (a.k.a. the target) must be a directory.
@@ -187,7 +187,7 @@ case, the last argument (a.k.a. the target) must be a directory.
     paul@debian10:~$ ls dir42/
     file42  file42.copy  SinkoDeMayo
 
-## cp -i
+### cp -i
 
 To prevent `cp` from overwriting existing files, use the `-i` (for
 interactive) option.
@@ -198,9 +198,9 @@ interactive) option.
     cp: overwrite `file42'? n
     paul@debian10:~$
 
-# mv
+## mv
 
-## rename files with mv
+### rename files with mv
 
 Use `mv` to rename a file or to move the file to another
 directory.
@@ -215,7 +215,7 @@ directory.
 When you need to rename only one file then `mv` is the preferred command
 to use.
 
-## rename directories with mv
+### rename directories with mv
 
 The same `mv` command can be used to rename directories.
 
@@ -236,7 +236,7 @@ The same `mv` command can be used to rename directories.
     -rw-r--r-- 1 paul paul    0 May  5  2005 SinkoDeMayo
     paul@debian10:~$
 
-## mv -i
+### mv -i
 
 The `mv` also has a `-i` switch similar to `cp` and `rm`.
 
@@ -247,9 +247,9 @@ existing file.
     mv: overwrite `SinkoDeMayo'? no
     paul@debian10:~$
 
-# rename
+## rename
 
-## about rename
+### about rename
 
 The `rename` command is one of the rare occasions where the Linux
 Fundamentals book has to make a distinction between Linux distributions.
@@ -258,7 +258,7 @@ almost every Linux computer. But `rename` is different.
 
 Try to use `mv` whenever you need to rename only a couple of files.
 
-## rename on Debian/Ubuntu
+### rename on Debian/Ubuntu
 
 The `rename` command on Debian uses regular expressions
 (regular expression or shor regex are explained in a later chapter) to
@@ -283,7 +283,7 @@ This second example switches all (first) occurrences of `file` into
     abc.png  document33.png  document42.png
     paul@debian10:~/test42$
 
-## rename on CentOS/RHEL/Fedora
+### rename on CentOS/RHEL/Fedora
 
 On Red Hat Enterprise Linux, the syntax of `rename` is a bit different.
 The first example below renames all \*.conf files replacing any

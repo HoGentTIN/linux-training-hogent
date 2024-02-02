@@ -1,4 +1,4 @@
-# practice: scripting arrays
+## practice: scripting arrays
 
 1.In Bash Shell:
 

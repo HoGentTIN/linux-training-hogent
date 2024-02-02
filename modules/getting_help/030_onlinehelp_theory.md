@@ -1,4 +1,4 @@
-# Google
+## Google
 
 Google is a powerful tool to find help about Unix, or anything else.
 Here are some tricks.
@@ -21,7 +21,7 @@ Search for pages `not` containing some words.
 
 ![](images/negativehint.jpg)
 
-# Wikipedia
+## Wikipedia
 
 Wikipedia is a web-based, free-content encyclopedia. Its growth over the
 past two years has been astonishing. You have a good chance of finding a
@@ -30,27 +30,27 @@ clear explanation by typing your search term behind
 
 ![](images/wikipedia.jpg)
 
-# The Linux Documentation Project
+## The Linux Documentation Project
 
 You can find much documentation, faqs, howtos and man pages about Linux
 and many of the programs running on Linux on
 `www.tldp.org` .
 
-# Red Hat
+## Red Hat
 
 Red Hat has a lot of info online at
 `http://www.redhat.com/docs/manuals/` in both pdf and html
 format. These manuals are good, but unfortunately are not always up to
 date.
 
-# Ubuntu
+## Ubuntu
 
 Help for every Ubuntu release is available at
 `https://help.ubuntu.com`. Ubuntu also has video of how to
 perform tasks on Ubuntu at
 `http://screencasts.ubuntu.com`.
 
-# linux-training.be
+## linux-training.be
 
 This book is available for free in `.pdf` and `.html`. Download it at
 `http://linux-training.be` and learn more about Linux

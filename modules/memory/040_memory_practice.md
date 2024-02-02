@@ -1,4 +1,4 @@
-# practice : memory
+## practice : memory
 
 1\. Use `dmesg` to find the total amount of memory in your computer.
 

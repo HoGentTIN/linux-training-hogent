@@ -1,4 +1,4 @@
-# solution : scheduling
+## solution : scheduling
 
 1\. Schedule two jobs with `at`, display the `at queue` and remove a
 job.
