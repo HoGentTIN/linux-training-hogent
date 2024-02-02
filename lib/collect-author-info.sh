@@ -9,7 +9,7 @@
 # and adds it to the Markdown files to ensure that the name of the author and
 # all contributors are preserved.
 # 
-# The strategy is to perfor a "git blame" on each file in the directory
+# The strategy is to perform a "git blame" on each file in the directory
 # containing the Docbook XML source and count the lines per author. The
 # author with the most lines is assumed to be the main author. The other
 # committers are listed as contributors.
@@ -116,6 +116,13 @@ count_total_lines_per_author() {
     END { for (i in sum) printf "%s,%s\n", i, sum[i] }'
 }
 
+# Usage: sort_by_num_lines <<< LINES_PER_AUTHOR
+#   Sort the input by number of lines, in descending order
+sort_by_num_lines() {
+  sort --numeric-sort --reverse \
+    --key=2 --field-separator=','
+}
+
 # Usage: print_author_info <<< LINES_PER_AUTHOR
 #  Read number of lines and author Github handle from stdin, and print the
 #  author's real name and GitHub handle, followed by a list of contributors
@@ -154,28 +161,5 @@ log() {
     printf '\e[0;33m[LOG] %s\e[0m\n' "${message}"
   fi
 }
-
-sort_by_num_lines() {
-  sort --numeric-sort --reverse \
-    --key=2 --field-separator=','
-}
-
-# add_author_info() {
-#   local num_lines author_email author_github
-#   while read -r line; do
-#     num_lines="$(awk '{ print $1 }' <<< "${line}")"
-#     author_email="$(awk '{ print $2 }' <<< "${line}")"
-#     author_name="$(grep "${author_email}" "${author_info_file}" | cut --delimiter=',' --fields=2)"
-#     author_github="$(grep "${author_email}" "${author_info_file}" | cut --delimiter=',' --fields=3 | tr -d '\r')"
-#     printf '%s,%s,%s,%s\n' \
-#        "${num_lines}" "${author_email}" "${author_name}" "${author_github}"
-#     # printf -- '- %s, <https://github.com/%s>\n' \
-#     #   "${author_name}" "${author_github}"
-#   done
-# }
-
-# sort_by_author() {
-#   sort --ignore-case --key=3 --field-separator=','
-# }
 
 main "$@"
