@@ -1,0 +1,18 @@
+---
+documentclass: 'book'
+
+title: '{{ title }}'
+author:{% for author in authors %}
+  - '{{ author.name }}'
+{% endfor %}
+date: '{{ date }}'
+
+papersize: 'a4'
+fontsize: '11pt'
+mainfont: 'Montserrat'
+sansfont: 'Fira Code'
+
+toc: true
+numbersections: true
+
+---
