@@ -93,7 +93,7 @@ create_book() {
 
   log "Copying frontmatter"
 
-  printf '\\frontmatter\n' > "${book_dir}/frontmatter.md"
+  printf '\n' > "${book_dir}/frontmatter.md"
 
   files=$(shyaml get-values frontmatter < "${source_dir}/info.yml")
   for file in ${files}; do
@@ -103,7 +103,7 @@ create_book() {
 
   log "Copying content"
 
-  printf '\\mainmatter\n' > "${book_dir}/content.md"
+  printf '\n' > "${book_dir}/content.md"
 
   num_parts=$(shyaml get-length content < "${source_dir}/info.yml")
 
@@ -121,7 +121,8 @@ create_book() {
 
   log "Adding backmatter"
 
-  printf '\\backmatter\n' > "${book_dir}/backmatter.md"
+  printf '\\appendix\n\n' \
+    > "${book_dir}/backmatter.md"
 
   chapters=$(shyaml get-values backmatter < "${source_dir}/info.yml")
   for chapter in ${chapters}; do
@@ -141,7 +142,7 @@ create_book() {
     frontmatter.md \
     content.md \
     backmatter.md
-
+  { set +x; } 2>/dev/null
 }
 
 main "${@}"
