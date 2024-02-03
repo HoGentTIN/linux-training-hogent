@@ -179,12 +179,12 @@ Other useful websites for testing ipv6 are:
 Going to the ipv6-test.com website will test whether you have a valid
 accessible ipv6 address.
 
-![](images/ipv6_test_ok.jpg)
+![](../images/ipv6_test_ok.jpg)
 
 Going to the test-ipv6.com website will also test whether you have a
 valid accessible ipv6 address.
 
-![](images/ipv6_test2_ok.jpg)
+![](../images/ipv6_test2_ok.jpg)
 
 ## 6to4 gateways
 
@@ -198,20 +198,20 @@ http://slashdot.org
 
 Below a screenshot of a `ping6` from behind a 6to4 connection.
 
-![](images/ipv6_ping6_dns.jpg)
+![](../images/ipv6_ping6_dns.jpg)
 
 ## ipv6 and tcp/http
 
 Below a screenshot of a tcp handshake and http connection over ipv6.
 
-![](images/tcp_over_ipv6.jpg)
+![](../images/tcp_over_ipv6.jpg)
 
 ## ipv6 PTR record
 
 As seen in the DNS chapter, ipv6 PTR records are in the ip6.net domain,
 and have 32 generations of child domains.
 
-![](images/ipv6_PTR_record.jpg)
+![](../images/ipv6_PTR_record.jpg)
 
 ## 6to4 setup on Linux
 

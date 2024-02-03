@@ -5,21 +5,21 @@ Here are some tricks.
 
 Look for phrases instead of single words.
 
-![](images/phrase.jpg)
+![](../images/phrase.jpg)
 
 Search only pages from the .be TLD (or substitute .be for any other Top
 Level Domain). You can also use \"country:be\" to search only pages from
 Belgium (based on ip rather than TLD).
 
-![](images/sitehint.jpg)
+![](../images/sitehint.jpg)
 
 Search for pages inside one domain
 
-![](images/sitehint2.jpg)
+![](../images/sitehint2.jpg)
 
 Search for pages `not` containing some words.
 
-![](images/negativehint.jpg)
+![](../images/negativehint.jpg)
 
 ## Wikipedia
 
@@ -28,7 +28,7 @@ past two years has been astonishing. You have a good chance of finding a
 clear explanation by typing your search term behind
 `http://en.wikipedia.org/wiki/` like this example shows.
 
-![](images/wikipedia.jpg)
+![](../images/wikipedia.jpg)
 
 ## The Linux Documentation Project
 

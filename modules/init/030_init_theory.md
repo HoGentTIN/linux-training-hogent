@@ -422,7 +422,7 @@ cron daemon.
 
 This screenshot shows `bum` in advanced mode.
 
-![](images/bum.jpg)
+![](../images/bum.jpg)
 
 ## runlevels
 

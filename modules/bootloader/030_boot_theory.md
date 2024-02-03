@@ -26,7 +26,7 @@ disk, cdrom, network card or usb drive.
 During the `bios` you can see a message on the screen telling you which
 key (often `Del` or `F2`) to press to enter the `bios` setup.
 
-![](images/bios.png)
+![](../images/bios.png)
 
 ### openboot
 
@@ -49,7 +49,7 @@ The `bios` will look for a `boot device` in the order configured in the
 bios setup. Usually an operating system on a production server boots of
 a hard disk.
 
-![](images/bootdevice.png)
+![](../images/bootdevice.png)
 
 ### master boot record
 

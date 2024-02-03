@@ -125,21 +125,21 @@ Start by configuring the network. During this demonstration I had a DHCP
 server running at 192.168.1.42, yours is probably different. Ask someone
 (a network administator ?) for help if this step fails.
 
-![](images/d_install_network.png)
+![](../images/d_install_network.png)
 
 Select your time zone, and activate `ntp`.
 
-![](images/e_install_time.png)
+![](../images/e_install_time.png)
 
 Choose a mirror that is close to you. If you can\'t find a local mirror,
 then you can copy the one from this screenshot (it is a general `CentOS`
 mirror).
 
-![](images/f_install_mirror.png)
+![](../images/f_install_mirror.png)
 
 It can take a couple of seconds before the mirror is verified.
 
-![](images/g_install_mirrorok.png)
+![](../images/g_install_mirrorok.png)
 
 I did not select any software here (because I want to show it all in
 this training).
@@ -150,37 +150,37 @@ After configuring network, location, software and all, you should be
 back on this page. Make sure there are no warnings anymore (and that you
 made the correct choice everywhere).
 
-![](images/i_install_go.png)
+![](../images/i_install_go.png)
 
 You can enter a `root password` and create a `user account` while the
 installation is downloading from the internet. This is the longest step,
 it can take several minutes (or up to an hour if you have a slow
 internet connection).
 
-![](images/j_install_users.png)
+![](../images/j_install_users.png)
 
 If you see this, then the installation was successful.
 
 Time to reboot the computer and start `CentOS 7` for the first time.
 
-![](images/k_install_done.png)
+![](../images/k_install_done.png)
 
 This screen will appear briefly when the virtual machines starts. You
 don\'t have to do anything.
 
-![](images/l_install_reboot.png)
+![](../images/l_install_reboot.png)
 
 After a couple of seconds, you should see a logon screen. This is called
 a `tty` or a `getty`. Here you can type `root` as username. The
 `login process` will then ask your password (nothing will appear on
 screen when you type your password).
 
-![](images/m_install_getty.png)
+![](../images/m_install_getty.png)
 
 And this is what it looks like after logon. You are logged on to your
 own Linux machine, very good.
 
-![](images/n_install_gettylogon.png)
+![](../images/n_install_gettylogon.png)
 
 All subsequent screenshots will be text only, no images anymore.
 
@@ -212,7 +212,7 @@ If the last part is a bit too fast, take a look at the next topic
 All you have to log on, after finishing the installation, is this screen
 in Virtualbox.
 
-![](images/m_install_getty.png)
+![](../images/m_install_getty.png)
 
 This is workable to learn Linux, and you will be able to practice a lot.
 But there are more ways to access your virtual machine, the next
@@ -273,7 +273,7 @@ You can change this to `bridge` (over your wi-fi or over the ethernet
 cable) and thus make it appear as if your virtual machine is directly on
 your local network (receiving an ip address from your real dhcp server).
 
-![](images/o_install_natbridge.png)
+![](../images/o_install_natbridge.png)
 
 You can make this change while the vm is running, provided that you
 execute this command:
@@ -395,14 +395,14 @@ Google it).
 Use `putty.exe` as shown in this screenshot (I saved the ip address by
 giving it a name \'server33\' and presing the \'save\' button).
 
-![](images/putty1.png)
+![](../images/putty1.png)
 
 The first time you will get a message about keys, accept this (this is
 explained in the ssh chapter).
 
-![](images/putty2_key.png)
+![](../images/putty2_key.png)
 
 Enter your userid (or root) and the correct password (nothing will
 appear on the screen when typing a password).
 
-![](images/putty3_ok.png)
+![](../images/putty3_ok.png)

@@ -1,12 +1,12 @@
 ## solution: packet forwarding
 
-![](images/LAN_networks.png)
+![](../images/LAN_networks.png)
 
 1\. Set up two Linux machines, one on `leftnet`, the other on
 `rightnet`. Make sure they both get an ip-address in the correct subnet.
 These two machines will be \'left\' and \'right\' from the \'router\'.
 
-![](images/leftnet_rightnet_router2.png)
+![](../images/leftnet_rightnet_router2.png)
 
 The ip configuration on your computers should be similar to the
 following two screenshots. Both machines must be in a different subnet
@@ -94,7 +94,7 @@ a LAN with internet connection. On many LAN\'s the command
 You now have a setup similar to this picture. What needs to be done to
 give internet access to `leftnet` and `rightnet`.
 
-![](images/leftnet_rightnet_router3.png)
+![](../images/leftnet_rightnet_router3.png)
 
 The clients on `leftnet` and `rightnet` need a working `dns server`. We
 use one of Google\'s dns servers here.

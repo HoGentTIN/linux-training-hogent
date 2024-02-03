@@ -53,13 +53,13 @@ To enable a proxy server in `Firefox` or `Iceweasel` go to
 `Edit Preferences` and configure as shown in this screenshot (replace
 192.168.1.60 with the ip address of your proxy server).
 
-![](images/proxy_firefoxsettings.png)
+![](../images/proxy_firefoxsettings.png)
 
 Test that your internet works with the proxy enabled. Also test that
 after a `service squid stop` command on your proxy server that you get a
 message similar to this schreenshot.
 
-![](images/firefox_noproxy.png)
+![](../images/firefox_noproxy.png)
 
 To enable a proxy server with Google Chrome (or Debian Chromium) start
 the program from the command line like this:
@@ -69,7 +69,7 @@ the program from the command line like this:
 Disabling the proxy with `service squid stop` should result in an error
 message similar to this screenshot.
 
-![](images/chromium_noproxy.png)
+![](../images/chromium_noproxy.png)
 
 ## upside down images
 
@@ -150,7 +150,7 @@ and make the users a member of the other groups.
 
 Test that it works after restarting `squid` and `apache2`.
 
-![](images/proxy_upsidedown_xkcd.png)
+![](../images/proxy_upsidedown_xkcd.png)
 
 ## /var/log/squid
 

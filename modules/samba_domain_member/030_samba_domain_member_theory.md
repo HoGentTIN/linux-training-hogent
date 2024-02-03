@@ -89,7 +89,7 @@ While the Samba server is stopped, you can use
 We can verify in the aduc (Active Directory Users and Computers) that a
 computer account is created for this samba server.
 
-![](images/sambacomputeraccount.jpg)
+![](../images/sambacomputeraccount.jpg)
 
 ## winbind
 

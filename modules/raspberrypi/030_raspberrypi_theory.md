@@ -4,7 +4,7 @@ This picture shows four `Raspberry Pi's`. The two on the left are made
 in UK, those on the right are made in China. I noticed no difference in
 using them.
 
-![](images/raspberrypi_fourpis.jpg)
+![](../images/raspberrypi_fourpis.jpg)
 
 The `Raspberry Pi` is advertised as a \'30 euro computer\'. This is not
 a lie, but many people will end up spending around 50 euro for each
@@ -18,12 +18,12 @@ I recommend buying `class 10 sd cards` because they are faster than
 cheap sd cards. Below a picture that shows four class 10 cards; one
 micro sd (left) and three regular ones.
 
-![](images/raspberrypi_sd_cards.jpg)
+![](../images/raspberrypi_sd_cards.jpg)
 
 For this project I will demonstrate two `Linux distributions` so I chose
 to label the cards.
 
-![](images/raspberrypi_sd_cards_labeled.jpg)
+![](../images/raspberrypi_sd_cards_labeled.jpg)
 
 I will use the usb cable and power adapter from my old HTC Hero
 smartphone to power the `Raspberry Pi`.
@@ -33,11 +33,11 @@ smartphone to power the `Raspberry Pi`.
 Download two images from `http://raspberrypi.org/downloads`. In this
 module I continue with the `raspbian` and the `pidora` images.
 
-![](images/raspberrypi_downloads.png)
+![](../images/raspberrypi_downloads.png)
 
 This download may take a couple minutes to complete\...
 
-![](images/raspberrypi_downloading.png)
+![](../images/raspberrypi_downloading.png)
 
 After the download, you will have two zipfiles in `/tmp`.
 
@@ -135,7 +135,7 @@ cable from my old HTC Hero phone).
 Connect the usb power last. The end result will look something like this
 picture.
 
-![](images/raspberrypi.png)
+![](../images/raspberrypi.png)
 
 ## connecting with ssh
 
@@ -177,7 +177,7 @@ Now we login with the user `raspberry` and the password `pi`.
 
     pi@raspberrypi ~ $
 
-![](images/raspberrypi.png)
+![](../images/raspberrypi.png)
 
 ## camera module
 
@@ -188,18 +188,18 @@ To disble the camera led:
 
     disable_camera_led=1 in /boot/config.txt
 
-![](images/raspberrypi_camera_connect.jpg)
+![](../images/raspberrypi_camera_connect.jpg)
 
 ## 
 
-![](images/raspberrypi.png)
+![](../images/raspberrypi.png)
 
 ## building a stack of pi\'s
 
 Here are some pictures of a `Raspberry Pi` stack held together by Lego
 Technic.
 
-![](images/raspberrypi_legostack.jpg)
+![](../images/raspberrypi_legostack.jpg)
 
 ## sending mail from the pi
 

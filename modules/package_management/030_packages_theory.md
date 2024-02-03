@@ -47,4 +47,4 @@ End users have several graphical applications available via the desktop
 Below a screenshot of Ubuntu Software Center running on Ubuntu 12.04.
 Graphical tools are not discussed in this book.
 
-![](images/ubuntu_software_center.png)
+![](../images/ubuntu_software_center.png)

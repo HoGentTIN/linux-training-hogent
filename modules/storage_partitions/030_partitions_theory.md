@@ -53,7 +53,7 @@ SCSI disk.
 The picture below shows two (spindle) disks with partitions. Note that
 an extended partition is a container holding logical drives.
 
-![](images/storage_disk_partitions.png)
+![](../images/storage_disk_partitions.png)
 
 ## discovering partitions
 

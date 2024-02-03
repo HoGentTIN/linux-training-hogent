@@ -6,13 +6,13 @@ adding a network card in `VirtualBox` or
 I named them `leftnet` and `rightnet`, but you can choose any other
 name.
 
-![](images/LAN_networks.png)
+![](../images/LAN_networks.png)
 
 1\. Set up two Linux machines, one on `leftnet`, the other on
 `rightnet`. Make sure they both get an ip-address in the correct subnet.
 These two machines will be \'left\' and \'right\' from the \'router\'.
 
-![](images/leftnet_rightnet_router2.png)
+![](../images/leftnet_rightnet_router2.png)
 
 2\. Set up a third Linux computer with three network cards, one on
 `leftnet`, the other on `rightnet`. This computer will be the
@@ -57,4 +57,4 @@ correct interface).
 You now have a setup similar to this picture. What needs to be done to
 give internet access to `leftnet` and `rightnet`.
 
-![](images/leftnet_rightnet_router3.png)
+![](../images/leftnet_rightnet_router3.png)

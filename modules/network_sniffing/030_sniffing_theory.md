@@ -24,7 +24,7 @@ On `.rpm` based distributions like CentOS, RHEL and Fedora you can use
 When you start `wireshark` for the first time, you will need to select
 an interface. You will see a dialog box that looks similar to this one.
 
-![](images/wireshark_capture_interfaces.png)
+![](../images/wireshark_capture_interfaces.png)
 
 It is possible that there are no interfaces available because some
 distributions only allow root to sniff the network. You may need to use
@@ -82,7 +82,7 @@ In total more than 200 packets were sniffed from the network. Things
 become clearer when you enter `icmp` in the filter field and press the
 `apply` button.
 
-![](images/wireshark_ping.png)
+![](../images/wireshark_ping.png)
 
 ### sniffing ping and dns
 
@@ -94,7 +94,7 @@ We put `dns or icmp` in the filter to achieve this. Putting
 `dns and icmp` would render nothing because there is no packet that
 matches both protocols.
 
-![](images/wireshark_icmpordns.png)
+![](../images/wireshark_icmpordns.png)
 
 In the screenshot above you can see that packets 25 and 26 both have
 10.104.33.30 as `source` and `destination` ip address. That is because
@@ -110,7 +110,7 @@ certain `ip address`. The filter in use is
 `ip.addr==10.104.33.30 and dns`. The `and` directive forces each
 displayed packet to match both conditions.
 
-![](images/wireshark_ipanddns.png)
+![](../images/wireshark_ipanddns.png)
 
 Packet 93 is the `dns query` for the A record of linux-training.be.
 Packet 98 is the response from the `dns server`. What do you think
@@ -124,7 +124,7 @@ The correct technical term for a `packet` as sniffed is a `frame`
 (because we sniff on layer two). So to display packets with certain
 numbers, we use `frame.number` in the filter.
 
-![](images/wireshark_framenumber.png)
+![](../images/wireshark_framenumber.png)
 
 ### looking inside packets
 
@@ -134,13 +134,13 @@ can see the corresponding bytes in the frame in the bottom panel.
 This screenshot shows the middle pane with the source address of my
 laptop selected.
 
-![](images/wireshark_source_mac.png)
+![](../images/wireshark_source_mac.png)
 
 Note that the above works fine when sniffing one interface. When
 sniffing with for example `tcpdump -i any` you will end up with
 `Linux cooked` at this level.
 
-![](images/wireshark_cooked.png)
+![](../images/wireshark_cooked.png)
 
 ### other filter examples
 
@@ -148,12 +148,12 @@ You can combine two protocols with a logical `or` between them. The
 example below shows how to filter only `arp` and `bootp`
 (or `dhcp`) packets.
 
-![](images/wireshark_arp_bootp.png)
+![](../images/wireshark_arp_bootp.png)
 
 This example shows how to filter for `dns` traffic
 containing a certain `ip address`.
 
-![](images/wireshark_dns_ipaddress.png)
+![](../images/wireshark_dns_ipaddress.png)
 
 ## tcpdump
 
