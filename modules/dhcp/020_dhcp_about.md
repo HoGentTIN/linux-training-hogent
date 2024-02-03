@@ -5,3 +5,4 @@ defined in `rfc 2131` (before that it was defined as an update to
 
 The alternative to `dhcp` is manually entering the ip configuration on
 each client computer.
+

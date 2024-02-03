@@ -192,3 +192,4 @@ The screenshot below shows how `laura` can change her default shell
     Changing shell for laura.
     Password: 
     Shell changed.
+

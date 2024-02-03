@@ -14,3 +14,4 @@ everyone to read.
 
 6\. Make a backup copy of your smb.conf, name it
 smb.conf.ReadOnlyFileServer.
+

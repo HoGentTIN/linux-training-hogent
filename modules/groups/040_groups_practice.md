@@ -12,3 +12,4 @@
 
 6\. Make someone responsible for managing group membership of foot and
 sports. Test that it works.
+

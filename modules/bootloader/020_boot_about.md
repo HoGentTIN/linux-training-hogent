@@ -12,3 +12,4 @@ kernels on PowerPC.
 
 Note that `grub`, while still the default in Debian, is slowly being
 replaced in most distributions with `grub2`.
+

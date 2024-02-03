@@ -256,3 +256,4 @@ For routing of ping, you will need to enable it on the FORWARD chain.
 The following command enables routing of icmp messages between networks.
 
     [root@RHEL5 ~]# iptables -A FORWARD -p icmp --icmp-type any -j ACCEPT
+

@@ -36,3 +36,4 @@ upon their users.
 This module is an introduction to the `squid` proxy server
 (http://www.squid-cache.org). We will first configure squid as a normal
 proxy server.
+

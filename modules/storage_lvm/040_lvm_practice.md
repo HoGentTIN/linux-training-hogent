@@ -30,3 +30,4 @@ mounted).
 
 11\. If time permits, split a Volume Group with vgsplit, then merge it
 again with vgmerge.
+

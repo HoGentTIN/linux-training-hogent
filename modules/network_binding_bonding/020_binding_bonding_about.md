@@ -6,3 +6,4 @@ Linux can also activate multiple network cards behind the same
 
 This chapter will teach you how to configure `binding` and `bonding` on
 the most common Linux distributions.
+

@@ -3,3 +3,4 @@ and `symbolic links`.
 
 To understand links in a file system, you first have to understand what
 an `inode` is.
+

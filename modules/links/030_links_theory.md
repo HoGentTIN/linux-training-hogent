@@ -165,3 +165,4 @@ Links can be removed with `rm`.
     paul@laika:~$ ln data.txt hl_data.txt
     paul@laika:~$ rm sl_data.txt 
     paul@laika:~$ rm hl_data.txt
+

@@ -64,3 +64,4 @@ lsattr. Try setting the i attribute on a file and test that it works.
     root@laika:~/attr# chattr -i file42 
     root@laika:~/attr# rm -rf file42 
     root@laika:~/attr#
+

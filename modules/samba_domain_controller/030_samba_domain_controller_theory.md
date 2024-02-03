@@ -389,3 +389,4 @@ Then copy the scripts to the netlogon share, and add the following
 parameter to smb.conf.
 
     logon script = start.bat
+

@@ -34,3 +34,4 @@ of the new disks.
 
 9\. If possible, install `lsscsi`, `lshw` and use them to list the
 disks.
+

@@ -23,3 +23,4 @@ this with y or delete it with d. Try pasting it.
 
 7\. What does dwwP do when you are at the beginning of a word in a
 sentence ?
+

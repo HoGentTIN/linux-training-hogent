@@ -25,3 +25,4 @@ you type.
 9\. Open more than one console (by press Ctrl-shift-t in gnome-terminal,
 or by opening an extra putty.exe in MS Windows) with the same user
 account. When is command history written to the history file ?
+

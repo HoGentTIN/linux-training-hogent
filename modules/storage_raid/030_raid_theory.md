@@ -228,3 +228,4 @@ Take a look at the man page of `mdadm` for more information. Below an
 example command to add a new partition while removing a faulty one.
 
     mdadm /dev/md0 --add /dev/sdd1 --fail /dev/sdb1 --remove /dev/sdb1
+

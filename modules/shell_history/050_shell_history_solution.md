@@ -54,3 +54,4 @@ or by opening an extra putty.exe in MS Windows) with the same user
 account. When is command history written to the history file ?
 
     when you type exit
+

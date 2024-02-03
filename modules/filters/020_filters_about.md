@@ -6,3 +6,4 @@ one specific thing very efficiently. They can be used as
 This chapter will introduce you to the most common `filters`. The
 combination of simple commands and filters in a long `pipe` allows you
 to design elegant solutions.
+

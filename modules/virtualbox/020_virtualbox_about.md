@@ -21,3 +21,4 @@ This chapter gives easy steps and screenshots to get a working Ubuntu
 server in a Virtualbox virtual machine. The steps are very similar to
 installing Fedora or CentOS or even Debian, and if you like you can also
 use VMWare instead of Virtualbox.
+

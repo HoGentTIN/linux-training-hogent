@@ -54,3 +54,4 @@ their proper location.
     ./configure
     make
     make install
+

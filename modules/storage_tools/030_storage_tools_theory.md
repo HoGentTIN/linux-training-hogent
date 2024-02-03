@@ -335,3 +335,4 @@ M).
     [root@RHEL65 ~]#
 
 `vmstat` is also discussed in other chapters.
+

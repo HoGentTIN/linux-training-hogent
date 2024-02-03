@@ -229,3 +229,4 @@ is doing with your command.
     + set +x
     [paul@RHELv8u3 ~]$ echo $USER
     paul
+

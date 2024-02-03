@@ -22,3 +22,4 @@
     Unloading iptables modules:                                [  OK  ]
     root@rhel55 ~# service iptables status
     Firewall is stopped.
+

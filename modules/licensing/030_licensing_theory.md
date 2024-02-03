@@ -149,3 +149,4 @@ compatible. Some FOSS licenses (such as BSD) are compatible with
 proprietary licenses, but most are not. If you detect a license
 incompatibility, you must contact the author to negotiate different
 license conditions or refrain from using the incompatible software.
+

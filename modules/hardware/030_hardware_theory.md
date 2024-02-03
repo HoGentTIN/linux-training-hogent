@@ -192,3 +192,4 @@ Infrared port received dma channel 3.
     [   21.204000] nsc_ircc_pnp_probe() : From PnP, found firbase 0x2F8...
     [   21.204000] nsc-ircc, chip->init
             
+

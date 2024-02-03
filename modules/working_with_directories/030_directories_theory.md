@@ -278,3 +278,4 @@ And similar to the `mkdir -p` option, you can also use
     paul@debian8:~$ mkdir -p test42/subdir
     paul@debian8:~$ rmdir -p test42/subdir
     paul@debian8:~$
+

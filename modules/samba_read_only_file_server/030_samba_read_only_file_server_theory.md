@@ -177,3 +177,4 @@ You end up with a cmd.exe prompt inside your Linux shell.
     C:\>net use k: /delete
     net use k: /delete
     k: was deleted successfully.
+

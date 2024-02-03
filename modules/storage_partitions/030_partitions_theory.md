@@ -401,3 +401,4 @@ on the disk, there is no need to `w(rite)` like in `fdisk`.
     Information: You may need to update /etc/fstab.
 
     [root@rhel71 ~]#
+

@@ -22,3 +22,4 @@ locate, updatedb, makewhatis, whereis, apropos, which and type.
 
 8\. (optional) Perform a file system check on the partition mounted at
 /srv/nfs/salesnumbers.
+

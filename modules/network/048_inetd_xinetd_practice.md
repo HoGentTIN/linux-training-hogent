@@ -9,3 +9,4 @@ telnet) Is swat installed ? If not, then install swat and look at the
 changes in the (x)inetd configuration. Is swat enabled or disabled ?
 
 4\. Disable swat, test it. Enable swat, test it.
+

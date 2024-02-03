@@ -259,3 +259,4 @@ The `bond` should also be visible in `/proc/net/bonding`.
     MII Status: up
     Link Failure Count: 0
     Permanent HW addr: 08:00:27:27:a4:92
+

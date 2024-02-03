@@ -34,3 +34,4 @@ the theory to `bond` two network cards.
     expand the /etc/network/interfaces file
     as shown in the theory
     and don't forget to install the ifenslave package
+

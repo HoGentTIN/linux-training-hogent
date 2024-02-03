@@ -15,3 +15,4 @@ and getent.
 
 6\. Connect to Samba shares with AD users, and verify ownership of their
 files.
+

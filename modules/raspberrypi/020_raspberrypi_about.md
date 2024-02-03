@@ -4,3 +4,4 @@ on one and `Pidora` on the other.
 
 After this module you will have a networked `Raspberry Pi` with `Debian`
 (Raspbian) and one with `Red Hat` (Pidora).
+

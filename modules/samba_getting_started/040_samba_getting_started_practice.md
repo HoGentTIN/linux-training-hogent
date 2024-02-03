@@ -32,3 +32,4 @@ What is the master browser ?
 13\. If time permits (or if you are waiting for other students to finish
 this practice), then install a sniffer (wireshark) and watch the browser
 elections.
+

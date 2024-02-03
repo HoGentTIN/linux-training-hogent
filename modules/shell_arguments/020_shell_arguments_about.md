@@ -18,3 +18,4 @@ the input that it receives.
     Burtonville
     paul@laika:~$ echo Smurfs are blue
     Smurfs are blue
+

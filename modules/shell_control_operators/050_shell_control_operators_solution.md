@@ -54,3 +54,4 @@ characters \\ \* \[ } \~ \\\\ .\" (including all quotes)
     or
 
     echo \""Hello World with strange' characters \ * [ } ~ \\ . "\"
+

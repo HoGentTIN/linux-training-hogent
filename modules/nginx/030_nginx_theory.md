@@ -1215,3 +1215,4 @@ And your browser will probably warn you that this certificate is self
 signed.
 
 ![](../images/apache_selfsigned_centos.png)
+

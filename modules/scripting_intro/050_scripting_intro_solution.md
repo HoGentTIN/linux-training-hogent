@@ -57,3 +57,4 @@ with.
 
     # output the value of these variables
     echo $var33 $var42
+

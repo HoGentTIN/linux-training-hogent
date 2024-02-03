@@ -84,3 +84,4 @@ unlocked ? Give a solution with `grep` and a solution with `passwd`.
     grep serena /etc/shadow
 
     passwd -S serena
+

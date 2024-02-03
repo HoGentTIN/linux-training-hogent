@@ -7,3 +7,4 @@ The `vi` editor is not intuitive, but once you get to know it, `vi`
 becomes a very powerful application. Most Linux distributions will
 include the `vimtutor` which is a 45 minute lesson in
 `vi(m)`.
+

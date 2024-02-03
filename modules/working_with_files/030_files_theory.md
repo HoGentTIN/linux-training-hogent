@@ -303,3 +303,4 @@ The second example renames all (\*) files replacing one with ONE.
     [paul@centos7 ~]$ ls
     ONE.backup  three.backup  two.backup
     [paul@centos7 ~]$
+

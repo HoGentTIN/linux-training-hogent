@@ -18,3 +18,4 @@ built.
 
 The goal of this chapter is to give you all the information in order to
 read, write and understand small, long and complex scripts.
+

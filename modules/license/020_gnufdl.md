@@ -375,3 +375,4 @@ and (2) were thus incorporated prior to November 1, 2008.
 The operator of an MMC Site may republish an MMC contained in the site
 under CC-BY-SA on the same site at any time before August 1, 2009,
 provided the MMC is eligible for relicensing.
+

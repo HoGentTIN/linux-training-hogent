@@ -667,3 +667,4 @@ Tel bij de laatste ip eentje bij voor de broadcast ip.
 Tussen haakjes, nu zijn we echt aan het `supernetten`.
 Want in de routers van buitenaf staat er enkel 192.168.5.0/24 als
 bestemming, terwijl er intern eigenlijk vier /26 netwerkjes zijn.
+

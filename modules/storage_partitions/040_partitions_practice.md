@@ -25,3 +25,4 @@ backup.
 
 10\. (optional) Remove all your partitions with fdisk. Then restore your
 backups.
+

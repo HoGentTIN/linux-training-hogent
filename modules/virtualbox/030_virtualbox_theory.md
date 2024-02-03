@@ -102,3 +102,4 @@ The virtual machine is now ready to start. When given a choice at boot,
 select `install` and follow the instructions on the screen. When the
 installation is finished, you can log on to the machine and start
 practising Linux!
+

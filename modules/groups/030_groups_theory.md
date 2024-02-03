@@ -150,3 +150,4 @@ Similar to vipw, the `vigr` command can be used to
 manually edit the `/etc/group` file, since it will do proper locking of
 the file. Only experienced senior administrators should use
 `vi` or `vigr` to manage groups.
+

@@ -303,3 +303,4 @@ http://mirrors.bieringer.de/Linux+IPv6-HOWTO/ and tldp.org!
     --- ipv6-test.com ping statistics ---
     5 packets transmitted, 5 received, 0% packet loss, time 4006ms
     rtt min/avg/max/mdev = 42.485/43.717/45.632/1.091 ms
+

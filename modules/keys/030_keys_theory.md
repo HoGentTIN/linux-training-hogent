@@ -55,3 +55,4 @@ The keymaps themselves can be found in /usr/share/keymaps or
     drwxr-xr-x 4 root root 4096 Apr  1 00:14 mac
     lrwxrwxrwx 1 root root    3 Apr  1 00:14 ppc -> mac
     drwxr-xr-x 2 root root 4096 Apr  1 00:14 sun
+

@@ -105,3 +105,4 @@ both. Then try to echo a word from one terminal to the other.
 `/dev/random` and `/dev/urandom`.
 
     man 4 random
+

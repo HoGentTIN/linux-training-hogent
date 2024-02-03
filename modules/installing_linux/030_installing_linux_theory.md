@@ -124,3 +124,4 @@ examples.
     linux ks=nfs:servername:/path/to/ks.cfg
 
     linux ks=http://servername/path/to/ks.cfg
+

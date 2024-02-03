@@ -22,3 +22,4 @@ Test that it works.
 
 8\. Write a script that executes logger to local4 every 15 seconds
 (different message). Use tail -f and watch on your local4 log files.
+

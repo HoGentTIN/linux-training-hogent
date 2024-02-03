@@ -486,3 +486,4 @@ Here a screenshot of `sdparm` on Ubuntu 10.10.
     root@ubu1010:~# man sdparm
 
 Use `hdparm` and `sdparm` with care.
+

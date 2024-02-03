@@ -629,3 +629,4 @@ Log into the target and see /dev/sdc appear.
     Disk /dev/sdb: 2147 MB, 2147483648 bytes, 4194304 sectors
     Disk /dev/sdc: 2147 MB, 2147483648 bytes, 4194304 sectors
     [root@centos7 ~]# 
+

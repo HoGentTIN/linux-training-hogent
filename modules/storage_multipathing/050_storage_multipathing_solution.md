@@ -61,3 +61,4 @@ Did you blacklist your own devices ?
     --> search for blacklist:
     add
             devnode "^sd[a-g]"
+

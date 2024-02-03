@@ -72,3 +72,4 @@ more than one distro available, try it on all!)
     On RHEL: touch 1.conf 2.conf ; rename conf backup *.conf
 
     On Debian: touch 1.conf 2.conf ; rename 's/conf/backup/' *.conf
+

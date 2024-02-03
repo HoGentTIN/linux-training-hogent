@@ -15,3 +15,4 @@ query and response ?
 6\. Find an amateur/hobby/club website that features a login prompt.
 Attempt to login with user \'paul\' and password \'hunter2\' while your
 sniffer is running. Now find this information in the sniffer.
+

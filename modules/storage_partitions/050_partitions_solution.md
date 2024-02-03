@@ -60,3 +60,4 @@ and 300MB logical drives. Make sure the logical drives are in the
 backup.
 
     sfdisk -d /dev/sdb > parttable.sdb.sfdisk
+

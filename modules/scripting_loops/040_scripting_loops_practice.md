@@ -6,3 +6,4 @@
 
 \* add to my_arr values apple banana pineapple watermelon melon
 strawberry
+

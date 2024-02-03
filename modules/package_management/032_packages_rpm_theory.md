@@ -364,3 +364,4 @@ An example of the contents of the repo file: MyRepo.repo
     baseurl=http://path/to/MyRepo
     gpgcheck=1
     gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-MyRep
+

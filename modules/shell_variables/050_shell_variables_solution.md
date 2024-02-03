@@ -57,3 +57,4 @@ Dumbledore.
 bash. Add the time to your `PS1` prompt.
 
     PS1='\t \u@\h \W$ '
+

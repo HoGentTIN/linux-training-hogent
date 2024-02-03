@@ -281,3 +281,4 @@ check an ext2 file system.
     /boot: clean, 44/26104 files, 17598/104388 blocks
     [root@RHEL8b ~]# e2fsck -p /dev/sda1
     /boot: clean, 44/26104 files, 17598/104388 blocks
+

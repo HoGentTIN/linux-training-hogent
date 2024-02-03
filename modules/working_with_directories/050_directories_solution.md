@@ -93,3 +93,4 @@ sets the current directory.
     /lib /bin
     paul@debian10:/lib$ popd
     /bin
+

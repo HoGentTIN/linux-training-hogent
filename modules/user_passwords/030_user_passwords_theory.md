@@ -269,3 +269,4 @@ management, then use `vipw` instead of vi(m) directly. The
 
     [root@RHEL5 ~]# vipw /etc/passwd
     vipw: the password file is busy (/etc/ptmp present)
+

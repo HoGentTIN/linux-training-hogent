@@ -174,3 +174,4 @@ will not accept any options.
 
 Any arguments after the `--` are treated as filenames and
 arguments. An argument of - is equivalent to \--.
+

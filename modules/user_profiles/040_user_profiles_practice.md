@@ -15,3 +15,4 @@ variables, aliases and function are present in your environment.
 
 6\. When an application depends on a setting in \$HOME/.profile, does it
 matter whether \$HOME/.bash_profile exists or not ?
+

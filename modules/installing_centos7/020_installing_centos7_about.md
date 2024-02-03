@@ -10,3 +10,4 @@ This procedure should be very similar for other versions of `CentOS`,
 and also for distributions like `RHEL` (Red Hat Enterprise Linux) or
 `Fedora`. This procedure can also be helpful if you are using another
 virtualization solution.
+

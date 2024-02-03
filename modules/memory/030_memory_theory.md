@@ -177,3 +177,4 @@ This code was found on wikipedia without author.
          while (malloc(50));
          return 0;
     }
+

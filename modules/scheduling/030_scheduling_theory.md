@@ -169,3 +169,4 @@ cron jobs.
     7       25      cron.weekly             nice run-parts /etc/cron.weekly
     @monthly 45     cron.monthly            nice run-parts /etc/cron.monthly
     root@rhel65:/etc#
+

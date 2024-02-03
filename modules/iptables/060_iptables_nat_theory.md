@@ -109,3 +109,4 @@ This example script allows internet users to reach your internal
     iptables -t nat -A PREROUTING -i eth1 -p tcp --dport 22 \
     -j DNAT --to-destination 10.1.1.99
     echo 1 > /proc/sys/net/ipv4/ip_forward
+

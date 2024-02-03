@@ -710,3 +710,4 @@ to be replaced with `/run`) and temporary files that
 survive a reboot in `/var/tmp` and information about file
 locks in `/var/lock`. There will be more examples of
 `/var` usage further in this book.
+

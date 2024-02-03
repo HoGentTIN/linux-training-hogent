@@ -132,3 +132,4 @@ will yield only kernel messages from the last boot.
      sda: sda1 sda2
     sd 0:0:0:0: Attached scsi disk sda
     EXT3 FS on sda1, internal journal
+

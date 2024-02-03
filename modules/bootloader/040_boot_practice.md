@@ -13,3 +13,4 @@ different.
 3\. Set the boot menu timeout to 30 seconds.
 
 4\. Reboot and test the new stanza.
+

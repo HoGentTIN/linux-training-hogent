@@ -60,3 +60,4 @@ both. Then try to echo a word from one terminal to the other.
 
 14\. Read the man page of `random` and explain the difference between
 `/dev/random` and `/dev/urandom`.
+

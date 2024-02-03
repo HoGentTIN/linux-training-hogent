@@ -26,3 +26,4 @@ sports. Test that it works.
     gpasswd -A (to make manager)
 
     gpasswd -a (to add member)
+

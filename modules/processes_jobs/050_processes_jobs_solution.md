@@ -97,3 +97,4 @@ commands!
     [paul@RHEL8b ~]$ bash -c `echo $$ $PPID`
     4223: 4224: command not found
         
+

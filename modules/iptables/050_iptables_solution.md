@@ -44,3 +44,4 @@ external network.
     # allow rpcinfo over eth0 from outside to system
     # iptables -A INPUT -i eth2 -p tcp --dport 111 -j ACCEPT
     # iptables -A OUTPUT -o eth2 -p tcp --sport 111 -j ACCEPT
+

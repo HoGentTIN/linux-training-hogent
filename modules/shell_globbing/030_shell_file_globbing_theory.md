@@ -142,3 +142,4 @@ special characters, as shown in this screenshot.
     *
     paul@ubu1010:~/test42$ echo "*"
     *
+

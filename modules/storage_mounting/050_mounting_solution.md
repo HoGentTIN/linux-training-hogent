@@ -64,3 +64,4 @@ locate, updatedb, makewhatis, whereis, apropos, which and type.
 
     # umount /srv/nfs/salesnumbers (optional but recommended)
     # fsck /dev/sdb1
+

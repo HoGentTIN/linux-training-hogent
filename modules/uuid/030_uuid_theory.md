@@ -118,3 +118,4 @@ The screenshot above contains only four lines. The line starting with
 `root=` is the continuation of the `kernel` line.
 
 RHEL and CentOS boot from LVM after a default install.
+

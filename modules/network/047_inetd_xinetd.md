@@ -125,3 +125,4 @@ start of that line. Here an example of the disabled vmware web interface
     paul@laika:~$ grep vmware /etc/inetd.conf 
     #902 stream tcp nowait root /usr/sbin/vmware-authd vmware-authd
             
+

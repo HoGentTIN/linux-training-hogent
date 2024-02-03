@@ -209,3 +209,4 @@ The rest is standard mkfs, mkdir, mount:
     [root@server2 ~]# df -h /srv/multipath/
     Filesystem          Size  Used Avail Use% Mounted on
     /dev/mapper/mpathi 1008M   34M  924M   4% /srv/multipath
+

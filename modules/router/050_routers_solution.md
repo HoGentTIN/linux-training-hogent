@@ -100,3 +100,4 @@ The clients on `leftnet` and `rightnet` need a working `dns server`. We
 use one of Google\'s dns servers here.
 
     echo nameserver 8.8.8.8 > /etc/resolv.conf
+

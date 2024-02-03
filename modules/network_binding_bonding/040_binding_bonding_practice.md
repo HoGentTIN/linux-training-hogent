@@ -10,3 +10,4 @@ address before you continue.
 
 4\. Add an extra network card (or two) to your virtual machine and use
 the theory to `bond` two network cards.
+

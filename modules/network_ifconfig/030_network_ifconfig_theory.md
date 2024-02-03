@@ -571,3 +571,4 @@ is back to 1000Mbit.
     root@laika:~# ethtool -s eth0 speed 1000
     root@laika:~# ethtool eth0 | grep Speed
         Speed: 1000Mb/s
+

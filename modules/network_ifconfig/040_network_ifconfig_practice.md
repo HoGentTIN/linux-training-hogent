@@ -26,3 +26,4 @@ question ? If not, then do this now.
 11\. Display the `hostname` of your computer.
 
 12\. Which ip-addresses did your computer recently have contact with ?
+

@@ -86,3 +86,4 @@ The `noclobber` (or `-C`) option will be explained later in this book
 When typing `set` without options, you get a list of all variables
 without function when the shell is on `posix` mode. You can set bash in
 posix mode typing `set -o posix`.
+

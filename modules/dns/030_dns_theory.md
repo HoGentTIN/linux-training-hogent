@@ -1038,3 +1038,4 @@ And the contents of the `slave zone`:
     ubu1010srv              A       10.104.15.20
     www                     A       10.104.15.25
     root@debian10:/etc/bind#
+

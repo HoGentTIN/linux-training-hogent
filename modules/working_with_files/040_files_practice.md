@@ -40,3 +40,4 @@ into it.
 
 12\. Use rename to rename all \*.conf files to \*.backup . (if you have
 more than one distro available, try it on all!)
+

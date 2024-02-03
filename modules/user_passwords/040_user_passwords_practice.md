@@ -34,3 +34,4 @@ and compare to `cat /etc/shells`.
 
 12\. How can you see whether the password of user `serena` is locked or
 unlocked ? Give a solution with `grep` and a solution with `passwd`.
+

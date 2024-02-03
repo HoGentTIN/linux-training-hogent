@@ -10,3 +10,4 @@ Debian, Ubuntu, Mint and all derived distributions.
 Then we look at the Red Hat package format `.rpm` and its
 tools `rpm` and `yum`. This should be similar on Red Hat, Fedora, CentOS
 and all derived distributions.
+

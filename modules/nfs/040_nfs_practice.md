@@ -8,3 +8,4 @@ connect to them to test.
 
 3\. Protect a share by ip-address or hostname, so only your neighbour
 can connect.
+

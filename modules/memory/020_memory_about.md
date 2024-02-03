@@ -9,3 +9,4 @@ We continue with managing swap space, using terms like
 `virtual memory`.
 
 The last part is about using `vmstat` to monitor swap usage.
+

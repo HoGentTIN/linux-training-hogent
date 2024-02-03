@@ -9,3 +9,4 @@ Where ten years ago nobody was arguing about the best choice being
 hardware RAID, this has changed since technologies like mdadm, lvm and
 even zfs focus more on managability. The workload on the cpu for
 software RAID used to be high, but cpu\'s have gotten a lot faster.
+

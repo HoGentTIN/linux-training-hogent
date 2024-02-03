@@ -118,3 +118,4 @@ mount this storage on their `/home/project55` mount point.
     -rw-r--r--  1 root root 1.6G Oct 13 15:22 sled10-vmwarews5-vm.zip
     root@RHELv8u2:~# 
             
+

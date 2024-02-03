@@ -13,3 +13,4 @@ stargate.local. Test that it all works.
 5\. Create a virtual hosts that listens on another ip-address.
 
 6\. Protect one of your websites with a user/password combo.
+

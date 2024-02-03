@@ -114,3 +114,4 @@ log on with administrator stargate
 start run dsa.msc to manage samba4
 
 create an OU, a user and a GPO, test that it works
+

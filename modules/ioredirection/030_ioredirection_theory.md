@@ -254,3 +254,4 @@ And what is the quickest way to clear a file when the `noclobber` option
 is set ?
 
     >|bar
+

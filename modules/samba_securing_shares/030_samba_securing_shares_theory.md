@@ -164,3 +164,4 @@ overriding the create mask and directory mask settings.
         create mask = 600
         directory mask = 555
         inherit permissions = yes
+

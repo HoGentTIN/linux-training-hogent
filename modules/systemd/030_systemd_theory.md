@@ -319,3 +319,4 @@ time it took for each service to boot.
                822ms iprupdate.service
                795ms boot.mount
     [root@rhel8 ~]#
+

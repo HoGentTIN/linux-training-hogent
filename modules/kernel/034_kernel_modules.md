@@ -192,3 +192,4 @@ humans) and options (for dependent modules) for modprobe.
     alias eth0 pcnet32
     alias eth2 pcnet32
     alias eth1 pcnet32
+

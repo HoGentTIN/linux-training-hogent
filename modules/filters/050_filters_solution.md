@@ -66,3 +66,4 @@ dictionary in `/usr/share/dict/` .)
 
 You could also add the solution from question number 6 to remove
 non-letters, and `tr -s ' '` to remove redundant spaces.
+

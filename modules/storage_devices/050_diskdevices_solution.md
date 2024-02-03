@@ -85,3 +85,4 @@ disks.
     [0:0:2:0]    disk    VBOX     HARDDISK         1.0   /dev/sda
     [0:0:3:0]    disk    VBOX     HARDDISK         1.0   /dev/sdb
     [0:0:6:0]    disk    VBOX     HARDDISK         1.0   /dev/sdc
+

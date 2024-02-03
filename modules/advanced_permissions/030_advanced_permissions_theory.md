@@ -114,3 +114,4 @@ can run it with the effective userid of root.
     paul@rhel65:~$ ls -l $(which sudo)
     ---s--x--x. 1 root root 123832 Oct  7  2013 /usr/bin/sudo
     paul@rhel65:~$
+

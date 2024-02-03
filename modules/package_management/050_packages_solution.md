@@ -33,3 +33,4 @@ man-pages packages. Did you find them all ?
 
 4\. If time permits, search for and install samba including the samba
 docs pdf files (thousands of pages in two pdf\'s).
+

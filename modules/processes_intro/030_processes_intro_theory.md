@@ -348,3 +348,4 @@ the summary in `top` after pressing `k`.
     PID to kill: 1932
 
     Kill PID 1932 with signal [15]: 9
+

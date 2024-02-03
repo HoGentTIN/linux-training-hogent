@@ -58,3 +58,4 @@ Then we use a dump and restore combo to copy the / partition.
     mount /dev/sda2 /mnt/x
     cd /mnt/x
     ssh root@192.168.1.40 "dump -0 -f - /" | restore -r -f -
+

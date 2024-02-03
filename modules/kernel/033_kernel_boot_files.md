@@ -77,3 +77,4 @@ used for compilation. This file is not necessary in the /boot directory,
 but it is common practice to put a copy there. It allows you to
 recompile a kernel, starting from the same configuration as an existing
 working one.
+

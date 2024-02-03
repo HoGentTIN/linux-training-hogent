@@ -73,3 +73,4 @@ gnome then for example gnome-terminal can be the parent process
 11\. Use one command to kill all `sleep` processes.
 
     pkill sleep
+

@@ -13,3 +13,4 @@
 6\. Verify your work with `fdisk` and `df`.
 
 7\. Perform a file system check on all the new file systems.
+

@@ -17,3 +17,4 @@ value. Use the -o and -C options of `ps` for this.
 
 6\. Use `renice` te increase the nice value from 10 to 15. Notice the
 difference with the usual commands.
+

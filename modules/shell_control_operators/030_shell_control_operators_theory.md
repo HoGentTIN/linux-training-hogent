@@ -147,3 +147,4 @@ backslash is encountered.
     > parts
     This command line is split in three parts
     [paul@RHEL8b ~]$
+

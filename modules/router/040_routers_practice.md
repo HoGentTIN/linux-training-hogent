@@ -58,3 +58,4 @@ You now have a setup similar to this picture. What needs to be done to
 give internet access to `leftnet` and `rightnet`.
 
 ![](../images/leftnet_rightnet_router3.png)
+

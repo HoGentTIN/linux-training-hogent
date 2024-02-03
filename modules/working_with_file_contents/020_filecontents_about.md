@@ -3,3 +3,4 @@ In this chapter we will look at the contents of `text files` with
 
 We will also get a glimpse of the possibilities of tools like `cat` on
 the command line.
+

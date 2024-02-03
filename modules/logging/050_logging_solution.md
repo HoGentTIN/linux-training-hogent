@@ -96,3 +96,4 @@ On Debian/Ubuntu edit `/etc/default/syslog` or `/etc/default/rsyslog`.
     Mar 28 13:13:36 rhel53 root: local4.info test number 1
     Mar 28 13:13:51 rhel53 root: local4.info test number 2
     ...
+

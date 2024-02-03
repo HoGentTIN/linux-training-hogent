@@ -21,3 +21,4 @@ variables, aliases and function are present in your environment.
 matter whether \$HOME/.bash_profile exists or not ?
 
     Yes it does matter. (man bash /INVOCATION)
+

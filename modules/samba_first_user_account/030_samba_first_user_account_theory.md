@@ -91,3 +91,4 @@ Below is the renewed definition of our share in smb.conf.
 When you reconnect to the share and write a file, then this sambanobody
 user will own the newly created file (and nobody needs to know the
 password).
+

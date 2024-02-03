@@ -46,3 +46,4 @@ The details in wireshark will say the DNS query was inside a udp packet.
 6\. Find an amateur/hobby/club website that features a login prompt.
 Attempt to login with user \'paul\' and password \'hunter2\' while your
 sniffer is running. Now find this information in the sniffer.
+

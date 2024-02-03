@@ -51,3 +51,4 @@ to that command line so that the total output is FirstMiddleLast.
 `which` command inside an embedded shell.
 
     ls -l $(which passwd)
+

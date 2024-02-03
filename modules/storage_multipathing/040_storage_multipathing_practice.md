@@ -7,3 +7,4 @@ theory.
 2\. Uncomment the big \'defaults\' section in /etc/multipath.conf and
 disable friendly names. Verify that multipath can work. You may need to
 check the manual for `/lib/dev/scsi_id` and for `multipath.conf`.
+

@@ -39,3 +39,4 @@ subdirectory from dir2, and dir2 is a subdirectory from dir1 ).
 18\. If time permits (or if you are waiting for other students to finish
 this practice), use and understand `pushd` and `popd`. Use the man page
 of `bash` to find information about these commands.
+

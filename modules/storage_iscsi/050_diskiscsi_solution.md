@@ -215,3 +215,4 @@ On the Initiator:
     Disk /dev/sdh: 8589 MB, 8589934592 bytes, 16777216 sectors
     Disk /dev/sdi: 8589 MB, 8589934592 bytes, 16777216 sectors
     [root@centos7 ~]# 
+

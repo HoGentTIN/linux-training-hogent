@@ -382,3 +382,4 @@ for vim or in `~/.exrc` for standard vi.
     map <F6> :set number!<bar>set number?<CR>
     paul@barry:~$
         
+

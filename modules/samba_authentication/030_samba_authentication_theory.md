@@ -178,3 +178,4 @@ But usernames on Microsoft computers are not case sensitive.
     Domain=[TEACHER0] OS=[Unix] Server=[Samba 3.0.33-3.7.el5]
     smb: \> q
             
+

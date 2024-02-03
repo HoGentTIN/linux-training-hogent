@@ -97,3 +97,4 @@ this practice), take a look at Linux system scripts in /etc/init.d and
 /etc/rc.d and try to understand them. Where does execution of a script
 start in /etc/init.d/samba ? There are also some hidden scripts in \~,
 we will discuss them later.
+

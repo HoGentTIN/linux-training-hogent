@@ -56,3 +56,4 @@ everyone to read.
 smb.conf.ReadOnlyFileServer.
 
     cp smb.conf smb.conf.ReadOnlyFileServer
+

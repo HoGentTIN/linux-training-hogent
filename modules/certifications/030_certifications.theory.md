@@ -69,3 +69,4 @@ method (commandline or YaST or \...). No multiple choice involved.
 
 There are many other lesser known certifications like EC council\'s
 Certified Ethical Hacker, CompTIA\'s Linux+, and Sair\'s Linux GNU.
+

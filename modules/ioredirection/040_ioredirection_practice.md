@@ -18,3 +18,4 @@ first shell displays this line.
 6\. Create a file that contains the names of five people. Use `cat` and
 output redirection to create the file and use a `here document` to end
 the input.
+

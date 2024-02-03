@@ -25,3 +25,4 @@ Dumbledore.
 
 10\. Find the list of backslash escaped characters in the manual of
 bash. Add the time to your `PS1` prompt.
+

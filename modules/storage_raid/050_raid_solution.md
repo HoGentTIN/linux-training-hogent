@@ -21,3 +21,4 @@ to put a filesystem on it)
           8384862 blocks super 1.2 [2/2] [UU]
           [====>................]  resync = 20.8% (1745152/8384862) \
     finish=0.5min speed=218144K/sec
+

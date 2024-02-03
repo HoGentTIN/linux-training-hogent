@@ -28,3 +28,4 @@ later in the course how to maintain this file.)
 
 5\. (optional on ubuntu) Replace the `/dev/xxx` in `/boot/grub/menu.lst`
 with a `uuid` (use an extra stanza for this). Test that it works.
+

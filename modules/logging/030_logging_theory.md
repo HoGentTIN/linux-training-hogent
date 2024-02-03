@@ -363,3 +363,4 @@ Below a screenshot of the default Red Hat logrotate.conf file.
 
     # system-specific logs may be also be configured here.
     root@rhel65:/etc#
+

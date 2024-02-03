@@ -406,3 +406,4 @@ Enter your userid (or root) and the correct password (nothing will
 appear on the screen when typing a password).
 
 ![](../images/putty3_ok.png)
+

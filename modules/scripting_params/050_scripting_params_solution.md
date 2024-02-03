@@ -28,3 +28,4 @@ not, then make it writable.
 4\. Make a configuration file for the previous script. Put a logging
 switch in the config file, logging means writing detailed output of
 everything the script does to a log file in /tmp.
+

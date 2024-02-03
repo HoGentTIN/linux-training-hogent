@@ -160,3 +160,4 @@ log is too long to show a complete screenshot in this book.
 
     root@deb106:~# wc -l strace.txt 
     941 strace.txt
+

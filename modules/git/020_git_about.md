@@ -7,3 +7,4 @@ you one Google query:
 
     http://gitimmersion.com/
     http://git-scm.com/book
+

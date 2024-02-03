@@ -9,3 +9,4 @@ provide a common look and feel, secure and easy software management and
 often a specific operational purpose.
 
 Let\'s take a look at some popular distributions.
+

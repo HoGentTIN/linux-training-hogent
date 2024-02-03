@@ -18,3 +18,4 @@ that it influences your current shell.
 
 7\. Comment your scripts so that others may know what they are working
 with.
+

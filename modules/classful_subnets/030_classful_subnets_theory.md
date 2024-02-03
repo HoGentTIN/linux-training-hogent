@@ -278,3 +278,4 @@ poort-informatie is versleuteld), `sip` (Voice over IP),
 `ftp`, `dns zone transfers` (we bespreken
 dit later), `dhcp`, `snmp` en sommige multiplayer spelletjes op
 Microsofts xbox werken niet over `nat`.
+

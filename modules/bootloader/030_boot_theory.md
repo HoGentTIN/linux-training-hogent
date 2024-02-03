@@ -454,3 +454,4 @@ The configration file shows three example stanzas. The first one boots
 Red Hat from the first partition on the first disk (hda1). The second
 stanza boots Suse 8.0 from the next partition. The last one loads
 MS-DOS.
+

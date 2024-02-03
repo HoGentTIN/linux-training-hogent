@@ -414,3 +414,4 @@ To install new software (`vim` and `tmux` in this example):
 
 Refer to the `package management` chapter in LinuxAdm.pdf for more
 information.
+

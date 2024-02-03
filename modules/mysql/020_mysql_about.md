@@ -10,3 +10,4 @@ like Facebook, Flickr, Google, Nokia, Wikipedia and Youtube.
 
 This chapter will teach you `sql` by creating and using small databases,
 tables, queries and a simple trigger in a local `mysql` server.
+

@@ -3,3 +3,4 @@ This chapter will teach you how to use `useradd`, `usermod` and
 
 You will need `root` access on a Linux computer to complete this
 chapter.
+

@@ -26,3 +26,4 @@ to that command line so that the total output is FirstMiddleLast.
 
 8\. Display a `long listing` (ls -l) of the `passwd` command using the
 `which` command inside an embedded shell.
+

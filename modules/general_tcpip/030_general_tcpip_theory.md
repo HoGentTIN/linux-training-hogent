@@ -317,3 +317,4 @@ je een website bezoekt).
 
 4\. Maak een tekening (papier of pc) van je netwerk voor laag 7 (wanneer
 je een website bezoekt).
+

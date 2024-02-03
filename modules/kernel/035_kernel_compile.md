@@ -141,3 +141,4 @@ correct kernel name!
 
 Compilation is now finished, don\'t forget to create an additional
 stanza in grub or lilo.
+

@@ -846,3 +846,4 @@ example renames extLV to bigLV in the vg42 Volume Group.
     [root@RHEL5 ~]# lvrename vg42/extLV vg42/bigLV
       Renamed "extLV" to "bigLV" in volume group "vg42"
     [root@RHEL5 ~]#
+

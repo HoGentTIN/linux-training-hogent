@@ -111,3 +111,4 @@ Or run `makewhatis` on CentOS/Redhat.
     lsscsi               (8)  - list SCSI devices (or hosts) and their attributes
     sd                   (4)  - Driver for SCSI Disk Drives
     st                   (4)  - SCSI tape device
+

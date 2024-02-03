@@ -10,3 +10,4 @@ to put a filesystem on it)
 4\. Stop and remove the `raid 5`.
 
 5\. Create a `raid 1` to mirror two disks.
+

@@ -533,3 +533,4 @@ This also works with the history numbers in bash.
     ls -l file2
     -rw-r--r-- 1 paul paul 0 Apr 15 22:07 file2
     paul@debian10:~/hist$
+

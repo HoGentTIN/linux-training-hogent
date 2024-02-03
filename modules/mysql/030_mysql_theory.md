@@ -622,3 +622,4 @@ When a `trigger` is no longer needed, you can delete it with the
 
     mysql> drop trigger total_amount;
     Query OK, 0 rows affected (0.00 sec)
+

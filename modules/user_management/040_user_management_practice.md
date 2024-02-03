@@ -26,3 +26,4 @@ see this file in their home directory.
 
 9\. Change the default login shell for the `serena` user to `/bin/bash`.
 Verify before and after you make this change.
+

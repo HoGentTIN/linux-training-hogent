@@ -14,3 +14,4 @@ the `zone transfer`.
 
 6\. Set up two primary zones on two servers and implement a
 `conditional forwarder` (you can use the two servers from before).
+

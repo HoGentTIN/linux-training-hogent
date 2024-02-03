@@ -186,3 +186,4 @@ The root user can see this in the `/var/log/secure` on Red Hat and in
     Apr 13 16:03:42 rhel65 sudo: paul : user NOT in sudoers ; TTY=pts/0 ; PWD=\
     /home/paul ; USER=root ; COMMAND=/bin/su -
     root@rhel610:~#
+

@@ -29,3 +29,4 @@ smbclient and from a Microsoft computer.
 3\. Verify the ownership of files created by (various) users.
 
     ls -l /srv/samba/writable
+

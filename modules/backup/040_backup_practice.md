@@ -45,3 +45,4 @@ biggest. Then split this file in smaller two megabyte parts.
     dd if=/dev/zero of=~/testsplit/biggest count=5000 bs=1024
 
     split -b 2000000 biggest parts
+

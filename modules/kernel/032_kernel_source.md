@@ -178,3 +178,4 @@ The rpmbuild command put the RHEL Linux kernel source code in
     drwxr-xr-x 20 root root 4.0K Dec  5 20:58 linux-2.6.18.i686
     drwxr-xr-x 19 root root 4.0K Sep 20  2006 vanilla
     drwxr-xr-x  8 root root 4.0K Dec  6  2007 xen
+

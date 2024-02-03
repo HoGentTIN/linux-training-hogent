@@ -240,3 +240,4 @@ use to generate an error when a variable does not exist.
 
 In the bash shell `set -u` is identical to `set -o nounset` and likewise
 `set +u` is identical to `set +o nounset`.
+

@@ -52,3 +52,4 @@ have more than one hard link (hint: this is identical to all regular
 files that do not have exactly one hard link).
 
     find ~ ! -links 1 -type f
+

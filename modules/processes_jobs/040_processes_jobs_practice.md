@@ -32,3 +32,4 @@ variables replaced by their value ? By which shell ?
     5059 4224
     [paul@RHEL8b ~]$ bash -c `echo $$ $PPID`
     4223: 4224: command not found
+

@@ -15,3 +15,4 @@ One of the nice features of `lvm` is the logical volume resizing. You
 can increase the size of an `lvm volume`, sometimes even without any
 downtime. Additionally, you can migrate data away from a failing hard
 disk device, create mirrors and create snapshots.
+
