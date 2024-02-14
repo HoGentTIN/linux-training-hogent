@@ -12,6 +12,9 @@ readonly MODULE_TEMPLATE="${MODULE_TEMPLATE:-templates/module}"
 # Output directory
 readonly OUTPUT_DIR="${OUTPUT_DIR:-dist}"
 
+# Site directory
+readonly SITE_DIR="${SITE_DIR:-site}"
+
 # Directory where book template files are stored
 readonly BOOK_TEMPLATE="${BOOK_TEMPLATE:-templates/book}"
 
