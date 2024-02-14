@@ -1,6 +1,6 @@
 ## Ignore output directories
-site/
-dist/
+/site/
+/dist/
 
 ## Log directory
 log/
