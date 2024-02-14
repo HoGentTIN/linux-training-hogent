@@ -89,7 +89,7 @@ create_mkdocs() {
   ensure_directory_exists "${mkdocs_dir}"
 
   log "Generating mkdocs.yml"
-  "${script_dir}/generate-file.py" \
+  python3 "${script_dir}/generate-file.py" \
     --data "${source_dir}/info.yml" \
     "${SITE_TEMPLATE}/mkdocs.yml.j2" \
   > "${mkdocs_dir}/../mkdocs.yml"

@@ -86,7 +86,7 @@ create_book() {
   ensure_directory_exists "${book_dir}"
 
   log "Generating YAML metadata block"
-  "${script_dir}/generate-file.py" \
+  python3 "${script_dir}/generate-file.py" \
     --data "${source_dir}/info.yml" \
     "${BOOK_TEMPLATE}/metadata-block.yml.j2" \
   > "${book_dir}/metadata-block.yml"
