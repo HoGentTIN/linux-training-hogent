@@ -131,6 +131,8 @@ create_mkdocs() {
     chapter_title=$(grep '^#' "${MODULE_ROOT}/${chapter}/"010*title.md | cut -c3-)
       sed -i "s|${chapter}|${chapter_title}|" "${mkdocs_dir}/../mkdocs.yml"
   done
+
+  cp -r "./images/" "${SITE_DIR}/${site_name}/"
 }
 
 main "${@}"
