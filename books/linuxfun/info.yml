@@ -1,0 +1,69 @@
+---
+title: "Linux Fundamentals"
+authors: 
+  - name: "Paul Cobbaut"
+date: "\\today"
+
+frontmatter:
+  - 01_colophon.md
+  - 02_abstract.md
+
+content:
+  - title: "Introduction to Linux"
+    chapters:
+      - linux_history
+      - linux_distributions
+      - licensing
+  - title: "Installing Linux"
+    chapters:
+      - installing_debian8
+      - installing_centos7
+      - virtualbox
+  - title: "First steps on the command line"
+    chapters:
+      - man_pages
+      - working_with_directories
+      - working_with_files
+      - working_with_file_contents
+      - file_system_tree
+  - title: "Shell expansion"
+    chapters:
+      - shell_arguments
+      - shell_control_operators
+      - shell_variables
+      - shell_in_shell
+      - shell_history
+      - shell_globbing
+  - title: "Pipes and commands"
+    chapters:
+      - ioredirection
+      - filters
+      - basic_tools
+      - regular_expressions
+  - title: "Vi"
+    chapters:
+      - intro_vi
+  - title: "Scripting"
+    chapters:
+      - scripting_intro
+      - scripting_loops
+      - scripting_params
+      - scripting_adv
+  - title: "Local user management"
+    chapters:
+      - users
+      - user_management
+      - user_passwords
+      - user_profiles
+      - groups
+  - title: "File security"
+    chapters:
+      - file_permissions
+      - advanced_permissions
+      - acls
+      - links
+  
+backmatter:
+  - keys
+  - hardware
+  - license
