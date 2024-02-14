@@ -68,6 +68,7 @@ check_dependencies() {
   check_pip_package_exists mkdocs
   check_pip_package_exists mkdocs-material
   check_pip_package_exists pymdown-extensions
+  check_pip_package_exists shyaml
 }
 
 # Usage: create_mkdocs course-dir
