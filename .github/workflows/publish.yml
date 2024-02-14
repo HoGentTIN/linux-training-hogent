@@ -19,5 +19,5 @@ jobs:
           key: ${{ github.ref }}
           path: .cache
       - run: pip install mkdocs mkdocs-material pymdown-extensions
-      - run: ./lib/make-site.sh books/linuxfun/
+      - run: bash ./lib/make-site.sh books/linuxfun/
       - run: cd site/linuxfun && mkdocs gh-deploy --force
