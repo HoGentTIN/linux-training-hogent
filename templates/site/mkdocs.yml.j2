@@ -1,0 +1,38 @@
+---
+site_name: "{{ title }}"
+site_url: "https://hogenttin.github.io/linux-training-hogent/{{ shortname }}"
+repo_name: "hogenttin/linux-training-hogent"
+repo_url: "https://github.com/hogenttin/linux-training-hogent"
+
+nav:
+  - 'Home': index.md{% for chapter in content %}
+  - '{{ chapter.title }}':{% for section in chapter.chapters %}
+    - "{{ section }}": '{{ section }}.md'{% endfor %}{% endfor %}
+  - 'Appendix':{% for appendix in backmatter %}
+    - "{{ appendix }}": '{{ appendix }}.md'{% endfor %}
+
+markdown_extensions:
+  - attr_list
+  - md_in_html
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji 
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+      options:
+        custom_icons:
+          - overrides/.icons
+
+theme:
+  name: material
+  features:
+    - navigation.expand
+  logo: "https://www.hogent.be/themes/hogent/assets/images/HOGENT_Logo.png"
+  favicon: "https://www.hogent.be/themes/hogent/images/ico/favicon.ico"
+  font:
+    text: "Montserrat"
+    code: "Inconsolata"
+  language: "nl"
+
+extra_javascript:
+  - https://polyfill.io/v3/polyfill.min.js?features=es6

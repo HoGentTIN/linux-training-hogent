@@ -1,0 +1,37 @@
+---
+title: "BOOK TITLE"
+subtitle: "BOOK SUBTITLE"
+authors:
+  - name: "AUTHOR NAME"
+  - name: "AUTHOR NAME"
+date: "\\today"
+shortname: "SHORTNAME"
+
+# List of files to include in the frontmatter. These files should reside in the
+# same directory as this file.
+frontmatter:
+  - 01_colophon.md
+  - 02_abstract.md
+
+# The content is subdivided into parts. Each part has a title and a list of
+# chapters. Each chapter is the name of a directory under modules/ and contains
+# a number of Markdown files that will be combined to form the chapter.
+content:
+  - title: "PART TITLE"
+    chapters:
+      - MODULE_NAME
+      - MODULE_NAME
+      - MODULE_NAME
+  - title: "PART TITLE"
+    chapters:
+      - MODULE_NAME
+      - MODULE_NAME
+      - MODULE_NAME
+      - MODULE_NAME
+
+# The backmatter is a list of modules (see above) that will be added to the book
+# as appendices.
+backmatter:
+  - MODULE_NAME
+  - MODULE_NAME
+  - MODULE_NAME
