@@ -113,10 +113,10 @@ create_mkdocs() {
     for chapter in ${chapters}; do
       log "    - Adding chapter ${chapter}"
       # Copy the chapter content to the mkdocs directory
-      cat "${MODULE_ROOT}/${chapter}/"[0-9][0-9][0-9]_*.md >> "${mkdocs_dir}/${chapter}.md"
+      cat "${MODULE_ROOT}/${chapter}/"[0-9][0-9][0-9]*.md >> "${mkdocs_dir}/${chapter}.md"
 
       # Replace the chapter id with the chapter title in the mkdocs.yml file
-      chapter_title=$(grep '^#' "${MODULE_ROOT}/${chapter}/"010_*_title.md | cut -c3-)
+      chapter_title=$(grep '^#' "${MODULE_ROOT}/${chapter}/"010*title.md | cut -c3-)
       sed -i "s|${chapter}|${chapter_title}|" "${mkdocs_dir}/../mkdocs.yml"
     done
   done
@@ -126,8 +126,8 @@ create_mkdocs() {
 
   for chapter in ${chapters}; do
     log "  - Adding appendix '${chapter}'"
-    cat "${MODULE_ROOT}/${chapter}"/[0-9][0-9][0-9]_*.md >> "${mkdocs_dir}/${chapter}.md"
-    chapter_title=$(grep '^#' "${MODULE_ROOT}/${chapter}/"010_*_title.md | cut -c3-)
+    cat "${MODULE_ROOT}/${chapter}"/[0-9][0-9][0-9]*.md >> "${mkdocs_dir}/${chapter}.md"
+    chapter_title=$(grep '^#' "${MODULE_ROOT}/${chapter}/"010*title.md | cut -c3-)
       sed -i "s|${chapter}|${chapter_title}|" "${mkdocs_dir}/../mkdocs.yml"
   done
 }
