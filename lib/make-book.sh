@@ -74,7 +74,7 @@ create_book() {
 
   local source_dir="${1}"
   
-  local book_name files num_parts parts chapters
+  local book_name files num_parts chapters
 
   book_name="$(basename "${source_dir}")"
 
