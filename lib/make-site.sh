@@ -132,7 +132,7 @@ create_mkdocs() {
       sed -i "s|${chapter}|${chapter_title}|" "${mkdocs_dir}/../mkdocs.yml"
   done
 
-  cp -r "./images/" "${SITE_DIR}/${site_name}/"
+  cp -r "./images/" "${SITE_DIR}/${site_name}/docs/"
 }
 
 main "${@}"
