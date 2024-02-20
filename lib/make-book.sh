@@ -83,7 +83,7 @@ create_book() {
   log "Creating '${book_name}'"
 
   die_on_missing_directory "${source_dir}"
-  ensure_directory_exists "${book_dir}"
+  ensure_directory_exists "${book_dir}/assets/"
 
   log "Generating YAML metadata block"
   python3 "${script_dir}/generate-file.py" \
@@ -116,6 +116,9 @@ create_book() {
     for chapter in ${chapters}; do
       log "    - Adding chapter '${chapter}'"
       cat "${MODULE_ROOT}/${chapter}/"[0-9][0-9][0-9]_*.md >> "${book_dir}/content.md"
+      # shellcheck disable=SC2086
+      cp ${_VERBOSE} "${MODULE_ROOT}/${chapter}/assets/"* \
+        "${book_dir}/assets/" || debug "No assets found"
     done
   done
 
@@ -128,6 +131,9 @@ create_book() {
   for chapter in ${chapters}; do
     log "  - Adding appendix '${chapter}'"
     cat "${MODULE_ROOT}/${chapter}"/[0-9][0-9][0-9]_*.md >> "${book_dir}/backmatter.md"
+    # shellcheck disable=SC2086
+    cp ${_VERBOSE} "${MODULE_ROOT}/${chapter}/assets/"* \
+      "${book_dir}/assets/" || debug "No assets found"
   done
   
   log "Generating PDF"
