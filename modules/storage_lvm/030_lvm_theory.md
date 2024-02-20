@@ -7,7 +7,7 @@ partitions. Consider a system with a small and a large hard disk device,
 partitioned like this. The first disk (/dev/sda) is partitioned in two,
 the second disk (/dev/sdb) has two partitions and some empty space.
 
-![](../images/lvm_classic_partitions.png)
+![](assets/lvm_classic_partitions.png)
 
 In the example above, consider the options when you want to enlarge the
 space available for `/srv/project42`. What can you do ? The solution
@@ -23,7 +23,7 @@ administrator to enlarge a mounted file system in use. When `lvm` is
 properly used, then there is no need to unmount the file system to
 enlarge it.
 
-![](../images/lvm_volume_group.png)
+![](assets/lvm_volume_group.png)
 
 ## lvm terminology
 

@@ -8,7 +8,7 @@ Ywein is an attorney at law, co-author of
 `The International FOSS Law Book` and author of
 `Praktijkboek Informaticarecht` (in Dutch).
 
-![](../images/ifosslawbook.jpg)
+![](assets/ifosslawbook.jpg)
 
     http://ifosslawbook.org
     http://www.crealaw.eu

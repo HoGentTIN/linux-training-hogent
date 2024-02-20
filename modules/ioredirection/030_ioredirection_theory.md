@@ -7,14 +7,14 @@ The bash shell has three basic streams; it takes input from `stdin`
 
 The drawing below has a graphical interpretation of these three streams.
 
-![](../images/bash_stdin_stdout_stderr.png){width="14cm"}
+![](assets/bash_stdin_stdout_stderr.png){width="14cm"}
 
 The keyboard often serves as `stdin`, whereas `stdout` and `stderr` both
 go to the display. This can be confusing to new Linux users because
 there is no obvious way to recognize `stdout` from `stderr`. Experienced
 users know that separating output from errors can be very useful.
 
-![](../images/bash_ioredirection_keyboard_display.png)
+![](assets/bash_ioredirection_keyboard_display.png)
 
 The next sections will explain how to redirect these streams.
 
@@ -26,7 +26,7 @@ The next sections will explain how to redirect these streams.
 the line, the shell will see the `>` sign and will clear
 the file.
 
-![](../images/bash_output_redirection.png)
+![](assets/bash_output_redirection.png)
 
 The `>` notation is in fact the abbreviation of `1>` (`stdout` being
 referred to as stream `1`).
@@ -106,7 +106,7 @@ Use `>>` to `append` output to a file.
 Redirecting `stderr` is done with `2>`. This can be very
 useful to prevent error messages from cluttering your screen.
 
-![](../images/bash_error_redirection.png)
+![](assets/bash_error_redirection.png)
 
 The screenshot below shows redirection of `stdout` to a file, and
 `stderr` to `/dev/null`. Writing `1>` is the

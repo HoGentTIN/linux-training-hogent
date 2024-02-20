@@ -44,7 +44,7 @@ different.
 
     [root@centos65 grub]# reboot
 
-![](../images/grub1_centos.png)
+![](assets/grub1_centos.png)
 
 Select your stanza and if it boots then you did it correct.
 

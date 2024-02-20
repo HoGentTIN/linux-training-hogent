@@ -8,7 +8,7 @@ configured to block access based on networks, hosts, protocols and
 ports. Firewalls can also change the contents of packets while
 forwarding them.
 
-![](../images/router_or_firewall.png)
+![](assets/router_or_firewall.png)
 
 ## packet forwarding
 

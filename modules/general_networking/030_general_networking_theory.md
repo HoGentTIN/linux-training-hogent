@@ -22,7 +22,7 @@ to OSI layers 5, 6 and 7.
 Below an attempt to put OSI and DoD layers next to some protocols and
 devices.
 
-![](../images/networklayers.png)
+![](assets/networklayers.png)
 
 ### short introduction to the physical layer
 
@@ -104,7 +104,7 @@ Below is a protocol chart based on wireshark\'s knowledge. It contains
 some very common protocols that are discussed in this book. The chart
 does not contain all protocols.
 
-![](../images/networkprotocols.png)
+![](assets/networkprotocols.png)
 
 ## unicast, multicast, broadcast, anycast
 
@@ -114,13 +114,13 @@ A `unicast` communication originates from one computer and is destined
 for exactly one other computer (or host). It is common for computers to
 have many `unicast` communications.
 
-![](../images/unicast.png)
+![](assets/unicast.png)
 
 ### multicast
 
 A `multicast` is destined for a group (of computers).
 
-![](../images/multicast.png)
+![](assets/multicast.png)
 
 Some examples of `multicast` are Realplayer (.sdp files) and `ripv2` (a
 routing protocol).
@@ -129,7 +129,7 @@ routing protocol).
 
 A `broadcast` is meant for everyone.
 
-![](../images/broadcast.png)
+![](assets/broadcast.png)
 
 Typical example here is the BBC (British Broadcasting Corporation)
 broadcasting to everyone. In datacommunications a broadcast is most
@@ -146,7 +146,7 @@ The `root name servers` of the internet use
 `anycast`. An `anycast` signal goes the the
 (geographically) nearest of a well defined group.
 
-![](../images/anycast.png)
+![](assets/anycast.png)
 
 With thanks to the nice anonymous wikipedia contributor to put these
 pictures in the public domain.
@@ -169,7 +169,7 @@ when all computers are `ethernet` connected.
 A `lan` can contain multiple smaller `lan`\'s. The picture below shows
 three `lan`\'s that together make up one `lan`.
 
-![](../images/LAN_en.jpg)
+![](assets/LAN_en.jpg)
 
 ### man
 
@@ -190,7 +190,7 @@ networks).
 The picture below shows a branch office that is connected through
 `Frame Relay` with headquarters.
 
-![](../images/WAN.png)
+![](assets/WAN.png)
 
 The acronym `wan` is also used for large surface area networks like the
 `internet`.

@@ -121,7 +121,7 @@ faster access time.
 In this book we will use the following pictograms for `spindle disks`
 (in brown) and `solid state disks` (in blue).
 
-![](../images/storage_disk_devices_template.png)
+![](assets/storage_disk_devices_template.png)
 
 ## device naming
 

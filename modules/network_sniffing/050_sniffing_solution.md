@@ -39,7 +39,7 @@ query and response ?
 
 The wireshark screen should look something like this.
 
-![](../images/wireshark_dns_sniff.png)
+![](assets/wireshark_dns_sniff.png)
 
 The details in wireshark will say the DNS query was inside a udp packet.
 

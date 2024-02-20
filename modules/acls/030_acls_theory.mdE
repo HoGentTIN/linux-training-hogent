@@ -107,7 +107,7 @@ You can prevent the calculation by using the `--no-mask` switch.
 Desktop users might want to use `eiciel` to manage
 `acls` with a graphical tool.
 
-![](assets/eiciel_acls.jpg)
+![](../images/eiciel_acls.jpg)
 
 You will need to install `eiciel` and `nautilus-actions` to have an
 extra tab in `nautilus` to manage `acls`.

@@ -43,7 +43,7 @@ you can distinguish the websites) and test the `round robin`.
 You can `delegate` a child domain to another DNS server. The child
 domain then becomes a new zone, with authority at the new dns server.
 
-![](../images/dns_08_delegation.jpg)
+![](assets/dns_08_delegation.jpg)
 
 When `delegation` is properly set up, then clients that query your
 parent zone will also be able to resolve the delegated child zones.

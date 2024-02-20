@@ -20,7 +20,7 @@ De `tcp triple handshake` gaat steeds vooraf aan de `tcp`
 connectie. Dit wil zeggen dat er minstens vier packetjes over het
 netwerk gaan.
 
-![](../images/tcp_sessie.png)
+![](assets/tcp_sessie.png)
 
 ### udp
 
@@ -32,7 +32,7 @@ doorsturen van data. Maar `udp` doet geen controle of een packetje ook
 wel degelijk aankomt. Als een `udp` packetje zijn bestemming niet
 bereikt, dan ben je het kwijt.
 
-![](../images/udp.png)
+![](assets/udp.png)
 
 ### oefening
 
@@ -54,7 +54,7 @@ deze werking aangetoond met behulp van het `ping` commando en de
 `wireshark` sniffer. We hebben ook het `arp` commando uitgevoerd om de
 `arp-cache-table` te bekijken.
 
-![](../images/arp_ping.png)
+![](assets/arp_ping.png)
 
 ## packetjes
 
@@ -68,14 +68,14 @@ haar eigen mac-adres.
 Hieronder een `ethernet frame` met de bytes op ware grootte en enige
 info op de juiste positie.
 
-![](../images/ethernet_frame.png)
+![](assets/ethernet_frame.png)
 
 Omdat we toch iets moeten kennen van `mac-adressen`, `ip-adressen` en
 `poorten` om protocols en toestellen te begrijpen, gebruiken we
 onderstaande vereenvoudigde voorstelling van een `packetje` op het
 netwerk.
 
-![](../images/simple_packet.png)
+![](assets/simple_packet.png)
 
 ## onze data op reis
 
@@ -99,7 +99,7 @@ webservers en web clients (aka browsers) mee werken is
 `http (hyper text transfer protocol)`. Onze data zakt naar
 laag 6.
 
-![](../images/pagina525.png)
+![](assets/pagina525.png)
 
 ### lagen 6 en 5: presentatie en sessie
 
@@ -125,7 +125,7 @@ Maar er gebeurt toch nog iets meer dan enkel de vraag sturen van
 eerst een `tcp sessie` opzetten met de vrt webserver. We
 kunnen dit controleren door een `sniffer` op te starten.
 
-![](../images/tcpsessie.png)
+![](assets/tcpsessie.png)
 
 Je ziet drie `tcp packetjes` voordat het `http` packetje (wat ook een
 tcp packetje is) wordt verstuurd. `tcp` zet een sessie op door eerst een
@@ -154,7 +154,7 @@ wordt telkens het ip-adres van mijn laptop thuis gebruikt, in dit geval
 Onze sniffer vertaalt de `hexadecimale code` die de
 computer gebruikt naar menselijk leesbare `decimale cijfers`.
 
-![](../images/ipadresvrt.png)
+![](assets/ipadresvrt.png)
 
 Hoe kan onze computer het `ip-adres` van de webserver van vrt teletekst
 kennen ? Daarvoor doet `tcp/ip` een beroep op
@@ -166,7 +166,7 @@ een `dns-query` gaan van onze computer naar onze lokale
 `DNS (Domain Name System)` wordt later uitgebreid besproken, maar het
 zou kunnen dat je het volgende ziet in de sniffer.
 
-![](../images/dnsteletekst.png)
+![](assets/dnsteletekst.png)
 
 ### laag 2: data link
 
@@ -186,7 +186,7 @@ mac-adres te vinden van de computer met ip-adres 192.168.1.1. Mijn
 `router` zal hierop antwoorden. In een sniffer ziet dit er als volgt
 uit.
 
-![](../images/arpillyria.png)
+![](assets/arpillyria.png)
 
 ### laag 1: physical
 
@@ -289,7 +289,7 @@ in 1 packetje door te sturen, dus moet er geknipt en geplakt worden door
 `tcp segment` packetjes, gevolgd door een
 `tcp ack`nowledgement.
 
-![](../images/tcpknipplak.png)
+![](assets/tcpknipplak.png)
 
 Het `ip` protocol zal zorgen voor de terugweg van Brussel
 naar Antwerpen, eventueel via andere `routers`.

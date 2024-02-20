@@ -12,11 +12,11 @@ that website in the url bar. But for your computer to actually
 communicate with the web server hosting said website, your computer
 needs the ip address of that web server. That is where `dns` comes in.
 
-![](../images/dns_01_what_is_dns.jpg)
+![](assets/dns_01_what_is_dns.jpg)
 
 In wireshark you can use the `dns` filter to see this traffic.
 
-![](../images/dns_01_what_is_dns.ws.jpg)
+![](assets/dns_01_what_is_dns.ws.jpg)
 
 ### history
 
@@ -50,7 +50,7 @@ The reverse, a query for the name of a host, is called a
 
 Below a picture of a `reverse lookup query`.
 
-![](../images/dns_02_reverse.jpg)
+![](assets/dns_02_reverse.jpg)
 
 Here is a screenshot of a `reverse lookup query` in
 `nslookup`.
@@ -78,7 +78,7 @@ This is what a reverse lookup looks like when sniffing with
 And here is what it looks like in `wireshark` (note this is an older
 screenshot).
 
-![](../images/dns_02_reverse.ws.jpg)
+![](assets/dns_02_reverse.ws.jpg)
 
 ### /etc/resolv.conf
 
@@ -114,7 +114,7 @@ The `dns namespace` is hierarchical tree structure, with
 the `root servers` (aka dot-servers) at the top. The
 `root servers` are usually represented by a dot.
 
-![](../images/dns_03_namespace_tld.jpg)
+![](assets/dns_03_namespace_tld.jpg)
 
 Below the `root-servers` are the `Top Level Domains` or `tld`\'s.
 
@@ -170,7 +170,7 @@ Domains can have subdomains (also called child domains).
 This picture shows `dns domains` like google.com, chess.com,
 linux-training.be (there are millions more).
 
-![](../images/dns_03_namespace_domains.jpg)
+![](assets/dns_03_namespace_domains.jpg)
 
 DNS domains are registered at the `tld` servers, the `tld` servers are
 registered at the `dot servers`.
@@ -269,7 +269,7 @@ DNS tree that covers one domain name or child domain name. The picture
 below represents zones as blue ovals. Some zones will contain delegate
 authority over a child domain to another zone.
 
-![](../images/dns_04_zones.jpg)
+![](assets/dns_04_zones.jpg)
 
 A `dns server` can be `authoritative` over 0, 1 or more
 `dns zones`. We will see more details later on the relation between a
@@ -355,7 +355,7 @@ name servers (in this cas ns1.openminds.be) will answer the query with
 the ip address of linux-training.be. When our caching only server
 reports this to the client, then the client can connect to this website.
 
-![](../images/dns_06_caching_only.jpg)
+![](assets/dns_06_caching_only.jpg)
 
 Sniffing with `tcpdump` will give you this (the first 20 characters of
 each line are cut).
@@ -378,7 +378,7 @@ that will get all its information from the `forwarder`. The `forwarder`
 must be a `dns server` for example the `dns server` of an
 `internet service provider`.
 
-![](../images/dns_05_forwarder.jpg)
+![](assets/dns_05_forwarder.jpg)
 
 This picture shows a `dns server` on the company LAN that has set the
 `dns server` from their `isp` as a `forwarder`. If the ip address of the
@@ -416,7 +416,7 @@ A DNS server that is controlling a zone, is said to be the
 `authoritative` DNS server for that zone. Remember that a
 `zone` is a collection of `resource records`.
 
-![](../images/dns_authoritative_zone.jpg)
+![](assets/dns_authoritative_zone.jpg)
 
 ## primary and secondary
 
@@ -427,7 +427,7 @@ fault tolerance, performance or load balancing you may decide to set up
 another `dns server` with authority over that zone. This is called a
 `secondary` dns server.
 
-![](../images/dns_primary_secondary.jpg)
+![](assets/dns_primary_secondary.jpg)
 
 ## zone transfers
 
@@ -436,7 +436,7 @@ server using a `zone transfer`. Zone transfers are
 requested by the slave servers at regular intervals. Those intervals are
 defined in the `soa record`.
 
-![](../images/dns_zone_transfer_pic.jpg)
+![](assets/dns_zone_transfer_pic.jpg)
 
 You can force a refresh from a zone with `rndc`. The example below force
 a transfer of the `fred.local` zone, and shows the log from
@@ -466,7 +466,7 @@ server. In the picture below ns1 is the primary dns server and ns2, ns3
 and ns4 are secondaries. The master for slaves ns2 and ns3 is ns1, but
 the master for ns4 is ns2.
 
-![](../images/dns_master_slave.jpg)
+![](assets/dns_master_slave.jpg)
 
 ## SOA record
 
@@ -507,7 +507,7 @@ requested.
 
 Below a zone transfer captured in wireshark.
 
-![](../images/dns_zone_transfer.jpg)
+![](assets/dns_zone_transfer.jpg)
 
 ## full or incremental zone transfers
 
@@ -662,7 +662,7 @@ can you learn from sniffing this dns traffic ?
 server without forwarder. This wireshark screenshot can help, but you
 learn more by sniffing the traffic yourself.
 
-![](../images/wireshark_org_server.jpg)
+![](assets/wireshark_org_server.jpg)
 
 You should see traffic to a `root name server` whenever you try a new
 `tld` for the first time. Remember that `dns` is a caching protocol,
@@ -731,7 +731,7 @@ You should find the following two lines in the output of `tcpdump`:
 Below is an (old) wireshark screenshot that can help, you should see
 something similar (but with different ip addresses).
 
-![](../images/dns_forwarder.jpg)
+![](assets/dns_forwarder.jpg)
 
 7\. What happens when you query for the same domain name more than once
 ?

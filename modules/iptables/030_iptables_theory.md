@@ -64,7 +64,7 @@ INPUT chain is used for any packet coming into the system. The OUTPUT
 chain is for any packet leaving the system. And the FORWARD chain is for
 packets that are forwarded (routed) through the system.
 
-![](../images/iptables_filter.png)
+![](assets/iptables_filter.png)
 
 The screenshot below shows how to list the filter table and all its
 rules.

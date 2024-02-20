@@ -1120,7 +1120,7 @@ Enable the website and restart (or reload) apache2.
 Chances are your browser will warn you about the self signed
 certificate.
 
-![](../images/apache_selfsigned.png)
+![](assets/apache_selfsigned.png)
 
 ## self signed cert on RHEL/CentOS
 
@@ -1214,5 +1214,5 @@ Create a simple website and restart apache.
 And your browser will probably warn you that this certificate is self
 signed.
 
-![](../images/apache_selfsigned_centos.png)
+![](assets/apache_selfsigned_centos.png)
 

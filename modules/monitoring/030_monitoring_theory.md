@@ -257,11 +257,11 @@ arrow keys to walk through devices.
 
 Another popular and all round tool is `nmon`.
 
-![](../images/nmon.png)
+![](assets/nmon.png)
 
 ## htop
 
 You can use `htop` instead of top.
 
-![](../images/htop.png)
+![](assets/htop.png)
 

@@ -38,13 +38,13 @@ changes when it is released).
 
 Download Debian here:
 
-![](../images/debian8.png)
+![](assets/debian8.png)
 
 After a couple of clicks on that website, I ended up downloading
 `Debian 8` (testing) here. It should be only one click once `Debian 8`
 is released (somewhere in 2015).
 
-![](../images/debian10_ftp.png)
+![](assets/debian10_ftp.png)
 
 You have many other options to download and install `Debian`. We will
 discuss them much later.
@@ -54,7 +54,7 @@ Most of the software will be downloaded during the installation. This
 also means that you will have the most recent version of all packages
 when the install is finished.
 
-![](../images/debian10_isodown.png)
+![](assets/debian10_isodown.png)
 
 I already have Debian 8 installed on my laptop (hence the `paul@debian8`
 prompt). Anyway, this is the downloaded file just before starting the
@@ -67,31 +67,31 @@ Create a new virtualbox machine (I already have five, you might have
 zero for now). Click the `New` button to start a wizard that will help
 you create a virtual machine.
 
-![](../images/debian10_vb.png)
+![](assets/debian10_vb.png)
 
 The machine needs a name, this screenshot shows that I named it
 `server42`.
 
-![](../images/debian10_vb2.png)
+![](assets/debian10_vb2.png)
 
 Most of the defaults in Virtualbox are ok.
 
 512MB of RAM is enough to practice all the topics in this book.
 
-![](../images/centos8_mem.png)
+![](assets/centos8_mem.png)
 
 We do not care about the virtual disk format.
 
-![](../images/centos8_vdi.png)
+![](assets/centos8_vdi.png)
 
 Choosing `dynamically allocated` will save you some disk space (for a
 small performance hit).
 
-![](../images/centos8_dynamic.png)
+![](assets/centos8_dynamic.png)
 
 8GB should be plenty for learning about Linux servers.
 
-![](../images/debian10_disksize.png)
+![](assets/debian10_disksize.png)
 
 This finishes the wizard. You virtual machine is almost ready to begin
 the installation.
@@ -100,7 +100,7 @@ First, make sure that you attach the downloaded .iso image to the
 virtual CD drive. (by opening `Settings`, `Storage` followed by a mouse
 click on the round CD icon)
 
-![](../images/debian10_iso.png)
+![](assets/debian10_iso.png)
 
 Personally I also disable sound and usb, because I never use these
 features. I also remove the floppy disk and use a PS/2 mouse pointer.
@@ -111,103 +111,103 @@ Now boot the virtual machine and begin the actual installation. After a
 couple of seconds you should see a screen similar to this. Choose
 `Install` to begin the installation of Debian.
 
-![](../images/debian10_start_install.png)
+![](assets/debian10_start_install.png)
 
 First select the language you want to use.
 
-![](../images/debian10_inst1.png)
+![](assets/debian10_inst1.png)
 
 Choose your country. This information will be used to suggest a download
 mirror.
 
-![](../images/debian10_inst2_country.png)
+![](assets/debian10_inst2_country.png)
 
 Choose the correct keyboard. On servers this is of no importance since
 most servers are remotely managed via `ssh`.
 
-![](../images/debian10_inst3_keyb.png)
+![](assets/debian10_inst3_keyb.png)
 
 Enter a `hostname` (with `fqdn` to set a `dnsdomainname`).
 
-![](../images/debian10_inst4_hostname.png)
+![](assets/debian10_inst4_hostname.png)
 
 Give the `root` user a password. Remember this password (or use
 `hunter2`).
 
-![](../images/debian10_inst5_rootpw.png)
+![](assets/debian10_inst5_rootpw.png)
 
 It is adviced to also create a normal user account. I don\'t give my
 full name, Debian 8 accepts an identical username and full name `paul`.
 
-![](../images/debian10_inst5_newuser.png)
+![](assets/debian10_inst5_newuser.png)
 
 The `use entire disk` refers to the `virtual disk` that you created
 before in `Virtualbox`..
 
-![](../images/debian10_inst6_disk.png)
+![](assets/debian10_inst6_disk.png)
 
 Again the default is probably what you want. Only change partitioning if
 you really know what you are doing.
 
-![](../images/debian10_inst7_partition.png)
+![](assets/debian10_inst7_partition.png)
 
 Accept the partition layout (again only change if you really know what
 you are doing).
 
-![](../images/debian10_inst8_ponr.png)
+![](assets/debian10_inst8_ponr.png)
 
 This is the point of no return, the magical moment where pressing `yes`
 will forever erase data on the (virtual) computer.
 
-![](../images/debian10_inst8_ponr2.png)
+![](assets/debian10_inst8_ponr2.png)
 
 Software is downloaded from a mirror repository, preferably choose one
 that is close by (as in the same country).
 
-![](../images/debian10_inst9_mirror.png)
+![](assets/debian10_inst9_mirror.png)
 
 This setup was done in Belgium.
 
-![](../images/debian10_inst9_mirror2.png)
+![](assets/debian10_inst9_mirror2.png)
 
 Leave the proxy field empty (unless you are sure that you are behind a
 proxy server).
 
-![](../images/debian10_insta_proxy.png)
+![](assets/debian10_insta_proxy.png)
 
 Choose whether you want to send anonymous statistics to the Debian
 project (it gathers data about installed packages). You can view the
 statistics here `http://popcon.debian.org/`.
 
-![](../images/debian10_instb_stats.png)
+![](assets/debian10_instb_stats.png)
 
 Choose what software to install, we do not need any graphical stuff for
 this training.
 
-![](../images/debian10_instc_soft.png)
+![](assets/debian10_instc_soft.png)
 
 The latest versions are being downloaded.
 
-![](../images/debian10_instd_retr.png)
+![](assets/debian10_instd_retr.png)
 
 Say yes to install the bootloader on the virtual machine.
 
-![](../images/debian10_inste_grub.png)
+![](assets/debian10_inste_grub.png)
 
 Booting for the first time shows the grub screen
 
-![](../images/debian10_grubboot.png)
+![](assets/debian10_grubboot.png)
 
 A couple seconds later you should see a lot of text scrolling of the
 screen (`dmesg`). After which you are presented with this `getty` and
 are allowed your first logon.
 
-![](../images/debian10_getty.png)
+![](assets/debian10_getty.png)
 
 You should now be able to log on to your virtual machine with the `root`
 account. Do you remember the password ? Was it `hunter2` ?
 
-![](../images/debian10_firstlogon.png)
+![](assets/debian10_firstlogon.png)
 
 The screenshots in this book will look like this from now on. You can
 just type those commands in the terminal (after you logged on).
@@ -248,7 +248,7 @@ The default virtualbox networking is to attach virtual network cards to
               collisions:0 txqueuelen:0
               RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
 
-![](../images/debian10_bridge.png)
+![](assets/debian10_bridge.png)
 
 By shutting down the network interface and enabling it again, we force
 Debian to renew an ip address from the bridged network.

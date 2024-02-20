@@ -15,7 +15,7 @@ The nat table in iptables adds two new chains. PREROUTING allows
 altering of packets before they reach the INPUT chain. POSTROUTING
 allows altering packets after they exit the OUTPUT chain.
 
-![](../images/iptables_filter_nat2.png)
+![](assets/iptables_filter_nat2.png)
 
 Use `iptables -t nat -nvL` to look at the NAT table. The screenshot
 below shows an empty NAT table.

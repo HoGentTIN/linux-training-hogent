@@ -10,7 +10,7 @@ to use it for free.
 Geek and Poke demonstrates why we need version control (image property
 of Geek and Poke CCA 3.0).
 
-![](../images/version_control.jpg)
+![](assets/version_control.jpg)
 
 Besides `source code` for software, you can also find German and
 Icelandic `law` on github (and probably much more by the time you are
@@ -283,7 +283,7 @@ This account is free of charge, we will use it in the examples below.
 I prefer to use github with a `public key`, so it probably
 is a good idea that you also upload your public key to github.com.
 
-![](../images/github_pubkey.png)
+![](assets/github_pubkey.png)
 
 You can upload your own key via the web interface:
 

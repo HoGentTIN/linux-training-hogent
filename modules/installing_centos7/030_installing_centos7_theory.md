@@ -7,7 +7,7 @@ image of `CentOS 7`.
 The `CentOS 7` website looks like this today (November 2014). They
 change the look regularly, so it may look different when you visit it.
 
-![](../images/centos8_downloadpage.png)
+![](assets/centos8_downloadpage.png)
 
 You can download a full DVD, which allows for an off line installation
 of a graphical `CentOS 7` desktop. You can select this because it should
@@ -19,13 +19,13 @@ and `x86_64` and ended up on a `mirror list`. Each mirror is a server
 that contains copies of `CentOS 7` media. I selected a Belgian mirror
 because I currently am in Belgium.
 
-![](../images/centos8_mirror.png)
+![](assets/centos8_mirror.png)
 
 There is again the option for full DVD\'s and more. This demonstration
 will use the `minimal` .iso file, because it is much smaller in size.
 The download takes a couple of minutes.
 
-![](../images/centos8_downloading.png)
+![](assets/centos8_downloading.png)
 
 Verify the size of the file after download to make sure it is complete.
 Probably a right click on the file and selecting \'properties\' (if you
@@ -45,33 +45,33 @@ mentioned on the `CentOS 7` website.
 This screenshot shows up when I start Virtualbox. I already have four
 virtual machines, you might have none.
 
-![](../images/centos8_novm.png)
+![](assets/centos8_novm.png)
 
 Below are the steps for creating a new virtual machine. Start by
 clicking `New` and give your machine a name (I chose `server33`). Click
 `Next`.
 
-![](../images/centos8_name.png)
+![](assets/centos8_name.png)
 
 A Linux computer without graphical interface will run fine on
 `half a gigabyte` of RAM.
 
-![](../images/centos8_mem.png)
+![](assets/centos8_mem.png)
 
 A Linux virtual machine will need a `virtual hard drive`.
 
-![](../images/centos8_createdisk.png)
+![](assets/centos8_createdisk.png)
 
 Any format will do for our purpose, so I left the default `vdi`.
 
-![](../images/centos8_vdi.png)
+![](assets/centos8_vdi.png)
 
 The default `dynamically allocated` type will save disk space (until we
 fill the virtual disk up to 100 percent). It makes the virtual machine a
 bit slower than `fixed size`, but the `fixed size` speed improvement is
 not worth it for our purpose.
 
-![](../images/centos8_dynamic.png)
+![](assets/centos8_dynamic.png)
 
 The name of the virtual disk file on the host computer will be
 `server33.vdi` in my case (I left it default and it uses the vm name).
@@ -79,22 +79,22 @@ Also 16 GB should be enough to practice Linux. The file will stay much
 smaller than 16GB, unless you copy a lot of files to the virtual
 machine.
 
-![](../images/centos8_disksize.png)
+![](assets/centos8_disksize.png)
 
 You should now be back to the start screen of `Virtualbox`. If all went
 well, then you should see the machine you just created in the list.
 
-![](../images/centos8_vmok.png)
+![](assets/centos8_vmok.png)
 
 After finishing the setup, we go into the `Settings` of our virtual
 machine and attach the `.iso` file we downloaded before. Below is the
 default screenshot.
 
-![](../images/centos8_nocd.png)
+![](assets/centos8_nocd.png)
 
 This is a screenshot with the `.iso` file properly attached.
 
-![](../images/centos8_cdiso.png)
+![](assets/centos8_cdiso.png)
 
 ## CentOS 7 installing
 
@@ -106,7 +106,7 @@ You should see this when booting, otherwise verify the attachment of the
 .iso file form the previous steps. Select
 `Test this media and install CentOS 7`.
 
-![](../images/a_install.png)
+![](assets/a_install.png)
 
 Carefully select the language in which you want your `CentOS`. I always
 install operating systems in English, even though my native language is
@@ -115,72 +115,72 @@ not English.
 Also select the right keyboard, mine is a US qwerty, but yours may be
 different.
 
-![](../images/b_install_language.png)
+![](assets/b_install_language.png)
 
 You should arrive at a summary page (with one or more warnings).
 
-![](../images/c_install_summary.png)
+![](assets/c_install_summary.png)
 
 Start by configuring the network. During this demonstration I had a DHCP
 server running at 192.168.1.42, yours is probably different. Ask someone
 (a network administator ?) for help if this step fails.
 
-![](../images/d_install_network.png)
+![](assets/d_install_network.png)
 
 Select your time zone, and activate `ntp`.
 
-![](../images/e_install_time.png)
+![](assets/e_install_time.png)
 
 Choose a mirror that is close to you. If you can\'t find a local mirror,
 then you can copy the one from this screenshot (it is a general `CentOS`
 mirror).
 
-![](../images/f_install_mirror.png)
+![](assets/f_install_mirror.png)
 
 It can take a couple of seconds before the mirror is verified.
 
-![](../images/g_install_mirrorok.png)
+![](assets/g_install_mirrorok.png)
 
 I did not select any software here (because I want to show it all in
 this training).
 
-![](../images/h_install_nosoftsel.png)
+![](assets/h_install_nosoftsel.png)
 
 After configuring network, location, software and all, you should be
 back on this page. Make sure there are no warnings anymore (and that you
 made the correct choice everywhere).
 
-![](../images/i_install_go.png)
+![](assets/i_install_go.png)
 
 You can enter a `root password` and create a `user account` while the
 installation is downloading from the internet. This is the longest step,
 it can take several minutes (or up to an hour if you have a slow
 internet connection).
 
-![](../images/j_install_users.png)
+![](assets/j_install_users.png)
 
 If you see this, then the installation was successful.
 
 Time to reboot the computer and start `CentOS 7` for the first time.
 
-![](../images/k_install_done.png)
+![](assets/k_install_done.png)
 
 This screen will appear briefly when the virtual machines starts. You
 don\'t have to do anything.
 
-![](../images/l_install_reboot.png)
+![](assets/l_install_reboot.png)
 
 After a couple of seconds, you should see a logon screen. This is called
 a `tty` or a `getty`. Here you can type `root` as username. The
 `login process` will then ask your password (nothing will appear on
 screen when you type your password).
 
-![](../images/m_install_getty.png)
+![](assets/m_install_getty.png)
 
 And this is what it looks like after logon. You are logged on to your
 own Linux machine, very good.
 
-![](../images/n_install_gettylogon.png)
+![](assets/n_install_gettylogon.png)
 
 All subsequent screenshots will be text only, no images anymore.
 
@@ -212,7 +212,7 @@ If the last part is a bit too fast, take a look at the next topic
 All you have to log on, after finishing the installation, is this screen
 in Virtualbox.
 
-![](../images/m_install_getty.png)
+![](assets/m_install_getty.png)
 
 This is workable to learn Linux, and you will be able to practice a lot.
 But there are more ways to access your virtual machine, the next
@@ -273,7 +273,7 @@ You can change this to `bridge` (over your wi-fi or over the ethernet
 cable) and thus make it appear as if your virtual machine is directly on
 your local network (receiving an ip address from your real dhcp server).
 
-![](../images/o_install_natbridge.png)
+![](assets/o_install_natbridge.png)
 
 You can make this change while the vm is running, provided that you
 execute this command:
@@ -395,15 +395,15 @@ Google it).
 Use `putty.exe` as shown in this screenshot (I saved the ip address by
 giving it a name \'server33\' and presing the \'save\' button).
 
-![](../images/putty1.png)
+![](assets/putty1.png)
 
 The first time you will get a message about keys, accept this (this is
 explained in the ssh chapter).
 
-![](../images/putty2_key.png)
+![](assets/putty2_key.png)
 
 Enter your userid (or root) and the correct password (nothing will
 appear on the screen when typing a password).
 
-![](../images/putty3_ok.png)
+![](assets/putty3_ok.png)
 

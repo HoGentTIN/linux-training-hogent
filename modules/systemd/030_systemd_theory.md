@@ -1,6 +1,6 @@
 ## systemd
 
-![](../images/systemd_diagram.png){width="14cm"}
+![](assets/systemd_diagram.png){width="14cm"}
 
 `systemd` is a software suite that provides an array of system
 components for Linux operating systems. Its main aim is to unify service

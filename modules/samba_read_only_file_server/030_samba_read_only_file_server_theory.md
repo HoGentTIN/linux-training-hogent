@@ -150,7 +150,7 @@ Just to be on the safe side, let us try writing.
 
 Or you can use windows explorer\...
 
-![](../images/sambareadonly.jpg)
+![](assets/sambareadonly.jpg)
 
 ## a note on netcat
 

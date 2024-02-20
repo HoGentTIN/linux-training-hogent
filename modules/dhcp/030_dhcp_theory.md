@@ -9,7 +9,7 @@ chosen offer. The `dhcp server` usually responds with a
 
 In wireshark it looks like this.
 
-![](../images/wireshark_dhcp_four_broadcasts.png)
+![](assets/wireshark_dhcp_four_broadcasts.png)
 
 When this procedure is finished, then the client is allowed to use that
 ip-configuration until the end of its lease time.
@@ -21,7 +21,7 @@ DHCP-SRV2 and two clients (SunWS1 and Mac42). All computers are
 connected by a hub or switch (pictured in the middle). All four
 computers have a cable to the hub (cables not pictured).
 
-![](../images/dhcp.png)
+![](assets/dhcp.png)
 
 1\. The client SunWS1 sends a `dhcp discover` on the network. All
 computers receive this broadcast.
