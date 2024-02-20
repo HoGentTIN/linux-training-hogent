@@ -32,11 +32,11 @@ debug() {
 
 # Enable additional command output depending on the verbosity level
 if [ "${VERBOSITY}" -ge 4 ]; then
-  _VERBOSE='--verbose'   # Enable verbose option (e.g. for mkdir)
+  _VERBOSE='-v'          # Enable verbose option (e.g. for mkdir)
   _SED_VERBOSE='--debug' # Enable sed debugging
   set -x                 # Enable Bash debugging
 elif [ "${VERBOSITY}" -ge 3 ]; then
-  _VERBOSE='--verbose'   # Enable verbose option (e.g. for mkdir)
+  _VERBOSE='-v'          # Enable verbose option (e.g. for mkdir)
   _SED_VERBOSE=''        # Don't enable sed debugging
 else
   _VERBOSE=''            # Don't add verbose option
