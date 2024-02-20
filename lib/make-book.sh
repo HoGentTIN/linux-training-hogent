@@ -65,6 +65,11 @@ main() {
                 usage
                 exit 0
                 ;;
+            -*)
+                error "Unrecognized option: ${1}"
+                usage
+                exit 1
+                ;;
             *)
                 create_book "${1}"
                 ;;
