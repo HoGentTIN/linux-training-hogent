@@ -19,6 +19,8 @@ jobs:
           key: ${{ github.ref }}
           path: .cache
       - name: Install dependencies
+        run: apt-get update && apt-get install -y pandoc
+      - name: Install Python libraries
         run: pip install mkdocs mkdocs-material pymdown-extensions shyaml
       - name: Run publish script
         run: bash ./lib/publish.sh
