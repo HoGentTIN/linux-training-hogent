@@ -1,0 +1,55 @@
+---
+title: "Linux Servers"
+authors: 
+  - name: "Paul Cobbaut"
+date: "\\today"
+
+frontmatter:
+  - 01_colophon.md
+  - 02_abstract.md
+
+content:
+  - title: "web servers"
+    chapters:
+      - apache
+      - nginx
+      - squid
+  - title: "mysql database"
+    chapters:
+      - mysql
+  - title: "dns server"
+    chapters:
+      - dns
+      - dns_advanced
+  - title: "dhcp server"
+    chapters:
+      - dhcp
+  - title: "iptables firewall"
+    chapters:
+      - router
+      - iptables
+  - title: "Introduction to Samba"
+    chapters:
+      - samba_introduction
+      - samba_getting_started
+      - samba_read_only_file_server
+      - samba_writable_file_server
+      - samba_first_user_account
+      - samba_authentication
+      - samba_securing_shares
+      - samba_domain_member
+      - samba_domain_controller
+      - samba4
+  - title: "selinux"
+    chapters:
+      - selinux
+  - title: "introducing git"
+    chapters:
+      - git
+  - title: "ipv6"
+    chapters:
+      - ipv6
+
+backmatter:
+  - cloning
+  - license
