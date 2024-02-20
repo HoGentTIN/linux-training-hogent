@@ -121,7 +121,10 @@ create_mkdocs() {
   files=$(shyaml get-values frontmatter < "${source_dir}/info.yml")
   for file in ${files}; do
     log "  - Adding '${file}'"
-    cat "${source_dir}/${file}" >>  "${mkdocs_dir}"/index.md
+    # add contents to index.md, skipping lines starting with a LaTeX command (\)
+    # shellcheck disable=SC1003,SC2086
+    grep --invert-match '^\\' "${source_dir}/${file}" \
+      >>  "${mkdocs_dir}"/index.md
   done
 
   log "Copying content"
@@ -141,7 +144,10 @@ create_mkdocs() {
 
       # Replace the chapter id with the chapter title in the mkdocs.yml file
       chapter_title=$(grep '^#' "${MODULE_ROOT}/${chapter}/"010*title.md | cut -c3-)
-      sed -i "s|${chapter}|${chapter_title}|" "${mkdocs_dir}/../mkdocs.yml"
+      # shellcheck disable=SC2086
+      sed ${_SED_VERBOSE} --in-place \
+        "s|\"${chapter}\"|\"${chapter_title}\"|;!q" \
+        "${mkdocs_dir}/../mkdocs.yml"
     done
   done
 
@@ -152,18 +158,21 @@ create_mkdocs() {
     log "  - Adding appendix '${chapter}'"
     cat "${MODULE_ROOT}/${chapter}"/[0-9][0-9][0-9]*.md >> "${mkdocs_dir}/${chapter}.md"
     # shellcheck disable=SC2086
-      cp ${_VERBOSE} "${MODULE_ROOT}/${chapter}/assets/"* \
-        "${mkdocs_dir}/assets/" 2> /dev/null || debug "No assets found"
+    cp ${_VERBOSE} "${MODULE_ROOT}/${chapter}/assets/"* \
+      "${mkdocs_dir}/assets/" 2> /dev/null || debug "No assets found"
 
     # Replace the chapter id with the chapter title in the mkdocs.yml file
     chapter_title=$(grep '^#' "${MODULE_ROOT}/${chapter}/"010*title.md | cut -c3-)
-      sed -i "s|${chapter}|${chapter_title}|" "${mkdocs_dir}/../mkdocs.yml"
+    # shellcheck disable=SC2086
+    sed ${_SED_VERBOSE} --in-place "s|\"${chapter}\"|\"${chapter_title}\"|;!q" \
+      "${mkdocs_dir}/../mkdocs.yml"
   done
 
   log "Building site"
 
   ensure_directory_exists "${PUBLISH_DIR}/${site_name}"
   cd "${mkdocs_dir}/.."
+  # shellcheck disable=SC2086
   mkdocs build ${_VERBOSE} --clean --site-dir "../../${PUBLISH_DIR}/${site_name}"
 }
 
