@@ -1,6 +1,7 @@
 ## Ignore output directories
 /site/
 /dist/
+/gh-pages/
 
 ## Log directory
 log/
