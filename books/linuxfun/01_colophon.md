@@ -9,6 +9,7 @@ Feel free to contact the author:
 Contributors to the Linux Training project are:
 
 - Serge van Ginderachter: <serge@ginsys.eu>, build scripts and infrastructure setup
+- Ywein Van den Brande: <ywein@crealaw.eu>, license and legal sections
 - Bert Van Vreckem: <https://github.com/bertvv>, translation to Markdown, new build scripts, and infrastructure setup
 
 We'd also like to thank our reviewers:
