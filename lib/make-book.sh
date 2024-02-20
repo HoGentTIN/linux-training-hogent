@@ -7,10 +7,25 @@
 #/ OPTIONS:
 #/   -h|--help|help   Print this help text and exit
 #/
+#/ CONFIGURATION:
+#/   The file `settings.sh` contains configurable variables, e.g. directories
+#/   for modules, templates, and output. The default values can be overridden
+#/   by setting the corresponding environment variables.
+#/
+#/   In particular, you can set the verbosity level of the commands with
+#/   variable VERBOSITY. The following values are supported:
+#/
+#/   0 = quiet
+#/   1 = errors
+#/   2 = log (default)
+#/   3 = debug
+#/   4 = set -x enabled
+#/
 #/ EXAMPLES:
 #/   SCRIPT -h
 #/   SCRIPT books/linuxfun
 #/   SCRIPT books/linuxfun books/linuxsys
+#/   VERBOSITY=3 SCRIPT books/linuxfun
 #/
 
 set -o errexit
@@ -118,7 +133,7 @@ create_book() {
       cat "${MODULE_ROOT}/${chapter}/"[0-9][0-9][0-9]_*.md >> "${book_dir}/content.md"
       # shellcheck disable=SC2086
       cp ${_VERBOSE} "${MODULE_ROOT}/${chapter}/assets/"* \
-        "${book_dir}/assets/" || debug "No assets found"
+        "${book_dir}/assets/" 2> /dev/null || debug "No assets found"
     done
   done
 
@@ -133,11 +148,10 @@ create_book() {
     cat "${MODULE_ROOT}/${chapter}"/[0-9][0-9][0-9]_*.md >> "${book_dir}/backmatter.md"
     # shellcheck disable=SC2086
     cp ${_VERBOSE} "${MODULE_ROOT}/${chapter}/assets/"* \
-      "${book_dir}/assets/" || debug "No assets found"
+      "${book_dir}/assets/" 2> /dev/null || debug "No assets found"
   done
   
   log "Generating PDF"
-  set -x
   cd "${book_dir}"
   # shellcheck disable=SC2086
   pandoc ${_VERBOSE} \
@@ -148,7 +162,6 @@ create_book() {
     frontmatter.md \
     content.md \
     backmatter.md
-  { set +x; } 2>/dev/null
 }
 
 main "${@}"
