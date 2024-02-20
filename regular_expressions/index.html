@@ -1,0 +1,2620 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://hogenttin.github.io/linux-training-hogent/regular_expressions/">
+      
+      
+        <link rel="prev" href="../basic_tools/">
+      
+      
+        <link rel="next" href="../intro_vi/">
+      
+      
+      <link rel="icon" href="https://www.hogent.be/themes/hogent/images/ico/favicon.ico">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.10">
+    
+    
+      
+        <title>regular expressions - Linux Fundamentals</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.7e359304.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,700,700i%7CInconsolata:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Montserrat";--md-code-font:"Inconsolata"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="deep-orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#regular-expressions" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Linux Fundamentals" class="md-header__button md-logo" aria-label="Linux Fundamentals" data-md-component="logo">
+      
+  <img src="https://www.hogent.be/themes/hogent/assets/images/HOGENT_Logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Linux Fundamentals
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              regular expressions
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hogenttin/linux-training-hogent" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hogenttin/linux-training-hogent
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Linux Fundamentals" class="md-nav__button md-logo" aria-label="Linux Fundamentals" data-md-component="logo">
+      
+  <img src="https://www.hogent.be/themes/hogent/assets/images/HOGENT_Logo.png" alt="logo">
+
+    </a>
+    Linux Fundamentals
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hogenttin/linux-training-hogent" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hogenttin/linux-training-hogent
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Introduction to Linux
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Introduction to Linux
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linux_history/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux history
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linux_distributions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    distributions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../licensing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    licensing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Installing Linux
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Installing Linux
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installing_debian8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    installing Debian 8
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installing_centos7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    installing CentOS 8
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../virtualbox/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    getting Linux at home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    First steps on the command line
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            First steps on the command line
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../man_pages/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    man pages
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../working_with_directories/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    working with directories
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../working_with_files/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    working with files
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../working_with_file_contents/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    working with file contents
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../file_system_tree/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    the Linux file tree
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Shell expansion
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Shell expansion
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shell_arguments/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    commands and arguments
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shell_control_operators/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    control operators
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shell_variables/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    shell variables
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shell_in_shell/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    shell embedding and options
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shell_history/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    shell history
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shell_globbing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    file globbing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Pipes and commands
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Pipes and commands
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ioredirection/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    I/O redirection
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../filters/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    filters
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../basic_tools/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    basic Unix tools
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    regular expressions
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    regular expressions
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#regex-versions" class="md-nav__link">
+    <span class="md-ellipsis">
+      regex versions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#grep" class="md-nav__link">
+    <span class="md-ellipsis">
+      grep
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="grep">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#print-lines-matching-a-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      print lines matching a pattern
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#concatenating-characters" class="md-nav__link">
+    <span class="md-ellipsis">
+      concatenating characters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#one-or-the-other" class="md-nav__link">
+    <span class="md-ellipsis">
+      one or the other
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#one-or-more" class="md-nav__link">
+    <span class="md-ellipsis">
+      one or more
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#match-the-end-of-a-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      match the end of a string
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#match-the-start-of-a-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      match the start of a string
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#separating-words" class="md-nav__link">
+    <span class="md-ellipsis">
+      separating words
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#grep-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      grep features
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preventing-shell-expansion-of-a-regex" class="md-nav__link">
+    <span class="md-ellipsis">
+      preventing shell expansion of a regex
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rename" class="md-nav__link">
+    <span class="md-ellipsis">
+      rename
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="rename">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-rename-command" class="md-nav__link">
+    <span class="md-ellipsis">
+      the rename command
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#perl" class="md-nav__link">
+    <span class="md-ellipsis">
+      perl
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#well-known-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      well known syntax
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-global-replace" class="md-nav__link">
+    <span class="md-ellipsis">
+      a global replace
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#case-insensitive-replace" class="md-nav__link">
+    <span class="md-ellipsis">
+      case insensitive replace
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#renaming-extensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      renaming extensions
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sed" class="md-nav__link">
+    <span class="md-ellipsis">
+      sed
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="sed">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stream-editor" class="md-nav__link">
+    <span class="md-ellipsis">
+      stream editor
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interactive-editor" class="md-nav__link">
+    <span class="md-ellipsis">
+      interactive editor
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#simple-back-referencing" class="md-nav__link">
+    <span class="md-ellipsis">
+      simple back referencing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#back-referencing" class="md-nav__link">
+    <span class="md-ellipsis">
+      back referencing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-dot-for-any-character" class="md-nav__link">
+    <span class="md-ellipsis">
+      a dot for any character
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multiple-back-referencing" class="md-nav__link">
+    <span class="md-ellipsis">
+      multiple back referencing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#white-space" class="md-nav__link">
+    <span class="md-ellipsis">
+      white space
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optional-occurrence" class="md-nav__link">
+    <span class="md-ellipsis">
+      optional occurrence
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exactly-n-times" class="md-nav__link">
+    <span class="md-ellipsis">
+      exactly n times
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#between-n-and-m-times" class="md-nav__link">
+    <span class="md-ellipsis">
+      between n and m times
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bash-history" class="md-nav__link">
+    <span class="md-ellipsis">
+      bash history
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Vi
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Vi
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intro_vi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction to vi
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Scripting
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Scripting
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scripting_intro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    introduction to scripting 
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scripting_loops/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    scripting loops
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scripting_params/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    scripting parameters
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scripting_adv/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    more scripting
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Local user management
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Local user management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../users/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    introduction to users
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user_management/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    user management
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user_passwords/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    user passwords
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user_profiles/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    User profiles
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../groups/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    groups
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    File security
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            File security
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../file_permissions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    standard file permissions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../advanced_permissions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    advanced file permissions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../acls/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    access control lists
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../links/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    file links
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Appendix
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            Appendix
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../keys/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    keyboard settings
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    hardware
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../license/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GNU Free Documentation License
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#regex-versions" class="md-nav__link">
+    <span class="md-ellipsis">
+      regex versions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#grep" class="md-nav__link">
+    <span class="md-ellipsis">
+      grep
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="grep">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#print-lines-matching-a-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      print lines matching a pattern
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#concatenating-characters" class="md-nav__link">
+    <span class="md-ellipsis">
+      concatenating characters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#one-or-the-other" class="md-nav__link">
+    <span class="md-ellipsis">
+      one or the other
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#one-or-more" class="md-nav__link">
+    <span class="md-ellipsis">
+      one or more
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#match-the-end-of-a-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      match the end of a string
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#match-the-start-of-a-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      match the start of a string
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#separating-words" class="md-nav__link">
+    <span class="md-ellipsis">
+      separating words
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#grep-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      grep features
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preventing-shell-expansion-of-a-regex" class="md-nav__link">
+    <span class="md-ellipsis">
+      preventing shell expansion of a regex
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rename" class="md-nav__link">
+    <span class="md-ellipsis">
+      rename
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="rename">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-rename-command" class="md-nav__link">
+    <span class="md-ellipsis">
+      the rename command
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#perl" class="md-nav__link">
+    <span class="md-ellipsis">
+      perl
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#well-known-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      well known syntax
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-global-replace" class="md-nav__link">
+    <span class="md-ellipsis">
+      a global replace
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#case-insensitive-replace" class="md-nav__link">
+    <span class="md-ellipsis">
+      case insensitive replace
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#renaming-extensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      renaming extensions
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sed" class="md-nav__link">
+    <span class="md-ellipsis">
+      sed
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="sed">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stream-editor" class="md-nav__link">
+    <span class="md-ellipsis">
+      stream editor
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interactive-editor" class="md-nav__link">
+    <span class="md-ellipsis">
+      interactive editor
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#simple-back-referencing" class="md-nav__link">
+    <span class="md-ellipsis">
+      simple back referencing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#back-referencing" class="md-nav__link">
+    <span class="md-ellipsis">
+      back referencing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-dot-for-any-character" class="md-nav__link">
+    <span class="md-ellipsis">
+      a dot for any character
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multiple-back-referencing" class="md-nav__link">
+    <span class="md-ellipsis">
+      multiple back referencing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#white-space" class="md-nav__link">
+    <span class="md-ellipsis">
+      white space
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optional-occurrence" class="md-nav__link">
+    <span class="md-ellipsis">
+      optional occurrence
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exactly-n-times" class="md-nav__link">
+    <span class="md-ellipsis">
+      exactly n times
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#between-n-and-m-times" class="md-nav__link">
+    <span class="md-ellipsis">
+      between n and m times
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bash-history" class="md-nav__link">
+    <span class="md-ellipsis">
+      bash history
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="regular-expressions">regular expressions</h1>
+<p><em>(Written by Paul Cobbaut, <a href="https://github.com/paulcobbaut/">https://github.com/paulcobbaut/</a>, with contributions by: Alex M. Schapelle, <a href="https://github.com/zero-pytagoras/">https://github.com/zero-pytagoras/</a>)</em></p>
+<p><code>Regular expressions</code> are a very powerful tool in Linux. They can be
+used with a variety of programs like bash, vi, rename, grep, sed, and
+more.</p>
+<p>This chapter introduces you to the basics of <code>regular expressions</code>.</p>
+<h2 id="regex-versions">regex versions</h2>
+<p>There are three different versions of regular expression syntax:</p>
+<pre><code>BRE: Basic Regular Expressions
+ERE: Extended Regular Expressions
+PRCE: Perl Regular Expressions
+</code></pre>
+<p>Depending on the tool being used, one or more of these syntaxes can be
+used.</p>
+<p>For example the <code>grep</code> tool has the <code>-E</code> option to force a
+string to be read as ERE while <code>-G</code> forces BRE and <code>-P</code> forces PRCE.</p>
+<p>Note that <code>grep</code> also has <code>-F</code> to force the string to be read literally.</p>
+<p>The <code>sed</code> tool also has options to choose a regex syntax.</p>
+<p><code>Read the manual of the tools you use!</code></p>
+<h2 id="grep">grep</h2>
+<h3 id="print-lines-matching-a-pattern">print lines matching a pattern</h3>
+<p><code>grep</code> is a popular Linux tool to search for lines that
+match a certain pattern. Below are some examples of the simplest
+<code>regular expressions</code>.</p>
+<p>This is the contents of the test file. This file contains three lines
+(or three <code>newline</code> characters).</p>
+<pre><code>paul@rhel65:~$ cat names
+Tania
+Laura
+Valentina
+</code></pre>
+<p>When <code>grepping</code> for a single character, only the lines containing that
+character are returned.</p>
+<pre><code>paul@rhel65:~$ grep u names
+Laura
+paul@rhel65:~$ grep e names
+Valentina
+paul@rhel65:~$ grep i names
+Tania
+Valentina
+</code></pre>
+<p>The pattern matching in this example should be very straightforward; if
+the given character occurs on a line, then <code>grep</code> will return that line.</p>
+<h3 id="concatenating-characters">concatenating characters</h3>
+<p>Two concatenated characters will have to be concatenated in the same way
+to have a match.</p>
+<p>This example demonstrates that <code>ia</code> will match Tan<code>ia</code> but not
+V<code>a</code>lent<code>i</code>na and <code>in</code> will match Valent<code>in</code>a but not Ta<code>ni</code>a.</p>
+<pre><code>paul@rhel65:~$ grep a names
+Tania
+Laura
+Valentina
+paul@rhel65:~$ grep ia names
+Tania
+paul@rhel65:~$ grep in names
+Valentina
+paul@rhel65:~$
+</code></pre>
+<h3 id="one-or-the-other">one or the other</h3>
+<p>PRCE and ERE both use the pipe symbol to signify OR. In this example we
+<code>grep</code> for lines containing the letter i or the letter a.</p>
+<pre><code>paul@debian10:~$ cat list 
+Tania
+Laura
+paul@debian10:~$ grep -E 'i|a' list 
+Tania
+Laura
+</code></pre>
+<p>Note that we use the <code>-E</code> switch of grep to force interpretion of our
+string as an ERE.</p>
+<p>We need to <code>escape</code> the pipe symbol in a BRE to get the same logical OR.</p>
+<pre><code>paul@debian10:~$ grep -G 'i|a' list 
+paul@debian10:~$ grep -G 'i\|a' list 
+Tania
+Laura
+</code></pre>
+<h3 id="one-or-more">one or more</h3>
+<p>The <code>*</code> signifies zero, one or more occurences of the previous and the
+<code>+</code> signifies one or more of the previous.</p>
+<pre><code>paul@debian10:~$ cat list2
+ll
+lol
+lool
+loool
+paul@debian10:~$ grep -E 'o*' list2
+ll
+lol
+lool
+loool
+paul@debian10:~$ grep -E 'o+' list2
+lol
+lool
+loool
+paul@debian10:~$
+</code></pre>
+<h3 id="match-the-end-of-a-string">match the end of a string</h3>
+<p>For the following examples, we will use this file.</p>
+<pre><code>paul@debian10:~$ cat names 
+Tania
+Laura
+Valentina
+Fleur
+Floor
+</code></pre>
+<p>The two examples below show how to use the <code>dollar character</code> to match
+the end of a string.</p>
+<pre><code>paul@debian10:~$ grep a$ names 
+Tania
+Laura
+Valentina
+paul@debian10:~$ grep r$ names 
+Fleur
+Floor
+</code></pre>
+<h3 id="match-the-start-of-a-string">match the start of a string</h3>
+<p>The <code>caret character (^)</code> will match a string at the start (or the
+beginning) of a line.</p>
+<p>Given the same file as above, here are two examples.</p>
+<pre><code>paul@debian10:~$ grep ^Val names 
+Valentina
+paul@debian10:~$ grep ^F names 
+Fleur
+Floor
+</code></pre>
+<p>Both the dollar sign and the little hat are called <code>anchors</code> in a regex.</p>
+<h3 id="separating-words">separating words</h3>
+<p>Regular expressions use a <code>\b</code> sequence to reference a word separator.
+Take for example this file:</p>
+<pre><code>paul@debian10:~$ cat text
+The governer is governing.
+The winter is over.
+Can you get over there?
+</code></pre>
+<p>Simply grepping for <code>over</code> will give too many results.</p>
+<pre><code>paul@debian10:~$ grep over text
+The governer is governing.
+The winter is over.
+Can you get over there?
+</code></pre>
+<p>Surrounding the searched word with spaces is not a good solution
+(because other characters can be word separators). This screenshot below
+show how to use <code>\b</code> to find only the searched word:</p>
+<pre><code>paul@debian10:~$ grep '\bover\b' text
+The winter is over.
+Can you get over there?
+paul@debian10:~$
+</code></pre>
+<p>Note that <code>grep</code> also has a <code>-w</code> option to grep for words.</p>
+<pre><code>paul@debian10:~$ cat text 
+The governer is governing.
+The winter is over.
+Can you get over there?
+paul@debian10:~$ grep -w over text
+The winter is over.
+Can you get over there?
+paul@debian10:~$
+</code></pre>
+<h3 id="grep-features">grep features</h3>
+<p>Sometimes it is easier to combine a simple regex with <code>grep</code> options,
+than it is to write a more complex regex. These options where discussed
+before:</p>
+<pre><code>grep -i
+grep -v
+grep -w
+grep -A5
+grep -B5
+grep -C5
+</code></pre>
+<h3 id="preventing-shell-expansion-of-a-regex">preventing shell expansion of a regex</h3>
+<p>The dollar sign is a special character, both for the regex and also for
+the shell (remember variables and embedded shells). Therefore it is
+advised to always quote the regex, this prevents shell expansion.</p>
+<pre><code>paul@debian10:~$ grep 'r$' names 
+Fleur
+Floor
+</code></pre>
+<h2 id="rename">rename</h2>
+<h3 id="the-rename-command">the rename command</h3>
+<p>On Debian Linux the <code>/usr/bin/rename</code> command is a link to
+<code>/usr/bin/prename</code> installed by the <code>perl</code>
+package.</p>
+<pre><code>paul@pi ~ $ dpkg -S $(readlink -f $(which rename))
+perl: /usr/bin/prename
+</code></pre>
+<p>Red Hat derived systems do not install the same <code>rename</code> command, so
+this section does not describe <code>rename</code> on Red Hat (unless you copy the
+perl script manually).</p>
+<p><code>There is often confusion on the internet about the rename command because solutions that work fine in Debian (and Ubuntu, xubuntu, Mint, ...) cannot be used in Red Hat (and CentOS, Fedora, ...).</code></p>
+<h3 id="perl">perl</h3>
+<p>The <code>rename</code> command is actually a perl script that uses
+<code>perl regular expressions</code>. The complete manual for these can be found
+by typing <code>perldoc perlrequick</code> (after installing
+<code>perldoc</code>).</p>
+<pre><code>root@pi:~# aptitude install perl-doc
+The following NEW packages will be installed:
+  perl-doc
+0 packages upgraded, 1 newly installed, 0 to remove and 0 not upgraded.
+Need to get 8,170 kB of archives. After unpacking 13.2 MB will be used.
+Get: 1 http://mirrordirector.raspbian.org/raspbian/ wheezy/main perl-do...
+Fetched 8,170 kB in 19s (412 kB/s)
+Selecting previously unselected package perl-doc.
+(Reading database ... 67121 files and directories currently installed.)
+Unpacking perl-doc (from .../perl-doc_5.14.2-21+rpi2_all.deb) ...
+Adding 'diversion of /usr/bin/perldoc to /usr/bin/perldoc.stub by perl-doc'
+Processing triggers for man-db ...
+Setting up perl-doc (5.14.2-21+rpi2) ...
+
+root@pi:~# perldoc perlrequick
+</code></pre>
+<h3 id="well-known-syntax">well known syntax</h3>
+<p>The most common use of the <code>rename</code> is to search for
+filenames matching a certain <code>string</code> and replacing this string with an
+<code>other string</code>.</p>
+<p>This is often presented as <code>s/string/other string/</code> as seen in this
+example:</p>
+<pre><code>paul@pi ~ $ ls
+abc       allfiles.TXT  bllfiles.TXT  Scratch   tennis2.TXT
+abc.conf  backup        cllfiles.TXT  temp.TXT  tennis.TXT
+paul@pi ~ $ rename 's/TXT/text/' *
+paul@pi ~ $ ls
+abc       allfiles.text  bllfiles.text  Scratch    tennis2.text
+abc.conf  backup         cllfiles.text  temp.text  tennis.text
+</code></pre>
+<p>And here is another example that uses <code>rename</code> with the well know syntax
+to change the extensions of the same files once more:</p>
+<pre><code>paul@pi ~ $ ls
+abc       allfiles.text  bllfiles.text  Scratch    tennis2.text
+abc.conf  backup         cllfiles.text  temp.text  tennis.text
+paul@pi ~ $ rename 's/text/txt/' *.text
+paul@pi ~ $ ls
+abc       allfiles.txt  bllfiles.txt  Scratch   tennis2.txt
+abc.conf  backup        cllfiles.txt  temp.txt  tennis.txt
+paul@pi ~ $
+</code></pre>
+<p>These two examples appear to work because the strings we used only exist
+at the end of the filename. Remember that file extensions have no
+meaning in the bash shell.</p>
+<p>The next example shows what can go wrong with this syntax.</p>
+<pre><code>paul@pi ~ $ touch atxt.txt
+paul@pi ~ $ rename 's/txt/problem/' atxt.txt
+paul@pi ~ $ ls
+abc       allfiles.txt  backup        cllfiles.txt  temp.txt     tennis.txt
+abc.conf  aproblem.txt  bllfiles.txt  Scratch       tennis2.txt
+paul@pi ~ $
+</code></pre>
+<p>Only the first occurrence of the searched string is replaced.</p>
+<h3 id="a-global-replace">a global replace</h3>
+<p>The syntax used in the previous example can be described as
+<code>s/regex/replacement/</code>. This is simple and straightforward, you enter a
+<code>regex</code> between the first two slashes and a <code>replacement string</code> between
+the last two.</p>
+<p>This example expands this syntax only a little, by adding a <code>modifier</code>.</p>
+<pre><code>paul@pi ~ $ rename -n 's/TXT/txt/g' aTXT.TXT
+aTXT.TXT renamed as atxt.txt
+paul@pi ~ $
+</code></pre>
+<p>The syntax we use now can be described as <code>s/regex/replacement/g</code> where
+s signifies <code>switch</code> and g stands for <code>global</code>.</p>
+<p>Note that this example used the <code>-n</code> switch to show what is being done
+(instead of actually renaming the file).</p>
+<h3 id="case-insensitive-replace">case insensitive replace</h3>
+<p>Another <code>modifier</code> that can be useful is <code>i</code>. this example shows how to
+replace a case insensitive string with another string.</p>
+<pre><code>paul@debian10:~/files$ ls
+file1.text  file2.TEXT  file3.txt
+paul@debian10:~/files$ rename 's/.text/.txt/i' *
+paul@debian10:~/files$ ls
+file1.txt  file2.txt  file3.txt
+paul@debian10:~/files$
+</code></pre>
+<h3 id="renaming-extensions">renaming extensions</h3>
+<p>Command line Linux has no knowledge of MS-DOS like extensions, but many
+end users and graphical application do use them.</p>
+<p>Here is an example on how to use <code>rename</code> to only rename
+the file extension. It uses the dollar sign to mark the ending of the
+filename.</p>
+<pre><code>paul@pi ~ $ ls *.txt
+allfiles.txt  bllfiles.txt  cllfiles.txt  really.txt.txt  temp.txt  tennis.txt
+paul@pi ~ $ rename 's/.txt$/.TXT/' *.txt
+paul@pi ~ $ ls *.TXT
+allfiles.TXT  bllfiles.TXT    cllfiles.TXT    really.txt.TXT
+temp.TXT      tennis.TXT
+paul@pi ~ $
+</code></pre>
+<p>Note that the <code>dollar sign</code> in the regex means <code>at the end</code>. Without the
+dollar sign this command would fail on the really.txt.txt file.</p>
+<h2 id="sed">sed</h2>
+<h3 id="stream-editor">stream editor</h3>
+<p>The <code>stream editor</code> or short <code>sed</code> uses <code>regex</code> for stream
+editing.</p>
+<p>In this example <code>sed</code> is used to replace a string.</p>
+<pre><code>echo Sunday | sed 's/Sun/Mon/'
+Monday
+</code></pre>
+<p>The slashes can be replaced by a couple of other characters, which can
+be handy in some cases to improve readability.</p>
+<pre><code>echo Sunday | sed 's:Sun:Mon:'
+Monday
+echo Sunday | sed 's_Sun_Mon_'
+Monday
+echo Sunday | sed 's|Sun|Mon|'
+Monday
+</code></pre>
+<h3 id="interactive-editor">interactive editor</h3>
+<p>While <code>sed</code> is meant to be used in a stream, it can also be used
+interactively on a file.</p>
+<pre><code>paul@debian10:~/files$ echo Sunday &gt; today
+paul@debian10:~/files$ cat today 
+Sunday
+paul@debian10:~/files$ sed -i 's/Sun/Mon/' today
+paul@debian10:~/files$ cat today 
+Monday
+</code></pre>
+<h3 id="simple-back-referencing">simple back referencing</h3>
+<p>The <code>ampersand</code> character can be used to reference the searched (and
+found) string.</p>
+<p>In this example the <code>ampersand</code> is used to double the occurence of the
+found string.</p>
+<pre><code>echo Sunday | sed 's/Sun/&amp;&amp;/'
+SunSunday
+echo Sunday | sed 's/day/&amp;&amp;/'
+Sundayday
+</code></pre>
+<h3 id="back-referencing">back referencing</h3>
+<p>Parentheses (often called round brackets) are used to group sections of
+the regex so they can leter be referenced.</p>
+<p>Consider this simple example:</p>
+<pre><code>paul@debian10:~$ echo Sunday | sed 's_\(Sun\)_\1ny_'
+Sunnyday
+paul@debian10:~$ echo Sunday | sed 's_\(Sun\)_\1ny \1_'
+Sunny Sunday
+</code></pre>
+<h3 id="a-dot-for-any-character">a dot for any character</h3>
+<p>In a <code>regex</code> a simple dot can signify any character.</p>
+<pre><code>paul@debian10:~$ echo 2014-04-01 | sed 's/....-..-../YYYY-MM-DD/'
+YYYY-MM-DD
+paul@debian10:~$ echo abcd-ef-gh | sed 's/....-..-../YYYY-MM-DD/'
+YYYY-MM-DD
+</code></pre>
+<h3 id="multiple-back-referencing">multiple back referencing</h3>
+<p>When more than one pair of <code>parentheses</code> is used, each of them can be
+referenced separately by consecutive numbers.</p>
+<pre><code>paul@debian10:~$ echo 2014-04-01 | sed 's/\(....\)-\(..\)-\(..\)/\1+\2+\3/'
+2014+04+01
+paul@debian10:~$ echo 2014-04-01 | sed 's/\(....\)-\(..\)-\(..\)/\3:\2:\1/'
+01:04:2014
+</code></pre>
+<p>This feature is called <code>grouping</code>.</p>
+<h3 id="white-space">white space</h3>
+<p>The <code>\s</code> can refer to white space such as a space or a tab.</p>
+<p>This example looks for white spaces (\s) globally and replaces them
+with 1 space.</p>
+<pre><code>paul@debian10:~$ echo -e 'today\tis\twarm'
+today   is      warm
+paul@debian10:~$ echo -e 'today\tis\twarm' | sed 's_\s_ _g'
+today is warm
+</code></pre>
+<h3 id="optional-occurrence">optional occurrence</h3>
+<p>A question mark signifies that the previous is <code>optional</code>.</p>
+<p>The example below searches for three consecutive letter o, but the third
+o is optional.</p>
+<pre><code>paul@debian10:~$ cat list2
+ll
+lol
+lool
+loool
+paul@debian10:~$ grep -E 'ooo?' list2
+lool
+loool
+paul@debian10:~$ cat list2 | sed 's/ooo\?/A/'
+ll
+lol
+lAl
+lAl
+</code></pre>
+<h3 id="exactly-n-times">exactly n times</h3>
+<p>You can demand an exact number of times the oprevious has to occur.</p>
+<p>This example wants exactly three o\'s.</p>
+<pre><code>paul@debian10:~$ cat list2
+ll
+lol
+lool
+loool
+paul@debian10:~$ grep -E 'o{3}' list2
+loool
+paul@debian10:~$ cat list2 | sed 's/o\{3\}/A/'
+ll
+lol
+lool
+lAl
+paul@debian10:~$
+</code></pre>
+<h3 id="between-n-and-m-times">between n and m times</h3>
+<p>And here we demand exactly from minimum 2 to maximum 3 times.</p>
+<pre><code>paul@debian10:~$ cat list2
+ll
+lol
+lool
+loool
+paul@debian10:~$ grep -E 'o{2,3}' list2
+lool
+loool
+paul@debian10:~$ grep 'o\{2,3\}' list2
+lool
+loool
+paul@debian10:~$ cat list2 | sed 's/o\{2,3\}/A/'
+ll
+lol
+lAl
+lAl
+paul@debian10:~$
+</code></pre>
+<h2 id="bash-history">bash history</h2>
+<p>The <code>bash shell</code> can also interprete some regular
+expressions.</p>
+<p>This example shows how to manipulate the exclamation mask history
+feature of the bash shell.</p>
+<pre><code>paul@debian10:~$ mkdir hist
+paul@debian10:~$ cd hist/
+paul@debian10:~/hist$ touch file1 file2 file3
+paul@debian10:~/hist$ ls -l file1
+-rw-r--r-- 1 paul paul 0 Apr 15 22:07 file1
+paul@debian10:~/hist$ !l
+ls -l file1
+-rw-r--r-- 1 paul paul 0 Apr 15 22:07 file1
+paul@debian10:~/hist$ !l:s/1/3
+ls -l file3
+-rw-r--r-- 1 paul paul 0 Apr 15 22:07 file3
+paul@debian10:~/hist$
+</code></pre>
+<p>This also works with the history numbers in bash.</p>
+<pre><code>paul@debian10:~/hist$ history 6
+ 2089  mkdir hist
+ 2090  cd hist/
+ 2091  touch file1 file2 file3
+ 2092  ls -l file1
+ 2093  ls -l file3
+ 2094  history 6
+paul@debian10:~/hist$ !2092
+ls -l file1
+-rw-r--r-- 1 paul paul 0 Apr 15 22:07 file1
+paul@debian10:~/hist$ !2092:s/1/2
+ls -l file2
+-rw-r--r-- 1 paul paul 0 Apr 15 22:07 file2
+paul@debian10:~/hist$
+</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.8fd75fb4.min.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+    
+  </body>
+</html>

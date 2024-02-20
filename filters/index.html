@@ -1,0 +1,2385 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://hogenttin.github.io/linux-training-hogent/filters/">
+      
+      
+        <link rel="prev" href="../ioredirection/">
+      
+      
+        <link rel="next" href="../basic_tools/">
+      
+      
+      <link rel="icon" href="https://www.hogent.be/themes/hogent/images/ico/favicon.ico">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.10">
+    
+    
+      
+        <title>filters - Linux Fundamentals</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.7e359304.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,700,700i%7CInconsolata:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Montserrat";--md-code-font:"Inconsolata"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="deep-orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#filters" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Linux Fundamentals" class="md-header__button md-logo" aria-label="Linux Fundamentals" data-md-component="logo">
+      
+  <img src="https://www.hogent.be/themes/hogent/assets/images/HOGENT_Logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Linux Fundamentals
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              filters
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hogenttin/linux-training-hogent" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hogenttin/linux-training-hogent
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Linux Fundamentals" class="md-nav__button md-logo" aria-label="Linux Fundamentals" data-md-component="logo">
+      
+  <img src="https://www.hogent.be/themes/hogent/assets/images/HOGENT_Logo.png" alt="logo">
+
+    </a>
+    Linux Fundamentals
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hogenttin/linux-training-hogent" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hogenttin/linux-training-hogent
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Introduction to Linux
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Introduction to Linux
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linux_history/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux history
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linux_distributions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    distributions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../licensing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    licensing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Installing Linux
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Installing Linux
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installing_debian8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    installing Debian 8
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installing_centos7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    installing CentOS 8
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../virtualbox/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    getting Linux at home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    First steps on the command line
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            First steps on the command line
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../man_pages/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    man pages
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../working_with_directories/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    working with directories
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../working_with_files/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    working with files
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../working_with_file_contents/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    working with file contents
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../file_system_tree/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    the Linux file tree
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Shell expansion
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Shell expansion
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shell_arguments/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    commands and arguments
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shell_control_operators/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    control operators
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shell_variables/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    shell variables
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shell_in_shell/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    shell embedding and options
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shell_history/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    shell history
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shell_globbing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    file globbing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Pipes and commands
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Pipes and commands
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ioredirection/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    I/O redirection
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    filters
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    filters
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#cat" class="md-nav__link">
+    <span class="md-ellipsis">
+      cat
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tee" class="md-nav__link">
+    <span class="md-ellipsis">
+      tee
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#grep" class="md-nav__link">
+    <span class="md-ellipsis">
+      grep
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cut" class="md-nav__link">
+    <span class="md-ellipsis">
+      cut
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tr" class="md-nav__link">
+    <span class="md-ellipsis">
+      tr
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wc" class="md-nav__link">
+    <span class="md-ellipsis">
+      wc
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sort" class="md-nav__link">
+    <span class="md-ellipsis">
+      sort
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uniq" class="md-nav__link">
+    <span class="md-ellipsis">
+      uniq
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comm" class="md-nav__link">
+    <span class="md-ellipsis">
+      comm
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#od" class="md-nav__link">
+    <span class="md-ellipsis">
+      od
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sed" class="md-nav__link">
+    <span class="md-ellipsis">
+      sed
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pipe-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      pipe examples
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="pipe examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#who-wc" class="md-nav__link">
+    <span class="md-ellipsis">
+      who | wc
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#who-cut-sort" class="md-nav__link">
+    <span class="md-ellipsis">
+      who | cut | sort
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#grep-cut" class="md-nav__link">
+    <span class="md-ellipsis">
+      grep | cut
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practice-filters" class="md-nav__link">
+    <span class="md-ellipsis">
+      practice: filters
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solution-filters" class="md-nav__link">
+    <span class="md-ellipsis">
+      solution: filters
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../basic_tools/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    basic Unix tools
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../regular_expressions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    regular expressions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Vi
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Vi
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intro_vi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction to vi
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Scripting
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Scripting
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scripting_intro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    introduction to scripting 
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scripting_loops/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    scripting loops
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scripting_params/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    scripting parameters
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scripting_adv/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    more scripting
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Local user management
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Local user management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../users/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    introduction to users
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user_management/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    user management
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user_passwords/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    user passwords
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user_profiles/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    User profiles
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../groups/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    groups
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    File security
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            File security
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../file_permissions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    standard file permissions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../advanced_permissions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    advanced file permissions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../acls/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    access control lists
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../links/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    file links
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Appendix
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            Appendix
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../keys/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    keyboard settings
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    hardware
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../license/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GNU Free Documentation License
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#cat" class="md-nav__link">
+    <span class="md-ellipsis">
+      cat
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tee" class="md-nav__link">
+    <span class="md-ellipsis">
+      tee
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#grep" class="md-nav__link">
+    <span class="md-ellipsis">
+      grep
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cut" class="md-nav__link">
+    <span class="md-ellipsis">
+      cut
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tr" class="md-nav__link">
+    <span class="md-ellipsis">
+      tr
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wc" class="md-nav__link">
+    <span class="md-ellipsis">
+      wc
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sort" class="md-nav__link">
+    <span class="md-ellipsis">
+      sort
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uniq" class="md-nav__link">
+    <span class="md-ellipsis">
+      uniq
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comm" class="md-nav__link">
+    <span class="md-ellipsis">
+      comm
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#od" class="md-nav__link">
+    <span class="md-ellipsis">
+      od
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sed" class="md-nav__link">
+    <span class="md-ellipsis">
+      sed
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pipe-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      pipe examples
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="pipe examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#who-wc" class="md-nav__link">
+    <span class="md-ellipsis">
+      who | wc
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#who-cut-sort" class="md-nav__link">
+    <span class="md-ellipsis">
+      who | cut | sort
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#grep-cut" class="md-nav__link">
+    <span class="md-ellipsis">
+      grep | cut
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practice-filters" class="md-nav__link">
+    <span class="md-ellipsis">
+      practice: filters
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solution-filters" class="md-nav__link">
+    <span class="md-ellipsis">
+      solution: filters
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="filters">filters</h1>
+<p><em>(Written by Paul Cobbaut, <a href="https://github.com/paulcobbaut/">https://github.com/paulcobbaut/</a>, with contributions by: Alex M. Schapelle, <a href="https://github.com/zero-pytagoras/">https://github.com/zero-pytagoras/</a>)</em></p>
+<p>Commands that are created to be used with a <code>pipe</code> are often called
+<code>filters</code>. These <code>filters</code> are very small programs that do
+one specific thing very efficiently. They can be used as
+<code>building blocks</code>.</p>
+<p>This chapter will introduce you to the most common <code>filters</code>. The
+combination of simple commands and filters in a long <code>pipe</code> allows you
+to design elegant solutions.</p>
+<h2 id="cat">cat</h2>
+<p>When between two <code>pipes</code>, the <code>cat</code> command does nothing
+(except putting <code>stdin</code> on <code>stdout</code>).</p>
+<pre><code>[paul@RHEL8b pipes]$ tac count.txt | cat | cat | cat | cat | cat
+five
+four
+three
+two
+one
+[paul@RHEL8b pipes]$
+</code></pre>
+<h2 id="tee">tee</h2>
+<p>Writing long <code>pipes</code> in Unix is fun, but sometimes you may want
+intermediate results. This is were <code>tee</code> comes in handy.
+The <code>tee</code> filter puts <code>stdin</code> on <code>stdout</code>
+and also into a file. So <code>tee</code> is almost the same as <code>cat</code>, except that
+it has two identical outputs.</p>
+<pre><code>[paul@RHEL8b pipes]$ tac count.txt | tee temp.txt | tac
+one
+two
+three
+four
+five
+[paul@RHEL8b pipes]$ cat temp.txt 
+five
+four
+three
+two
+one
+[paul@RHEL8b pipes]$
+</code></pre>
+<h2 id="grep">grep</h2>
+<p>The <code>grep</code> filter is famous among Unix users. The most
+common use of <code>grep</code> is to filter lines of text containing (or not
+containing) a certain string.</p>
+<pre><code>[paul@RHEL8b pipes]$ cat tennis.txt 
+Amelie Mauresmo, Fra
+Kim Clijsters, BEL
+Justine Henin, Bel
+Serena Williams, usa
+Venus Williams, USA
+[paul@RHEL8b pipes]$ cat tennis.txt | grep Williams
+Serena Williams, usa
+Venus Williams, USA
+</code></pre>
+<p>You can write this without the cat.</p>
+<pre><code>[paul@RHEL8b pipes]$ grep Williams tennis.txt 
+Serena Williams, usa
+Venus Williams, USA
+</code></pre>
+<p>One of the most useful options of grep is <code>grep -i</code> which
+filters in a case insensitive way.</p>
+<pre><code>[paul@RHEL8b pipes]$ grep Bel tennis.txt 
+Justine Henin, Bel
+[paul@RHEL8b pipes]$ grep -i Bel tennis.txt 
+Kim Clijsters, BEL
+Justine Henin, Bel
+[paul@RHEL8b pipes]$
+</code></pre>
+<p>Another very useful option is <code>grep -v</code> which outputs
+lines not matching the string.</p>
+<pre><code>[paul@RHEL8b pipes]$ grep -v Fra tennis.txt 
+Kim Clijsters, BEL
+Justine Henin, Bel
+Serena Williams, usa
+Venus Williams, USA
+[paul@RHEL8b pipes]$
+</code></pre>
+<p>And of course, both options can be combined to filter all lines not
+containing a case insensitive string.</p>
+<pre><code>[paul@RHEL8b pipes]$ grep -vi usa tennis.txt 
+Amelie Mauresmo, Fra
+Kim Clijsters, BEL
+Justine Henin, Bel
+[paul@RHEL8b pipes]$
+</code></pre>
+<p>With <code>grep -A1</code> one line <code>after</code> the result is also displayed.</p>
+<pre><code>paul@debian10:~/pipes$ grep -A1 Henin tennis.txt 
+Justine Henin, Bel
+Serena Williams, usa
+</code></pre>
+<p>With <code>grep -B1</code> one line <code>before</code> the result is also displayed.</p>
+<pre><code>paul@debian10:~/pipes$ grep -B1 Henin tennis.txt 
+Kim Clijsters, BEL
+Justine Henin, Bel
+</code></pre>
+<p>With <code>grep -C1</code> (context) one line <code>before</code> and one <code>after</code> are also
+displayed. All three options (A,B, and C) can display any number of
+lines (using e.g. A2, B4 or C20).</p>
+<pre><code>paul@debian10:~/pipes$ grep -C1 Henin tennis.txt 
+Kim Clijsters, BEL
+Justine Henin, Bel
+Serena Williams, usa
+</code></pre>
+<h2 id="cut">cut</h2>
+<p>The <code>cut</code> filter can select columns from files, depending
+on a delimiter or a count of bytes. The screenshot below uses <code>cut</code> to
+filter for the username and userid in the <code>/etc/passwd</code> file. It uses
+the colon as a delimiter, and selects fields 1 and 3.</p>
+<pre><code>[[paul@RHEL8b pipes]$ cut -d: -f1,3 /etc/passwd | tail -4 
+Figo:510
+Pfaff:511
+Harry:516
+Hermione:517
+[paul@RHEL8b pipes]$
+</code></pre>
+<p>When using a space as the delimiter for <code>cut</code>, you have to quote the
+space.</p>
+<pre><code>[paul@RHEL8b pipes]$ cut -d" " -f1 tennis.txt 
+Amelie
+Kim
+Justine
+Serena
+Venus
+[paul@RHEL8b pipes]$
+</code></pre>
+<p>This example uses <code>cut</code> to display the second to the seventh character
+of <code>/etc/passwd</code>.</p>
+<pre><code>[paul@RHEL8b pipes]$ cut -c2-7 /etc/passwd | tail -4
+igo:x:
+faff:x
+arry:x
+ermion
+[paul@RHEL8b pipes]$
+</code></pre>
+<h2 id="tr">tr</h2>
+<p>You can translate characters with <code>tr</code>. The screenshot
+shows the translation of all occurrences of e to E.</p>
+<pre><code>[paul@RHEL8b pipes]$ cat tennis.txt | tr 'e' 'E'
+AmEliE MaurEsmo, Fra
+Kim ClijstErs, BEL
+JustinE HEnin, BEl
+SErEna Williams, usa
+VEnus Williams, USA
+</code></pre>
+<p>Here we set all letters to uppercase by defining two ranges.</p>
+<pre><code>[paul@RHEL8b pipes]$ cat tennis.txt | tr 'a-z' 'A-Z'
+AMELIE MAURESMO, FRA
+KIM CLIJSTERS, BEL
+JUSTINE HENIN, BEL
+SERENA WILLIAMS, USA
+VENUS WILLIAMS, USA
+[paul@RHEL8b pipes]$
+</code></pre>
+<p>Here we translate all newlines to spaces.</p>
+<pre><code>[paul@RHEL8b pipes]$ cat count.txt 
+one
+two
+three
+four
+five
+[paul@RHEL8b pipes]$ cat count.txt | tr '\n' ' '
+one two three four five [paul@RHEL8b pipes]$
+</code></pre>
+<p>The <code>tr -s</code> filter can also be used to squeeze multiple occurrences of a
+character to one.</p>
+<pre><code>[paul@RHEL8b pipes]$ cat spaces.txt 
+one    two        three
+     four   five  six
+[paul@RHEL8b pipes]$ cat spaces.txt | tr -s ' '
+one two three
+ four five six
+[paul@RHEL8b pipes]$
+</code></pre>
+<p>You can also use <code>tr</code> to \'encrypt\' texts with <code>rot13</code>.</p>
+<pre><code>[paul@RHEL8b pipes]$ cat count.txt | tr 'a-z' 'nopqrstuvwxyzabcdefghijklm'
+bar
+gjb
+guerr
+sbhe
+svir
+[paul@RHEL8b pipes]$ cat count.txt | tr 'a-z' 'n-za-m'
+bar
+gjb
+guerr
+sbhe
+svir
+[paul@RHEL8b pipes]$
+</code></pre>
+<p>This last example uses <code>tr -d</code> to delete characters.</p>
+<pre><code>paul@debian10:~/pipes$ cat tennis.txt | tr -d e
+Amli Maursmo, Fra
+Kim Clijstrs, BEL
+Justin Hnin, Bl
+Srna Williams, usa
+Vnus Williams, USA
+</code></pre>
+<h2 id="wc">wc</h2>
+<p>Counting words, lines and characters is easy with <code>wc</code>.</p>
+<pre><code>[paul@RHEL8b pipes]$ wc tennis.txt 
+  5  15 100 tennis.txt
+[paul@RHEL8b pipes]$ wc -l tennis.txt 
+5 tennis.txt
+[paul@RHEL8b pipes]$ wc -w tennis.txt 
+15 tennis.txt
+[paul@RHEL8b pipes]$ wc -c tennis.txt 
+100 tennis.txt
+[paul@RHEL8b pipes]$
+</code></pre>
+<h2 id="sort">sort</h2>
+<p>The <code>sort</code> filter will default to an alphabetical sort.</p>
+<pre><code>paul@debian10:~/pipes$ cat music.txt 
+Queen
+Brel
+Led Zeppelin
+Abba
+paul@debian10:~/pipes$ sort music.txt 
+Abba
+Brel
+Led Zeppelin
+Queen
+</code></pre>
+<p>But the <code>sort</code> filter has many options to tweak its usage. This example
+shows sorting different columns (column 1 or column 2).</p>
+<pre><code>[paul@RHEL8b pipes]$ sort -k1 country.txt 
+Belgium, Brussels, 10
+France, Paris, 60
+Germany, Berlin, 100
+Iran, Teheran, 70
+Italy, Rome, 50
+[paul@RHEL8b pipes]$ sort -k2 country.txt 
+Germany, Berlin, 100
+Belgium, Brussels, 10
+France, Paris, 60
+Italy, Rome, 50
+Iran, Teheran, 70
+</code></pre>
+<p>The screenshot below shows the difference between an alphabetical sort
+and a numerical sort (both on the third column).</p>
+<pre><code>[paul@RHEL8b pipes]$ sort -k3 country.txt 
+Belgium, Brussels, 10
+Germany, Berlin, 100
+Italy, Rome, 50
+France, Paris, 60
+Iran, Teheran, 70
+[paul@RHEL8b pipes]$ sort -n -k3 country.txt 
+Belgium, Brussels, 10
+Italy, Rome, 50
+France, Paris, 60
+Iran, Teheran, 70
+Germany, Berlin, 100
+</code></pre>
+<h2 id="uniq">uniq</h2>
+<p>With <code>uniq</code> you can remove duplicates from a
+<code>sorted list</code>.</p>
+<pre><code>paul@debian10:~/pipes$ cat music.txt 
+Queen
+Brel
+Queen
+Abba
+paul@debian10:~/pipes$ sort music.txt 
+Abba
+Brel
+Queen
+Queen
+paul@debian10:~/pipes$ sort music.txt |uniq
+Abba
+Brel
+Queen
+</code></pre>
+<p><code>uniq</code> can also count occurrences with the <code>-c</code> option.</p>
+<pre><code>paul@debian10:~/pipes$ sort music.txt |uniq -c
+      1 Abba
+      1 Brel
+      2 Queen
+</code></pre>
+<h2 id="comm">comm</h2>
+<p>Comparing streams (or files) can be done with the <code>comm</code>.
+By default <code>comm</code> will output three columns. In this example, Abba, Cure
+and Queen are in both lists, Bowie and Sweet are only in the first file,
+Turner is only in the second.</p>
+<pre><code>paul@debian10:~/pipes$ cat &gt; list1.txt
+Abba
+Bowie
+Cure
+Queen
+Sweet
+paul@debian10:~/pipes$ cat &gt; list2.txt
+Abba
+Cure
+Queen
+Turner
+paul@debian10:~/pipes$ comm list1.txt list2.txt 
+                Abba
+Bowie
+                Cure
+                Queen
+Sweet
+        Turner
+</code></pre>
+<p>The output of <code>comm</code> can be easier to read when outputting only a single
+column. The digits point out which output columns should not be
+displayed.</p>
+<pre><code>paul@debian10:~/pipes$ comm -12 list1.txt list2.txt 
+Abba
+Cure
+Queen
+paul@debian10:~/pipes$ comm -13 list1.txt list2.txt 
+Turner
+paul@debian10:~/pipes$ comm -23 list1.txt list2.txt 
+Bowie
+Sweet
+</code></pre>
+<h2 id="od">od</h2>
+<p>European humans like to work with ascii characters, but computers store
+files in bytes. The example below creates a simple file, and then uses
+<code>od</code> to show the contents of the file in hexadecimal bytes</p>
+<pre><code>paul@laika:~/test$ cat &gt; text.txt
+abcdefg
+1234567
+paul@laika:~/test$ od -t x1 text.txt 
+0000000 61 62 63 64 65 66 67 0a 31 32 33 34 35 36 37 0a
+0000020
+</code></pre>
+<p>The same file can also be displayed in octal bytes.</p>
+<pre><code>paul@laika:~/test$ od -b text.txt 
+0000000 141 142 143 144 145 146 147 012 061 062 063 064 065 066 067 012
+0000020
+</code></pre>
+<p>And here is the file in ascii (or backslashed) characters.</p>
+<pre><code>paul@laika:~/test$ od -c text.txt 
+0000000   a   b   c   d   e   f   g  \n   1   2   3   4   5   6   7  \n
+0000020
+</code></pre>
+<h2 id="sed">sed</h2>
+<p>The <code>s</code>tream <code>ed</code>itor <code>sed</code> can perform editing functions
+in the stream, using <code>regular expressions</code>.</p>
+<pre><code>paul@debian10:~/pipes$ echo level5 | sed 's/5/42/'
+level42
+paul@debian10:~/pipes$ echo level5 | sed 's/level/jump/'
+jump5
+</code></pre>
+<p>Add <code>g</code> for global replacements (all occurrences of the string per
+line).</p>
+<pre><code>paul@debian10:~/pipes$ echo level5 level7 | sed 's/level/jump/'
+jump5 level7
+paul@debian10:~/pipes$ echo level5 level7 | sed 's/level/jump/g'
+jump5 jump7
+</code></pre>
+<p>With <code>d</code> you can remove lines from a stream containing a character.</p>
+<pre><code>paul@debian10:~/test42$ cat tennis.txt 
+Venus Williams, USA
+Martina Hingis, SUI
+Justine Henin, BE
+Serena williams, USA
+Kim Clijsters, BE
+Yanina Wickmayer, BE
+paul@debian10:~/test42$ cat tennis.txt | sed '/BE/d'
+Venus Williams, USA
+Martina Hingis, SUI
+Serena williams, USA
+</code></pre>
+<h2 id="pipe-examples">pipe examples</h2>
+<h3 id="who-wc">who | wc</h3>
+<p>How many users are logged  on to this system ?</p>
+<pre><code>[paul@RHEL8b pipes]$ who
+root     tty1         Jul 25 10:50
+paul     pts/0        Jul 25 09:29 (laika)
+Harry    pts/1        Jul 25 12:26 (barry)
+paul     pts/2        Jul 25 12:26 (pasha)
+[paul@RHEL8b pipes]$ who | wc -l
+4
+</code></pre>
+<h3 id="who-cut-sort">who | cut | sort</h3>
+<p>Display a sorted  list of logged on users.</p>
+<pre><code>[paul@RHEL8b pipes]$ who | cut -d' ' -f1 | sort
+Harry
+paul
+paul
+root
+</code></pre>
+<p>Display a sorted list of logged on users, but every user
+only once .</p>
+<pre><code>[paul@RHEL8b pipes]$ who | cut -d' ' -f1 | sort | uniq
+Harry
+paul
+root
+</code></pre>
+<h3 id="grep-cut">grep | cut</h3>
+<p>Display a list of all bash <code>user accounts</code> on this
+computer. Users accounts are explained in detail later.</p>
+<pre><code>paul@debian10:~$ grep bash /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+paul:x:1000:1000:paul,,,:/home/paul:/bin/bash
+serena:x:1001:1001::/home/serena:/bin/bash
+paul@debian10:~$ grep bash /etc/passwd | cut -d: -f1
+root
+paul
+serena
+</code></pre>
+<h2 id="practice-filters">practice: filters</h2>
+<p>1. Put a sorted list of all bash users in bashusers.txt.</p>
+<p>2. Put a sorted list of all logged on users in onlineusers.txt.</p>
+<p>3. Make a list of all filenames in <code>/etc</code> that contain the string
+<code>conf</code> in their filename.</p>
+<p>4. Make a sorted list of all files in <code>/etc</code> that contain the case
+insensitive string <code>conf</code> in their filename.</p>
+<p>5. Look at the output of <code>/sbin/ifconfig</code>. Write a line that displays
+only ip address and the subnet mask.</p>
+<p>6. Write a line that removes all non-letters from a stream.</p>
+<p>7. Write a line that receives a text file, and outputs all words on a
+separate line.</p>
+<p>8. Write a spell checker on the command line. (There may be a
+dictionary in <code>/usr/share/dict/</code> .)</p>
+<h2 id="solution-filters">solution: filters</h2>
+<p>1. Put a sorted list of all bash users in bashusers.txt.</p>
+<pre><code>grep bash /etc/passwd | cut -d: -f1 | sort &gt; bashusers.txt
+</code></pre>
+<p>2. Put a sorted list of all logged on users in onlineusers.txt.</p>
+<pre><code>who | cut -d' ' -f1 | sort &gt; onlineusers.txt
+</code></pre>
+<p>3. Make a list of all filenames in <code>/etc</code> that contain the string
+<code>conf</code> in their filename.</p>
+<pre><code>ls /etc | grep conf
+</code></pre>
+<p>4. Make a sorted list of all files in <code>/etc</code> that contain the case
+insensitive string <code>conf</code> in their filename.</p>
+<pre><code>ls /etc | grep -i conf | sort
+</code></pre>
+<p>5. Look at the output of <code>/sbin/ifconfig</code>. Write a line that displays
+only ip address and the subnet mask.</p>
+<pre><code>/sbin/ifconfig | head -2 | grep 'inet ' | tr -s ' ' | cut -d' ' -f3,5
+</code></pre>
+<p>6. Write a line that removes all non-letters from a stream.</p>
+<pre><code>paul@deb106:~$ cat text
+This is, yes really! , a text with ?&amp;* too many str$ange# characters ;-)
+paul@deb106:~$ cat text | tr -d ',!$?.*&amp;^%#@;()-'
+This is yes really  a text with  too many strange characters
+</code></pre>
+<p>7. Write a line that receives a text file, and outputs all words on a
+separate line.</p>
+<pre><code>paul@deb106:~$ cat text2 
+it is very cold today without the sun
+
+paul@deb106:~$ cat text2 | tr ' ' '\n'
+it
+is
+very
+cold
+today
+without
+the
+sun
+</code></pre>
+<p>8. Write a spell checker on the command line. (There may be a
+dictionary in <code>/usr/share/dict/</code> .)</p>
+<pre><code>paul@rhel ~$ echo "The zun is shining today" &gt; text
+
+paul@rhel ~$ cat &gt; DICT
+is
+shining
+sun
+the
+today
+
+paul@rhel ~$ cat text | tr 'A-Z ' 'a-z\n' | sort | uniq | comm -23 - DICT
+zun
+</code></pre>
+<p>You could also add the solution from question number 6 to remove
+non-letters, and <code>tr -s ' '</code> to remove redundant spaces.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.8fd75fb4.min.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+    
+  </body>
+</html>

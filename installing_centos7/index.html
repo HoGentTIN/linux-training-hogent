@@ -1,0 +1,2121 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://hogenttin.github.io/linux-training-hogent/installing_centos7/">
+      
+      
+        <link rel="prev" href="../installing_debian8/">
+      
+      
+        <link rel="next" href="../virtualbox/">
+      
+      
+      <link rel="icon" href="https://www.hogent.be/themes/hogent/images/ico/favicon.ico">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.10">
+    
+    
+      
+        <title>installing CentOS 8 - Linux Fundamentals</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.7e359304.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,700,700i%7CInconsolata:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Montserrat";--md-code-font:"Inconsolata"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="deep-orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#installing-centos-8" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Linux Fundamentals" class="md-header__button md-logo" aria-label="Linux Fundamentals" data-md-component="logo">
+      
+  <img src="https://www.hogent.be/themes/hogent/assets/images/HOGENT_Logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Linux Fundamentals
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              installing CentOS 8
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hogenttin/linux-training-hogent" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hogenttin/linux-training-hogent
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Linux Fundamentals" class="md-nav__button md-logo" aria-label="Linux Fundamentals" data-md-component="logo">
+      
+  <img src="https://www.hogent.be/themes/hogent/assets/images/HOGENT_Logo.png" alt="logo">
+
+    </a>
+    Linux Fundamentals
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hogenttin/linux-training-hogent" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hogenttin/linux-training-hogent
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Introduction to Linux
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Introduction to Linux
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linux_history/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux history
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linux_distributions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    distributions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../licensing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    licensing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Installing Linux
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Installing Linux
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installing_debian8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    installing Debian 8
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    installing CentOS 8
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    installing CentOS 8
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#download-a-centos-7-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      download a CentOS 7 image
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#virtualbox" class="md-nav__link">
+    <span class="md-ellipsis">
+      Virtualbox
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#centos-7-installing" class="md-nav__link">
+    <span class="md-ellipsis">
+      CentOS 7 installing
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#centos-7-first-logon" class="md-nav__link">
+    <span class="md-ellipsis">
+      CentOS 7 first logon
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CentOS 7 first logon">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setting-the-hostname" class="md-nav__link">
+    <span class="md-ellipsis">
+      setting the hostname
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#virtualbox-network-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      Virtualbox network interface
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuring-the-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      configuring the network
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adding-one-static-ip-address" class="md-nav__link">
+    <span class="md-ellipsis">
+      adding one static ip address
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#package-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      package management
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#logon-from-linux-and-macosx" class="md-nav__link">
+    <span class="md-ellipsis">
+      logon from Linux and MacOSX
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#logon-from-ms-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      logon from MS Windows
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../virtualbox/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    getting Linux at home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    First steps on the command line
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            First steps on the command line
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../man_pages/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    man pages
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../working_with_directories/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    working with directories
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../working_with_files/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    working with files
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../working_with_file_contents/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    working with file contents
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../file_system_tree/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    the Linux file tree
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Shell expansion
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Shell expansion
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shell_arguments/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    commands and arguments
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shell_control_operators/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    control operators
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shell_variables/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    shell variables
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shell_in_shell/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    shell embedding and options
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shell_history/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    shell history
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shell_globbing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    file globbing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Pipes and commands
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Pipes and commands
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ioredirection/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    I/O redirection
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../filters/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    filters
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../basic_tools/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    basic Unix tools
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../regular_expressions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    regular expressions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Vi
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Vi
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intro_vi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction to vi
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Scripting
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Scripting
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scripting_intro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    introduction to scripting 
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scripting_loops/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    scripting loops
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scripting_params/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    scripting parameters
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scripting_adv/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    more scripting
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Local user management
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Local user management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../users/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    introduction to users
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user_management/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    user management
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user_passwords/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    user passwords
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user_profiles/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    User profiles
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../groups/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    groups
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    File security
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            File security
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../file_permissions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    standard file permissions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../advanced_permissions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    advanced file permissions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../acls/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    access control lists
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../links/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    file links
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Appendix
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            Appendix
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../keys/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    keyboard settings
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    hardware
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../license/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GNU Free Documentation License
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#download-a-centos-7-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      download a CentOS 7 image
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#virtualbox" class="md-nav__link">
+    <span class="md-ellipsis">
+      Virtualbox
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#centos-7-installing" class="md-nav__link">
+    <span class="md-ellipsis">
+      CentOS 7 installing
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#centos-7-first-logon" class="md-nav__link">
+    <span class="md-ellipsis">
+      CentOS 7 first logon
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CentOS 7 first logon">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setting-the-hostname" class="md-nav__link">
+    <span class="md-ellipsis">
+      setting the hostname
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#virtualbox-network-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      Virtualbox network interface
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuring-the-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      configuring the network
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adding-one-static-ip-address" class="md-nav__link">
+    <span class="md-ellipsis">
+      adding one static ip address
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#package-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      package management
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#logon-from-linux-and-macosx" class="md-nav__link">
+    <span class="md-ellipsis">
+      logon from Linux and MacOSX
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#logon-from-ms-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      logon from MS Windows
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="installing-centos-8">installing CentOS 8</h1>
+<p><em>(Written by Paul Cobbaut, <a href="https://github.com/paulcobbaut/">https://github.com/paulcobbaut/</a>, with contributions by: Alex M. Schapelle, <a href="https://github.com/zero-pytagoras/">https://github.com/zero-pytagoras/</a>)</em></p>
+<p>This module is a step by step demonstration of an actual installation of
+<code>CentOS 8</code>.</p>
+<p>We start by downloading an image from the internet and install
+<code>CentOS 8</code> as a virtual machine in <code>Virtualbox</code>. We will also do some
+basic configuration of this new machine like setting an <code>ip address</code> and
+fixing a <code>hostname</code>.</p>
+<p>This procedure should be very similar for other versions of <code>CentOS</code>,
+and also for distributions like <code>RHEL</code> (Red Hat Enterprise Linux) or
+<code>Fedora</code>. This procedure can also be helpful if you are using another
+virtualization solution.</p>
+<h2 id="download-a-centos-7-image">download a CentOS 7 image</h2>
+<p>This demonstration uses a laptop computer with <code>Virtualbox</code> to install
+<code>CentOS 7</code> as a virtual machine. The first task is to download an <code>.iso</code>
+image of <code>CentOS 7</code>.</p>
+<p>The <code>CentOS 7</code> website looks like this today (November 2014). They
+change the look regularly, so it may look different when you visit it.</p>
+<p><img alt="" src="../assets/centos8_downloadpage.png" /></p>
+<p>You can download a full DVD, which allows for an off line installation
+of a graphical <code>CentOS 7</code> desktop. You can select this because it should
+be easy and complete, and should get you started with a working
+<code>CentOS 7</code> virtual machine.</p>
+<p>But I clicked instead on \'alternative downloads\', selected <code>CentOS 7</code>
+and <code>x86_64</code> and ended up on a <code>mirror list</code>. Each mirror is a server
+that contains copies of <code>CentOS 7</code> media. I selected a Belgian mirror
+because I currently am in Belgium.</p>
+<p><img alt="" src="../assets/centos8_mirror.png" /></p>
+<p>There is again the option for full DVD\'s and more. This demonstration
+will use the <code>minimal</code> .iso file, because it is much smaller in size.
+The download takes a couple of minutes.</p>
+<p><img alt="" src="../assets/centos8_downloading.png" /></p>
+<p>Verify the size of the file after download to make sure it is complete.
+Probably a right click on the file and selecting \'properties\' (if you
+use Windows or Mac OSX).</p>
+<p>I use Linux on the laptop already:</p>
+<pre><code>paul@debian8:~$ ls -lh CentOS-7.0-1406-x86_64-Minimal.iso
+-rw-r--r-- 1 paul paul 566M Nov  1 14:45 CentOS-7.0-1406-x86_64-Minimal.iso
+</code></pre>
+<p>Do not worry if you do no understand the above command. Just try to make
+sure that the size of this file is the same as the size that is
+mentioned on the <code>CentOS 7</code> website.</p>
+<h2 id="virtualbox">Virtualbox</h2>
+<p>This screenshot shows up when I start Virtualbox. I already have four
+virtual machines, you might have none.</p>
+<p><img alt="" src="../assets/centos8_novm.png" /></p>
+<p>Below are the steps for creating a new virtual machine. Start by
+clicking <code>New</code> and give your machine a name (I chose <code>server33</code>). Click
+<code>Next</code>.</p>
+<p><img alt="" src="../assets/centos8_name.png" /></p>
+<p>A Linux computer without graphical interface will run fine on
+<code>half a gigabyte</code> of RAM.</p>
+<p><img alt="" src="../assets/centos8_mem.png" /></p>
+<p>A Linux virtual machine will need a <code>virtual hard drive</code>.</p>
+<p><img alt="" src="../assets/centos8_createdisk.png" /></p>
+<p>Any format will do for our purpose, so I left the default <code>vdi</code>.</p>
+<p><img alt="" src="../assets/centos8_vdi.png" /></p>
+<p>The default <code>dynamically allocated</code> type will save disk space (until we
+fill the virtual disk up to 100 percent). It makes the virtual machine a
+bit slower than <code>fixed size</code>, but the <code>fixed size</code> speed improvement is
+not worth it for our purpose.</p>
+<p><img alt="" src="../assets/centos8_dynamic.png" /></p>
+<p>The name of the virtual disk file on the host computer will be
+<code>server33.vdi</code> in my case (I left it default and it uses the vm name).
+Also 16 GB should be enough to practice Linux. The file will stay much
+smaller than 16GB, unless you copy a lot of files to the virtual
+machine.</p>
+<p><img alt="" src="../assets/centos8_disksize.png" /></p>
+<p>You should now be back to the start screen of <code>Virtualbox</code>. If all went
+well, then you should see the machine you just created in the list.</p>
+<p><img alt="" src="../assets/centos8_vmok.png" /></p>
+<p>After finishing the setup, we go into the <code>Settings</code> of our virtual
+machine and attach the <code>.iso</code> file we downloaded before. Below is the
+default screenshot.</p>
+<p><img alt="" src="../assets/centos8_nocd.png" /></p>
+<p>This is a screenshot with the <code>.iso</code> file properly attached.</p>
+<p><img alt="" src="../assets/centos8_cdiso.png" /></p>
+<h2 id="centos-7-installing">CentOS 7 installing</h2>
+<p>The screenshots below will show every step from starting the virtual
+machine for the first time (with the .iso file attached) until the first
+logon.</p>
+<p>You should see this when booting, otherwise verify the attachment of the
+.iso file form the previous steps. Select
+<code>Test this media and install CentOS 7</code>.</p>
+<p><img alt="" src="../assets/a_install.png" /></p>
+<p>Carefully select the language in which you want your <code>CentOS</code>. I always
+install operating systems in English, even though my native language is
+not English.</p>
+<p>Also select the right keyboard, mine is a US qwerty, but yours may be
+different.</p>
+<p><img alt="" src="../assets/b_install_language.png" /></p>
+<p>You should arrive at a summary page (with one or more warnings).</p>
+<p><img alt="" src="../assets/c_install_summary.png" /></p>
+<p>Start by configuring the network. During this demonstration I had a DHCP
+server running at 192.168.1.42, yours is probably different. Ask someone
+(a network administator ?) for help if this step fails.</p>
+<p><img alt="" src="../assets/d_install_network.png" /></p>
+<p>Select your time zone, and activate <code>ntp</code>.</p>
+<p><img alt="" src="../assets/e_install_time.png" /></p>
+<p>Choose a mirror that is close to you. If you can\'t find a local mirror,
+then you can copy the one from this screenshot (it is a general <code>CentOS</code>
+mirror).</p>
+<p><img alt="" src="../assets/f_install_mirror.png" /></p>
+<p>It can take a couple of seconds before the mirror is verified.</p>
+<p><img alt="" src="../assets/g_install_mirrorok.png" /></p>
+<p>I did not select any software here (because I want to show it all in
+this training).</p>
+<p><img alt="" src="../assets/h_install_nosoftsel.png" /></p>
+<p>After configuring network, location, software and all, you should be
+back on this page. Make sure there are no warnings anymore (and that you
+made the correct choice everywhere).</p>
+<p><img alt="" src="../assets/i_install_go.png" /></p>
+<p>You can enter a <code>root password</code> and create a <code>user account</code> while the
+installation is downloading from the internet. This is the longest step,
+it can take several minutes (or up to an hour if you have a slow
+internet connection).</p>
+<p><img alt="" src="../assets/j_install_users.png" /></p>
+<p>If you see this, then the installation was successful.</p>
+<p>Time to reboot the computer and start <code>CentOS 7</code> for the first time.</p>
+<p><img alt="" src="../assets/k_install_done.png" /></p>
+<p>This screen will appear briefly when the virtual machines starts. You
+don\'t have to do anything.</p>
+<p><img alt="" src="../assets/l_install_reboot.png" /></p>
+<p>After a couple of seconds, you should see a logon screen. This is called
+a <code>tty</code> or a <code>getty</code>. Here you can type <code>root</code> as username. The
+<code>login process</code> will then ask your password (nothing will appear on
+screen when you type your password).</p>
+<p><img alt="" src="../assets/m_install_getty.png" /></p>
+<p>And this is what it looks like after logon. You are logged on to your
+own Linux machine, very good.</p>
+<p><img alt="" src="../assets/n_install_gettylogon.png" /></p>
+<p>All subsequent screenshots will be text only, no images anymore.</p>
+<p>For example this screenshot shows three commands being typed on my new
+CentOS 7 install.</p>
+<pre><code>[root@localhost ~]# who am i
+root     pts/0        2014-11-01 22:14
+[root@localhost ~]# hostname
+localhost.localdomain
+[root@localhost ~]# date
+Sat Nov  1 22:14:37 CET 2014
+</code></pre>
+<p>When using <code>ssh</code> the same commands will give this screenshot:</p>
+<pre><code>[root@localhost ~]# who am i
+root     pts/0        2014-11-01 21:00 (192.168.1.35)
+[root@localhost ~]# hostname
+localhost.localdomain
+[root@localhost ~]# date
+Sat Nov  1 22:10:04 CET 2014
+[root@localhost ~]#
+</code></pre>
+<p>If the last part is a bit too fast, take a look at the next topic
+<code>CentOS 7 first logon</code>.</p>
+<h2 id="centos-7-first-logon">CentOS 7 first logon</h2>
+<p>All you have to log on, after finishing the installation, is this screen
+in Virtualbox.</p>
+<p><img alt="" src="../assets/m_install_getty.png" /></p>
+<p>This is workable to learn Linux, and you will be able to practice a lot.
+But there are more ways to access your virtual machine, the next
+chapters discuss some of these and will also introduce some basic system
+configuration.</p>
+<h3 id="setting-the-hostname">setting the hostname</h3>
+<p>Setting the hostname is a simple as changing the <code>/etc/hostname</code> file.
+As you can see here, it is set to <code>localhost.localdomain</code> by default.</p>
+<pre><code>[root@localhost ~]# cat /etc/hostname
+localhost.localdomain
+</code></pre>
+<p>You could do <code>echo server33.netsec.local &gt; /etc/hostname</code> followed by a
+<code>reboot</code>. But there is also the new <code>CentOS 7</code> way of setting a new
+hostname.</p>
+<pre><code>[root@localhost ~]# nmtui
+</code></pre>
+<p>The above command will give you a menu to choose from with a
+<code>set system hostname</code> option. Using this <code>nmtui</code> option will edit the
+<code>/etc/hostname</code> file for you.</p>
+<pre><code>[root@localhost ~]# cat /etc/hostname
+server33.netsec.local
+[root@localhost ~]# hostname
+server33.netsec.local
+[root@localhost ~]# dnsdomainname
+netsec.local
+</code></pre>
+<p>For some reason the documentation on the <code>centos.org</code> and
+<code>docs.redhat.com</code> websites tell you to also execute this command:</p>
+<pre><code>[root@localhost ~]# systemctl restart systemd-hostnamed
+</code></pre>
+<h2 id="virtualbox-network-interface">Virtualbox network interface</h2>
+<p>By default <code>Virtualbox</code> will connect your virtual machine over a <code>nat</code>
+interface. This will show up as a 10.0.2.15 (or similar).</p>
+<pre><code>[root@server33 ~]# ip a
+1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host
+       valid_lft forever preferred_lft forever
+2: enp0s3: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast s\
+tate UP qlen 1000
+    link/ether 08:00:27:1c:f5:ab brd ff:ff:ff:ff:ff:ff
+    inet 10.0.2.15/24 brd 10.0.2.255 scope global dynamic enp0s3
+       valid_lft 86399sec preferred_lft 86399sec
+    inet6 fe80::a00:27ff:fe1c:f5ab/64 scope link
+       valid_lft forever preferred_lft forever
+</code></pre>
+<p>You can change this to <code>bridge</code> (over your wi-fi or over the ethernet
+cable) and thus make it appear as if your virtual machine is directly on
+your local network (receiving an ip address from your real dhcp server).</p>
+<p><img alt="" src="../assets/o_install_natbridge.png" /></p>
+<p>You can make this change while the vm is running, provided that you
+execute this command:</p>
+<pre><code>[root@server33 ~]# systemctl restart network
+[root@server33 ~]# ip a s dev enp0s3
+2: enp0s3: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast s\
+tate UP qlen 1000
+    link/ether 08:00:27:1c:f5:ab brd ff:ff:ff:ff:ff:ff
+    inet 192.168.1.110/24 brd 192.168.1.255 scope global dynamic enp0s3
+       valid_lft 7199sec preferred_lft 7199sec
+    inet6 fe80::a00:27ff:fe1c:f5ab/64 scope link
+       valid_lft forever preferred_lft forever
+[root@server33 ~]#
+</code></pre>
+<h2 id="configuring-the-network">configuring the network</h2>
+<p>The new way of changing network configuration is through the <code>nmtui</code>
+tool. If you want to manually play with the files in
+<code>/etc/sysconfig/network-scripts</code> then you will first need to verify (and
+disable) <code>NetworkManager</code> on that interface.</p>
+<p>Verify whether an interface is controlled by <code>NetworkManager</code> using the
+<code>nmcli</code> command (connected means managed bu NM).</p>
+<pre><code>[root@server33 ~]# nmcli dev status
+DEVICE  TYPE      STATE      CONNECTION
+enp0s3  ethernet  connected  enp0s3
+lo      loopback  unmanaged  --
+</code></pre>
+<p>Disable <code>NetworkManager</code> on an interface (enp0s3 in this case):</p>
+<pre><code>echo 'NM_CONTROLLED=no' &gt;&gt; /etc/sysconfig/network-scripts/ifcfg-enp0s3
+</code></pre>
+<p>You can restart the network without a reboot like this:</p>
+<pre><code>[root@server33 ~]# systemctl restart network
+</code></pre>
+<p>Also, forget <code>ifconfig</code> and instead use <code>ip a</code>.</p>
+<pre><code>[root@server33 ~]# ip a s dev enp0s3 | grep inet
+    inet 192.168.1.110/24 brd 192.168.1.255 scope global dynamic enp0s3
+    inet6 fe80::a00:27ff:fe1c:f5ab/64 scope link
+[root@server33 ~]#
+</code></pre>
+<h2 id="adding-one-static-ip-address">adding one static ip address</h2>
+<p>This example shows how to add one static ip address to your computer.</p>
+<pre><code>[root@server33 ~]# nmtui edit enp0s3
+</code></pre>
+<p>In this interface leave the IPv4 configuration to automatic, and add an
+ip address just below.</p>
+<pre><code>          IPv4 CONFIGURATION &lt;Automatic&gt;                         &lt;Hide&gt;
+          Addresses 10.104.33.32/16__________ &lt;Remove&gt;
+</code></pre>
+<p>Execute this command after exiting <code>nmtui</code>.</p>
+<pre><code>[root@server33 ~]# systemctl restart network
+</code></pre>
+<p>And verify with <code>ip</code> (not with <code>ifconfig</code>):</p>
+<pre><code>[root@server33 ~]# ip a s dev enp0s3 | grep inet
+    inet 192.168.1.110/24 brd 192.168.1.255 scope global dynamic enp0s3
+    inet 10.104.33.32/16 brd 10.104.255.255 scope global enp0s3
+    inet6 fe80::a00:27ff:fe1c:f5ab/64 scope link
+[root@server33 ~]#
+</code></pre>
+<h2 id="package-management">package management</h2>
+<p>Even with a network install, <code>CentOS 7</code> did not install the latest
+version of some packages. Luckily there is only one command to run (as
+root). This can take a while.</p>
+<pre><code>[root@server33 ~]# yum update
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+ * base: centos.weepeetelecom.be
+ * extras: centos.weepeetelecom.be
+ * updates: centos.weepeetelecom.be
+Resolving Dependencies
+--&gt; Running transaction check
+---&gt; Package NetworkManager.x86_64 1:0.9.9.1-13.git20140326.4dba720.el7 \
+will be updated
+... (output truncated)
+</code></pre>
+<p>You can also use <code>yum</code> to install one or more packages. Do not forget to
+run <code>yum update</code> from time to time.</p>
+<pre><code>[root@server33 ~]# yum update -y &amp;&amp; yum install vim -y
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+ * base: centos.weepeetelecom.be
+... (output truncated)
+</code></pre>
+<p>Refer to the package management chapter for more information on
+installing and removing packages.</p>
+<h2 id="logon-from-linux-and-macosx">logon from Linux and MacOSX</h2>
+<p>You can now open a terminal on Linux or MacOSX and use <code>ssh</code> to log on
+to your virtual machine.</p>
+<pre><code>paul@debian8:~$ ssh root@192.168.1.110
+root@192.168.1.110's password:
+Last login: Sun Nov  2 11:53:57 2014
+[root@server33 ~]# hostname
+server33.netsec.local
+[root@server33 ~]#
+</code></pre>
+<h2 id="logon-from-ms-windows">logon from MS Windows</h2>
+<p>There is no <code>ssh</code> installed on MS Windows, but you can download
+<code>putty.exe</code> from
+<code>http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html</code> (just
+Google it).</p>
+<p>Use <code>putty.exe</code> as shown in this screenshot (I saved the ip address by
+giving it a name \'server33\' and presing the \'save\' button).</p>
+<p><img alt="" src="../assets/putty1.png" /></p>
+<p>The first time you will get a message about keys, accept this (this is
+explained in the ssh chapter).</p>
+<p><img alt="" src="../assets/putty2_key.png" /></p>
+<p>Enter your userid (or root) and the correct password (nothing will
+appear on the screen when typing a password).</p>
+<p><img alt="" src="../assets/putty3_ok.png" /></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.8fd75fb4.min.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+    
+  </body>
+</html>

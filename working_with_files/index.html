@@ -1,0 +1,2469 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://hogenttin.github.io/linux-training-hogent/working_with_files/">
+      
+      
+        <link rel="prev" href="../working_with_directories/">
+      
+      
+        <link rel="next" href="../working_with_file_contents/">
+      
+      
+      <link rel="icon" href="https://www.hogent.be/themes/hogent/images/ico/favicon.ico">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.10">
+    
+    
+      
+        <title>working with files - Linux Fundamentals</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.7e359304.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,700,700i%7CInconsolata:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Montserrat";--md-code-font:"Inconsolata"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="deep-orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#working-with-files" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Linux Fundamentals" class="md-header__button md-logo" aria-label="Linux Fundamentals" data-md-component="logo">
+      
+  <img src="https://www.hogent.be/themes/hogent/assets/images/HOGENT_Logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Linux Fundamentals
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              working with files
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hogenttin/linux-training-hogent" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hogenttin/linux-training-hogent
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Linux Fundamentals" class="md-nav__button md-logo" aria-label="Linux Fundamentals" data-md-component="logo">
+      
+  <img src="https://www.hogent.be/themes/hogent/assets/images/HOGENT_Logo.png" alt="logo">
+
+    </a>
+    Linux Fundamentals
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hogenttin/linux-training-hogent" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hogenttin/linux-training-hogent
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Introduction to Linux
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Introduction to Linux
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linux_history/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux history
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linux_distributions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    distributions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../licensing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    licensing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Installing Linux
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Installing Linux
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installing_debian8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    installing Debian 8
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installing_centos7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    installing CentOS 8
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../virtualbox/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    getting Linux at home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    First steps on the command line
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            First steps on the command line
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../man_pages/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    man pages
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../working_with_directories/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    working with directories
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    working with files
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    working with files
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#all-files-are-case-sensitive" class="md-nav__link">
+    <span class="md-ellipsis">
+      all files are case sensitive
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#everything-is-a-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      everything is a file
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#file" class="md-nav__link">
+    <span class="md-ellipsis">
+      file
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#touch" class="md-nav__link">
+    <span class="md-ellipsis">
+      touch
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="touch">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-an-empty-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      create an empty file
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#touch-t" class="md-nav__link">
+    <span class="md-ellipsis">
+      touch -t
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rm" class="md-nav__link">
+    <span class="md-ellipsis">
+      rm
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="rm">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#remove-forever" class="md-nav__link">
+    <span class="md-ellipsis">
+      remove forever
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rm-i" class="md-nav__link">
+    <span class="md-ellipsis">
+      rm -i
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rm-rf" class="md-nav__link">
+    <span class="md-ellipsis">
+      rm -rf
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cp" class="md-nav__link">
+    <span class="md-ellipsis">
+      cp
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="cp">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#copy-one-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      copy one file
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#copy-to-another-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      copy to another directory
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cp-r" class="md-nav__link">
+    <span class="md-ellipsis">
+      cp -r
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#copy-multiple-files-to-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      copy multiple files to directory
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cp-i" class="md-nav__link">
+    <span class="md-ellipsis">
+      cp -i
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mv" class="md-nav__link">
+    <span class="md-ellipsis">
+      mv
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="mv">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rename-files-with-mv" class="md-nav__link">
+    <span class="md-ellipsis">
+      rename files with mv
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rename-directories-with-mv" class="md-nav__link">
+    <span class="md-ellipsis">
+      rename directories with mv
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mv-i" class="md-nav__link">
+    <span class="md-ellipsis">
+      mv -i
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rename" class="md-nav__link">
+    <span class="md-ellipsis">
+      rename
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="rename">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#about-rename" class="md-nav__link">
+    <span class="md-ellipsis">
+      about rename
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rename-on-debianubuntu" class="md-nav__link">
+    <span class="md-ellipsis">
+      rename on Debian/Ubuntu
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rename-on-centosrhelfedora" class="md-nav__link">
+    <span class="md-ellipsis">
+      rename on CentOS/RHEL/Fedora
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practice-working-with-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      practice: working with files
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solution-working-with-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      solution: working with files
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../working_with_file_contents/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    working with file contents
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../file_system_tree/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    the Linux file tree
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Shell expansion
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Shell expansion
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shell_arguments/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    commands and arguments
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shell_control_operators/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    control operators
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shell_variables/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    shell variables
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shell_in_shell/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    shell embedding and options
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shell_history/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    shell history
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shell_globbing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    file globbing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Pipes and commands
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Pipes and commands
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ioredirection/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    I/O redirection
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../filters/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    filters
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../basic_tools/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    basic Unix tools
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../regular_expressions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    regular expressions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Vi
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Vi
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intro_vi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction to vi
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Scripting
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Scripting
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scripting_intro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    introduction to scripting 
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scripting_loops/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    scripting loops
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scripting_params/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    scripting parameters
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scripting_adv/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    more scripting
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Local user management
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Local user management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../users/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    introduction to users
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user_management/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    user management
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user_passwords/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    user passwords
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user_profiles/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    User profiles
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../groups/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    groups
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    File security
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            File security
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../file_permissions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    standard file permissions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../advanced_permissions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    advanced file permissions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../acls/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    access control lists
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../links/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    file links
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Appendix
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            Appendix
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../keys/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    keyboard settings
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    hardware
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../license/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GNU Free Documentation License
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#all-files-are-case-sensitive" class="md-nav__link">
+    <span class="md-ellipsis">
+      all files are case sensitive
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#everything-is-a-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      everything is a file
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#file" class="md-nav__link">
+    <span class="md-ellipsis">
+      file
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#touch" class="md-nav__link">
+    <span class="md-ellipsis">
+      touch
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="touch">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-an-empty-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      create an empty file
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#touch-t" class="md-nav__link">
+    <span class="md-ellipsis">
+      touch -t
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rm" class="md-nav__link">
+    <span class="md-ellipsis">
+      rm
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="rm">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#remove-forever" class="md-nav__link">
+    <span class="md-ellipsis">
+      remove forever
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rm-i" class="md-nav__link">
+    <span class="md-ellipsis">
+      rm -i
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rm-rf" class="md-nav__link">
+    <span class="md-ellipsis">
+      rm -rf
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cp" class="md-nav__link">
+    <span class="md-ellipsis">
+      cp
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="cp">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#copy-one-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      copy one file
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#copy-to-another-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      copy to another directory
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cp-r" class="md-nav__link">
+    <span class="md-ellipsis">
+      cp -r
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#copy-multiple-files-to-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      copy multiple files to directory
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cp-i" class="md-nav__link">
+    <span class="md-ellipsis">
+      cp -i
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mv" class="md-nav__link">
+    <span class="md-ellipsis">
+      mv
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="mv">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rename-files-with-mv" class="md-nav__link">
+    <span class="md-ellipsis">
+      rename files with mv
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rename-directories-with-mv" class="md-nav__link">
+    <span class="md-ellipsis">
+      rename directories with mv
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mv-i" class="md-nav__link">
+    <span class="md-ellipsis">
+      mv -i
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rename" class="md-nav__link">
+    <span class="md-ellipsis">
+      rename
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="rename">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#about-rename" class="md-nav__link">
+    <span class="md-ellipsis">
+      about rename
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rename-on-debianubuntu" class="md-nav__link">
+    <span class="md-ellipsis">
+      rename on Debian/Ubuntu
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rename-on-centosrhelfedora" class="md-nav__link">
+    <span class="md-ellipsis">
+      rename on CentOS/RHEL/Fedora
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practice-working-with-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      practice: working with files
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solution-working-with-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      solution: working with files
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="working-with-files">working with files</h1>
+<p><em>(Written by Paul Cobbaut, <a href="https://github.com/paulcobbaut/">https://github.com/paulcobbaut/</a>, with contributions by: Alex M. Schapelle, <a href="https://github.com/zero-pytagoras/">https://github.com/zero-pytagoras/</a>)</em></p>
+<p>In this chapter we learn how to recognise, create, remove, copy and move
+files using commands like <code>file, touch, rm, cp, mv</code> and <code>rename</code>.</p>
+<h2 id="all-files-are-case-sensitive">all files are case sensitive</h2>
+<p>Files on Linux (or any Unix) are <code>case sensitive</code>. This
+means that <code>FILE1</code> is different from <code>file1</code>, and <code>/etc/hosts</code> is
+different from <code>/etc/Hosts</code> (the latter one does not exist on a typical
+Linux computer).</p>
+<p>This screenshot shows the difference between two files, one with upper
+case <code>W</code>, the other with lower case <code>w</code>.</p>
+<pre><code>paul@laika:~/Linux$ ls
+winter.txt  Winter.txt
+paul@laika:~/Linux$ cat winter.txt
+It is cold.
+paul@laika:~/Linux$ cat Winter.txt
+It is very cold!
+</code></pre>
+<h2 id="everything-is-a-file">everything is a file</h2>
+<p>A <code>directory</code> is a special kind of <code>file</code>, but it is still a (case
+sensitive!) <code>file</code>. Each terminal window (for example <code>/dev/pts/4</code>), any
+hard disk or partition (for example <code>/dev/sdb1</code>) and any process are all
+represented somewhere in the <code>file system</code> as a <code>file</code>. It will become
+clear throughout this course that everything on Linux is a <code>file</code>.</p>
+<h2 id="file">file</h2>
+<p>The <code>file</code> utility determines the file type. Linux does
+not use extensions to determine the file type. The command line does not
+care whether a file ends in .txt or .pdf. As a system administrator, you
+should use the <code>file</code> command to determine the file type. Here are some
+examples on a typical Linux system.</p>
+<pre><code>paul@laika:~$ file pic33.png
+pic33.png: PNG image data, 3840 x 1200, 8-bit/color RGBA, non-interlaced
+paul@laika:~$ file /etc/passwd
+/etc/passwd: ASCII text
+paul@laika:~$ file HelloWorld.c
+HelloWorld.c: ASCII C program text
+</code></pre>
+<p>The file command uses a magic file that contains patterns to recognise
+file types. The magic file is located in
+<code>/usr/share/file/magic</code>. Type <code>man 5 magic</code> for more
+information.</p>
+<p>It is interesting to point out <code>file -s</code> for special files like those in
+<code>/dev</code> and <code>/proc</code>.</p>
+<pre><code>root@debian6~# file /dev/sda
+/dev/sda: block special
+root@debian6~# file -s /dev/sda
+/dev/sda: x86 boot sector; partition 1: ID=0x83, active, starthead...
+root@debian6~# file /proc/cpuinfo 
+/proc/cpuinfo: empty
+root@debian6~# file -s /proc/cpuinfo
+/proc/cpuinfo: ASCII C++ program text
+</code></pre>
+<h2 id="touch">touch</h2>
+<h3 id="create-an-empty-file">create an empty file</h3>
+<p>One easy way to create an empty file is with <code>touch</code>. (We
+will see many other ways for creating files later in this book.)</p>
+<p>This screenshot starts with an empty directory, creates two files with
+<code>touch</code> and the lists those files.</p>
+<pre><code>paul@debian10:~$ ls -l
+total 0
+paul@debian10:~$ touch file42
+paul@debian10:~$ touch file33
+paul@debian10:~$ ls -l
+total 0
+-rw-r--r-- 1 paul paul 0 Oct 15 08:57 file33
+-rw-r--r-- 1 paul paul 0 Oct 15 08:56 file42
+paul@debian10:~$
+</code></pre>
+<h3 id="touch-t">touch -t</h3>
+<p>The <code>touch</code> command can set some properties while creating empty files.
+Can you determine what is set by looking at the next screenshot? If not,
+check the manual for <code>touch</code>.</p>
+<pre><code>paul@debian10:~$ touch -t 200505050000 SinkoDeMayo
+paul@debian10:~$ touch -t 130207111630 BigBattle.txt
+paul@debian10:~$ ls -l
+total 0
+-rw-r--r-- 1 paul paul 0 Jul 11  1302 BigBattle.txt
+-rw-r--r-- 1 paul paul 0 Oct 15 08:57 file33
+-rw-r--r-- 1 paul paul 0 Oct 15 08:56 file42
+-rw-r--r-- 1 paul paul 0 May  5  2005 SinkoDeMayo
+paul@debian10:~$
+</code></pre>
+<h2 id="rm">rm</h2>
+<h3 id="remove-forever">remove forever</h3>
+<p>When you no longer need a file, use <code>rm</code> to remove it.
+Unlike some graphical user interfaces, the command line in general does
+not have a <code>waste bin</code> or <code>trash can</code> to recover files. When you use
+<code>rm</code> to remove a file, the file is gone. Therefore, be careful when
+removing files!</p>
+<pre><code>paul@debian10:~$ ls
+BigBattle.txt  file33  file42  SinkoDeMayo
+paul@debian10:~$ rm BigBattle.txt
+paul@debian10:~$ ls
+file33  file42  SinkoDeMayo
+paul@debian10:~$
+</code></pre>
+<h3 id="rm-i">rm -i</h3>
+<p>To prevent yourself from accidentally removing a file, you can type
+<code>rm -i</code>.</p>
+<pre><code>paul@debian10:~$ ls
+file33  file42  SinkoDeMayo
+paul@debian10:~$ rm -i file33
+rm: remove regular empty file `file33'? yes
+paul@debian10:~$ rm -i SinkoDeMayo
+rm: remove regular empty file `SinkoDeMayo'? n
+paul@debian10:~$ ls
+file42  SinkoDeMayo
+paul@debian10:~$
+</code></pre>
+<h3 id="rm-rf">rm -rf</h3>
+<p>By default, <code>rm -r</code> will not remove non-empty directories. However <code>rm</code>
+accepts several options that will allow you to remove any directory. The
+<code>rm -rf</code> statement is famous because it will erase
+anything (providing that you have the permissions to do so). When you
+are logged on as root, be very careful with <code>rm -rf</code> (the <code>f</code> means
+<code>force</code> and the <code>r</code> means <code>recursive</code>) since being root implies that
+permissions don\'t apply to you. You can literally erase your entire
+file system by accident.</p>
+<pre><code>paul@debian10:~$ mkdir test
+paul@debian10:~$ rm test
+rm: cannot remove `test': Is a directory
+paul@debian10:~$ rm -rf test
+paul@debian10:~$ ls test
+ls: cannot access test: No such file or directory
+paul@debian10:~$
+</code></pre>
+<h2 id="cp">cp</h2>
+<h3 id="copy-one-file">copy one file</h3>
+<p>To copy a file, use <code>cp</code> with a source and a target
+argument.</p>
+<pre><code>paul@debian10:~$ ls
+file42  SinkoDeMayo
+paul@debian10:~$ cp file42 file42.copy
+paul@debian10:~$ ls
+file42  file42.copy  SinkoDeMayo
+</code></pre>
+<h3 id="copy-to-another-directory">copy to another directory</h3>
+<p>If the target is a directory, then the source files are copied to that
+target directory.</p>
+<pre><code>paul@debian10:~$ mkdir dir42
+paul@debian10:~$ cp SinkoDeMayo dir42
+paul@debian10:~$ ls dir42/
+SinkoDeMayo
+</code></pre>
+<h3 id="cp-r">cp -r</h3>
+<p>To copy complete directories, use <code>cp -r</code> (the <code>-r</code> option
+forces <code>recursive</code> copying of all files in all subdirectories).</p>
+<pre><code>paul@debian10:~$ ls
+dir42  file42  file42.copy  SinkoDeMayo
+paul@debian10:~$ cp -r dir42/ dir33
+paul@debian10:~$ ls
+dir33  dir42  file42  file42.copy  SinkoDeMayo
+paul@debian10:~$ ls dir33/
+SinkoDeMayo
+</code></pre>
+<h3 id="copy-multiple-files-to-directory">copy multiple files to directory</h3>
+<p>You can also use cp to copy multiple files into a directory. In this
+case, the last argument (a.k.a. the target) must be a directory.</p>
+<pre><code>paul@debian10:~$ cp file42 file42.copy SinkoDeMayo dir42/
+paul@debian10:~$ ls dir42/
+file42  file42.copy  SinkoDeMayo
+</code></pre>
+<h3 id="cp-i">cp -i</h3>
+<p>To prevent <code>cp</code> from overwriting existing files, use the <code>-i</code> (for
+interactive) option.</p>
+<pre><code>paul@debian10:~$ cp SinkoDeMayo file42
+paul@debian10:~$ cp SinkoDeMayo file42
+paul@debian10:~$ cp -i SinkoDeMayo file42
+cp: overwrite `file42'? n
+paul@debian10:~$
+</code></pre>
+<h2 id="mv">mv</h2>
+<h3 id="rename-files-with-mv">rename files with mv</h3>
+<p>Use <code>mv</code> to rename a file or to move the file to another
+directory.</p>
+<pre><code>paul@debian10:~$ ls
+dir33  dir42  file42  file42.copy  SinkoDeMayo
+paul@debian10:~$ mv file42 file33
+paul@debian10:~$ ls
+dir33  dir42  file33  file42.copy  SinkoDeMayo
+paul@debian10:~$
+</code></pre>
+<p>When you need to rename only one file then <code>mv</code> is the preferred command
+to use.</p>
+<h3 id="rename-directories-with-mv">rename directories with mv</h3>
+<p>The same <code>mv</code> command can be used to rename directories.</p>
+<pre><code>paul@debian10:~$ ls -l
+total 8
+drwxr-xr-x 2 paul paul 4096 Oct 15 09:36 dir33
+drwxr-xr-x 2 paul paul 4096 Oct 15 09:36 dir42
+-rw-r--r-- 1 paul paul    0 Oct 15 09:38 file33
+-rw-r--r-- 1 paul paul    0 Oct 15 09:16 file42.copy
+-rw-r--r-- 1 paul paul    0 May  5  2005 SinkoDeMayo
+paul@debian10:~$ mv dir33 backup
+paul@debian10:~$ ls -l
+total 8
+drwxr-xr-x 2 paul paul 4096 Oct 15 09:36 backup
+drwxr-xr-x 2 paul paul 4096 Oct 15 09:36 dir42
+-rw-r--r-- 1 paul paul    0 Oct 15 09:38 file33
+-rw-r--r-- 1 paul paul    0 Oct 15 09:16 file42.copy
+-rw-r--r-- 1 paul paul    0 May  5  2005 SinkoDeMayo
+paul@debian10:~$
+</code></pre>
+<h3 id="mv-i">mv -i</h3>
+<p>The <code>mv</code> also has a <code>-i</code> switch similar to <code>cp</code> and <code>rm</code>.</p>
+<p>this screenshot shows that <code>mv -i</code> will ask permission to overwrite an
+existing file.</p>
+<pre><code>paul@debian10:~$ mv -i file33 SinkoDeMayo
+mv: overwrite `SinkoDeMayo'? no
+paul@debian10:~$
+</code></pre>
+<h2 id="rename">rename</h2>
+<h3 id="about-rename">about rename</h3>
+<p>The <code>rename</code> command is one of the rare occasions where the Linux
+Fundamentals book has to make a distinction between Linux distributions.
+Almost every command in the <code>Fundamentals</code> part of this book works on
+almost every Linux computer. But <code>rename</code> is different.</p>
+<p>Try to use <code>mv</code> whenever you need to rename only a couple of files.</p>
+<h3 id="rename-on-debianubuntu">rename on Debian/Ubuntu</h3>
+<p>The <code>rename</code> command on Debian uses regular expressions
+(regular expression or shor regex are explained in a later chapter) to
+rename many files at once.</p>
+<p>Below a <code>rename</code> example that switches all occurrences of txt to png for
+all file names ending in .txt.</p>
+<pre><code>paul@debian10:~/test42$ ls
+abc.txt  file33.txt  file42.txt
+paul@debian10:~/test42$ rename 's/\.txt/\.png/' *.txt
+paul@debian10:~/test42$ ls
+abc.png  file33.png  file42.png
+</code></pre>
+<p>This second example switches all (first) occurrences of <code>file</code> into
+<code>document</code> for all file names ending in .png.</p>
+<pre><code>paul@debian10:~/test42$ ls
+abc.png  file33.png  file42.png
+paul@debian10:~/test42$ rename 's/file/document/' *.png
+paul@debian10:~/test42$ ls
+abc.png  document33.png  document42.png
+paul@debian10:~/test42$
+</code></pre>
+<h3 id="rename-on-centosrhelfedora">rename on CentOS/RHEL/Fedora</h3>
+<p>On Red Hat Enterprise Linux, the syntax of <code>rename</code> is a bit different.
+The first example below renames all *.conf files replacing any
+occurrence of .conf with .backup.</p>
+<pre><code>[paul@centos7 ~]$ touch one.conf two.conf three.conf
+[paul@centos7 ~]$ rename .conf .backup *.conf
+[paul@centos7 ~]$ ls
+one.backup  three.backup  two.backup
+[paul@centos7 ~]$
+</code></pre>
+<p>The second example renames all (*) files replacing one with ONE.</p>
+<pre><code>[paul@centos7 ~]$ ls
+one.backup  three.backup  two.backup
+[paul@centos7 ~]$ rename one ONE *
+[paul@centos7 ~]$ ls
+ONE.backup  three.backup  two.backup
+[paul@centos7 ~]$
+</code></pre>
+<h2 id="practice-working-with-files">practice: working with files</h2>
+<p>1. List the files in the /bin directory</p>
+<p>2. Display the type of file of /bin/cat, /etc/passwd and
+/usr/bin/passwd.</p>
+<p>3a. Download wolf.jpg and LinuxFun.pdf from http://linux-training.be
+(wget http://linux-training.be/files/studentfiles/wolf.jpg and wget
+http://linux-training.be/files/books/LinuxFun.pdf)</p>
+<pre><code>wget http://linux-training.be/files/studentfiles/wolf.jpg
+wget http://linux-training.be/files/studentfiles/wolf.png
+wget http://linux-training.be/files/books/LinuxFun.pdf
+</code></pre>
+<p>3b. Display the type of file of wolf.jpg and LinuxFun.pdf</p>
+<p>3c. Rename wolf.jpg to wolf.pdf (use mv).</p>
+<p>3d. Display the type of file of wolf.pdf and LinuxFun.pdf.</p>
+<p>4. Create a directory \~/touched and enter it.</p>
+<p>5. Create the files today.txt and yesterday.txt in touched.</p>
+<p>6. Change the date on yesterday.txt to match yesterday\'s date.</p>
+<p>7. Copy yesterday.txt to copy.yesterday.txt</p>
+<p>8. Rename copy.yesterday.txt to kim</p>
+<p>9. Create a directory called \~/testbackup and copy all files from
+\~/touched into it.</p>
+<p>10. Use one command to remove the directory \~/testbackup and all files
+into it.</p>
+<p>11. Create a directory \~/etcbackup and copy all *.conf files from
+/etc into it. Did you include all subdirectories of /etc ?</p>
+<p>12. Use rename to rename all *.conf files to *.backup . (if you have
+more than one distro available, try it on all!)</p>
+<h2 id="solution-working-with-files">solution: working with files</h2>
+<p>1. List the files in the /bin directory</p>
+<pre><code>ls /bin
+</code></pre>
+<p>2. Display the type of file of /bin/cat, /etc/passwd and
+/usr/bin/passwd.</p>
+<pre><code>file /bin/cat /etc/passwd /usr/bin/passwd
+</code></pre>
+<p>3a. Download wolf.jpg and LinuxFun.pdf from http://linux-training.be
+(wget http://linux-training.be/files/studentfiles/wolf.jpg and wget
+http://linux-training.be/files/books/LinuxFun.pdf)</p>
+<pre><code>wget http://linux-training.be/files/studentfiles/wolf.jpg
+wget http://linux-training.be/files/studentfiles/wolf.png
+wget http://linux-training.be/files/books/LinuxFun.pdf
+</code></pre>
+<p>3b. Display the type of file of wolf.jpg and LinuxFun.pdf</p>
+<pre><code>file wolf.jpg LinuxFun.pdf
+</code></pre>
+<p>3c. Rename wolf.jpg to wolf.pdf (use mv).</p>
+<pre><code>mv wolf.jpg wolf.pdf
+</code></pre>
+<p>3d. Display the type of file of wolf.pdf and LinuxFun.pdf.</p>
+<pre><code>file wolf.pdf LinuxFun.pdf
+</code></pre>
+<p>4. Create a directory \~/touched and enter it.</p>
+<pre><code>mkdir ~/touched ; cd ~/touched
+</code></pre>
+<p>5. Create the files today.txt and yesterday.txt in touched.</p>
+<pre><code>touch today.txt yesterday.txt
+</code></pre>
+<p>6. Change the date on yesterday.txt to match yesterday\'s date.</p>
+<pre><code>touch -t 200810251405 yesterday.txt (substitute 20081025 with yesterday)
+</code></pre>
+<p>7. Copy yesterday.txt to copy.yesterday.txt</p>
+<pre><code>cp yesterday.txt copy.yesterday.txt
+</code></pre>
+<p>8. Rename copy.yesterday.txt to kim</p>
+<pre><code>mv copy.yesterday.txt kim
+</code></pre>
+<p>9. Create a directory called \~/testbackup and copy all files from
+\~/touched into it.</p>
+<pre><code>mkdir ~/testbackup ; cp -r ~/touched ~/testbackup/
+</code></pre>
+<p>10. Use one command to remove the directory \~/testbackup and all files
+into it.</p>
+<pre><code>rm -rf ~/testbackup
+</code></pre>
+<p>11. Create a directory \~/etcbackup and copy all *.conf files from
+/etc into it. Did you include all subdirectories of /etc ?</p>
+<pre><code>cp -r /etc/*.conf ~/etcbackup
+
+Only *.conf files that are directly in /etc/ are copied.
+</code></pre>
+<p>12. Use rename to rename all *.conf files to *.backup . (if you have
+more than one distro available, try it on all!)</p>
+<pre><code>On RHEL: touch 1.conf 2.conf ; rename conf backup *.conf
+
+On Debian: touch 1.conf 2.conf ; rename 's/conf/backup/' *.conf
+</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.8fd75fb4.min.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+    
+  </body>
+</html>

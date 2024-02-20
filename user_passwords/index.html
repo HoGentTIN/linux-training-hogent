@@ -1,0 +1,2134 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://hogenttin.github.io/linux-training-hogent/user_passwords/">
+      
+      
+        <link rel="prev" href="../user_management/">
+      
+      
+        <link rel="next" href="../user_profiles/">
+      
+      
+      <link rel="icon" href="https://www.hogent.be/themes/hogent/images/ico/favicon.ico">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.10">
+    
+    
+      
+        <title>user passwords - Linux Fundamentals</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.7e359304.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,700,700i%7CInconsolata:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Montserrat";--md-code-font:"Inconsolata"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="deep-orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#user-passwords" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Linux Fundamentals" class="md-header__button md-logo" aria-label="Linux Fundamentals" data-md-component="logo">
+      
+  <img src="https://www.hogent.be/themes/hogent/assets/images/HOGENT_Logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Linux Fundamentals
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              user passwords
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hogenttin/linux-training-hogent" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hogenttin/linux-training-hogent
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Linux Fundamentals" class="md-nav__button md-logo" aria-label="Linux Fundamentals" data-md-component="logo">
+      
+  <img src="https://www.hogent.be/themes/hogent/assets/images/HOGENT_Logo.png" alt="logo">
+
+    </a>
+    Linux Fundamentals
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hogenttin/linux-training-hogent" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hogenttin/linux-training-hogent
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Introduction to Linux
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Introduction to Linux
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linux_history/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux history
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linux_distributions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    distributions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../licensing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    licensing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Installing Linux
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Installing Linux
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installing_debian8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    installing Debian 8
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installing_centos7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    installing CentOS 8
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../virtualbox/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    getting Linux at home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    First steps on the command line
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            First steps on the command line
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../man_pages/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    man pages
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../working_with_directories/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    working with directories
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../working_with_files/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    working with files
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../working_with_file_contents/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    working with file contents
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../file_system_tree/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    the Linux file tree
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Shell expansion
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Shell expansion
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shell_arguments/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    commands and arguments
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shell_control_operators/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    control operators
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shell_variables/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    shell variables
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shell_in_shell/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    shell embedding and options
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shell_history/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    shell history
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shell_globbing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    file globbing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Pipes and commands
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Pipes and commands
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ioredirection/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    I/O redirection
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../filters/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    filters
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../basic_tools/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    basic Unix tools
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../regular_expressions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    regular expressions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Vi
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Vi
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intro_vi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction to vi
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Scripting
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Scripting
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scripting_intro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    introduction to scripting 
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scripting_loops/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    scripting loops
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scripting_params/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    scripting parameters
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scripting_adv/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    more scripting
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Local user management
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Local user management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../users/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    introduction to users
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user_management/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    user management
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    user passwords
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    user passwords
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#passwd" class="md-nav__link">
+    <span class="md-ellipsis">
+      passwd
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shadow-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      shadow file
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#encryption-with-passwd" class="md-nav__link">
+    <span class="md-ellipsis">
+      encryption with passwd
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#encryption-with-openssl" class="md-nav__link">
+    <span class="md-ellipsis">
+      encryption with openssl
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#encryption-with-crypt" class="md-nav__link">
+    <span class="md-ellipsis">
+      encryption with crypt
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#etclogindefs" class="md-nav__link">
+    <span class="md-ellipsis">
+      /etc/login.defs
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chage" class="md-nav__link">
+    <span class="md-ellipsis">
+      chage
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#disabling-a-password" class="md-nav__link">
+    <span class="md-ellipsis">
+      disabling a password
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#editing-local-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      editing local files
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practice-user-passwords" class="md-nav__link">
+    <span class="md-ellipsis">
+      practice: user passwords
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solution-user-passwords" class="md-nav__link">
+    <span class="md-ellipsis">
+      solution: user passwords
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user_profiles/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    User profiles
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../groups/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    groups
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    File security
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            File security
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../file_permissions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    standard file permissions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../advanced_permissions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    advanced file permissions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../acls/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    access control lists
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../links/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    file links
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Appendix
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            Appendix
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../keys/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    keyboard settings
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    hardware
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../license/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GNU Free Documentation License
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#passwd" class="md-nav__link">
+    <span class="md-ellipsis">
+      passwd
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shadow-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      shadow file
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#encryption-with-passwd" class="md-nav__link">
+    <span class="md-ellipsis">
+      encryption with passwd
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#encryption-with-openssl" class="md-nav__link">
+    <span class="md-ellipsis">
+      encryption with openssl
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#encryption-with-crypt" class="md-nav__link">
+    <span class="md-ellipsis">
+      encryption with crypt
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#etclogindefs" class="md-nav__link">
+    <span class="md-ellipsis">
+      /etc/login.defs
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chage" class="md-nav__link">
+    <span class="md-ellipsis">
+      chage
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#disabling-a-password" class="md-nav__link">
+    <span class="md-ellipsis">
+      disabling a password
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#editing-local-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      editing local files
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practice-user-passwords" class="md-nav__link">
+    <span class="md-ellipsis">
+      practice: user passwords
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solution-user-passwords" class="md-nav__link">
+    <span class="md-ellipsis">
+      solution: user passwords
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="user-passwords">user passwords</h1>
+<p><em>(Written by Paul Cobbaut, <a href="https://github.com/paulcobbaut/">https://github.com/paulcobbaut/</a>, with contributions by: Alex M. Schapelle, <a href="https://github.com/zero-pytagoras/">https://github.com/zero-pytagoras/</a>)</em></p>
+<p>This chapter will tell you more about passwords for local users.</p>
+<p>Three methods for setting passwords are explained; using the <code>passwd</code>
+command, using <code>openssel passwd</code>, and using the <code>crypt</code> function in a C
+program.</p>
+<p>The chapter will also discuss password settings and disabling,
+suspending or locking accounts.</p>
+<h2 id="passwd">passwd</h2>
+<p>Passwords of users can be set with the <code>passwd</code> command.
+Users will have to provide their old password before twice entering the
+new one.</p>
+<pre><code>[tania@centos7 ~]$ passwd
+Changing password for user tania.
+Changing password for tania.
+(current) UNIX password:
+New password:
+BAD PASSWORD: The password is shorter than 8 characters
+New password:
+BAD PASSWORD: The password is a palindrome
+New password:
+BAD PASSWORD: The password is too similar to the old one
+passwd: Have exhausted maximum number of retries for service
+</code></pre>
+<p>As you can see, the passwd tool will do some basic verification to
+prevent users from using too simple passwords. The <code>root</code> user does not
+have to follow these rules (there will be a warning though). The <code>root</code>
+user also does not have to provide the old password before entering the
+new password twice.</p>
+<pre><code>root@debian10:~# passwd tania
+Enter new UNIX password:
+Retype new UNIX password:
+passwd: password updated successfully
+</code></pre>
+<h2 id="shadow-file">shadow file</h2>
+<p>User passwords are encrypted and kept in <code>/etc/shadow</code>.
+The /etc/shadow file is read only and can only be read by root. We will
+see in the file permissions section how it is possible for users to
+change their password. For now, you will have to know that users can
+change their password with the <code>/usr/bin/passwd</code> command.</p>
+<pre><code>[root@centos7 ~]# tail -4 /etc/shadow
+paul:$6$ikp2Xta5BT.Tml.p$2TZjNnOYNNQKpwLJqoGJbVsZG5/Fti8ovBRd.VzRbiDSl7TEq\
+IaSMH.TeBKnTS/SjlMruW8qffC0JNORW.BTW1:16338:0:99999:7:::
+tania:$6$8Z/zovxj$9qvoqT8i9KIrmN.k4EQwAF5ryz5yzNwEvYjAa9L5XVXQu.z4DlpvMREH\
+eQpQzvRnqFdKkVj17H5ST.c79HDZw0:16356:0:99999:7:::
+laura:$6$glDuTY5e$/NYYWLxfHgZFWeoujaXSMcR.Mz.lGOxtcxFocFVJNb98nbTPhWFXfKWG\
+SyYh1WCv6763Wq54.w24Yr3uAZBOm/:16356:0:99999:7:::
+valentina:$6$jrZa6PVI$1uQgqR6En9mZB6mKJ3LXRB4CnFko6LRhbh.v4iqUk9MVreui1lv7\
+GxHOUDSKA0N55ZRNhGHa6T2ouFnVno/0o1:16356:0:99999:7:::
+[root@centos7 ~]#
+</code></pre>
+<p>The <code>/etc/shadow</code> file contains nine colon separated columns. The nine
+fields contain (from left to right) the user name, the encrypted
+password (note that only inge and laura have an encrypted password), the
+day the password was last changed (day 1 is January 1, 1970), number of
+days the password must be left unchanged, password expiry day, warning
+number of days before password expiry, number of days after expiry
+before disabling the account, and the day the account was disabled
+(again, since 1970). The last field has no meaning yet.</p>
+<p>All the passwords in the screenshot above are hashes of <code>hunter2</code>.</p>
+<h2 id="encryption-with-passwd">encryption with passwd</h2>
+<p>Passwords are stored in an encrypted format. This encryption is done by
+the <code>crypt</code> function. The easiest (and recommended) way to
+add a user with a password to the system is to add the user with the
+<code>useradd -m user</code> command, and then set the user\'s
+password with <code>passwd</code>.</p>
+<pre><code>[root@RHEL4 ~]# useradd -m xavier
+[root@RHEL4 ~]# passwd xavier
+Changing password for user xavier.
+New UNIX password: 
+Retype new UNIX password: 
+passwd: all authentication tokens updated successfully.
+[root@RHEL4 ~]#
+</code></pre>
+<h2 id="encryption-with-openssl">encryption with openssl</h2>
+<p>Another way to create users with a password is to use the -p option of
+useradd, but that option requires an encrypted password. You can
+generate this encrypted password with the <code>openssl passwd</code>
+command.</p>
+<p>The <code>openssl passwd</code> command will generate several distinct hashes for
+the same password, for this it uses a <code>salt</code>.</p>
+<pre><code>paul@rhel65:~$ openssl passwd hunter2
+86jcUNlnGDFpY
+paul@rhel65:~$ openssl passwd hunter2
+Yj7mDO9OAnvq6
+paul@rhel65:~$ openssl passwd hunter2
+YqDcJeGoDbzKA
+paul@rhel65:~$
+</code></pre>
+<p>This <code>salt</code> can be chosen and is visible as the first two characters of
+the hash.</p>
+<pre><code>paul@rhel65:~$ openssl passwd -salt 42 hunter2
+42ZrbtP1Ze8G.
+paul@rhel65:~$ openssl passwd -salt 42 hunter2
+42ZrbtP1Ze8G.
+paul@rhel65:~$ openssl passwd -salt 42 hunter2
+42ZrbtP1Ze8G.
+paul@rhel65:~$
+</code></pre>
+<p>This example shows how to create a user with password.</p>
+<pre><code>root@rhel65:~# useradd -m -p $(openssl passwd hunter2) mohamed
+</code></pre>
+<p><em>Note that this command puts the password in your command history!</em></p>
+<h2 id="encryption-with-crypt">encryption with crypt</h2>
+<p>A third option is to create your own C program using the crypt function,
+and compile this into a command.</p>
+<pre><code>paul@rhel65:~$ cat MyCrypt.c
+#include &lt;stdio.h&gt;
+#define __USE_XOPEN
+#include &lt;unistd.h&gt;
+
+int main(int argc, char** argv)
+{
+ if(argc==3)
+   {
+       printf("%s\n", crypt(argv[1],argv[2]));
+   }
+   else
+   {
+       printf("Usage: MyCrypt $password $salt\n" );
+   }
+  return 0;
+}
+</code></pre>
+<p>This little program can be compiled with <code>gcc</code> like this.</p>
+<pre><code>paul@rhel65:~$ gcc MyCrypt.c -o MyCrypt -lcrypt
+</code></pre>
+<p>To use it, we need to give two parameters to MyCrypt. The first is the
+unencrypted password, the second is the salt. The salt is used to
+perturb the encryption algorithm in one of 4096 different ways. This
+variation prevents two users with the same password from having the same
+entry in <code>/etc/shadow</code>.</p>
+<pre><code>paul@rhel65:~$ ./MyCrypt hunter2 42
+42ZrbtP1Ze8G.
+paul@rhel65:~$ ./MyCrypt hunter2 33
+33d6taYSiEUXI
+</code></pre>
+<p>Did you notice that the first two characters of the password are the
+<code>salt</code>?</p>
+<p>The standard output of the crypt function is using the DES algorithm
+which is old and can be cracked in minutes. A better method is to use
+<code>md5</code> passwords which can be recognized by a salt starting
+with $1$.</p>
+<pre><code>paul@rhel65:~$ ./MyCrypt hunter2 '$1$42'
+$1$42$7l6Y3xT5282XmZrtDOF9f0
+paul@rhel65:~$ ./MyCrypt hunter2 '$6$42'
+$6$42$OqFFAVnI3gTSYG0yI9TZWX9cpyQzwIop7HwpG1LLEsNBiMr4w6OvLX1KDa./UpwXfrFk1i...
+</code></pre>
+<p>The <code>md5</code> salt can be up to eight characters long. The salt is displayed
+in <code>/etc/shadow</code> between the second and third $, so never
+use the password as the salt!</p>
+<pre><code>paul@rhel65:~$ ./MyCrypt hunter2 '$1$hunter2'
+$1$hunter2$YVxrxDmidq7Xf8Gdt6qM2.
+</code></pre>
+<h2 id="etclogindefs">/etc/login.defs</h2>
+<p>The <code>/etc/login.defs</code> file contains some default settings
+for user passwords like password aging and length settings. (You will
+also find the numerical limits of user ids and group ids and whether or
+not a home directory should be created by default).</p>
+<pre><code>root@rhel65:~# grep ^PASS /etc/login.defs
+PASS_MAX_DAYS   99999
+PASS_MIN_DAYS   0
+PASS_MIN_LEN    5
+PASS_WARN_AGE   7
+</code></pre>
+<p>Debian also has this file.</p>
+<pre><code>root@debian10:~# grep PASS /etc/login.defs
+#  PASS_MAX_DAYS   Maximum number of days a password may be used.
+#  PASS_MIN_DAYS   Minimum number of days allowed between password changes.
+#  PASS_WARN_AGE   Number of days warning given before a password expires.
+PASS_MAX_DAYS   99999
+PASS_MIN_DAYS   0
+PASS_WARN_AGE   7
+#PASS_CHANGE_TRIES
+#PASS_ALWAYS_WARN
+#PASS_MIN_LEN
+#PASS_MAX_LEN
+# NO_PASSWORD_CONSOLE
+root@debian10:~#
+</code></pre>
+<h2 id="chage">chage</h2>
+<p>The <code>chage</code> command can be used to set an expiration date
+for a user account (-E), set a minimum (-m) and maximum (-M) password
+age, a password expiration date, and set the number of warning days
+before the password expiration date. Much of this functionality is also
+available from the <code>passwd</code> command. The <code>-l</code> option of
+chage will list these settings for a user.</p>
+<pre><code>root@rhel65:~# chage -l paul
+Last password change                                    : Mar 27, 2014
+Password expires                                        : never
+Password inactive                                       : never
+Account expires                                         : never
+Minimum number of days between password change          : 0
+Maximum number of days between password change          : 99999
+Number of days of warning before password expires       : 7
+root@rhel65:~#
+</code></pre>
+<h2 id="disabling-a-password">disabling a password</h2>
+<p>Passwords in <code>/etc/shadow</code> cannot begin with an exclamation mark. When
+the second field in <code>/etc/passwd</code> starts with an exclamation mark, then
+the password can not be used.</p>
+<p>Using this feature is often called <code>locking</code>, <code>disabling</code>, or
+<code>suspending</code> a user account. Besides <code>vi</code> (or vipw) you can also
+accomplish this with <code>usermod</code>.</p>
+<p>The first command in the next screenshot will show the hashed password
+of <code>laura</code> in <code>/etc/shadow</code>. The next command disables the password of
+<code>laura</code>, making it impossible for Laura to authenticate using this
+password.</p>
+<pre><code>root@debian10:~# grep laura /etc/shadow | cut -c1-70
+laura:$6$JYj4JZqp$stwwWACp3OtE1R2aZuE87j.nbW.puDkNUYVk7mCHfCVMa3CoDUJV
+root@debian10:~# usermod -L laura
+</code></pre>
+<p>As you can see below, the password hash is simply preceded with an
+exclamation mark.</p>
+<pre><code>root@debian10:~# grep laura /etc/shadow | cut -c1-70
+laura:!$6$JYj4JZqp$stwwWACp3OtE1R2aZuE87j.nbW.puDkNUYVk7mCHfCVMa3CoDUJ
+root@debian10:~#
+</code></pre>
+<p>The root user (and users with <code>sudo</code> rights on <code>su</code>) still
+will be able to <code>su</code> into the <code>laura</code> account (because the
+password is not needed here). Also note that <code>laura</code> will still be able
+to login if she has set up passwordless ssh!</p>
+<pre><code>root@debian10:~# su - laura
+laura@debian10:~$
+</code></pre>
+<p>You can unlock the account again with <code>usermod -U</code>.</p>
+<pre><code>root@debian10:~# usermod -U laura
+root@debian10:~# grep laura /etc/shadow | cut -c1-70
+laura:$6$JYj4JZqp$stwwWACp3OtE1R2aZuE87j.nbW.puDkNUYVk7mCHfCVMa3CoDUJV
+</code></pre>
+<p>Watch out for tiny differences in the command line options of <code>passwd</code>,
+<code>usermod</code>, and <code>useradd</code> on different Linux distributions. Verify the
+local files when using features like
+<code>"disabling, suspending, or locking"</code> on user accounts and their
+passwords.</p>
+<h2 id="editing-local-files">editing local files</h2>
+<p>If you still want to manually edit the <code>/etc/passwd</code> or
+<code>/etc/shadow</code>, after knowing these commands for password
+management, then use <code>vipw</code> instead of vi(m) directly. The
+<code>vipw</code> tool will do proper locking of the file.</p>
+<pre><code>[root@RHEL5 ~]# vipw /etc/passwd
+vipw: the password file is busy (/etc/ptmp present)
+</code></pre>
+<h2 id="practice-user-passwords">practice: user passwords</h2>
+<p>1. Set the password for <code>serena</code> to <code>hunter2</code>.</p>
+<p>2. Also set a password for <code>venus</code> and then lock the <code>venus</code> user
+account with <code>usermod</code>. Verify the locking in <code>/etc/shadow</code> before and
+after you lock it.</p>
+<p>3. Use <code>passwd -d</code> to disable the <code>serena</code> password. Verify the
+<code>serena</code> line in <code>/etc/shadow</code> before and after disabling.</p>
+<p>4. What is the difference between locking a user account and disabling
+a user account\'s password like we just did with <code>usermod -L</code> and
+<code>passwd -d</code>?</p>
+<p>5. Try changing the password of serena to serena as serena.</p>
+<p>6. Make sure <code>serena</code> has to change her password in 10 days.</p>
+<p>7. Make sure every new user needs to change their password every 10
+days.</p>
+<p>8. Take a backup as root of <code>/etc/shadow</code>. Use <code>vi</code> to copy an
+encrypted <code>hunter2</code> hash from <code>venus</code> to <code>serena</code>. Can <code>serena</code> now log
+on with <code>hunter2</code> as a password ?</p>
+<p>9. Why use <code>vipw</code> instead of <code>vi</code> ? What could be the problem when
+using <code>vi</code> or <code>vim</code> ?</p>
+<p>10. Use <code>chsh</code> to list all shells (only works on RHEL/CentOS/Fedora),
+and compare to <code>cat /etc/shells</code>.</p>
+<p>11. Which <code>useradd</code> option allows you to name a home directory ?</p>
+<p>12. How can you see whether the password of user <code>serena</code> is locked or
+unlocked ? Give a solution with <code>grep</code> and a solution with <code>passwd</code>.</p>
+<h2 id="solution-user-passwords">solution: user passwords</h2>
+<p>1. Set the password for <code>serena</code> to <code>hunter2</code>.</p>
+<pre><code>root@debian10:~# passwd serena
+Enter new UNIX password:
+Retype new UNIX password:
+passwd: password updated successfully
+</code></pre>
+<p>2. Also set a password for <code>venus</code> and then lock the <code>venus</code> user
+account with <code>usermod</code>. Verify the locking in <code>/etc/shadow</code> before and
+after you lock it.</p>
+<pre><code>root@debian10:~# passwd venus
+Enter new UNIX password:
+Retype new UNIX password:
+passwd: password updated successfully
+root@debian10:~# grep venus /etc/shadow | cut -c1-70
+venus:$6$gswzXICW$uSnKFV1kFKZmTPaMVS4AvNA/KO27OxN0v5LHdV9ed0gTyXrjUeM/
+root@debian10:~# usermod -L venus
+root@debian10:~# grep venus /etc/shadow | cut -c1-70
+venus:!$6$gswzXICW$uSnKFV1kFKZmTPaMVS4AvNA/KO27OxN0v5LHdV9ed0gTyXrjUeM
+</code></pre>
+<p>Note that <code>usermod -L</code> precedes the password hash with an exclamation
+mark (!).</p>
+<p>3. Use <code>passwd -d</code> to disable the <code>serena</code> password. Verify the
+<code>serena</code> line in <code>/etc/shadow</code> before and after disabling.</p>
+<pre><code>root@debian10:~# grep serena /etc/shadow | cut -c1-70
+serena:$6$Es/omrPE$F2Ypu8kpLrfKdW0v/UIwA5jrYyBD2nwZ/dt.i/IypRgiPZSdB/B
+root@debian10:~# passwd -d serena
+passwd: password expiry information changed.
+root@debian10:~# grep serena /etc/shadow
+serena::16358:0:99999:7:::
+root@debian10:~#
+</code></pre>
+<p>4. What is the difference between locking a user account and disabling
+a user account\'s password like we just did with <code>usermod -L</code> and
+<code>passwd -d</code>?</p>
+<p>Locking will prevent the user from logging on to the system with his
+password by putting a ! in front of the password in <code>/etc/shadow</code>.</p>
+<p>Disabling with <code>passwd</code> will erase the password from <code>/etc/shadow</code>.</p>
+<p>5. Try changing the password of serena to serena as serena.</p>
+<pre><code>log on as serena, then execute: passwd serena... it should fail!
+</code></pre>
+<p>6. Make sure <code>serena</code> has to change her password in 10 days.</p>
+<pre><code>chage -M 10 serena
+</code></pre>
+<p>7. Make sure every new user needs to change their password every 10
+days.</p>
+<pre><code>vi /etc/login.defs (and change PASS_MAX_DAYS to 10)
+</code></pre>
+<p>8. Take a backup as root of <code>/etc/shadow</code>. Use <code>vi</code> to copy an
+encrypted <code>hunter2</code> hash from <code>venus</code> to <code>serena</code>. Can <code>serena</code> now log
+on with <code>hunter2</code> as a password ?</p>
+<pre><code>Yes.
+</code></pre>
+<p>9. Why use <code>vipw</code> instead of <code>vi</code> ? What could be the problem when
+using <code>vi</code> or <code>vim</code> ?</p>
+<pre><code>vipw will give a warning when someone else is already using that file (with vipw).
+</code></pre>
+<p>10. Use <code>chsh</code> to list all shells (only works on RHEL/CentOS/Fedora),
+and compare to <code>cat /etc/shells</code>.</p>
+<pre><code>chsh -l
+cat /etc/shells
+</code></pre>
+<p>11. Which <code>useradd</code> option allows you to name a home directory ?</p>
+<pre><code>-d
+</code></pre>
+<p>12. How can you see whether the password of user <code>serena</code> is locked or
+unlocked ? Give a solution with <code>grep</code> and a solution with <code>passwd</code>.</p>
+<pre><code>grep serena /etc/shadow
+
+passwd -S serena
+</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.8fd75fb4.min.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,3337 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://hogenttin.github.io/linux-training-hogent/file_system_tree/">
+      
+      
+        <link rel="prev" href="../working_with_file_contents/">
+      
+      
+        <link rel="next" href="../shell_arguments/">
+      
+      
+      <link rel="icon" href="https://www.hogent.be/themes/hogent/images/ico/favicon.ico">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.10">
+    
+    
+      
+        <title>the Linux file tree - Linux Fundamentals</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.7e359304.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,700,700i%7CInconsolata:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Montserrat";--md-code-font:"Inconsolata"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="deep-orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#the-linux-file-tree" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Linux Fundamentals" class="md-header__button md-logo" aria-label="Linux Fundamentals" data-md-component="logo">
+      
+  <img src="https://www.hogent.be/themes/hogent/assets/images/HOGENT_Logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Linux Fundamentals
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              the Linux file tree
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hogenttin/linux-training-hogent" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hogenttin/linux-training-hogent
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Linux Fundamentals" class="md-nav__button md-logo" aria-label="Linux Fundamentals" data-md-component="logo">
+      
+  <img src="https://www.hogent.be/themes/hogent/assets/images/HOGENT_Logo.png" alt="logo">
+
+    </a>
+    Linux Fundamentals
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hogenttin/linux-training-hogent" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hogenttin/linux-training-hogent
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Introduction to Linux
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Introduction to Linux
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linux_history/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux history
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linux_distributions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    distributions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../licensing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    licensing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Installing Linux
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Installing Linux
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installing_debian8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    installing Debian 8
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installing_centos7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    installing CentOS 8
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../virtualbox/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    getting Linux at home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    First steps on the command line
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            First steps on the command line
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../man_pages/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    man pages
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../working_with_directories/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    working with directories
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../working_with_files/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    working with files
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../working_with_file_contents/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    working with file contents
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    the Linux file tree
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    the Linux file tree
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#filesystem-hierarchy-standard" class="md-nav__link">
+    <span class="md-ellipsis">
+      filesystem hierarchy standard
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#man-hier" class="md-nav__link">
+    <span class="md-ellipsis">
+      man hier
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-root-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      the root directory /
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#binary-directories" class="md-nav__link">
+    <span class="md-ellipsis">
+      binary directories
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="binary directories">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bin" class="md-nav__link">
+    <span class="md-ellipsis">
+      /bin
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#other-bin-directories" class="md-nav__link">
+    <span class="md-ellipsis">
+      other /bin directories
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sbin" class="md-nav__link">
+    <span class="md-ellipsis">
+      /sbin
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lib" class="md-nav__link">
+    <span class="md-ellipsis">
+      /lib
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="/lib">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#libmodules" class="md-nav__link">
+    <span class="md-ellipsis">
+      /lib/modules
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lib32-and-lib64" class="md-nav__link">
+    <span class="md-ellipsis">
+      /lib32 and /lib64
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#opt" class="md-nav__link">
+    <span class="md-ellipsis">
+      /opt
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-directories" class="md-nav__link">
+    <span class="md-ellipsis">
+      configuration directories
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="configuration directories">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#boot" class="md-nav__link">
+    <span class="md-ellipsis">
+      /boot
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etc" class="md-nav__link">
+    <span class="md-ellipsis">
+      /etc
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="/etc">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#etcinitd" class="md-nav__link">
+    <span class="md-ellipsis">
+      /etc/init.d/
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etcx11" class="md-nav__link">
+    <span class="md-ellipsis">
+      /etc/X11/
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etcskel" class="md-nav__link">
+    <span class="md-ellipsis">
+      /etc/skel/
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etcsysconfig" class="md-nav__link">
+    <span class="md-ellipsis">
+      /etc/sysconfig/
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-directories" class="md-nav__link">
+    <span class="md-ellipsis">
+      data directories
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="data directories">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#home" class="md-nav__link">
+    <span class="md-ellipsis">
+      /home
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#root" class="md-nav__link">
+    <span class="md-ellipsis">
+      /root
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#srv" class="md-nav__link">
+    <span class="md-ellipsis">
+      /srv
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#media" class="md-nav__link">
+    <span class="md-ellipsis">
+      /media
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mnt" class="md-nav__link">
+    <span class="md-ellipsis">
+      /mnt
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tmp" class="md-nav__link">
+    <span class="md-ellipsis">
+      /tmp
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#in-memory-directories" class="md-nav__link">
+    <span class="md-ellipsis">
+      in memory directories
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="in memory directories">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dev" class="md-nav__link">
+    <span class="md-ellipsis">
+      /dev
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="/dev">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-physical-devices" class="md-nav__link">
+    <span class="md-ellipsis">
+      common physical devices
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#devtty-and-devpts" class="md-nav__link">
+    <span class="md-ellipsis">
+      /dev/tty and /dev/pts
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#devnull" class="md-nav__link">
+    <span class="md-ellipsis">
+      /dev/null
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#proc-conversation-with-the-kernel" class="md-nav__link">
+    <span class="md-ellipsis">
+      /proc conversation with the kernel
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="/proc conversation with the kernel">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#procinterrupts" class="md-nav__link">
+    <span class="md-ellipsis">
+      /proc/interrupts
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prockcore" class="md-nav__link">
+    <span class="md-ellipsis">
+      /proc/kcore
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sys-linux-26-hot-plugging" class="md-nav__link">
+    <span class="md-ellipsis">
+      /sys Linux 2.6 hot plugging
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usr-unix-system-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      /usr Unix System Resources
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="/usr Unix System Resources">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#usrbin" class="md-nav__link">
+    <span class="md-ellipsis">
+      /usr/bin
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usrinclude" class="md-nav__link">
+    <span class="md-ellipsis">
+      /usr/include
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usrlib" class="md-nav__link">
+    <span class="md-ellipsis">
+      /usr/lib
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usrlocal" class="md-nav__link">
+    <span class="md-ellipsis">
+      /usr/local
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usrshare" class="md-nav__link">
+    <span class="md-ellipsis">
+      /usr/share
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usrsrc" class="md-nav__link">
+    <span class="md-ellipsis">
+      /usr/src
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#var-variable-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      /var variable data
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="/var variable data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#varlog" class="md-nav__link">
+    <span class="md-ellipsis">
+      /var/log
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#varlogmessages" class="md-nav__link">
+    <span class="md-ellipsis">
+      /var/log/messages
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#varcache" class="md-nav__link">
+    <span class="md-ellipsis">
+      /var/cache
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#varspool" class="md-nav__link">
+    <span class="md-ellipsis">
+      /var/spool
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#varlib" class="md-nav__link">
+    <span class="md-ellipsis">
+      /var/lib
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#var" class="md-nav__link">
+    <span class="md-ellipsis">
+      /var/...
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practice-file-system-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      practice: file system tree
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solution-file-system-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      solution: file system tree
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Shell expansion
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Shell expansion
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shell_arguments/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    commands and arguments
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shell_control_operators/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    control operators
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shell_variables/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    shell variables
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shell_in_shell/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    shell embedding and options
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shell_history/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    shell history
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shell_globbing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    file globbing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Pipes and commands
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Pipes and commands
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ioredirection/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    I/O redirection
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../filters/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    filters
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../basic_tools/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    basic Unix tools
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../regular_expressions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    regular expressions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Vi
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Vi
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intro_vi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction to vi
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Scripting
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Scripting
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scripting_intro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    introduction to scripting 
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scripting_loops/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    scripting loops
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scripting_params/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    scripting parameters
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scripting_adv/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    more scripting
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Local user management
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Local user management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../users/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    introduction to users
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user_management/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    user management
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user_passwords/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    user passwords
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user_profiles/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    User profiles
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../groups/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    groups
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    File security
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            File security
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../file_permissions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    standard file permissions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../advanced_permissions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    advanced file permissions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../acls/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    access control lists
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../links/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    file links
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Appendix
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            Appendix
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../keys/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    keyboard settings
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    hardware
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../license/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GNU Free Documentation License
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#filesystem-hierarchy-standard" class="md-nav__link">
+    <span class="md-ellipsis">
+      filesystem hierarchy standard
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#man-hier" class="md-nav__link">
+    <span class="md-ellipsis">
+      man hier
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-root-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      the root directory /
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#binary-directories" class="md-nav__link">
+    <span class="md-ellipsis">
+      binary directories
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="binary directories">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bin" class="md-nav__link">
+    <span class="md-ellipsis">
+      /bin
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#other-bin-directories" class="md-nav__link">
+    <span class="md-ellipsis">
+      other /bin directories
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sbin" class="md-nav__link">
+    <span class="md-ellipsis">
+      /sbin
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lib" class="md-nav__link">
+    <span class="md-ellipsis">
+      /lib
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="/lib">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#libmodules" class="md-nav__link">
+    <span class="md-ellipsis">
+      /lib/modules
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lib32-and-lib64" class="md-nav__link">
+    <span class="md-ellipsis">
+      /lib32 and /lib64
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#opt" class="md-nav__link">
+    <span class="md-ellipsis">
+      /opt
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-directories" class="md-nav__link">
+    <span class="md-ellipsis">
+      configuration directories
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="configuration directories">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#boot" class="md-nav__link">
+    <span class="md-ellipsis">
+      /boot
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etc" class="md-nav__link">
+    <span class="md-ellipsis">
+      /etc
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="/etc">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#etcinitd" class="md-nav__link">
+    <span class="md-ellipsis">
+      /etc/init.d/
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etcx11" class="md-nav__link">
+    <span class="md-ellipsis">
+      /etc/X11/
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etcskel" class="md-nav__link">
+    <span class="md-ellipsis">
+      /etc/skel/
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etcsysconfig" class="md-nav__link">
+    <span class="md-ellipsis">
+      /etc/sysconfig/
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-directories" class="md-nav__link">
+    <span class="md-ellipsis">
+      data directories
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="data directories">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#home" class="md-nav__link">
+    <span class="md-ellipsis">
+      /home
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#root" class="md-nav__link">
+    <span class="md-ellipsis">
+      /root
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#srv" class="md-nav__link">
+    <span class="md-ellipsis">
+      /srv
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#media" class="md-nav__link">
+    <span class="md-ellipsis">
+      /media
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mnt" class="md-nav__link">
+    <span class="md-ellipsis">
+      /mnt
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tmp" class="md-nav__link">
+    <span class="md-ellipsis">
+      /tmp
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#in-memory-directories" class="md-nav__link">
+    <span class="md-ellipsis">
+      in memory directories
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="in memory directories">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dev" class="md-nav__link">
+    <span class="md-ellipsis">
+      /dev
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="/dev">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-physical-devices" class="md-nav__link">
+    <span class="md-ellipsis">
+      common physical devices
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#devtty-and-devpts" class="md-nav__link">
+    <span class="md-ellipsis">
+      /dev/tty and /dev/pts
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#devnull" class="md-nav__link">
+    <span class="md-ellipsis">
+      /dev/null
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#proc-conversation-with-the-kernel" class="md-nav__link">
+    <span class="md-ellipsis">
+      /proc conversation with the kernel
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="/proc conversation with the kernel">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#procinterrupts" class="md-nav__link">
+    <span class="md-ellipsis">
+      /proc/interrupts
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prockcore" class="md-nav__link">
+    <span class="md-ellipsis">
+      /proc/kcore
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sys-linux-26-hot-plugging" class="md-nav__link">
+    <span class="md-ellipsis">
+      /sys Linux 2.6 hot plugging
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usr-unix-system-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      /usr Unix System Resources
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="/usr Unix System Resources">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#usrbin" class="md-nav__link">
+    <span class="md-ellipsis">
+      /usr/bin
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usrinclude" class="md-nav__link">
+    <span class="md-ellipsis">
+      /usr/include
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usrlib" class="md-nav__link">
+    <span class="md-ellipsis">
+      /usr/lib
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usrlocal" class="md-nav__link">
+    <span class="md-ellipsis">
+      /usr/local
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usrshare" class="md-nav__link">
+    <span class="md-ellipsis">
+      /usr/share
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usrsrc" class="md-nav__link">
+    <span class="md-ellipsis">
+      /usr/src
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#var-variable-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      /var variable data
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="/var variable data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#varlog" class="md-nav__link">
+    <span class="md-ellipsis">
+      /var/log
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#varlogmessages" class="md-nav__link">
+    <span class="md-ellipsis">
+      /var/log/messages
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#varcache" class="md-nav__link">
+    <span class="md-ellipsis">
+      /var/cache
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#varspool" class="md-nav__link">
+    <span class="md-ellipsis">
+      /var/spool
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#varlib" class="md-nav__link">
+    <span class="md-ellipsis">
+      /var/lib
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#var" class="md-nav__link">
+    <span class="md-ellipsis">
+      /var/...
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practice-file-system-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      practice: file system tree
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solution-file-system-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      solution: file system tree
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="the-linux-file-tree">the Linux file tree</h1>
+<p><em>(Written by Paul Cobbaut, <a href="https://github.com/paulcobbaut/">https://github.com/paulcobbaut/</a>, with contributions by: Alex M. Schapelle, <a href="https://github.com/zero-pytagoras/">https://github.com/zero-pytagoras/</a>, Serge Van Ginderachter, <a href="https://github.com/srgvg/">https://github.com/srgvg/</a>)</em></p>
+<p>This chapter takes a look at the most common directories in the
+<code>Linux file tree</code>. It also shows that on Unix everything is a file.</p>
+<h2 id="filesystem-hierarchy-standard">filesystem hierarchy standard</h2>
+<p>Many Linux distributions partially follow the
+<code>Filesystem Hierarchy Standard</code>. The <code>FHS</code> may help make
+more Unix/Linux file system trees conform better in the future. The
+<code>FHS</code> is available online at
+<code>http://www.pathname.com/fhs/</code> where we read: \"The
+filesystem hierarchy standard has been designed to be used by Unix
+distribution developers, package developers, and system implementers.
+However, it is primarily intended to be a reference and is not a
+tutorial on how to manage a Unix filesystem or directory hierarchy.\"</p>
+<h2 id="man-hier">man hier</h2>
+<p>There are some differences in the filesystems between
+<code>Linux distributions</code>. For help about your machine, enter
+<code>man hier</code> to find information about the file system
+hierarchy. This manual will explain the directory structure on your
+computer.</p>
+<h2 id="the-root-directory">the root directory /</h2>
+<p>All Linux systems have a directory structure that starts at the
+<code>root directory</code>. The root directory is represented by a
+<code>forward slash</code>, like this: <code>/</code>. Everything that exists on
+your Linux system can be found below this root directory. Let\'s take a
+brief look at the contents of the root directory.</p>
+<pre><code>[paul@RHELv8u3 ~]$ ls /
+bin   dev  home  media  mnt  proc  sbin     srv  tftpboot  usr
+boot  etc  lib   misc   opt  root  selinux  sys  tmp       var
+</code></pre>
+<h2 id="binary-directories">binary directories</h2>
+<p><code>Binaries</code> are files that contain compiled source code (or machine
+code). Binaries can be <code>executed</code> on the computer. Sometimes binaries
+are called <code>executables</code>.</p>
+<h3 id="bin">/bin</h3>
+<p>The <code>/bin</code> directory contains <code>binaries</code> for
+use by all users. According to the FHS the <code>/bin</code> directory should
+contain <code>/bin/cat</code> and <code>/bin/date</code> (among
+others).</p>
+<p>In the screenshot below you see common Unix/Linux commands like cat, cp,
+cpio, date, dd, echo, grep, and so on. Many of these will be covered in
+this book.</p>
+<pre><code>paul@laika:~$ ls /bin
+archdetect       egrep             mt               setupcon
+autopartition    false             mt-gnu           sh
+bash             fgconsole         mv               sh.distrib
+bunzip2          fgrep             nano             sleep
+bzcat            fuser             nc               stralign
+bzcmp            fusermount        nc.traditional   stty
+bzdiff           get_mountoptions  netcat           su
+bzegrep          grep              netstat          sync
+bzexe            gunzip            ntfs-3g          sysfs
+bzfgrep          gzexe             ntfs-3g.probe    tailf
+bzgrep           gzip              parted_devices   tar
+bzip2            hostname          parted_server    tempfile
+bzip2recover     hw-detect         partman          touch
+bzless           ip                partman-commit   true
+bzmore           kbd_mode          perform_recipe   ulockmgr
+cat              kill              pidof            umount
+...
+</code></pre>
+<h3 id="other-bin-directories">other /bin directories</h3>
+<p>You can find a <code>/bin subdirectory</code> in many other directories. A user
+named <code>serena</code> could put her own programs in <code>/home/serena/bin</code>.</p>
+<p>Some applications, often when installed directly from source will put
+themselves in <code>/opt</code>. A <code>samba server</code> installation can use
+<code>/opt/samba/bin</code> to store its binaries.</p>
+<h3 id="sbin">/sbin</h3>
+<p><code>/sbin</code> contains binaries to configure the operating
+system. Many of the <code>system binaries</code> require <code>root</code>
+privilege to perform certain tasks.</p>
+<p>Below a screenshot containing <code>system binaries</code> to change the ip
+address, partition a disk and create an ext4 file system.</p>
+<pre><code>paul@ubu1010:~$ ls -l /sbin/ifconfig /sbin/fdisk /sbin/mkfs.ext4
+-rwxr-xr-x 1 root root 97172 2011-02-02 09:56 /sbin/fdisk
+-rwxr-xr-x 1 root root 65708 2010-07-02 09:27 /sbin/ifconfig
+-rwxr-xr-x 5 root root 55140 2010-08-18 18:01 /sbin/mkfs.ext4
+</code></pre>
+<h3 id="lib">/lib</h3>
+<p>Binaries found in <code>/bin</code> and <code>/sbin</code> often use <code>shared libraries</code>
+located in <code>/lib</code>. Below is a screenshot of the partial
+contents of <code>/lib</code>.</p>
+<pre><code>paul@laika:~$ ls /lib/libc*
+/lib/libc-2.5.so     /lib/libcfont.so.0.0.0  /lib/libcom_err.so.2.1    
+/lib/libcap.so.1     /lib/libcidn-2.5.so     /lib/libconsole.so.0      
+/lib/libcap.so.1.10  /lib/libcidn.so.1       /lib/libconsole.so.0.0.0  
+/lib/libcfont.so.0   /lib/libcom_err.so.2    /lib/libcrypt-2.5.so
+</code></pre>
+<h4 id="libmodules">/lib/modules</h4>
+<p>Typically, the <code>Linux kernel</code> loads kernel modules from
+<code>/lib/modules/$kernel-version/</code>. This directory is
+discussed in detail in the Linux kernel chapter.</p>
+<h4 id="lib32-and-lib64">/lib32 and /lib64</h4>
+<p>We currently are in a transition between <code>32-bit</code> and <code>64-bit</code> systems.
+Therefore, you may encounter directories named <code>/lib32</code>
+and <code>/lib64</code> which clarify the register size used during
+compilation time of the libraries. A 64-bit computer may have some
+32-bit binaries and libraries for compatibility with legacy
+applications. This screenshot uses the <code>file</code> utility to
+demonstrate the difference.</p>
+<pre><code>paul@laika:~$ file /lib32/libc-2.5.so 
+/lib32/libc-2.5.so: ELF 32-bit LSB shared object, Intel 80386, \
+version 1 (SYSV), for GNU/Linux 2.6.0, stripped
+paul@laika:~$ file /lib64/libcap.so.1.10 
+/lib64/libcap.so.1.10: ELF 64-bit LSB shared object, AMD x86-64, \
+version 1 (SYSV), stripped
+</code></pre>
+<p>The ELF <code>(Executable and Linkable Format)</code> is used in
+almost every Unix-like operating system since <code>System V</code>.</p>
+<h3 id="opt">/opt</h3>
+<p>The purpose of <code>/opt</code> is to store <code>optional</code> software. In many cases
+this is software from outside the distribution repository. You may find
+an empty <code>/opt</code> directory on many systems.</p>
+<p>A large package can install all its files in <code>/bin</code>, <code>/lib</code>, <code>/etc</code>
+subdirectories within <code>/opt/$packagename/</code>. If for example the package
+is called wp, then it installs in <code>/opt/wp</code>, putting binaries in
+<code>/opt/wp/bin</code> and manpages in <code>/opt/wp/man</code>.</p>
+<h2 id="configuration-directories">configuration directories</h2>
+<h3 id="boot">/boot</h3>
+<p>The <code>/boot</code> directory contains all files needed to boot
+the computer. These files don\'t change very often. On Linux systems you
+typically find the <code>/boot/grub</code> directory here.
+<code>/boot/grub</code> contains <code>/boot/grub/grub.cfg</code> (older systems
+may still have <code>/boot/grub/grub.conf</code>) which defines the
+boot menu that is displayed before the kernel starts.</p>
+<h3 id="etc">/etc</h3>
+<p>All of the machine-specific <code>configuration files</code> should be located in
+<code>/etc</code>. Historically <code>/etc</code> stood for <code>etcetera</code>, today
+people often use the <code>Editable Text Configuration</code> backronym.</p>
+<p>Many times the name of a configuration files is the same as the
+application, daemon, or protocol with <code>.conf</code> added as the extension.</p>
+<pre><code>paul@laika:~$ ls /etc/*.conf
+/etc/adduser.conf        /etc/ld.so.conf       /etc/scrollkeeper.conf
+/etc/brltty.conf         /etc/lftp.conf        /etc/sysctl.conf
+/etc/ccertificates.conf  /etc/libao.conf       /etc/syslog.conf
+/etc/cvs-cron.conf       /etc/logrotate.conf   /etc/ucf.conf
+/etc/ddclient.conf       /etc/ltrace.conf      /etc/uniconf.conf
+/etc/debconf.conf        /etc/mke2fs.conf      /etc/updatedb.conf
+/etc/deluser.conf        /etc/netscsid.conf    /etc/usplash.conf
+/etc/fdmount.conf        /etc/nsswitch.conf    /etc/uswsusp.conf
+/etc/hdparm.conf         /etc/pam.conf         /etc/vnc.conf
+/etc/host.conf           /etc/pnm2ppa.conf     /etc/wodim.conf
+/etc/inetd.conf          /etc/povray.conf      /etc/wvdial.conf
+/etc/kernel-img.conf     /etc/resolv.conf
+paul@laika:~$
+</code></pre>
+<p>There is much more to be found in <code>/etc</code>.</p>
+<h4 id="etcinitd">/etc/init.d/</h4>
+<p>A lot of Unix/Linux distributions have an <code>/etc/init.d</code>
+directory that contains scripts to start and stop <code>daemons</code>. This
+directory could disappear as Linux migrates to systems that replace the
+old <code>init</code> way of starting all <code>daemons</code>.</p>
+<h4 id="etcx11">/etc/X11/</h4>
+<p>The graphical display (aka <code>X Window System</code> or just
+<code>X</code>) is driven by software from the X.org foundation. The
+configuration file for your graphical display is
+<code>/etc/X11/xorg.conf</code>.</p>
+<h4 id="etcskel">/etc/skel/</h4>
+<p>The <code>skeleton</code> directory <code>/etc/skel</code> is
+copied to the home directory of a newly created user. It usually
+contains hidden files like a <code>.bashrc</code> script.</p>
+<h4 id="etcsysconfig">/etc/sysconfig/</h4>
+<p>This directory, which is not mentioned in the FHS, contains a lot of
+<code>Red Hat Enterprise Linux</code> configuration files. We will discuss some of
+them in greater detail. The screenshot below is the
+<code>/etc/sysconfig</code> directory from RHELv8u4 with everything
+installed.</p>
+<pre><code>paul@RHELv8u4:~$ ls /etc/sysconfig/
+apmd         firstboot     irda              network      saslauthd
+apm-scripts  grub          irqbalance        networking   selinux
+authconfig   hidd          keyboard          ntpd         spamassassin
+autofs       httpd         kudzu             openib.conf  squid
+bluetooth    hwconf        lm_sensors        pand         syslog
+clock        i18n          mouse             pcmcia       sys-config-sec
+console      init          mouse.B           pgsql        sys-config-users
+crond        installinfo   named             prelink      sys-logviewer
+desktop      ipmi          netdump           rawdevices   tux
+diskdump     iptables      netdump_id_dsa    rhn          vncservers
+dund         iptables-cfg  netdump_id_dsa.p  samba        xinetd
+paul@RHELv8u4:~$
+</code></pre>
+<p>The file <code>/etc/sysconfig/firstboot</code> tells the Red Hat
+Setup Agent not to run at boot time. If you want to run the Red Hat
+Setup Agent at the next reboot, then simply remove this file, and run
+<code>chkconfig --level 5 firstboot on</code>. The Red Hat Setup
+Agent allows you to install the latest updates, create a user account,
+join the Red Hat Network and more. It will then create the
+/etc/sysconfig/firstboot file again.</p>
+<pre><code>paul@RHELv8u4:~$ cat /etc/sysconfig/firstboot 
+RUN_FIRSTBOOT=NO
+</code></pre>
+<p>The <code>/etc/sysconfig/harddisks</code> file contains some
+parameters to tune the hard disks. The file explains itself.</p>
+<p>You can see hardware detected by <code>kudzu</code> in
+<code>/etc/sysconfig/hwconf</code>. Kudzu is software from Red Hat
+for automatic discovery and configuration of hardware.</p>
+<p>The keyboard type and keymap table are set in the
+<code>/etc/sysconfig/keyboard</code> file. For more console keyboard
+information, check the manual pages of <code>keymaps(5)</code>,
+<code>dumpkeys(1)</code>, <code>loadkeys(1)</code> and the
+directory <code>/lib/kbd/keymaps/</code>.</p>
+<pre><code>root@RHELv8u4:/etc/sysconfig# cat keyboard 
+KEYBOARDTYPE="pc"
+KEYTABLE="us"
+</code></pre>
+<p>We will discuss networking files in this directory in the networking
+chapter.</p>
+<h2 id="data-directories">data directories</h2>
+<h3 id="home">/home</h3>
+<p>Users can store personal or project data under <code>/home</code>. It
+is common (but not mandatory by the fhs) practice to name the users home
+directory after the user name in the format <code>/home/$USERNAME</code>. For
+example:</p>
+<pre><code>paul@ubu606:~$ ls /home 
+geert  annik  sandra  paul  tom
+</code></pre>
+<p>Besides giving every user (or every project or group) a location to
+store personal files, the home directory of a user also serves as a
+location to store the user profile. A typical Unix user profile contains
+many hidden files (files whose file name starts with a dot). The hidden
+files of the Unix user profiles contain settings specific for that user.</p>
+<pre><code>paul@ubu606:~$ ls -d /home/paul/.*
+/home/paul/.              /home/paul/.bash_profile  /home/paul/.ssh
+/home/paul/..             /home/paul/.bashrc        /home/paul/.viminfo
+/home/paul/.bash_history  /home/paul/.lesshst
+</code></pre>
+<h3 id="root">/root</h3>
+<p>On many systems <code>/root</code> is the default location for
+personal data and profile of the <code>root user</code>. If it does not exist by
+default, then some administrators create it.</p>
+<h3 id="srv">/srv</h3>
+<p>You may use <code>/srv</code> for data that is
+<code>served by your system</code>. The FHS allows locating cvs, rsync, ftp and www
+data in this location. The FHS also approves administrative naming in
+/srv, like /srv/project55/ftp and /srv/sales/www.</p>
+<p>On Sun Solaris (or Oracle Solaris) <code>/export</code> is used for
+this purpose.</p>
+<h3 id="media">/media</h3>
+<p>The <code>/media</code> directory serves as a mount point for
+<code>removable media devices</code> such as CD-ROM\'s, digital cameras, and
+various usb-attached devices. Since <code>/media</code> is rather new in the Unix
+world, you could very well encounter systems running without this
+directory. Solaris 9 does not have it, Solaris 10 does. Most Linux
+distributions today mount all removable media in <code>/media</code>.</p>
+<pre><code>paul@debian10:~$ ls /media/
+cdrom  cdrom0  usbdisk
+</code></pre>
+<h3 id="mnt">/mnt</h3>
+<p>The <code>/mnt</code> directory should be empty and should only be used for
+temporary mount points (according to the FHS).</p>
+<p>Unix and Linux administrators used to create many directories here, like
+/mnt/something/. You likely will encounter many systems with more than
+one directory created and/or mounted inside <code>/mnt</code> to be used for
+various local and remote filesystems.</p>
+<h3 id="tmp">/tmp</h3>
+<p>Applications and users should use <code>/tmp</code> to store
+temporary data when needed. Data stored in <code>/tmp</code> may use either disk
+space or RAM. Both of which are managed by the operating system. Never
+use <code>/tmp</code> to store data that is important or which you wish to archive.</p>
+<h2 id="in-memory-directories">in memory directories</h2>
+<h3 id="dev">/dev</h3>
+<p>Device files in <code>/dev</code> appear to be ordinary files, but
+are not actually located on the hard disk. The <code>/dev</code> directory is
+populated with files as the kernel is recognising hardware.</p>
+<h4 id="common-physical-devices">common physical devices</h4>
+<p>Common hardware such as hard disk devices are represented by device
+files in <code>/dev</code>. Below a screenshot of SATA device files on a laptop and
+then IDE attached drives on a desktop. (The detailed meaning of these
+devices will be discussed later.)</p>
+<pre><code>#
+# SATA or SCSI or USB
+#
+paul@laika:~$ ls /dev/sd*
+/dev/sda  /dev/sda1  /dev/sda2  /dev/sda3  /dev/sdb  /dev/sdb1  /dev/sdb2
+
+#
+# IDE or ATAPI
+#
+paul@barry:~$ ls /dev/hd*
+/dev/hda  /dev/hda1  /dev/hda2  /dev/hdb  /dev/hdb1  /dev/hdb2  /dev/hdc
+</code></pre>
+<p>Besides representing physical hardware, some device files are special.
+These special devices can be very useful.</p>
+<h4 id="devtty-and-devpts">/dev/tty and /dev/pts</h4>
+<p>For example, <code>/dev/tty1</code> represents a terminal or console
+attached to the system. (Don\'t break your head on the exact terminology
+of \'terminal\' or \'console\', what we mean here is a command line
+interface.) When typing commands in a terminal that is part of a
+graphical interface like Gnome or KDE, then your terminal will be
+represented as <code>/dev/pts/1</code> (1 can be another number).</p>
+<h4 id="devnull">/dev/null</h4>
+<p>On Linux you will find other special devices such as
+<code>/dev/null</code> which can be considered a black hole; it has
+unlimited storage, but nothing can be retrieved from it. Technically
+speaking, anything written to /dev/null will be discarded. /dev/null can
+be useful to discard unwanted output from commands. <em>/dev/null is not a
+good location to store your backups ;-)</em>.</p>
+<h3 id="proc-conversation-with-the-kernel">/proc conversation with the kernel</h3>
+<p><code>/proc</code> is another special directory, appearing to be
+ordinary files, but not taking up disk space. It is actually a view of
+the kernel, or better, what the kernel manages, and is a means to
+interact with it directly. <code>/proc</code> is a proc filesystem.</p>
+<pre><code>paul@RHELv8u4:~$ mount -t proc
+none on /proc type proc (rw)
+</code></pre>
+<p>When listing the /proc directory you will see many numbers (on any Unix)
+and some interesting files (on Linux)</p>
+<pre><code>mul@laika:~$ ls /proc
+1      2339   4724  5418  6587  7201       cmdline      mounts
+10175  2523   4729  5421  6596  7204       cpuinfo      mtrr
+10211  2783   4741  5658  6599  7206       crypto       net
+10239  2975   4873  5661  6638  7214       devices      pagetypeinfo
+141    29775  4874  5665  6652  7216       diskstats    partitions
+15045  29792  4878  5927  6719  7218       dma          sched_debug
+1519   2997   4879  6     6736  7223       driver       scsi
+1548   3      4881  6032  6737  7224       execdomains  self
+1551   30228  4882  6033  6755  7227       fb           slabinfo
+1554   3069   5     6145  6762  7260       filesystems  stat
+1557   31422  5073  6298  6774  7267       fs           swaps
+1606   3149   5147  6414  6816  7275       ide          sys
+180    31507  5203  6418  6991  7282       interrupts   sysrq-trigger
+181    3189   5206  6419  6993  7298       iomem        sysvipc
+182    3193   5228  6420  6996  7319       ioports      timer_list
+18898  3246   5272  6421  7157  7330       irq          timer_stats
+19799  3248   5291  6422  7163  7345       kallsyms     tty
+19803  3253   5294  6423  7164  7513       kcore        uptime
+19804  3372   5356  6424  7171  7525       key-users    version
+1987   4      5370  6425  7175  7529       kmsg         version_signature
+1989   42     5379  6426  7188  9964       loadavg      vmcore
+2      45     5380  6430  7189  acpi       locks        vmnet
+20845  4542   5412  6450  7191  asound     meminfo      vmstat
+221    46     5414  6551  7192  buddyinfo  misc         zoneinfo
+2338   4704   5416  6568  7199  bus        modules
+</code></pre>
+<p>Let\'s investigate the file properties inside <code>/proc</code>. Looking at the
+date and time will display the current date and time showing the files
+are constantly updated (a view on the kernel).</p>
+<pre><code>paul@RHELv8u4:~$ date
+Mon Jan 29 18:06:32 EST 2007
+paul@RHELv8u4:~$ ls -al /proc/cpuinfo 
+-r--r--r--  1 root root 0 Jan 29 18:06 /proc/cpuinfo
+paul@RHELv8u4:~$ 
+paul@RHELv8u4:~$  ...time passes...
+paul@RHELv8u4:~$ 
+paul@RHELv8u4:~$ date
+Mon Jan 29 18:10:00 EST 2007
+paul@RHELv8u4:~$ ls -al /proc/cpuinfo 
+-r--r--r--  1 root root 0 Jan 29 18:10 /proc/cpuinfo
+</code></pre>
+<p>Most files in /proc are 0 bytes, yet they contain data--sometimes a lot
+of data. You can see this by executing cat on files like
+<code>/proc/cpuinfo</code>, which contains information about the CPU.</p>
+<pre><code>paul@RHELv8u4:~$ file /proc/cpuinfo 
+/proc/cpuinfo: empty
+paul@RHELv8u4:~$ cat /proc/cpuinfo 
+processor       : 0
+vendor_id       : AuthenticAMD
+cpu family      : 15
+model           : 43
+model name      : AMD Athlon(tm) 64 X2 Dual Core Processor 4600+
+stepping        : 1
+cpu MHz         : 2398.628
+cache size      : 512 KB
+fdiv_bug        : no
+hlt_bug         : no
+f00f_bug        : no
+coma_bug        : no
+fpu             : yes
+fpu_exception   : yes
+cpuid level     : 1
+wp              : yes
+flags           : fpu vme de pse tsc msr pae mce cx8 apic mtrr pge...
+bogomips        : 4803.54
+</code></pre>
+<p><em>Just for fun, here is /proc/cpuinfo on a Sun Sunblade 1000...</em></p>
+<pre><code>paul@pasha:~$ cat /proc/cpuinfo
+cpu : TI UltraSparc III (Cheetah)
+fpu : UltraSparc III integrated FPU
+promlib : Version 3 Revision 2
+prom : 4.2.2
+type : sun4u
+ncpus probed : 2
+ncpus active : 2
+Cpu0Bogo : 498.68
+Cpu0ClkTck : 000000002cb41780
+Cpu1Bogo : 498.68
+Cpu1ClkTck : 000000002cb41780
+MMU Type : Cheetah
+State:
+CPU0: online
+CPU1: online
+</code></pre>
+<p>Most of the files in /proc are read only, some require root privileges,
+some files are writable, and many files in <code>/proc/sys</code> are
+writable. Let\'s discuss some of the files in /proc.</p>
+<h4 id="procinterrupts">/proc/interrupts</h4>
+<p>On the x86 architecture, <code>/proc/interrupts</code> displays the
+interrupts.</p>
+<pre><code>paul@RHELv8u4:~$ cat /proc/interrupts 
+           CPU0       
+  0:   13876877    IO-APIC-edge  timer
+  1:         15    IO-APIC-edge  i8042
+  8:          1    IO-APIC-edge  rtc
+  9:          0   IO-APIC-level  acpi
+ 12:         67    IO-APIC-edge  i8042
+ 14:        128    IO-APIC-edge  ide0
+ 15:     124320    IO-APIC-edge  ide1
+169:     111993   IO-APIC-level  ioc0
+177:       2428   IO-APIC-level  eth0
+NMI:          0 
+LOC:   13878037 
+ERR:          0
+MIS:          0
+</code></pre>
+<p>On a machine with two CPU\'s, the file looks like this.</p>
+<pre><code>paul@laika:~$ cat /proc/interrupts 
+          CPU0      CPU1       
+  0:    860013        0  IO-APIC-edge     timer
+  1:      4533        0  IO-APIC-edge     i8042
+  7:         0        0  IO-APIC-edge     parport0
+  8:   6588227        0  IO-APIC-edge     rtc
+ 10:      2314        0  IO-APIC-fasteoi  acpi
+ 12:       133        0  IO-APIC-edge     i8042
+ 14:         0        0  IO-APIC-edge     libata
+ 15:     72269        0  IO-APIC-edge     libata
+ 18:         1        0  IO-APIC-fasteoi  yenta
+ 19:    115036        0  IO-APIC-fasteoi  eth0
+ 20:    126871        0  IO-APIC-fasteoi  libata, ohci1394
+ 21:     30204        0  IO-APIC-fasteoi  ehci_hcd:usb1, uhci_hcd:usb2
+ 22:      1334        0  IO-APIC-fasteoi  saa7133[0], saa7133[0]
+ 24:    234739        0  IO-APIC-fasteoi  nvidia
+NMI:        72       42 
+LOC:    860000   859994 
+ERR:         0
+</code></pre>
+<h4 id="prockcore">/proc/kcore</h4>
+<p>The physical memory is represented in <code>/proc/kcore</code>. Do
+not try to cat this file, instead use a debugger. The size of
+/proc/kcore is the same as your physical memory, plus four bytes.</p>
+<pre><code>paul@laika:~$ ls -lh /proc/kcore 
+-r-------- 1 root root 2.0G 2007-01-30 08:57 /proc/kcore
+paul@laika:~$
+</code></pre>
+<h3 id="sys-linux-26-hot-plugging">/sys Linux 2.6 hot plugging</h3>
+<p>The <code>/sys</code> directory was created for the Linux 2.6 kernel.
+Since 2.6, Linux uses <code>sysfs</code> to support
+<code>usb</code> and <code>IEEE 1394</code>
+(<code>FireWire</code>) hot plug devices. See the manual pages of
+udev(8) (the successor of <code>devfs</code>) and hotplug(8) for more
+info (or visit http://linux-hotplug.sourceforge.net/ ).</p>
+<p>Basically the <code>/sys</code> directory contains kernel information about
+hardware.</p>
+<h2 id="usr-unix-system-resources">/usr Unix System Resources</h2>
+<p>Although <code>/usr</code> is pronounced like user, remember that it
+stands for <code>Unix System Resources</code>. The <code>/usr</code> hierarchy should contain
+<code>shareable, read only</code> data. Some people choose to mount <code>/usr</code> as read
+only. This can be done from its own partition or from a read only NFS
+share (NFS is discussed later).</p>
+<h3 id="usrbin">/usr/bin</h3>
+<p>The <code>/usr/bin</code> directory contains a lot of commands.</p>
+<pre><code>paul@deb508:~$ ls /usr/bin | wc -l
+1395
+</code></pre>
+<p>(On Solaris the <code>/bin</code> directory is a symbolic link to <code>/usr/bin</code>.)</p>
+<h3 id="usrinclude">/usr/include</h3>
+<p>The <code>/usr/include</code> directory contains general use include
+files for C.</p>
+<pre><code>paul@ubu1010:~$ ls /usr/include/
+aalib.h        expat_config.h      math.h           search.h
+af_vfs.h       expat_external.h    mcheck.h         semaphore.h
+aio.h          expat.h             memory.h         setjmp.h
+AL             fcntl.h             menu.h           sgtty.h
+aliases.h      features.h          mntent.h         shadow.h
+...
+</code></pre>
+<h3 id="usrlib">/usr/lib</h3>
+<p>The <code>/usr/lib</code> directory contains libraries that are not
+directly executed by users or scripts.</p>
+<pre><code>paul@deb508:~$ ls /usr/lib | head -7
+4Suite
+ao
+apt
+arj
+aspell
+avahi
+bonobo
+</code></pre>
+<h3 id="usrlocal">/usr/local</h3>
+<p>The <code>/usr/local</code> directory can be used by an administrator
+to install software locally.</p>
+<pre><code>paul@deb508:~$ ls /usr/local/
+bin  etc  games  include  lib  man  sbin  share  src
+paul@deb508:~$ du -sh /usr/local/
+128K    /usr/local/
+</code></pre>
+<h3 id="usrshare">/usr/share</h3>
+<p>The <code>/usr/share</code> directory contains architecture
+independent data. As you can see, this is a fairly large directory.</p>
+<pre><code>paul@deb508:~$ ls /usr/share/ | wc -l
+263
+paul@deb508:~$ du -sh /usr/share/
+1.3G    /usr/share/
+</code></pre>
+<p>This directory typically contains <code>/usr/share/man</code> for
+manual pages.</p>
+<pre><code>paul@deb508:~$ ls /usr/share/man
+cs  fr        hu        it.UTF-8  man2  man6  pl.ISO8859-2  sv
+de  fr.ISO8859-1  id        ja    man3  man7  pl.UTF-8      tr
+es  fr.UTF-8      it        ko    man4  man8  pt_BR     zh_CN
+fi  gl        it.ISO8859-1  man1      man5  pl    ru        zh_TW
+</code></pre>
+<p>And it contains <code>/usr/share/games</code> for all static game
+data (so no high-scores or play logs).</p>
+<pre><code>paul@ubu1010:~$ ls /usr/share/games/
+openttd  wesnoth
+</code></pre>
+<h3 id="usrsrc">/usr/src</h3>
+<p>The <code>/usr/src</code> directory is the recommended location for
+kernel source files.</p>
+<pre><code>paul@deb508:~$ ls -l /usr/src/
+total 12
+drwxr-xr-x  4 root root 4096 2011-02-01 14:43 linux-headers-2.6.26-2-686
+drwxr-xr-x 18 root root 4096 2011-02-01 14:43 linux-headers-2.6.26-2-common
+drwxr-xr-x  3 root root 4096 2009-10-28 16:01 linux-kbuild-2.6.26
+</code></pre>
+<h2 id="var-variable-data">/var variable data</h2>
+<p>Files that are unpredictable in size, such as log, cache and spool
+files, should be located in <code>/var</code>.</p>
+<h3 id="varlog">/var/log</h3>
+<p>The <code>/var/log</code> directory serves as a central point to
+contain all log files.</p>
+<pre><code>[paul@RHEL8b ~]$ ls /var/log
+acpid           cron.2    maillog.2   quagga           secure.4
+amanda          cron.3    maillog.3   radius           spooler
+anaconda.log    cron.4    maillog.4   rpmpkgs          spooler.1
+anaconda.syslog cups      mailman     rpmpkgs.1        spooler.2
+anaconda.xlog   dmesg     messages    rpmpkgs.2        spooler.3
+audit           exim      messages.1  rpmpkgs.3        spooler.4
+boot.log        gdm       messages.2  rpmpkgs.4        squid
+boot.log.1      httpd     messages.3  sa               uucp
+boot.log.2      iiim      messages.4  samba            vbox
+boot.log.3      iptraf    mysqld.log  scrollkeeper.log vmware-tools-guestd
+boot.log.4      lastlog   news        secure           wtmp
+canna           mail      pgsql       secure.1         wtmp.1
+cron            maillog   ppp         secure.2         Xorg.0.log
+cron.1          maillog.1 prelink.log secure.3         Xorg.0.log.old
+</code></pre>
+<h3 id="varlogmessages">/var/log/messages</h3>
+<p>A typical first file to check when troubleshooting on Red Hat (and
+derivatives) is the <code>/var/log/messages</code> file. By default
+this file will contain information on what just happened to the system.
+The file is called <code>/var/log/syslog</code> on Debian and Ubuntu.</p>
+<pre><code>[root@RHEL8b ~]# tail /var/log/messages
+Jul 30 05:13:56 anacron: anacron startup succeeded
+Jul 30 05:13:56 atd: atd startup succeeded
+Jul 30 05:13:57 messagebus: messagebus startup succeeded
+Jul 30 05:13:57 cups-config-daemon: cups-config-daemon startup succeeded
+Jul 30 05:13:58 haldaemon: haldaemon startup succeeded
+Jul 30 05:14:00 fstab-sync[3560]: removed all generated mount points
+Jul 30 05:14:01 fstab-sync[3628]: added mount point /media/cdrom for...
+Jul 30 05:14:01 fstab-sync[3646]: added mount point /media/floppy for...
+Jul 30 05:16:46 sshd(pam_unix)[3662]: session opened for user paul by... 
+Jul 30 06:06:37 su(pam_unix)[3904]: session opened for user root by paul
+</code></pre>
+<h3 id="varcache">/var/cache</h3>
+<p>The <code>/var/cache</code> directory can contain <code>cache data</code> for
+several applications.</p>
+<pre><code>paul@ubu1010:~$ ls /var/cache/
+apt      dictionaries-common    gdm       man        software-center
+binfmts  flashplugin-installer  hald      pm-utils
+cups     fontconfig             jockey    pppconfig
+debconf  fonts                  ldconfig  samba
+</code></pre>
+<h3 id="varspool">/var/spool</h3>
+<p>The <code>/var/spool</code> directory typically contains spool
+directories for <code>mail</code> and <code>cron</code>, but also serves as a parent directory
+for other spool files (for example print spool files).</p>
+<h3 id="varlib">/var/lib</h3>
+<p>The <code>/var/lib</code> directory contains application state
+information.</p>
+<p>Red Hat Enterprise Linux for example keeps files pertaining to
+<code>rpm</code> in <code>/var/lib/rpm/</code>.</p>
+<h3 id="var">/var/...</h3>
+<p><code>/var</code> also contains Process ID files in <code>/var/run</code> (soon
+to be replaced with <code>/run</code>) and temporary files that
+survive a reboot in <code>/var/tmp</code> and information about file
+locks in <code>/var/lock</code>. There will be more examples of
+<code>/var</code> usage further in this book.</p>
+<h2 id="practice-file-system-tree">practice: file system tree</h2>
+<p>1. Does the file <code>/bin/cat</code> exist ? What about <code>/bin/dd</code> and
+<code>/bin/echo</code>. What is the type of these files ?</p>
+<p>2. What is the size of the Linux kernel file(s) (vmlinu*) in <code>/boot</code> ?</p>
+<p>3. Create a directory \~/test. Then issue the following commands:</p>
+<pre><code>cd ~/test
+
+dd if=/dev/zero of=zeroes.txt count=1 bs=100
+
+od zeroes.txt
+</code></pre>
+<p><code>dd</code> will copy one times (count=1) a block of size 100 bytes (bs=100)
+from the file <code>/dev/zero</code> to \~/test/zeroes.txt. Can you describe the
+functionality of <code>/dev/zero</code> ?</p>
+<p>4. Now issue the following command:</p>
+<pre><code>dd if=/dev/random of=random.txt count=1 bs=100 ; od random.txt
+</code></pre>
+<p><code>dd</code> will copy one times (count=1) a block of size 100 bytes (bs=100)
+from the file <code>/dev/random</code> to \~/test/random.txt. Can you describe the
+functionality of <code>/dev/random</code> ?</p>
+<p>5. Issue the following two commands, and look at the first character of
+each output line.</p>
+<pre><code>ls -l /dev/sd* /dev/hd*
+
+ls -l /dev/tty* /dev/input/mou*
+</code></pre>
+<p>The first ls will show block(b) devices, the second ls shows
+character(c) devices. Can you tell the difference between block and
+character devices ?</p>
+<p>6. Use cat to display <code>/etc/hosts</code> and <code>/etc/resolv.conf</code>. What is your
+idea about the purpose of these files ?</p>
+<p>7. Are there any files in <code>/etc/skel/</code> ? Check also for hidden files.</p>
+<p>8. Display <code>/proc/cpuinfo</code>. On what architecture is your Linux running
+?</p>
+<p>9. Display <code>/proc/interrupts</code>. What is the size of this file ? Where is
+this file stored ?</p>
+<p>10. Can you enter the <code>/root</code> directory ? Are there (hidden) files ?</p>
+<p>11. Are ifconfig, fdisk, parted, shutdown and grub-install present in
+<code>/sbin</code> ? Why are these binaries in <code>/sbin</code> and not in <code>/bin</code> ?</p>
+<p>12. Is <code>/var/log</code> a file or a directory ? What about <code>/var/spool</code> ?</p>
+<p>13. Open two command prompts (Ctrl-Shift-T in gnome-terminal) or
+terminals (Ctrl-Alt-F1, Ctrl-Alt-F2, ...) and issue the <code>who am i</code> in
+both. Then try to echo a word from one terminal to the other.</p>
+<p>14. Read the man page of <code>random</code> and explain the difference between
+<code>/dev/random</code> and <code>/dev/urandom</code>.</p>
+<h2 id="solution-file-system-tree">solution: file system tree</h2>
+<p>1. Does the file <code>/bin/cat</code> exist ? What about <code>/bin/dd</code> and
+<code>/bin/echo</code>. What is the type of these files ?</p>
+<pre><code>ls /bin/cat ; file /bin/cat
+
+ls /bin/dd ; file /bin/dd
+
+ls /bin/echo ; file /bin/echo
+</code></pre>
+<p>2. What is the size of the Linux kernel file(s) (vmlinu*) in <code>/boot</code> ?</p>
+<pre><code>ls -lh /boot/vm*
+</code></pre>
+<p>3. Create a directory \~/test. Then issue the following commands:</p>
+<pre><code>cd ~/test
+
+dd if=/dev/zero of=zeroes.txt count=1 bs=100
+
+od zeroes.txt
+</code></pre>
+<p><code>dd</code> will copy one times (count=1) a block of size 100 bytes (bs=100)
+from the file <code>/dev/zero</code> to \~/test/zeroes.txt. Can you describe the
+functionality of <code>/dev/zero</code> ?</p>
+<p><code>/dev/zero</code> is a Linux special device. It can be
+considered a source of zeroes. You cannot send something to <code>/dev/zero</code>,
+but you can read zeroes from it.</p>
+<p>4. Now issue the following command:</p>
+<pre><code>dd if=/dev/random of=random.txt count=1 bs=100 ; od random.txt
+</code></pre>
+<p><code>dd</code> will copy one times (count=1) a block of size 100 bytes (bs=100)
+from the file <code>/dev/random</code> to \~/test/random.txt. Can you describe the
+functionality of <code>/dev/random</code> ?</p>
+<p><code>/dev/random</code> acts as a
+<code>random number generator</code> on your Linux machine.</p>
+<p>5. Issue the following two commands, and look at the first character of
+each output line.</p>
+<pre><code>ls -l /dev/sd* /dev/hd*
+
+ls -l /dev/tty* /dev/input/mou*
+</code></pre>
+<p>The first ls will show block(b) devices, the second ls shows
+character(c) devices. Can you tell the difference between block and
+character devices ?</p>
+<p>Block devices are always written to (or read from) in blocks. For hard
+disks, blocks of 512 bytes are common. Character devices act as a stream
+of characters (or bytes). Mouse and keyboard are typical character
+devices.</p>
+<p>6. Use cat to display <code>/etc/hosts</code> and <code>/etc/resolv.conf</code>. What is your
+idea about the purpose of these files ?</p>
+<pre><code>/etc/hosts/etc/hosts contains hostnames with their ip address
+
+/etc/resolv.conf/etc/resolv.conf should contain the ip address of a DNS name server.
+</code></pre>
+<p>7. Are there any files in <code>/etc/skel/</code> ? Check also for hidden files.</p>
+<pre><code>Issue "ls -al /etc/skel/". Yes, there should be hidden files there.
+</code></pre>
+<p>8. Display <code>/proc/cpuinfo</code>. On what architecture is your Linux running
+?</p>
+<pre><code>The file should contain at least one line with Intel or other cpu.
+</code></pre>
+<p>9. Display <code>/proc/interrupts</code>. What is the size of this file ? Where is
+this file stored ?</p>
+<p>The size is zero, yet the file contains data. It is not stored anywhere
+because /proc is a virtual file system that allows you to talk with the
+kernel. (If you answered \"stored in RAM-memory, that is also
+correct...).</p>
+<p>10. Can you enter the <code>/root</code> directory ? Are there (hidden) files ?</p>
+<pre><code>Try "cd /root". The /root directory is not accessible for normal users on most modern Linux systems.
+</code></pre>
+<p>11. Are ifconfig, fdisk, parted, shutdown and grub-install present in
+<code>/sbin</code> ? Why are these binaries in <code>/sbin</code> and not in /bin ?</p>
+<pre><code>Because those files are only meant for system administrators.
+</code></pre>
+<p>12. Is <code>/var/log</code> a file or a directory ? What about <code>/var/spool</code> ?</p>
+<pre><code>Both are directories.
+</code></pre>
+<p>13. Open two command prompts (Ctrl-Shift-T in gnome-terminal) or
+terminals (Ctrl-Alt-F1, Ctrl-Alt-F2, ...) and issue the <code>who am i</code> in
+both. Then try to echo a word from one terminal to the other.</p>
+<pre><code>tty-terminal: echo Hello &gt; /dev/tty1
+
+pts-terminal: echo Hello &gt; /dev/pts/1
+</code></pre>
+<p>14. Read the man page of <code>random</code> and explain the difference between
+<code>/dev/random</code> and <code>/dev/urandom</code>.</p>
+<pre><code>man 4 random
+</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.8fd75fb4.min.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+    
+  </body>
+</html>

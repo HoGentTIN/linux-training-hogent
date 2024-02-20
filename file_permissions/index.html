@@ -1,0 +1,2335 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://hogenttin.github.io/linux-training-hogent/file_permissions/">
+      
+      
+        <link rel="prev" href="../groups/">
+      
+      
+        <link rel="next" href="../advanced_permissions/">
+      
+      
+      <link rel="icon" href="https://www.hogent.be/themes/hogent/images/ico/favicon.ico">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.10">
+    
+    
+      
+        <title>standard file permissions - Linux Fundamentals</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.7e359304.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,700,700i%7CInconsolata:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Montserrat";--md-code-font:"Inconsolata"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="deep-orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#standard-file-permissions" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Linux Fundamentals" class="md-header__button md-logo" aria-label="Linux Fundamentals" data-md-component="logo">
+      
+  <img src="https://www.hogent.be/themes/hogent/assets/images/HOGENT_Logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Linux Fundamentals
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              standard file permissions
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hogenttin/linux-training-hogent" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hogenttin/linux-training-hogent
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Linux Fundamentals" class="md-nav__button md-logo" aria-label="Linux Fundamentals" data-md-component="logo">
+      
+  <img src="https://www.hogent.be/themes/hogent/assets/images/HOGENT_Logo.png" alt="logo">
+
+    </a>
+    Linux Fundamentals
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hogenttin/linux-training-hogent" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hogenttin/linux-training-hogent
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Introduction to Linux
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Introduction to Linux
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linux_history/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux history
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linux_distributions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    distributions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../licensing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    licensing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Installing Linux
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Installing Linux
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installing_debian8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    installing Debian 8
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installing_centos7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    installing CentOS 8
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../virtualbox/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    getting Linux at home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    First steps on the command line
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            First steps on the command line
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../man_pages/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    man pages
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../working_with_directories/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    working with directories
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../working_with_files/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    working with files
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../working_with_file_contents/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    working with file contents
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../file_system_tree/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    the Linux file tree
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Shell expansion
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Shell expansion
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shell_arguments/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    commands and arguments
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shell_control_operators/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    control operators
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shell_variables/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    shell variables
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shell_in_shell/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    shell embedding and options
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shell_history/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    shell history
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shell_globbing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    file globbing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Pipes and commands
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Pipes and commands
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ioredirection/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    I/O redirection
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../filters/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    filters
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../basic_tools/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    basic Unix tools
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../regular_expressions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    regular expressions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Vi
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Vi
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intro_vi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction to vi
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Scripting
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Scripting
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scripting_intro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    introduction to scripting 
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scripting_loops/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    scripting loops
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scripting_params/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    scripting parameters
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scripting_adv/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    more scripting
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Local user management
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Local user management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../users/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    introduction to users
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user_management/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    user management
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user_passwords/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    user passwords
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user_profiles/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    User profiles
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../groups/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    groups
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    File security
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            File security
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    standard file permissions
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    standard file permissions
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#file-ownership" class="md-nav__link">
+    <span class="md-ellipsis">
+      file ownership
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="file ownership">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#user-owner-and-group-owner" class="md-nav__link">
+    <span class="md-ellipsis">
+      user owner and group owner
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#listing-user-accounts" class="md-nav__link">
+    <span class="md-ellipsis">
+      listing user accounts
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chgrp" class="md-nav__link">
+    <span class="md-ellipsis">
+      chgrp
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chown" class="md-nav__link">
+    <span class="md-ellipsis">
+      chown
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#list-of-special-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      list of special files
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#permissions" class="md-nav__link">
+    <span class="md-ellipsis">
+      permissions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="permissions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rwx" class="md-nav__link">
+    <span class="md-ellipsis">
+      rwx
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#three-sets-of-rwx" class="md-nav__link">
+    <span class="md-ellipsis">
+      three sets of rwx
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#permission-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      permission examples
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setting-permissions-chmod" class="md-nav__link">
+    <span class="md-ellipsis">
+      setting permissions (chmod)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setting-octal-permissions" class="md-nav__link">
+    <span class="md-ellipsis">
+      setting octal permissions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#umask" class="md-nav__link">
+    <span class="md-ellipsis">
+      umask
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mkdir-m" class="md-nav__link">
+    <span class="md-ellipsis">
+      mkdir -m
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cp-p" class="md-nav__link">
+    <span class="md-ellipsis">
+      cp -p
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practice-standard-file-permissions" class="md-nav__link">
+    <span class="md-ellipsis">
+      practice: standard file permissions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solution-standard-file-permissions" class="md-nav__link">
+    <span class="md-ellipsis">
+      solution: standard file permissions
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../advanced_permissions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    advanced file permissions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../acls/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    access control lists
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../links/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    file links
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Appendix
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            Appendix
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../keys/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    keyboard settings
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    hardware
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../license/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GNU Free Documentation License
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#file-ownership" class="md-nav__link">
+    <span class="md-ellipsis">
+      file ownership
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="file ownership">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#user-owner-and-group-owner" class="md-nav__link">
+    <span class="md-ellipsis">
+      user owner and group owner
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#listing-user-accounts" class="md-nav__link">
+    <span class="md-ellipsis">
+      listing user accounts
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chgrp" class="md-nav__link">
+    <span class="md-ellipsis">
+      chgrp
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chown" class="md-nav__link">
+    <span class="md-ellipsis">
+      chown
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#list-of-special-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      list of special files
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#permissions" class="md-nav__link">
+    <span class="md-ellipsis">
+      permissions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="permissions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rwx" class="md-nav__link">
+    <span class="md-ellipsis">
+      rwx
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#three-sets-of-rwx" class="md-nav__link">
+    <span class="md-ellipsis">
+      three sets of rwx
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#permission-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      permission examples
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setting-permissions-chmod" class="md-nav__link">
+    <span class="md-ellipsis">
+      setting permissions (chmod)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setting-octal-permissions" class="md-nav__link">
+    <span class="md-ellipsis">
+      setting octal permissions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#umask" class="md-nav__link">
+    <span class="md-ellipsis">
+      umask
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mkdir-m" class="md-nav__link">
+    <span class="md-ellipsis">
+      mkdir -m
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cp-p" class="md-nav__link">
+    <span class="md-ellipsis">
+      cp -p
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practice-standard-file-permissions" class="md-nav__link">
+    <span class="md-ellipsis">
+      practice: standard file permissions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solution-standard-file-permissions" class="md-nav__link">
+    <span class="md-ellipsis">
+      solution: standard file permissions
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="standard-file-permissions">standard file permissions</h1>
+<p><em>(Written by Paul Cobbaut, <a href="https://github.com/paulcobbaut/">https://github.com/paulcobbaut/</a>, with contributions by: Alex M. Schapelle, <a href="https://github.com/zero-pytagoras/">https://github.com/zero-pytagoras/</a>)</em></p>
+<p>This chapter contains details about basic file security through
+<code>file ownership</code> and <code>file permissions</code>.</p>
+<h2 id="file-ownership">file ownership</h2>
+<h3 id="user-owner-and-group-owner">user owner and group owner</h3>
+<p>The <code>users</code> and <code>groups</code> of a system can be locally managed in
+<code>/etc/passwd</code> and <code>/etc/group</code>, or they can
+be in a NIS, LDAP, or Samba domain. These users and groups can <code>own</code>
+files. Actually, every file has a <code>user owner</code> and a
+<code>group owner</code>, as can be seen in the following screenshot.</p>
+<pre><code>paul@rhel65:~/owners$ ls -lh
+total 636K
+-rw-r--r--. 1 paul snooker 1.1K Apr  8 18:47 data.odt
+-rw-r--r--. 1 paul paul    626K Apr  8 18:46 file1
+-rw-r--r--. 1 root tennis   185 Apr  8 18:46 file2
+-rw-rw-r--. 1 root root       0 Apr  8 18:47 stuff.txt
+paul@rhel65:~/owners$
+</code></pre>
+<p>User paul owns three files; file1 has paul as <code>user owner</code> and has the
+group paul as <code>group owner</code>, data.odt is <code>group owned</code> by the group
+snooker, file2 by the group tennis.</p>
+<p>The last file is called stuff.txt and is owned by the root user and the
+root group.</p>
+<h3 id="listing-user-accounts">listing user accounts</h3>
+<p>You can use the following command to list all local user accounts.</p>
+<pre><code>paul@debian10~$ cut -d: -f1 /etc/passwd | column 
+root            ntp             sam             bert            naomi
+daemon          mysql           tom             rino            matthias2
+bin             paul            wouter          antonio         bram
+sys             maarten         robrecht        simon           fabrice
+sync            kevin           bilal           sven            chimene
+games           yuri            dimitri         wouter2         messagebus
+man             william         ahmed           tarik           roger
+lp              yves            dylan           jan             frank
+mail            kris            robin           ian             toon
+news            hamid           matthias        ivan            rinus
+uucp            vladimir        ben             azeddine        eddy
+proxy           abiy            mike            eric            bram2
+www-data        david           kevin2          kamel           keith
+backup          chahid          kenzo           ischa           jesse
+list            stef            aaron           bart            frederick
+irc             joeri           lorenzo         omer            hans
+gnats           glenn           jens            kurt            dries
+nobody          yannick         ruben           steve           steve2
+libuuid         christof        jelle           constantin      tomas
+Debian-exim     george          stefaan         sam2            johan
+statd           joost           marc            bjorn           tom2
+sshd            arno            thomas          ronald
+</code></pre>
+<h3 id="chgrp">chgrp</h3>
+<p>You can change the group owner of a file using the <code>chgrp</code>
+command.</p>
+<pre><code>root@rhel65:/home/paul/owners# ls -l file2
+-rw-r--r--. 1 root tennis 185 Apr  8 18:46 file2
+root@rhel65:/home/paul/owners# chgrp snooker file2
+root@rhel65:/home/paul/owners# ls -l file2
+-rw-r--r--. 1 root snooker 185 Apr  8 18:46 file2
+root@rhel65:/home/paul/owners#
+</code></pre>
+<h3 id="chown">chown</h3>
+<p>The user owner of a file can be changed with <code>chown</code>
+command.</p>
+<pre><code>root@laika:/home/paul# ls -l FileForPaul 
+-rw-r--r-- 1 root paul 0 2008-08-06 14:11 FileForPaul
+root@laika:/home/paul# chown paul FileForPaul 
+root@laika:/home/paul# ls -l FileForPaul 
+-rw-r--r-- 1 paul paul 0 2008-08-06 14:11 FileForPaul
+</code></pre>
+<p>You can also use <code>chown</code> to change both the user owner and the group
+owner.</p>
+<pre><code>root@laika:/home/paul# ls -l FileForPaul 
+-rw-r--r-- 1 paul paul 0 2008-08-06 14:11 FileForPaul
+root@laika:/home/paul# chown root:project42 FileForPaul 
+root@laika:/home/paul# ls -l FileForPaul 
+-rw-r--r-- 1 root project42 0 2008-08-06 14:11 FileForPaul
+</code></pre>
+<h2 id="list-of-special-files">list of special files</h2>
+<p>When you use <code>ls -l</code>, for each file you can see ten
+characters before the user and group owner. The first character tells us
+the type of file. Regular files get a <code>-</code>, directories get a <code>d</code>,
+symbolic links are shown with an <code>l</code>, pipes get a <code>p</code>, character devices
+a <code>c</code>, block devices a <code>b</code>, and sockets an <code>s</code>.</p>
+<hr />
+<pre><code> first           file type
+</code></pre>
+<p>character  </p>
+<hr />
+<pre><code>  \-            normal file
+
+   d             directory
+
+   l           symbolic link
+
+   p            named pipe
+
+   b           block device
+
+   c         character device
+
+   s              socket
+</code></pre>
+<hr />
+<p>: Unix special files</p>
+<p>Below a screenshot of a character device (the console) and a block
+device (the hard disk).</p>
+<pre><code>paul@debian6lt~$ ls -ld /dev/console /dev/sda
+crw-------   1 root root  5, 1 Mar 15 12:45 /dev/console
+brw-rw----   1 root disk  8, 0 Mar 15 12:45 /dev/sda
+</code></pre>
+<p>And here you can see a directory, a regular file and a symbolic link.</p>
+<pre><code>paul@debian6lt~$ ls -ld /etc /etc/hosts /etc/motd
+drwxr-xr-x 128 root root 12288 Mar 15 18:34 /etc
+-rw-r--r--   1 root root   372 Dec 10 17:36 /etc/hosts
+lrwxrwxrwx   1 root root    13 Dec  5 10:36 /etc/motd -&gt; /var/run/motd
+</code></pre>
+<h2 id="permissions">permissions</h2>
+<h3 id="rwx">rwx</h3>
+<p>The nine characters following the file type denote the permissions in
+three triplets. A permission can be <code>r</code> for read access, <code>w</code> for write
+access, and <code>x</code> for execute. You need the <code>r</code> permission to list (ls)
+the contents of a directory. You need the <code>x</code> permission to enter (cd) a
+directory. You need the <code>w</code> permission to create files in or remove
+files from a directory.</p>
+<hr />
+<p>permission          on a file              on a directory</p>
+<hr />
+<pre><code>r (read)   read file contents (cat)   read directory contents
+                                               (ls)
+</code></pre>
+<p>w (write)   change file contents (vi)  create files in (touch)</p>
+<p>x (execute)      execute the file      enter the directory (cd)</p>
+<hr />
+<p>: standard Unix file permissions</p>
+<h3 id="three-sets-of-rwx">three sets of rwx</h3>
+<p>We already know that the output of <code>ls -l</code> starts with ten
+characters for each file. This screenshot shows a regular file (because
+the first character is a - ).</p>
+<pre><code>paul@RHELv8u4:~/test$ ls -l proc42.bash
+-rwxr-xr--  1 paul proj 984 Feb  6 12:01 proc42.bash
+</code></pre>
+<p>Below is a table describing the function of all ten characters.</p>
+<hr />
+<pre><code>position    characters                function
+</code></pre>
+<hr />
+<pre><code>   1            \-             this is a regular file
+
+  2-4          rwx        permissions for the `user owner`
+
+  5-7          r-x       permissions for the `group owner`
+
+  8-10         r\--           permissions for `others`
+</code></pre>
+<hr />
+<p>: Unix file permissions position</p>
+<p>When you are the <code>user owner</code> of a file, then the
+<code>user owner permissions</code> apply to you. The rest of the permissions have
+no influence on your access to the file.</p>
+<p>When you belong to the <code>group</code> that is the <code>group owner</code> of a file, then
+the <code>group owner permissions</code> apply to you. The rest of the permissions
+have no influence on your access to the file.</p>
+<p>When you are not the <code>user owner</code> of a file and you do not belong to the
+<code>group owner</code>, then the <code>others permissions</code> apply to you. The rest of
+the permissions have no influence on your access to the file.</p>
+<h3 id="permission-examples">permission examples</h3>
+<p>Some example combinations on files and directories are seen in this
+screenshot. The name of the file explains the permissions.</p>
+<pre><code>paul@laika:~/perms$ ls -lh
+total 12K
+drwxr-xr-x 2 paul paul 4.0K 2007-02-07 22:26 AllEnter_UserCreateDelete
+-rwxrwxrwx 1 paul paul    0 2007-02-07 22:21 EveryoneFullControl.txt
+-r--r----- 1 paul paul    0 2007-02-07 22:21 OnlyOwnersRead.txt
+-rwxrwx--- 1 paul paul    0 2007-02-07 22:21 OwnersAll_RestNothing.txt
+dr-xr-x--- 2 paul paul 4.0K 2007-02-07 22:25 UserAndGroupEnter
+dr-x------ 2 paul paul 4.0K 2007-02-07 22:25 OnlyUserEnter
+paul@laika:~/perms$
+</code></pre>
+<p>To summarise, the first <code>rwx</code> triplet represents the permissions for the
+<code>user owner</code>. The second triplet corresponds to the <code>group owner</code>; it
+specifies permissions for all members of that group. The third triplet
+defines permissions for all <code>other</code> users that are not the user owner
+and are not a member of the group owner.</p>
+<h3 id="setting-permissions-chmod">setting permissions (chmod)</h3>
+<p>Permissions can be changed with <code>chmod</code>. The first example
+gives the user owner execute permissions.</p>
+<pre><code>paul@laika:~/perms$ ls -l permissions.txt 
+-rw-r--r-- 1 paul paul 0 2007-02-07 22:34 permissions.txt
+paul@laika:~/perms$ chmod u+x permissions.txt 
+paul@laika:~/perms$ ls -l permissions.txt 
+-rwxr--r-- 1 paul paul 0 2007-02-07 22:34 permissions.txt
+</code></pre>
+<p>This example removes the group owners read permission.</p>
+<pre><code>paul@laika:~/perms$ chmod g-r permissions.txt 
+paul@laika:~/perms$ ls -l permissions.txt 
+-rwx---r-- 1 paul paul 0 2007-02-07 22:34 permissions.txt
+</code></pre>
+<p>This example removes the others read permission.</p>
+<pre><code>paul@laika:~/perms$ chmod o-r permissions.txt 
+paul@laika:~/perms$ ls -l permissions.txt 
+-rwx------ 1 paul paul 0 2007-02-07 22:34 permissions.txt
+</code></pre>
+<p>This example gives all of them the write permission.</p>
+<pre><code>paul@laika:~/perms$ chmod a+w permissions.txt 
+paul@laika:~/perms$ ls -l permissions.txt 
+-rwx-w--w- 1 paul paul 0 2007-02-07 22:34 permissions.txt
+</code></pre>
+<p>You don\'t even have to type the a.</p>
+<pre><code>paul@laika:~/perms$ chmod +x permissions.txt 
+paul@laika:~/perms$ ls -l permissions.txt 
+-rwx-wx-wx 1 paul paul 0 2007-02-07 22:34 permissions.txt
+</code></pre>
+<p>You can also set explicit permissions.</p>
+<pre><code>paul@laika:~/perms$ chmod u=rw permissions.txt 
+paul@laika:~/perms$ ls -l permissions.txt 
+-rw--wx-wx 1 paul paul 0 2007-02-07 22:34 permissions.txt
+</code></pre>
+<p>Feel free to make any kind of combination.</p>
+<pre><code>paul@laika:~/perms$ chmod u=rw,g=rw,o=r permissions.txt 
+paul@laika:~/perms$ ls -l permissions.txt 
+-rw-rw-r-- 1 paul paul 0 2007-02-07 22:34 permissions.txt
+</code></pre>
+<p>Even fishy combinations are accepted by chmod.</p>
+<pre><code>paul@laika:~/perms$ chmod u=rwx,ug+rw,o=r permissions.txt 
+paul@laika:~/perms$ ls -l permissions.txt 
+-rwxrw-r-- 1 paul paul 0 2007-02-07 22:34 permissions.txt
+</code></pre>
+<h3 id="setting-octal-permissions">setting octal permissions</h3>
+<p>Most Unix administrators will use the <code>old school</code> octal
+system to talk about and set permissions. Look at the triplet bitwise,
+equating r to 4, w to 2, and x to 1.</p>
+<hr />
+<pre><code>binary       octal     permission
+</code></pre>
+<hr />
+<pre><code>  000          0         \-\--
+
+  001          1          \--x
+
+  010          2          -w-
+
+  011          3          -wx
+
+  100          4          r\--
+
+  101          5          r-x
+
+  110          6          rw-
+
+  111          7          rwx
+</code></pre>
+<hr />
+<p>: Octal permissions</p>
+<p>This makes <code>777</code> equal to rwxrwxrwx and by the same logic,
+654 mean rw-r-xr-- . The <code>chmod</code> command will accept
+these numbers.</p>
+<pre><code>paul@laika:~/perms$ chmod 777 permissions.txt 
+paul@laika:~/perms$ ls -l permissions.txt 
+-rwxrwxrwx 1 paul paul 0 2007-02-07 22:34 permissions.txt
+paul@laika:~/perms$ chmod 664 permissions.txt 
+paul@laika:~/perms$ ls -l permissions.txt 
+-rw-rw-r-- 1 paul paul 0 2007-02-07 22:34 permissions.txt
+paul@laika:~/perms$ chmod 750 permissions.txt 
+paul@laika:~/perms$ ls -l permissions.txt 
+-rwxr-x--- 1 paul paul 0 2007-02-07 22:34 permissions.txt
+</code></pre>
+<h3 id="umask">umask</h3>
+<p>When creating a file or directory, a set of default permissions are
+applied. These default permissions are determined by the
+<code>umask</code>. The <code>umask</code> specifies permissions that you do not
+want set on by default. You can display the <code>umask</code> with the <code>umask</code>
+command.</p>
+<pre><code>[Harry@RHEL8b ~]$ umask
+0002
+[Harry@RHEL8b ~]$ touch test
+[Harry@RHEL8b ~]$ ls -l test
+-rw-rw-r--  1 Harry Harry 0 Jul 24 06:03 test
+[Harry@RHEL8b ~]$
+</code></pre>
+<p>As you can also see, the file is also not executable by default. This is
+a general security feature among Unixes; newly created files are never
+executable by default. You have to explicitly do a
+<code>chmod +x</code> to make a file executable. This also means that
+the 1 bit in the <code>umask</code> has no meaning--a <code>umask</code> of 0022 is the same
+as 0033.</p>
+<h3 id="mkdir-m">mkdir -m</h3>
+<p>When creating directories with <code>mkdir</code> you can use the
+<code>-m</code> option to set the <code>mode</code>. This screenshot explains.</p>
+<pre><code>paul@debian10~$ mkdir -m 700 MyDir
+paul@debian10~$ mkdir -m 777 Public
+paul@debian10~$ ls -dl MyDir/ Public/
+drwx------ 2 paul paul 4096 2011-10-16 19:16 MyDir/
+drwxrwxrwx 2 paul paul 4096 2011-10-16 19:16 Public/
+</code></pre>
+<h3 id="cp-p">cp -p</h3>
+<p>To preserve permissions and time stamps from source files, use <code>cp -p</code>.</p>
+<pre><code>paul@laika:~/perms$ cp file* cp
+paul@laika:~/perms$ cp -p file* cpp
+paul@laika:~/perms$ ll *
+-rwx------ 1 paul paul    0 2008-08-25 13:26 file33
+-rwxr-x--- 1 paul paul    0 2008-08-25 13:26 file42
+
+cp:
+total 0
+-rwx------ 1 paul paul 0 2008-08-25 13:34 file33
+-rwxr-x--- 1 paul paul 0 2008-08-25 13:34 file42
+
+cpp:
+total 0
+-rwx------ 1 paul paul 0 2008-08-25 13:26 file33
+-rwxr-x--- 1 paul paul 0 2008-08-25 13:26 file42
+</code></pre>
+<h2 id="practice-standard-file-permissions">practice: standard file permissions</h2>
+<p>1. As normal user, create a directory \~/permissions. Create a file
+owned by yourself in there.</p>
+<p>2. Copy a file owned by root from /etc/ to your permissions dir, who
+owns this file now ?</p>
+<p>3. As root, create a file in the users \~/permissions directory.</p>
+<p>4. As normal user, look at who owns this file created by root.</p>
+<p>5. Change the ownership of all files in \~/permissions to yourself.</p>
+<p>6. Make sure you have all rights to these files, and others can only
+read.</p>
+<p>7. With chmod, is 770 the same as rwxrwx--- ?</p>
+<p>8. With chmod, is 664 the same as r-xr-xr-- ?</p>
+<p>9. With chmod, is 400 the same as r-------- ?</p>
+<p>10. With chmod, is 734 the same as rwxr-xr-- ?</p>
+<p>11a. Display the umask in octal and in symbolic form.</p>
+<p>11b. Set the umask to 077, but use the symbolic format to set it. Verify
+that this works.</p>
+<p>12. Create a file as root, give only read to others. Can a normal user
+read this file ? Test writing to this file with vi.</p>
+<p>13a. Create a file as normal user, give only read to others. Can another
+normal user read this file ? Test writing to this file with vi.</p>
+<p>13b. Can root read this file ? Can root write to this file with vi ?</p>
+<p>14. Create a directory that belongs to a group, where every member of
+that group can read and write to files, and create files. Make sure that
+people can only delete their own files.</p>
+<h2 id="solution-standard-file-permissions">solution: standard file permissions</h2>
+<p>1. As normal user, create a directory \~/permissions. Create a file
+owned by yourself in there.</p>
+<pre><code>mkdir ~/permissions ; touch ~/permissions/myfile.txt
+</code></pre>
+<p>2. Copy a file owned by root from /etc/ to your permissions dir, who
+owns this file now ?</p>
+<pre><code>cp /etc/hosts ~/permissions/
+</code></pre>
+<p>The copy is owned by you.</p>
+<p>3. As root, create a file in the users \~/permissions directory.</p>
+<pre><code>(become root)# touch /home/username/permissions/rootfile
+</code></pre>
+<p>4. As normal user, look at who owns this file created by root.</p>
+<pre><code>ls -l ~/permissions
+</code></pre>
+<p>The file created by root is owned by root.</p>
+<p>5. Change the ownership of all files in \~/permissions to yourself.</p>
+<pre><code>chown user ~/permissions/*
+</code></pre>
+<p>You cannot become owner of the file that belongs to root.</p>
+<p>6. Make sure you have all rights to these files, and others can only
+read.</p>
+<pre><code>chmod 644 (on files)
+
+chmod 755 (on directories)
+</code></pre>
+<p>7. With chmod, is 770 the same as rwxrwx--- ?</p>
+<p>yes</p>
+<p>8. With chmod, is 664 the same as r-xr-xr-- ?</p>
+<p>No</p>
+<p>9. With chmod, is 400 the same as r-------- ?</p>
+<p>yes</p>
+<p>10. With chmod, is 734 the same as rwxr-xr-- ?</p>
+<p>no</p>
+<p>11a. Display the umask in octal and in symbolic form.</p>
+<pre><code>umask ; umask -S
+</code></pre>
+<p>11b. Set the umask to 077, but use the symbolic format to set it. Verify
+that this works.</p>
+<pre><code>umask -S u=rwx,go=
+</code></pre>
+<p>12. Create a file as root, give only read to others. Can a normal user
+read this file ? Test writing to this file with vi.</p>
+<pre><code>(become root)
+
+# echo hello &gt; /home/username/root.txt
+
+# chmod 744 /home/username/root.txt
+
+(become user)
+
+vi ~/root.txt
+</code></pre>
+<p>13a. Create a file as normal user, give only read to others. Can another
+normal user read this file ? Test writing to this file with vi.</p>
+<pre><code>echo hello &gt; file ; chmod 744 file
+</code></pre>
+<p>Yes, others can read this file</p>
+<p>13b. Can root read this file ? Can root write to this file with vi ?</p>
+<p>Yes, root can read and write to this file. Permissions do not apply to
+root.</p>
+<p>14. Create a directory that belongs to a group, where every member of
+that group can read and write to files, and create files. Make sure that
+people can only delete their own files.</p>
+<pre><code>mkdir /home/project42 ; groupadd project42
+
+chgrp project42 /home/project42 ; chmod 775 /home/project42
+</code></pre>
+<p>You can not yet do the last part of this exercise...</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.8fd75fb4.min.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+    
+  </body>
+</html>
