@@ -1,0 +1,65 @@
+---
+title: "Linux System Administration"
+authors: 
+  - name: "Paul Cobbaut"
+date: "\\today"
+
+frontmatter:
+  - 01_colophon.md
+  - 02_abstract.md
+
+content:
+  - title: "process management"
+    chapters:
+      - processes_intro
+      - processes_priorities
+      - processes_jobs
+  - title: "disk management"
+    chapters:
+      - storage_devices
+      - storage_partitions
+      - storage_filesystems
+      - storage_mounting
+      - storage_tools
+      - uuid
+      - storage_raid
+      - storage_lvm
+      - storage_iscsi
+      - storage_multipathing
+  - title: "boot management"
+    chapters:
+      - bootloader
+      - init
+      - systemd
+  - title: "system management"
+    chapters:
+      - scheduling  ## scheduling maybe belongs in process_management ?
+      - logging
+      - memory
+      - monitoring
+      - package_management
+  - title: "network management"
+    chapters:
+      - general_networking
+#       - general_tcpip # too much in Dutch
+      - network_ifconfig #new chapter
+      - network_sniffing
+      - network_binding_bonding #new chapter
+      - ssh
+#       - ipv4_addressing
+#       - classful_subnets # still has parts in Dutch
+#       - classless_subnets # still has parts in Dutch
+      - nfs
+      - network
+  - title: "kernel management"
+    chapters:
+      - kernel
+      - libraries
+  - title: "backup management"
+    chapters:
+      - backup
+
+backmatter:
+  - quotas
+  - vnc
+  - license
