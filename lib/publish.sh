@@ -31,8 +31,8 @@ source "${script_dir}/utils.sh"
 
 main() {
   for book_id in "${book_ids[@]}"; do
-    "${script_dir}/make-book.sh" "books/${book_id}"
-    "${script_dir}/make-site.sh" "books/${book_id}"
+    bash "${script_dir}/make-book.sh" "books/${book_id}"
+    bash "${script_dir}/make-site.sh" "books/${book_id}"
   done
 
   find "${OUTPUT_DIR}" -type f -name '*.pdf' -exec \
