@@ -8,10 +8,25 @@
 #/ OPTIONS:
 #/   -h|--help|help   Print this help text and exit
 #/
+#/ CONFIGURATION:
+#/   The file `settings.sh` contains configurable variables, e.g. directories
+#/   for modules, templates, and output. The default values can be overridden
+#/   by setting the corresponding environment variables.
+#/
+#/   In particular, you can set the verbosity level of the commands with
+#/   variable VERBOSITY. The following values are supported:
+#/
+#/   0 = quiet
+#/   1 = errors
+#/   2 = log (default)
+#/   3 = debug
+#/   4 = set -x enabled
+#/
 #/ EXAMPLES:
 #/   SCRIPT -h
 #/   SCRIPT
 #/   SCRIPT books/linuxfun books/linuxsys
+#/   VERBOSITY=3 SCRIPT books/linuxfun
 #/
 
 set -o errexit
@@ -51,6 +66,11 @@ main() {
                 usage
                 exit 0
                 ;;
+            -*)
+                error "Unrecognized option: ${1}"
+                usage
+                exit 1
+                ;;
             *)
                 create_mkdocs "${1}"
                 ;;
@@ -86,7 +106,7 @@ create_mkdocs() {
   log "Creating mkdocs for course '${site_name}'"
 
   die_on_missing_directory "${source_dir}"
-  ensure_directory_exists "${mkdocs_dir}"
+  ensure_directory_exists "${mkdocs_dir}/assets/"
 
   log "Generating mkdocs.yml"
   python3 "${script_dir}/generate-file.py" \
@@ -115,6 +135,9 @@ create_mkdocs() {
       log "    - Adding chapter ${chapter}"
       # Copy the chapter content to the mkdocs directory
       cat "${MODULE_ROOT}/${chapter}/"[0-9][0-9][0-9]*.md >> "${mkdocs_dir}/${chapter}.md"
+      # shellcheck disable=SC2086
+      cp ${_VERBOSE} "${MODULE_ROOT}/${chapter}/assets/"* \
+        "${mkdocs_dir}/assets/" 2> /dev/null || debug "No assets found"
 
       # Replace the chapter id with the chapter title in the mkdocs.yml file
       chapter_title=$(grep '^#' "${MODULE_ROOT}/${chapter}/"010*title.md | cut -c3-)
@@ -128,11 +151,20 @@ create_mkdocs() {
   for chapter in ${chapters}; do
     log "  - Adding appendix '${chapter}'"
     cat "${MODULE_ROOT}/${chapter}"/[0-9][0-9][0-9]*.md >> "${mkdocs_dir}/${chapter}.md"
+    # shellcheck disable=SC2086
+      cp ${_VERBOSE} "${MODULE_ROOT}/${chapter}/assets/"* \
+        "${mkdocs_dir}/assets/" 2> /dev/null || debug "No assets found"
+
+    # Replace the chapter id with the chapter title in the mkdocs.yml file
     chapter_title=$(grep '^#' "${MODULE_ROOT}/${chapter}/"010*title.md | cut -c3-)
       sed -i "s|${chapter}|${chapter_title}|" "${mkdocs_dir}/../mkdocs.yml"
   done
 
-  cp -r "./images/" "${SITE_DIR}/${site_name}/docs/"
+  log "Building site"
+
+  ensure_directory_exists "${PUBLISH_DIR}/${site_name}"
+  cd "${mkdocs_dir}/.."
+  mkdocs build ${_VERBOSE} --clean --site-dir "../../${PUBLISH_DIR}/${site_name}"
 }
 
 main "${@}"

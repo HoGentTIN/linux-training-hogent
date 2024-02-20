@@ -9,11 +9,14 @@ readonly MODULE_ROOT="${MODULE_ROOT:-modules}"
 # Directory where the module template is stored
 readonly MODULE_TEMPLATE="${MODULE_TEMPLATE:-templates/module}"
 
-# Output directory
+# Output directory for PDFs
 readonly OUTPUT_DIR="${OUTPUT_DIR:-dist}"
 
-# Site directory
+# Output directory for the mkdocs site
 readonly SITE_DIR="${SITE_DIR:-site}"
+
+# Directory where the publishable website files are stored
+readonly PUBLISH_DIR="${PUBLISH_DIR:-gh-pages}"
 
 # Directory where book template files are stored
 readonly BOOK_TEMPLATE="${BOOK_TEMPLATE:-templates/book}"
