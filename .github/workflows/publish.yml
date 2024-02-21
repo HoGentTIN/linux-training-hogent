@@ -16,7 +16,7 @@ jobs:
         run: docker build -t buildenv .
 
       - name: Build the artifacts using the container
-        run: docker run --rm -v ${{ github.workspace }}:/app buildenv /app/lib/publish.sh
+        run: docker run --rm -v ${{ github.workspace }}:/app buildenv bash /app/lib/publish.sh
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
