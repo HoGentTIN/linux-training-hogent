@@ -18,8 +18,10 @@ jobs:
         with:
           key: ${{ github.ref }}
           path: .cache
-      - name: Install dependencies
-        run: apt-get update && apt-get install -y pandoc
+      - name: Install Pandoc
+        uses: r-lib/actions/setup-pandoc@v1
+        with:
+          pandoc-version: '2.19'
       - name: Install Python libraries
         run: pip install mkdocs mkdocs-material pymdown-extensions shyaml
       - name: Run publish script
