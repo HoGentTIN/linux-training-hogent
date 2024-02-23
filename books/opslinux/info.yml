@@ -14,7 +14,7 @@ frontmatter:
 content:
   - title: "First Linux VM"
     chapters:
-      - virtualbox
+      - linux_vm
   - title: "Organising users"
     chapters:
       - file_permissions
