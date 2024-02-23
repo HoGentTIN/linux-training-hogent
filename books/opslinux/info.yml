@@ -1,0 +1,79 @@
+---
+title: "Linux for Operations"
+authors: 
+  - name: "Paul Cobbaut"
+  - name: "Andy Van Maele"
+  - name: "Thomas Parmentier"
+  - name: "Bert Van Vreckem"
+date: "\\today"
+
+frontmatter:
+  - 01_colophon.md
+  - 02_abstract.md
+
+content:
+  - title: "First Linux VM"
+    chapters:
+      - virtualbox
+  - title: "Organising users"
+    chapters:
+      - file_permissions
+      - advanced_permissions
+      - users
+      - user_management
+      - user_passwords
+      - user_profiles
+      - groups
+  - title: "Scripting 101"
+    chapters:
+      - ioredirection
+      - filters
+      - regular_expressions
+      - shell_variables
+      - scripting_intro
+  - title: "Software management; DHCP"
+    chapters:
+      - package_management
+      - general_networking
+      - network_ifconfig
+      - dhcp
+  - title: "Webserver; scripting 102"
+    chapters:
+      - apache
+      - scripting_loops
+      - scripting_params
+  - title: "Webserver hardening"
+    chapters:
+      - selinux
+  # - title: "Scripting 103"
+  #   chapters:
+  #     - scripting_test # TODO Bestaat dit al niet in linuxfun?
+  #     - vagrant # TODO
+  - title: "Scripting 201; job scheduling"
+    chapters:
+      - scripting_adv
+      - processes_jobs
+      - scheduling
+  - title: "SSH; troubleshooting"
+    chapters:
+      - ssh
+      # - troubleshooting # TODO
+  - title: "Storage management"
+    chapters:
+      - storage_devices
+      - storage_partitions
+      - storage_filesystems
+      - storage_mounting
+  - title: "DNS server"
+    chapters:
+      - dns
+      - dns_advanced
+  - title: "RAID; expert installation"
+    chapters:
+      - storage_raid
+      #- expert_installation # TODO
+  
+backmatter:
+  - git
+  - intro_vi
+  - license

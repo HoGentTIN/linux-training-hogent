@@ -17,7 +17,7 @@ script_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 # shellcheck disable=SC2034
 readonly script_name script_dir
 
-readonly book_ids=( linuxfun linuxsrv linuxsys )
+readonly book_ids=( linuxfun linuxsrv linuxsys opslinux datalinux )
 
 #---------- Load settings and utility functions --------------------------------
 

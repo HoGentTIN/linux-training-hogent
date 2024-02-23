@@ -1,0 +1,71 @@
+---
+title: "Linux for Data Scientists"
+authors: 
+  - name: "Paul Cobbaut"
+  - name: "Andy Van Maele"
+  - name: "Thomas Parmentier"
+  - name: "Bert Van Vreckem"
+date: "\\today"
+
+frontmatter:
+  - 01_colophon.md
+  - 02_abstract.md
+
+content:
+  - title: "First Linux VM"
+    chapters:
+      - virtualbox
+  - title: "Software management; curl"
+    chapters:
+      - package_management
+      #- curl # TODO
+  - title: "Scripting 101"
+    chapters:
+      - ioredirection
+      - filters
+      - shell_variables
+      - scripting_intro
+  - title: "Organising users"
+    chapters:
+      - file_permissions
+      - advanced_permissions
+      - users
+      - user_management
+      - user_passwords
+      - user_profiles
+      - groups
+  - title: "Webserver; scripting 102"
+    chapters:
+      - apache
+      - scripting_loops
+      - scripting_params
+  - title: "Advanced text processing"
+    chapters:
+      - shell_globbing
+      - regular_expressions
+      # - awk # TODO
+      # - jq # TODO
+  # - title: "Scripting 103"
+  #   chapters:
+  #     - scripting_test # TODO Bestaat dit al niet in linuxfun?
+  #     - vagrant # TODO
+  - title: "Scripting 201; job scheduling"
+    chapters:
+      - scripting_adv
+      - processes_jobs
+      - scheduling
+  - title: "SSH; Docker"
+    chapters:
+      - ssh
+      # - docker # TODO
+  # - title: "Workflow automation"
+  #   chapters:
+  #     # - makefiles # TODO
+  # - title: "Reproducible development environments"
+  #   chapters:
+  #     - vagrant # TODO
+
+backmatter:
+  - git
+  - intro_vi
+  - license
