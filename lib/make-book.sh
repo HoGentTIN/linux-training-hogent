@@ -135,7 +135,7 @@ create_book() {
     chapters=$(shyaml get-values "content.${i}.chapters" < "${source_dir}/info.yml")
     for chapter in ${chapters}; do
       log "    - Adding chapter '${chapter}'"
-      cat "${MODULE_ROOT}/${chapter}/"[0-9][0-9][0-9]_*.md >> "${book_dir}/content.md"
+      cat "${MODULE_ROOT}/${chapter}/"[0-9][0-9][0-9]*.md >> "${book_dir}/content.md"
       # shellcheck disable=SC2086
       cp ${_VERBOSE} "${MODULE_ROOT}/${chapter}/assets/"* \
         "${book_dir}/assets/" 2> /dev/null || debug "No assets found"
@@ -150,7 +150,7 @@ create_book() {
   chapters=$(shyaml get-values backmatter < "${source_dir}/info.yml")
   for chapter in ${chapters}; do
     log "  - Adding appendix '${chapter}'"
-    cat "${MODULE_ROOT}/${chapter}"/[0-9][0-9][0-9]_*.md >> "${book_dir}/backmatter.md"
+    cat "${MODULE_ROOT}/${chapter}"/[0-9][0-9][0-9]*.md >> "${book_dir}/backmatter.md"
     # shellcheck disable=SC2086
     cp ${_VERBOSE} "${MODULE_ROOT}/${chapter}/assets/"* \
       "${book_dir}/assets/" 2> /dev/null || debug "No assets found"
