@@ -137,13 +137,13 @@ create_mkdocs() {
     for chapter in ${chapters}; do
       log "    - Adding chapter ${chapter}"
       # Copy the chapter content to the mkdocs directory
-      cat "${MODULE_ROOT}/${chapter}/"[0-9][0-9][0-9]*.md >> "${mkdocs_dir}/${chapter}.md"
+      cat "${MODULE_ROOT}/${chapter}/"[0-9][0-9][0-9]*.md > "${mkdocs_dir}/${chapter}.md"
       # shellcheck disable=SC2086
       cp ${_VERBOSE} "${MODULE_ROOT}/${chapter}/assets/"* \
         "${mkdocs_dir}/assets/" 2> /dev/null || debug "No assets found"
 
       # Replace the chapter id with the chapter title in the mkdocs.yml file
-      chapter_title=$(grep '^#' "${MODULE_ROOT}/${chapter}/"010*title.md | cut -c3-)
+      chapter_title=$(grep '^#' "${MODULE_ROOT}/${chapter}/"010*title.md | cut -c3- | tr -d '\r')
       # shellcheck disable=SC2086
       sed ${_SED_VERBOSE} --in-place \
         "s|\"${chapter}\"|\"${chapter_title}\"|;!q" \
@@ -156,13 +156,13 @@ create_mkdocs() {
 
   for chapter in ${chapters}; do
     log "  - Adding appendix '${chapter}'"
-    cat "${MODULE_ROOT}/${chapter}"/[0-9][0-9][0-9]*.md >> "${mkdocs_dir}/${chapter}.md"
+    cat "${MODULE_ROOT}/${chapter}"/[0-9][0-9][0-9]*.md > "${mkdocs_dir}/${chapter}.md"
     # shellcheck disable=SC2086
     cp ${_VERBOSE} "${MODULE_ROOT}/${chapter}/assets/"* \
       "${mkdocs_dir}/assets/" 2> /dev/null || debug "No assets found"
 
     # Replace the chapter id with the chapter title in the mkdocs.yml file
-    chapter_title=$(grep '^#' "${MODULE_ROOT}/${chapter}/"010*title.md | cut -c3-)
+    chapter_title=$(grep '^#' "${MODULE_ROOT}/${chapter}/"010*title.md | cut -c3- | tr -d '\r')
     # shellcheck disable=SC2086
     sed ${_SED_VERBOSE} --in-place "s|\"${chapter}\"|\"${chapter_title}\"|;!q" \
       "${mkdocs_dir}/../mkdocs.yml"
