@@ -22,7 +22,7 @@ Do not attempt this as a novice on production systems!
 The local user database on Linux (and on most Unixes) is
 `/etc/passwd`.
 
-    [root@RHEL5 ~]# tail /etc/passwd
+    [root@linux ~]# tail /etc/passwd
     inge:x:518:524:art dealer:/home/inge:/bin/ksh
     ann:x:519:525:flute player:/home/ann:/bin/bash
     frederik:x:520:526:rubius poet:/home/frederik:/bin/bash
@@ -40,7 +40,7 @@ id, a description, the name of the home directory, and the login shell.
 
 More information can be found by typing `man 5 passwd`.
 
-    [root@RHEL5 ~]# man 5 passwd
+    [root@linux ~]# man 5 passwd
 
 ## root
 
@@ -49,7 +49,7 @@ is the most powerful account on your Linux system. This user can do
 almost anything, including the creation of other users. The root user
 always has userid 0 (regardless of the name of the account).
 
-    [root@RHEL5 ~]# head -1 /etc/passwd
+    [root@linux ~]# head -1 /etc/passwd
     root:x:0:0:root:/root:/bin/bash
 
 ## useradd
@@ -59,8 +59,8 @@ below shows how to add a user named yanina (last parameter) and at the
 same time forcing the creation of the home directory (-m), setting the
 name of the home directory (-d), and setting a description (-c).
 
-    [root@RHEL5 ~]# useradd -m -d /home/yanina -c "yanina wickmayer" yanina
-    [root@RHEL5 ~]# tail -1 /etc/passwd
+    [root@linux ~]# useradd -m -d /home/yanina -c "yanina wickmayer" yanina
+    [root@linux ~]# tail -1 /etc/passwd
     yanina:x:529:529:yanina wickmayer:/home/yanina:/bin/bash
 
 The user named yanina received userid 529 and
@@ -86,7 +86,7 @@ options. Besides using cat to display this file, you can also use
 You can delete the user yanina with `userdel`. The -r
 option of userdel will also remove the home directory.
 
-    [root@RHEL5 ~]# userdel -r yanina
+    [root@linux ~]# userdel -r yanina
 
 ## usermod
 
@@ -112,10 +112,10 @@ permissions on the directory with `chmod` and
 `chown` (both commands are discussed in detail in another
 chapter).
 
-    [root@RHEL5 ~]# mkdir /home/laura
-    [root@RHEL5 ~]# chown laura:laura /home/laura
-    [root@RHEL5 ~]# chmod 700 /home/laura
-    [root@RHEL5 ~]# ls -ld /home/laura/
+    [root@linux ~]# mkdir /home/laura
+    [root@linux ~]# chown laura:laura /home/laura
+    [root@linux ~]# chmod 700 /home/laura
+    [root@linux ~]# ls -ld /home/laura/
     drwx------ 2 laura laura 4096 Jun 24 15:17 /home/laura/
 
 ## /etc/skel/
@@ -127,7 +127,7 @@ profile settings and default values for applications. In this way
 `/etc/skel/` serves as a default home directory and as a default user
 profile.
 
-    [root@RHEL5 ~]# ls -la /etc/skel/
+    [root@linux ~]# ls -la /etc/skel/
     total 48
     drwxr-xr-x  2 root root  4096 Apr  1 00:11 .
     drwxr-xr-x 97 root root 12288 Jun 24 15:36 ..
@@ -140,10 +140,10 @@ profile.
 The -r option of `userdel` will make sure that the home
 directory is deleted together with the user account.
 
-    [root@RHEL5 ~]# ls -ld /home/wim/
+    [root@linux ~]# ls -ld /home/wim/
     drwx------ 2 wim wim 4096 Jun 24 15:19 /home/wim/
-    [root@RHEL5 ~]# userdel -r wim
-    [root@RHEL5 ~]# ls -ld /home/wim/
+    [root@linux ~]# userdel -r wim
+    [root@linux ~]# ls -ld /home/wim/
     ls: /home/wim/: No such file or directory
 
 ## login shell
@@ -152,14 +152,14 @@ The `/etc/passwd` file specifies the `login shell` for the
 user. In the screenshot below you can see that user annelies will log in
 with the `/bin/bash` shell, and user laura with the `/bin/ksh` shell.
 
-    [root@RHEL5 ~]# tail -2 /etc/passwd
+    [root@linux ~]# tail -2 /etc/passwd
     annelies:x:527:533:sword fighter:/home/annelies:/bin/bash
     laura:x:528:534:art dealer:/home/laura:/bin/ksh
 
 You can use the usermod command to change the shell for a user.
 
-    [root@RHEL5 ~]# usermod -s /bin/bash laura
-    [root@RHEL5 ~]# tail -1 /etc/passwd
+    [root@linux ~]# usermod -s /bin/bash laura
+    [root@linux ~]# tail -1 /etc/passwd
     laura:x:528:534:art dealer:/home/laura:/bin/bash
 
 ## chsh
@@ -170,7 +170,7 @@ also have done a `cat /etc/shells`) and then changes his
 login shell to the `Korn shell` (/bin/ksh). At the next
 login, harry will default into ksh instead of bash.
 
-    [laura@centos7 ~]$ chsh -l
+    [laura@linux ~]$ chsh -l
     /bin/sh
     /bin/bash
     /sbin/nologin
@@ -180,7 +180,7 @@ login, harry will default into ksh instead of bash.
     /bin/ksh
     /bin/tcsh
     /bin/csh
-    [laura@centos7 ~]$
+    [laura@linux ~]$
 
 Note that the `-l` option does not exist on Debian and that the above
 screenshot assumes that `ksh` and `csh` shells are installed.
@@ -188,7 +188,7 @@ screenshot assumes that `ksh` and `csh` shells are installed.
 The screenshot below shows how `laura` can change her default shell
 (active on next login).
 
-    [laura@centos7 ~]$ chsh -s /bin/ksh
+    [laura@linux ~]$ chsh -s /bin/ksh
     Changing shell for laura.
     Password: 
     Shell changed.

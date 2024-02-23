@@ -6,11 +6,11 @@ The Linux kernel has a built-in stateful firewall named `iptables`. To
 stop the `iptables` firewall on Red Hat, use the service
 command.
 
-    root@RHELv8u4:~# service iptables stop
+    root@linux:~# service iptables stop
     Flushing firewall rules:                                   [  OK  ]
     Setting chains to policy ACCEPT: filter                    [  OK  ]
     Unloading iptables modules:                                [  OK  ]
-    root@RHELv8u4:~# 
+    root@linux:~# 
             
 
 The easy way to configure iptables, is to use a graphical tool like
@@ -24,7 +24,7 @@ ports are allowed when the firewall is active. You can even add some
 custom ports. When you are done, the configuration is written to
 `/etc/sysconfig/iptables` on Red Hat.
 
-    root@RHELv8u4:~# cat /etc/sysconfig/iptables
+    root@linux:~# cat /etc/sysconfig/iptables
     # Firewall configuration written by system-config-securitylevel
     # Manual customization of this file is not recommended.
     *filter
@@ -47,24 +47,24 @@ custom ports. When you are done, the configuration is written to
     -A RH-F...NPUT -m state --state NEW -m tcp -p tcp --dport 25 -j ACCEPT
     -A RH-Firewall-1-INPUT -j REJECT --reject-with icmp-host-prohibited
     COMMIT
-    root@RHELv8u4:~#
+    root@linux:~#
             
 
 To start the service, issue the `service iptables start`
 command. You can configure iptables to start at boot time with
 chkconfig.
 
-    root@RHELv8u4:~# service iptables start
+    root@linux:~# service iptables start
     Applying iptables firewall rules:                          [  OK  ]
-    root@RHELv8u4:~# chkconfig iptables on
-    root@RHELv8u4:~# 
+    root@linux:~# chkconfig iptables on
+    root@linux:~# 
             
 
 One of the nice features of iptables is that it displays extensive
 `status` information when queried with the `service iptables status`
 command.
 
-    root@RHELv8u4:~# service iptables status
+    root@linux:~# service iptables status
     Table: filter
     Chain INPUT (policy ACCEPT)
     target     prot opt source               destination         
@@ -92,7 +92,7 @@ command.
     ACCEPT  tcp  --  0.0.0.0/0   0.0.0.0/0   state NEW tcp dpt:25 
     REJECT  all  --  0.0.0.0/0   0.0.0.0/0   reject-with icmp-host-prohibited 
 
-    root@RHELv8u4:~# 
+    root@linux:~# 
             
 
 Mastering firewall configuration requires a decent knowledge of tcp/ip.

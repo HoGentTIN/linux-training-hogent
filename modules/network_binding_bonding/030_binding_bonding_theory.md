@@ -6,10 +6,10 @@ To bind more than one `ip address` to the same interface,
 use `ifcfg-eth0:0`, where the last zero can be anything
 else. Only two directives are required in the files.
 
-    [root@rhel6 ~]# cat /etc/sysconfig/network-scripts/ifcfg-eth0:0
+    [root@linux ~]# cat /etc/sysconfig/network-scripts/ifcfg-eth0:0
     DEVICE="eth0:0"
     IPADDR="192.168.1.133"
-    [root@rhel6 ~]# cat /etc/sysconfig/network-scripts/ifcfg-eth0:1
+    [root@linux ~]# cat /etc/sysconfig/network-scripts/ifcfg-eth0:1
     DEVICE="eth0:0"
     IPADDR="192.168.1.142"
 
@@ -18,13 +18,13 @@ else. Only two directives are required in the files.
 To activate a virtual network interface, use `ifup`, to
 deactivate it, use `ifdown`.
 
-    [root@rhel6 ~]# ifup eth0:0
-    [root@rhel6 ~]# ifconfig | grep 'inet '
+    [root@linux ~]# ifup eth0:0
+    [root@linux ~]# ifconfig | grep 'inet '
               inet addr:192.168.1.99  Bcast:192.168.1.255  Mask:255.255.255.0
               inet addr:192.168.1.133  Bcast:192.168.1.255  Mask:255.255.255.0
               inet addr:127.0.0.1  Mask:255.0.0.0
-    [root@rhel6 ~]# ifup eth0:1
-    [root@rhel6 ~]# ifconfig | grep 'inet '
+    [root@linux ~]# ifup eth0:1
+    [root@linux ~]# ifconfig | grep 'inet '
               inet addr:192.168.1.99  Bcast:192.168.1.255  Mask:255.255.255.0
               inet addr:192.168.1.133  Bcast:192.168.1.255  Mask:255.255.255.0
               inet addr:192.168.1.142  Bcast:192.168.1.255  Mask:255.255.255.0
@@ -35,7 +35,7 @@ deactivate it, use `ifdown`.
 Use `ping` from another computer to check the activation, or use
 `ifconfig` like in this screenshot.
 
-    [root@rhel6 ~]# ifconfig 
+    [root@linux ~]# ifconfig 
     eth0   Link encap:Ethernet  HWaddr 08:00:27:DD:0D:5C  
            inet addr:192.168.1.99  Bcast:192.168.1.255  Mask:255.255.255.0
            inet6 addr: fe80::a00:27ff:fedd:d5c/64 Scope:Link
@@ -110,7 +110,7 @@ Use `ping` from another computer to check the activation, or use
 We start with `ifconfig -a` to get a list of all the
 network cards on our system.
 
-    [root@rhel6 network-scripts]# ifconfig -a | grep Ethernet
+    [root@linux network-scripts]# ifconfig -a | grep Ethernet
     eth0      Link encap:Ethernet  HWaddr 08:00:27:DD:0D:5C  
     eth1      Link encap:Ethernet  HWaddr 08:00:27:DA:C1:49  
     eth2      Link encap:Ethernet  HWaddr 08:00:27:40:03:3B
@@ -120,16 +120,16 @@ In this demo we decide to bond `eth1` and `eth2`.
 We will name our bond `bond0` and add this entry to `modprobe` so the
 kernel can load the `bonding module` when we bring the interface up.
 
-    [root@rhel6 network-scripts]# cat /etc/modprobe.d/bonding.conf 
+    [root@linux network-scripts]# cat /etc/modprobe.d/bonding.conf 
     alias bond0 bonding
 
 Then we create
 `/etc/sysconfig/network-scripts/ifcfg-bond0` to configure
 our `bond0` interface.
 
-    [root@rhel6 network-scripts]# pwd
+    [root@linux network-scripts]# pwd
     /etc/sysconfig/network-scripts
-    [root@rhel6 network-scripts]# cat ifcfg-bond0 
+    [root@linux network-scripts]# cat ifcfg-bond0 
     DEVICE=bond0
     IPADDR=192.168.1.199
     NETMASK=255.255.255.0
@@ -140,14 +140,14 @@ our `bond0` interface.
 Next we create two files, one for each network card that we will use as
 slave in `bond0`.
 
-    [root@rhel6 network-scripts]# cat ifcfg-eth1
+    [root@linux network-scripts]# cat ifcfg-eth1
     DEVICE=eth1
     BOOTPROTO=none
     ONBOOT=yes
     MASTER=bond0
     SLAVE=yes
     USERCTL=no
-    [root@rhel6 network-scripts]# cat ifcfg-eth2
+    [root@linux network-scripts]# cat ifcfg-eth2
     DEVICE=eth2
     BOOTPROTO=none
     ONBOOT=yes
@@ -157,8 +157,8 @@ slave in `bond0`.
 
 Finally we bring the interface up with `ifup bond0`.
 
-    [root@rhel6 network-scripts]# ifup bond0
-    [root@rhel6 network-scripts]# ifconfig bond0
+    [root@linux network-scripts]# ifup bond0
+    [root@linux network-scripts]# ifconfig bond0
     bond0     Link encap:Ethernet  HWaddr 08:00:27:DA:C1:49  
               inet addr:192.168.1.199  Bcast:192.168.1.255  Mask:255.255.255.0
               inet6 addr: fe80::a00:27ff:feda:c149/64 Scope:Link
@@ -170,7 +170,7 @@ Finally we bring the interface up with `ifup bond0`.
 
 The `bond` should also be visible in `/proc/net/bonding`.
 
-    [root@rhel6 network-scripts]# cat /proc/net/bonding/bond0 
+    [root@linux network-scripts]# cat /proc/net/bonding/bond0 
     Ethernet Channel Bonding Driver: v3.5.0 (November 4, 2008)
 
     Bonding Mode: load balancing (round-robin)

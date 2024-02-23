@@ -78,35 +78,35 @@ popular tools for compression of regular files on Linux are
 can see gzip in action, notice that it adds the `.gz` extension to the
 file.
 
-    paul@RHELv8u4:~/test$ ls -l allfiles.tx*
+    student@linux:~/test$ ls -l allfiles.tx*
     -rw-rw-r--  1 paul paul 8813553 Feb 27 05:38 allfiles.txt
-    paul@RHELv8u4:~/test$ gzip allfiles.txt 
-    paul@RHELv8u4:~/test$ ls -l allfiles.tx*
+    student@linux:~/test$ gzip allfiles.txt 
+    student@linux:~/test$ ls -l allfiles.tx*
     -rw-rw-r--  1 paul paul 931863 Feb 27 05:38 allfiles.txt.gz
-    paul@RHELv8u4:~/test$ gunzip allfiles.txt.gz 
-    paul@RHELv8u4:~/test$ ls -l allfiles.tx*
+    student@linux:~/test$ gunzip allfiles.txt.gz 
+    student@linux:~/test$ ls -l allfiles.tx*
     -rw-rw-r--  1 paul paul 8813553 Feb 27 05:38 allfiles.txt
-    paul@RHELv8u4:~/test$ 
+    student@linux:~/test$ 
         
 
 In general, gzip is much faster than bzip2, but the latter one
 compresses a lot better. Let us compare the two.
 
-    paul@RHELv8u4:~/test$ cp allfiles.txt bllfiles.txt 
-    paul@RHELv8u4:~/test$ time gzip allfiles.txt 
+    student@linux:~/test$ cp allfiles.txt bllfiles.txt 
+    student@linux:~/test$ time gzip allfiles.txt 
             
     real    0m0.050s
     user    0m0.041s
     sys     0m0.009s
-    paul@RHELv8u4:~/test$ time bzip2 bllfiles.txt 
+    student@linux:~/test$ time bzip2 bllfiles.txt 
             
     real    0m5.968s
     user    0m5.794s
     sys     0m0.076s
-    paul@RHELv8u4:~/test$ ls -l ?llfiles.tx*
+    student@linux:~/test$ ls -l ?llfiles.tx*
     -rw-rw-r--  1 paul paul 931863 Feb 27 05:38 allfiles.txt.gz
     -rw-rw-r--  1 paul paul 708871 May 12 10:52 bllfiles.txt.bz2
-    paul@RHELv8u4:~/test$ 
+    student@linux:~/test$ 
         
 
 ## tar
@@ -117,29 +117,29 @@ regular file). The c option is used to create a tar archive (or
 tarfile), the f option to name/create the `tarfile`. The example below
 takes a backup of /etc into the file /backup/etc.tar .
 
-    root@RHELv8u4:~# tar cf /backup/etc.tar /etc
-    root@RHELv8u4:~# ls -l /backup/etc.tar 
+    root@linux:~# tar cf /backup/etc.tar /etc
+    root@linux:~# ls -l /backup/etc.tar 
     -rw-r--r--  1 root root 47800320 May 12 11:47 /backup/etc.tar
-    root@RHELv8u4:~#
+    root@linux:~#
         
 
 Compression can be achieved without pipes since tar uses the z flag to
 compress with gzip, and the j flag to compress with bzip2.
 
-    root@RHELv8u4:~# tar czf /backup/etc.tar.gz /etc
-    root@RHELv8u4:~# tar cjf /backup/etc.tar.bz2 /etc
-    root@RHELv8u4:~# ls -l /backup/etc.ta*
+    root@linux:~# tar czf /backup/etc.tar.gz /etc
+    root@linux:~# tar cjf /backup/etc.tar.bz2 /etc
+    root@linux:~# ls -l /backup/etc.ta*
     -rw-r--r--  1 root root 47800320 May 12 11:47 /backup/etc.tar
     -rw-r--r--  1 root root  6077340 May 12 11:48 /backup/etc.tar.bz2
     -rw-r--r--  1 root root  8496607 May 12 11:47 /backup/etc.tar.gz
-    root@RHELv8u4:~# 
+    root@linux:~# 
         
 
 The t option is used to `list the contents of a tar file`. Verbose mode
 is enabled with v (also useful when you want to see the files being
 archived during archiving).
 
-    root@RHELv8u4:~# tar tvf /backup/etc.tar
+    root@linux:~# tar tvf /backup/etc.tar
     drwxr-xr-x root/root         0 2007-05-12 09:38:21 etc/
     -rw-r--r-- root/root      2657 2004-09-27 10:15:03 etc/warnquota.conf
     -rw-r--r-- root/root     13136 2006-11-03 17:34:50 etc/mime.types
@@ -150,22 +150,22 @@ archived during archiving).
 To `list a specific file in a tar archive`, use the t option, added with
 the filename (without leading /).
 
-    root@RHELv8u4:~# tar tvf /backup/etc.tar etc/resolv.conf
+    root@linux:~# tar tvf /backup/etc.tar etc/resolv.conf
     -rw-r--r-- root/root        77 2007-05-12 08:31:32 etc/resolv.conf
-    root@RHELv8u4:~# 
+    root@linux:~# 
         
 
 Use the x flag to `restore a tar archive`, or a single file from the
 archive. Remember that by default tar will restore the file in the
 current directory.
 
-    root@RHELv8u4:~# tar xvf /backup/etc.tar etc/resolv.conf
+    root@linux:~# tar xvf /backup/etc.tar etc/resolv.conf
     etc/resolv.conf
-    root@RHELv8u4:~# ls -l /etc/resolv.conf
+    root@linux:~# ls -l /etc/resolv.conf
     -rw-r--r--  2 root root 40 May 12 12:05 /etc/resolv.conf
-    root@RHELv8u4:~# ls -l etc/resolv.conf
+    root@linux:~# ls -l etc/resolv.conf
     -rw-r--r--  1 root root 77 May 12 08:31 etc/resolv.conf
-    root@RHELv8u4:~# 
+    root@linux:~# 
         
 
 You can `preserve file permissions` with the p flag. And
@@ -182,9 +182,9 @@ you can exclude directories or file with `--exclude`.
 You can also create a text file with names of files and directories to
 archive, and then supply this file to tar with the -T flag.
 
-    root@RHELv8u4:~# find /etc -name *.conf > files_to_archive.txt
-    root@RHELv8u4:~# find /home -name *.pdf >> files_to_archive.txt
-    root@RHELv8u4:~# tar cpzf /backup/backup.tgz -T files_to_archive.txt 
+    root@linux:~# find /etc -name *.conf > files_to_archive.txt
+    root@linux:~# find /home -name *.pdf >> files_to_archive.txt
+    root@linux:~# tar cpzf /backup/backup.tgz -T files_to_archive.txt 
         
 
 The tar utility can receive filenames from the find command, with the
@@ -386,11 +386,11 @@ file of size 5000 bytes is split into three smaller files, with maximum
 2000 bytes each.
 
      
-    paul@laika:~/test$ ls -l
+    student@linux:~/test$ ls -l
     total 8
     -rw-r--r-- 1 paul paul 5000 2007-09-09 20:46 bigfile1
-    paul@laika:~/test$ split -b 2000 bigfile1 splitfile.
-    paul@laika:~/test$ ls -l
+    student@linux:~/test$ split -b 2000 bigfile1 splitfile.
+    student@linux:~/test$ ls -l
     total 20
     -rw-r--r-- 1 paul paul 5000 2007-09-09 20:46 bigfile1
     -rw-r--r-- 1 paul paul 2000 2007-09-09 20:47 splitfile.aa

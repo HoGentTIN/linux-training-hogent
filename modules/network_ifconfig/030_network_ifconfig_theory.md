@@ -33,7 +33,7 @@ The screenshot below shows that our computer is configured for
 `dhcp` on `eth0` (the first network
 interface card or nic).
 
-    paul@debian9:~$ cat /etc/network/interfaces
+    student@linux:~$ cat /etc/network/interfaces
     # This file describes the network interfaces available on your system
     # and how to activate them. For more information, see interfaces(5).
 
@@ -52,7 +52,7 @@ servers usually require a `fixed ip address`.
 The screenshot below shows `/etc/network/interfaces` configured with a
 `fixed ip address`.
 
-    root@debian9~# cat /etc/network/interfaces
+    root@linux~# cat /etc/network/interfaces
     auto lo
     iface lo inet loopback
 
@@ -95,7 +95,7 @@ Below a screenshot of `ifup` bringing the `eth0` ethernet
 interface up using dhcp. (Note that this is a Ubuntu 10.10 screenshot,
 Ubuntu 11.04 omits `ifup` output by default.)
 
-    root@ubu1010srv:/etc/network# ifup eth0
+    root@linux:/etc/network# ifup eth0
     Internet Systems Consortium DHCP Client V3.1.3
     Copyright 2004-2009 Internet Systems Consortium.
     All rights reserved.
@@ -113,7 +113,7 @@ Ubuntu 11.04 omits `ifup` output by default.)
     bound to 192.168.33.77 -- renewal in 95 seconds.
     ssh stop/waiting
     ssh start/running, process 1301
-    root@ubu1010srv:/etc/network#
+    root@linux:/etc/network#
 
 The details of `dhcp` are covered in a separate chapter in the
 `Linux Servers` course.
@@ -127,7 +127,7 @@ network cards) configuration file. It allows us to define whether we
 want networking (NETWORKING=yes\|no), what the hostname should be
 (HOSTNAME=) and which gateway to use (GATEWAY=).
 
-    [root@rhel610 ~]# cat /etc/sysconfig/network
+    [root@linux ~]# cat /etc/sysconfig/network
     NETWORKING=yes
     HOSTNAME=rhel610
     GATEWAY=192.168.1.1
@@ -138,7 +138,7 @@ found in `/usr/share/doc/initscripts-*/sysconfig.txt`.
 Note that this file contains no settings at all in a default RHEL7
 install (with networking enabled).
 
-    [root@rhel76 ~]# cat /etc/sysconfig/network
+    [root@linux ~]# cat /etc/sysconfig/network
     # Created by anaconda
 
 ### /etc/sysconfig/network-scripts/ifcfg-
@@ -156,7 +156,7 @@ paramater to disable control of this nic by `Network Manager`. This
 parameter is not explained (not even mentioned) in
 `/usr/share/doc/initscripts-*/sysconfig.txt`, but many others are.
 
-    [root@rhel610 ~]# cat /etc/sysconfig/network-scripts/ifcfg-eth0
+    [root@linux ~]# cat /etc/sysconfig/network-scripts/ifcfg-eth0
     DEVICE="eth0"
     HWADDR="08:00:27:DD:0D:5C"
     NM_CONTROLLED="no"
@@ -170,7 +170,7 @@ values.
 
 RHEL7 adds `ipv6` variables to this file.
 
-    [root@rhel76 network-scripts]# cat ifcfg-enp0s3
+    [root@linux network-scripts]# cat ifcfg-enp0s3
     TYPE="Ethernet"
     BOOTPROTO="dhcp"
     DEFROUTE="yes"
@@ -187,14 +187,14 @@ RHEL7 adds `ipv6` variables to this file.
     UUID="9fa6a83a-2f8e-4ecc-962c-5f614605f4ee"
     DEVICE="enp0s3"
     ONBOOT="yes"
-    [root@rhel71 network-scripts]#
+    [root@linux network-scripts]#
 
 #### fixed ip
 
 Below a screenshot of a `fixed ip` configuration in
 `/etc/sysconfig/network-scripts/ifcfg-eth0`.
 
-    [root@rhel610 ~]# cat /etc/sysconfig/network-scripts/ifcfg-eth0
+    [root@linux ~]# cat /etc/sysconfig/network-scripts/ifcfg-eth0
     DEVICE="eth0"
     HWADDR="08:00:27:DD:0D:5C"
     NM_CONTROLLED="no"
@@ -237,8 +237,8 @@ The `ifup` and `ifdown` commands will set an
 interface up or down, using the configuration discussed above. This is
 identical to their behaviour in Debian and Ubuntu.
 
-    [root@rhel610 ~]# ifdown eth0 && ifup eth0
-    [root@rhel610 ~]# ifconfig eth0
+    [root@linux ~]# ifdown eth0 && ifup eth0
+    [root@linux ~]# ifconfig eth0
     eth0 Link encap:Ethernet  HWaddr 08:00:27:DD:0D:5C  
          inet addr:192.168.1.99  Bcast:192.168.1.255  Mask:255.255.255.0
          inet6 addr: fe80::a00:27ff:fedd:d5c/64 Scope:Link
@@ -286,7 +286,7 @@ no ip address.
 You can also use `ifconfig` to obtain information about just one network
 card.
 
-    [root@rhel610 ~]# ifconfig eth0
+    [root@linux ~]# ifconfig eth0
     eth0 Link encap:Ethernet  HWaddr 08:00:27:DD:0D:5C  
          inet addr:192.168.1.99  Bcast:192.168.1.255  Mask:255.255.255.0
          inet6 addr: fe80::a00:27ff:fedd:d5c/64 Scope:Link
@@ -299,7 +299,7 @@ card.
 When `/sbin` is not in the `$PATH` of a normal user you
 will have to type the full path, as seen here on Debian.
 
-    paul@debian9:~$ /sbin/ifconfig eth3
+    student@linux:~$ /sbin/ifconfig eth3
     eth3 Link encap:Ethernet  HWaddr 08:00:27:ab:67:30  
          inet addr:192.168.1.29  Bcast:192.168.1.255  Mask:255.255.255.0
          inet6 addr: fe80::a00:27ff:feab:6730/64 Scope:Link
@@ -318,9 +318,9 @@ down. The difference with `ifup` is that
 contains a (possibly new) configuration and use this config file to
 bring the interface up.
 
-    [root@rhel610 ~]# ifconfig eth0 down
-    [root@rhel610 ~]# ifconfig eth0 up
-    [root@rhel610 ~]# ifconfig eth0
+    [root@linux ~]# ifconfig eth0 down
+    [root@linux ~]# ifconfig eth0 up
+    [root@linux ~]# ifconfig eth0
     eth0 Link encap:Ethernet  HWaddr 08:00:27:DD:0D:5C
          inet addr:192.168.1.99  Bcast:192.168.1.255  Mask:255.255.255.0
          inet6 addr: fe80::a00:27ff:fedd:d5c/64 Scope:Link
@@ -336,13 +336,13 @@ You can `temporary` set an ip address with `ifconfig`. This ip address
 is only valid until the next `ifup/ifdown` cycle or until
 the next `reboot`.
 
-    [root@rhel610 ~]# ifconfig eth0 | grep 192
+    [root@linux ~]# ifconfig eth0 | grep 192
          inet addr:192.168.1.99  Bcast:192.168.1.255  Mask:255.255.255.0
-    [root@rhel610 ~]# ifconfig eth0 192.168.33.42 netmask 255.255.0.0
-    [root@rhel610 ~]# ifconfig eth0 | grep 192
+    [root@linux ~]# ifconfig eth0 192.168.33.42 netmask 255.255.0.0
+    [root@linux ~]# ifconfig eth0 | grep 192
          inet addr:192.168.33.42  Bcast:192.168.255.255  Mask:255.255.0.0
-    [root@rhel610 ~]# ifdown eth0 && ifup eth0
-    [root@rhel610 ~]# ifconfig eth0 | grep 192
+    [root@linux ~]# ifdown eth0 && ifup eth0
+    [root@linux ~]# ifconfig eth0 | grep 192
          inet addr:192.168.1.99  Bcast:192.168.1.255  Mask:255.255.255.0
 
 ### setting mac address
@@ -351,10 +351,10 @@ You can also use `ifconfig` to set another `mac address`
 than the one hard coded in the network card. This screenshot shows you
 how.
 
-    [root@rhel610 ~]# ifconfig eth0 | grep HWaddr
+    [root@linux ~]# ifconfig eth0 | grep HWaddr
     eth0 Link encap:Ethernet  HWaddr 08:00:27:DD:0D:5C  
-    [root@rhel610 ~]# ifconfig eth0 hw ether 00:42:42:42:42:42
-    [root@rhel610 ~]# ifconfig eth0 | grep HWaddr
+    [root@linux ~]# ifconfig eth0 hw ether 00:42:42:42:42:42
+    [root@linux ~]# ifconfig eth0 | grep HWaddr
     eth0 Link encap:Ethernet  HWaddr 00:42:42:42:42:42
 
 ## ip
@@ -364,7 +364,7 @@ instead.
 
 To see ip addresses on RHEL7 for example, use this command:
 
-    [root@rhel76 ~]# ip a
+    [root@linux ~]# ip a
     1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN
         link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
         inet 127.0.0.1/8 scope host lo
@@ -377,7 +377,7 @@ To see ip addresses on RHEL7 for example, use this command:
            valid_lft 6173sec preferred_lft 6173sec
         inet6 fe80::a00:27ff:fe89:2233/64 scope link
            valid_lft forever preferred_lft forever
-    [root@rhel76 ~]#
+    [root@linux ~]#
 
 ## dhclient
 
@@ -399,43 +399,43 @@ Domain Name.
 This screenshot shows the `hostname` command and the configuration of
 the hostname on Red Hat/Fedora.
 
-    [root@rhel610 ~]# grep HOSTNAME /etc/sysconfig/network
+    [root@linux ~]# grep HOSTNAME /etc/sysconfig/network
     HOSTNAME=rhel610
-    [root@rhel610 ~]# hostname
+    [root@linux ~]# hostname
     rhel6
 
 Starting with RHEL7/CentOS8 this file is empty. The hostname is
 configured in the standard `/etc/hostname` file.
 
-    [root@rhel76 ~]# cat /etc/hostname
+    [root@linux ~]# cat /etc/hostname
     rhel76.linux-training.be
-    [root@rhel76 ~]#
+    [root@linux ~]#
 
 Ubuntu/Debian uses the `/etc/hostname` file to configure
 the `hostname`.
 
-    paul@debian9:~$ cat /etc/hostname
+    student@linux:~$ cat /etc/hostname
     server42
-    paul@debian9:~$ hostname
+    student@linux:~$ hostname
     server42
 
 On all Linux distributions you can change the `hostname`
 using the `hostname $newname` command. This is not a permanent change.
 
-    [root@rhel610 ~]# hostname server42
-    [root@rhel610 ~]# hostname
+    [root@linux ~]# hostname server42
+    [root@linux ~]# hostname
     server42
 
 On any Linux you can use `sysctl` to display and set the
 hostname.
 
-    [root@rhel610 ~]# sysctl kernel.hostname
+    [root@linux ~]# sysctl kernel.hostname
     kernel.hostname = server42
-    [root@rhel610 ~]# sysctl kernel.hostname=rhel6
+    [root@linux ~]# sysctl kernel.hostname=rhel6
     kernel.hostname = rhel6
-    [root@rhel610 ~]# sysctl kernel.hostname
+    [root@linux ~]# sysctl kernel.hostname
     kernel.hostname = rhel610
-    [root@rhel610 ~]# hostname
+    [root@linux ~]# hostname
     rhel610
 
 ## arp
@@ -445,7 +445,7 @@ protocol `arp`. The `arp table` can be displayed with the
 `arp tool`. The screenshot below shows the list of computers that this
 computer recently communicated with.
 
-    root@barry:~# arp -a
+    root@linux:~# arp -a
     ? (192.168.1.191) at 00:0C:29:3B:15:80 [ether] on eth1
     agapi (192.168.1.73) at 00:03:BA:09:7F:D2 [ether] on eth1
     anya (192.168.1.1) at 00:12:01:E2:87:FB [ether] on eth1
@@ -454,7 +454,7 @@ computer recently communicated with.
     laika (192.168.1.40) at 00:90:F5:4E:AE:17 [ether] on eth1
     pasha (192.168.1.71) at 00:03:BA:02:C3:82 [ether] on eth1
     shaka (192.168.1.72) at 00:03:BA:09:7C:F9 [ether] on eth1
-    root@barry:~#
+    root@linux:~#
 
 *Anya is a Cisco Firewall, faith is a laser printer, kiss is a Kiss
 DP600, laika is a laptop and Agapi, Shaka and Pasha are SPARC servers.
@@ -464,20 +464,20 @@ virtual machine.*
 You can use `arp -d` to remove an entry from the
 `arp table`.
 
-    [root@rhel610 ~]# arp
+    [root@linux ~]# arp
     Address             HWtype  HWaddress           Flags Mask       Iface
     ubu1010             ether   00:26:bb:12:7a:5e   C                eth0
     anya                ether   00:02:cf:aa:68:f0   C                eth0
-    [root@rhel610 ~]# arp -d anya
-    [root@rhel610 ~]# arp
+    [root@linux ~]# arp -d anya
+    [root@linux ~]# arp
     Address             HWtype  HWaddress           Flags Mask       Iface
     ubuntu1604             ether   00:26:bb:12:7a:5e   C                eth0
     anya                        (incomplete)                         eth0
-    [root@rhel610 ~]# ping anya
+    [root@linux ~]# ping anya
     PING anya (192.168.1.1) 56(84) bytes of data.
     64 bytes from anya (192.168.1.1): icmp_seq=1 ttl=254 time=10.2 ms
     ...
-    [root@rhel610 ~]# arp
+    [root@linux ~]# arp
     Address             HWtype  HWaddress           Flags Mask       Iface
     ubuntu1604          ether   00:26:bb:12:7a:5e   C                eth0
     anya                ether   00:02:cf:aa:68:f0   C                eth0
@@ -488,27 +488,27 @@ You can see the computer\'s local routing table with the
 `/sbin/route` command (and also with
 `netstat -r` ).
 
-    root@rhel610 ~]# netstat -r
+    root@linux ~]# netstat -r
     Kernel IP routing table
     Destination     Gateway   Genmask         Flags   MSS Window  irtt Iface
     192.168.1.0     *         255.255.255.0   U         0 0          0 eth0
-    [root@rhel610 ~]# route
+    [root@linux ~]# route
     Kernel IP routing table
     Destination     Gateway   Genmask         Flags Metric Ref    Use Iface
     192.168.1.0     *         255.255.255.0   U     0      0        0 eth0
-    [root@rhel610 ~]#
+    [root@linux ~]#
 
 It appears this computer does not have a `gateway`
 configured, so we use `route add default gw` to add a
 `default gateway` on the fly.
 
-    [root@rhel610 ~]# route add default gw 192.168.1.1
-    [root@rhel610 ~]# route
+    [root@linux ~]# route add default gw 192.168.1.1
+    [root@linux ~]# route
     Kernel IP routing table
     Destination     Gateway      Genmask        Flags Metric Ref  Use Iface
     192.168.1.0     *            255.255.255.0  U     0      0      0 eth0
     default         192.168.1.1  0.0.0.0        UG    0      0      0 eth0
-    [root@rhel610 ~]#
+    [root@linux ~]#
 
 Unless you configure the gateway in one of the `/etc/` file from the
 start of this chapter, your computer will forget this `gateway` after a
@@ -519,7 +519,7 @@ reboot.
 If you can `ping` to another host, then `tcp/ip` is
 configured.
 
-    [root@rhel610 ~]# ping 192.168.1.5
+    [root@linux ~]# ping 192.168.1.5
     PING 192.168.1.5 (192.168.1.5) 56(84) bytes of data.
     64 bytes from 192.168.1.5: icmp_seq=0 ttl=64 time=1004 ms
     64 bytes from 192.168.1.5: icmp_seq=1 ttl=64 time=1.19 ms
@@ -529,7 +529,7 @@ configured.
     --- 192.168.1.5 ping statistics ---
     4 packets transmitted, 4 received, 0% packet loss, time 3009ms
     rtt min/avg/max/mdev = 0.419/251.574/1004.186/434.520 ms, pipe 2
-    [root@rhel610 ~]#
+    [root@linux ~]#
 
 ## optional: ethtool
 
@@ -537,7 +537,7 @@ To display or change network card settings, use `ethtool`.
 The results depend on the capabilities of your network card. The example
 shows a network that auto-negotiates it\'s bandwidth.
 
-    root@laika:~# ethtool eth0
+    root@linux:~# ethtool eth0
     Settings for eth0:
         Supported ports: [ TP ]
         Supported link modes:   10baseT/Half 10baseT/Full 
@@ -563,12 +563,12 @@ This example shows how to use ethtool to switch the bandwidth from
 1000Mbit to 100Mbit and back. Note that some time passes before the nic
 is back to 1000Mbit.
 
-    root@laika:~# ethtool eth0 | grep Speed
+    root@linux:~# ethtool eth0 | grep Speed
         Speed: 1000Mb/s
-    root@laika:~# ethtool -s eth0 speed 100
-    root@laika:~# ethtool eth0 | grep Speed
+    root@linux:~# ethtool -s eth0 speed 100
+    root@linux:~# ethtool eth0 | grep Speed
         Speed: 100Mb/s
-    root@laika:~# ethtool -s eth0 speed 1000
-    root@laika:~# ethtool eth0 | grep Speed
+    root@linux:~# ethtool -s eth0 speed 1000
+    root@linux:~# ethtool eth0 | grep Speed
         Speed: 1000Mb/s
 

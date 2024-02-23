@@ -3,8 +3,8 @@
 In this second example, we will create a share where everyone can create
 files and write to files. Again, we start by creating a directory
 
-    [root@RHEL52 samba]# mkdir -p /srv/samba/writable
-    [root@RHEL52 samba]# chmod 777 /srv/samba/writable/
+    [root@linux samba]# mkdir -p /srv/samba/writable
+    [root@linux samba]# chmod 777 /srv/samba/writable/
 
 ## share section in smb.conf
 
@@ -25,7 +25,7 @@ Then we simply add a share to our file server by editing
 `smb.conf`. Below the check with testparm. (We could have
 changed the description of the server\...)
 
-    [root@RHEL52 samba]# testparm
+    [root@linux samba]# testparm
     Load smb config files from /etc/samba/smb.conf
     Processing section "[pubwrite]"
     Processing section "[pubread]"
@@ -85,7 +85,7 @@ user account or a password. Instead, the Linux owner of the files
 created through this writable share is the Linux guest account (usually
 named nobody).
 
-    [root@RHEL52 samba]# ls -l /srv/samba/writable/
+    [root@linux samba]# ls -l /srv/samba/writable/
     total 4
     -rwxr--r-- 1 nobody nobody 6 Jan 21 06:16 hoi.txt
 

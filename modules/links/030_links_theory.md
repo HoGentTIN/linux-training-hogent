@@ -12,7 +12,7 @@ contents of the file) is stored in the `inode` of the file.
 The `ls -l` command will display some of the inode
 contents, as seen in this screenshot.
 
-    root@rhel53 ~# ls -ld /home/project42/
+    root@linux ~# ls -ld /home/project42/
     drwxr-xr-x 4 root pro42 4.0K Mar 27 14:29 /home/project42/
 
 ### inode table
@@ -22,7 +22,7 @@ created when you create the file system (with `mkfs`). You
 can use the `df -i` command to see how many `inodes` are
 used and free on mounted file systems.
 
-    root@rhel53 ~# df -i
+    root@linux ~# df -i
     Filesystem            Inodes   IUsed   IFree IUse% Mounted on
     /dev/mapper/VolGroup00-LogVol00
                          4947968  115326 4832642    3% /
@@ -42,15 +42,15 @@ because it is a `fat` file system.
 Each `inode` has a unique number (the inode number). You can see the
 `inode` numbers with the `ls -li` command.
 
-    paul@RHELv8u4:~/test$ touch file1
-    paul@RHELv8u4:~/test$ touch file2
-    paul@RHELv8u4:~/test$ touch file3
-    paul@RHELv8u4:~/test$ ls -li
+    student@linux:~/test$ touch file1
+    student@linux:~/test$ touch file2
+    student@linux:~/test$ touch file3
+    student@linux:~/test$ ls -li
     total 12
     817266 -rw-rw-r--  1 paul paul 0 Feb  5 15:38 file1
     817267 -rw-rw-r--  1 paul paul 0 Feb  5 15:38 file2
     817268 -rw-rw-r--  1 paul paul 0 Feb  5 15:38 file3
-    paul@RHELv8u4:~/test$
+    student@linux:~/test$
 
 These three files were created one after the other and got three
 different `inodes` (the first column). All the information you see with
@@ -61,15 +61,15 @@ is contained in the directory).
 
 Let\'s put some data in one of the files.
 
-    paul@RHELv8u4:~/test$ ls -li
+    student@linux:~/test$ ls -li
     total 16
     817266 -rw-rw-r--  1 paul paul  0 Feb  5 15:38 file1
     817270 -rw-rw-r--  1 paul paul 92 Feb  5 15:42 file2
     817268 -rw-rw-r--  1 paul paul  0 Feb  5 15:38 file3
-    paul@RHELv8u4:~/test$ cat file2
+    student@linux:~/test$ cat file2
     It is winter now and it is very cold.
     We do not like the cold, we prefer hot summer nights.
-    paul@RHELv8u4:~/test$
+    student@linux:~/test$
 
 The data that is displayed by the `cat` command is not in the `inode`,
 but somewhere else on the disk. The `inode` contains a pointer to that
@@ -83,14 +83,14 @@ A `directory` is a special kind of file that contains a
 table which maps filenames to inodes. Listing our current directory with
 `ls -ali` will display the contents of the directory file.
 
-    paul@RHELv8u4:~/test$ ls -ali
+    student@linux:~/test$ ls -ali
     total 32
     817262 drwxrwxr-x   2 paul paul 4096 Feb  5 15:42 .
     800768 drwx------  16 paul paul 4096 Feb  5 15:42 ..
     817266 -rw-rw-r--   1 paul paul    0 Feb  5 15:38 file1
     817270 -rw-rw-r--   1 paul paul   92 Feb  5 15:42 file2
     817268 -rw-rw-r--   1 paul paul    0 Feb  5 15:38 file3
-    paul@RHELv8u4:~/test$
+    student@linux:~/test$
 
 ### . and ..
 
@@ -107,14 +107,14 @@ When we create a `hard link` to a file with
 `ln`, an extra entry is added in the directory. A new file
 name is mapped to an existing inode.
 
-    paul@RHELv8u4:~/test$ ln file2 hardlink_to_file2
-    paul@RHELv8u4:~/test$ ls -li
+    student@linux:~/test$ ln file2 hardlink_to_file2
+    student@linux:~/test$ ls -li
     total 24
     817266 -rw-rw-r--  1 paul paul  0 Feb  5 15:38 file1
     817270 -rw-rw-r--  2 paul paul 92 Feb  5 15:42 file2
     817268 -rw-rw-r--  1 paul paul  0 Feb  5 15:38 file3
     817270 -rw-rw-r--  2 paul paul 92 Feb  5 15:42 hardlink_to_file2
-    paul@RHELv8u4:~/test$
+    student@linux:~/test$
 
 Both files have the same inode, so they will always have the same
 permissions and the same owner. Both files will have the same content.
@@ -130,7 +130,7 @@ certain inode. The screenshot below shows how to search for all
 filenames that point to `inode` 817270. Remember that an
 `inode` number is unique to its partition.
 
-    paul@RHELv8u4:~/test$ find / -inum 817270 2> /dev/null
+    student@linux:~/test$ find / -inum 817270 2> /dev/null
     /home/paul/test/file2
     /home/paul/test/hardlink_to_file2
 
@@ -141,15 +141,15 @@ to inodes, but create a name to name mapping. Symbolic links are created
 with `ln -s`. As you can see below, the
 `symbolic link` gets an inode of its own.
 
-    paul@RHELv8u4:~/test$ ln -s file2 symlink_to_file2
-    paul@RHELv8u4:~/test$ ls -li
+    student@linux:~/test$ ln -s file2 symlink_to_file2
+    student@linux:~/test$ ls -li
     total 32
     817273 -rw-rw-r--  1 paul paul  13 Feb  5 17:06 file1
     817270 -rw-rw-r--  2 paul paul 106 Feb  5 17:04 file2
     817268 -rw-rw-r--  1 paul paul   0 Feb  5 15:38 file3
     817270 -rw-rw-r--  2 paul paul 106 Feb  5 17:04 hardlink_to_file2
     817267 lrwxrwxrwx  1 paul paul   5 Feb  5 16:55 symlink_to_file2 -> file2
-    paul@RHELv8u4:~/test$
+    student@linux:~/test$
 
 Permissions on a symbolic link have no meaning, since the permissions of
 the target apply. Hard links are limited to their own partition (because
@@ -160,9 +160,9 @@ systems, even networked).
 
 Links can be removed with `rm`.
 
-    paul@laika:~$ touch data.txt
-    paul@laika:~$ ln -s data.txt sl_data.txt
-    paul@laika:~$ ln data.txt hl_data.txt
-    paul@laika:~$ rm sl_data.txt 
-    paul@laika:~$ rm hl_data.txt
+    student@linux:~$ touch data.txt
+    student@linux:~$ ln -s data.txt sl_data.txt
+    student@linux:~$ ln data.txt hl_data.txt
+    student@linux:~$ rm sl_data.txt 
+    student@linux:~$ rm hl_data.txt
 

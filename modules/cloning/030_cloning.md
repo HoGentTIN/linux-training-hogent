@@ -30,7 +30,7 @@ We have a working Red Hat Enterprise Linux 5 server, and we want a
 perfect copy of it on newer hardware. First thing to do is discover the
 disk layout.
 
-    [root@RHEL5 ~]# df -h 
+    [root@linux ~]# df -h 
     Filesystem            Size  Used Avail Use% Mounted on
     /dev/sda2              15G  4.5G  9.3G  33% /
     /dev/sda1              99M   31M   64M  33% /boot

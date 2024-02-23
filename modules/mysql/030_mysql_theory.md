@@ -4,7 +4,7 @@ On Debian/Ubuntu you can use
 `aptitude install mysql-server` to install the
 `mysql server` and `client`.
 
-    root@ubu1204~# aptitude install mysql-server
+    root@linux~# aptitude install mysql-server
     The following NEW packages will be installed:
       libdbd-mysql-perl{a} libdbi-perl{a} libhtml-template-perl{a}
       libnet-daemon-perl{a} libplrpc-perl{a} mysql-client-5.5{a} 
@@ -21,13 +21,13 @@ During the installation you will be asked to provide a password for the
 To verify the installed version, use `dpkg -l` on
 Debian/Ubuntu. This screenshot shows version 5.0 installed.
 
-    root@ubu1204~# dpkg -l mysql-server | tail -1 | tr -s ' ' | cut -c-72
+    root@linux~# dpkg -l mysql-server | tail -1 | tr -s ' ' | cut -c-72
     ii mysql-server 5.5.24-0ubuntu0.12.04.1 MySQL database server (metapacka
 
 Issue `rpm -q` to get version information about MySQL on
 Red Hat/Fedora/CentOS.
 
-    [paul@RHEL52 ~]$ rpm -q mysql-server
+    [student@linux ~]$ rpm -q mysql-server
     mysql-server-5.0.45-7.el5
 
 You will need at least version 5.0 to work with
@@ -41,15 +41,15 @@ The installation of `mysql` creates a user account in
 `/etc/passwd` and a group account in
 `/etc/group`.
 
-    kevin@ubu1204:~$ tail -1 /etc/passwd
+    kevin@linux:~$ tail -1 /etc/passwd
     mysql:x:120:131:MySQL Server,,,:/nonexistent:/bin/false
-    kevin@ubu1204:~$ tail -1 /etc/group
+    kevin@linux:~$ tail -1 /etc/group
     mysql:x:131:
 
 The mysql daemon `mysqld` will run with the credentials of
 this user and group.
 
-    root@ubu1204~# ps -eo uid,user,gid,group,comm | grep mysqld
+    root@linux~# ps -eo uid,user,gid,group,comm | grep mysqld
       120 mysql      131 mysql    mysqld
 
 ### mysql client application
@@ -59,7 +59,7 @@ You can now use mysql from the commandline by just typing
 (of the `mysql root` account). In the screenshot below the user typed
 `exit` to exit the mysql console.
 
-    root@ubu1204~# mysql -u root -p
+    root@linux~# mysql -u root -p
     Enter password: 
     Welcome to the MySQL monitor.  Commands end with ; or \g.
     Your MySQL connection id is 43
@@ -80,7 +80,7 @@ You could also put the password in clear text on the command line, but
 that would not be very secure. Anyone with access to your bash history
 would be able to read your mysql root password.
 
-    root@ubu1204~# mysql -u root -phunter2
+    root@linux~# mysql -u root -phunter2
     Welcome to the MySQL monitor.  Commands end with ; or \g.
     ...
 
@@ -90,18 +90,18 @@ You can save configuration in your home directory in the hidden file
 `.my.cnf`. In the screenshot below we put the root user
 and password in .my.cnf.
 
-    kevin@ubu1204:~$ pwd
+    kevin@linux:~$ pwd
     /home/kevin
-    kevin@ubu1204:~$ cat .my.cnf 
+    kevin@linux:~$ cat .my.cnf 
     [client]
     user=root
     password=hunter2
-    kevin@ubu1204:~$
+    kevin@linux:~$
 
 This enables us to log on as the `root mysql` user just by typing
 `mysql`.
 
-    kevin@ubu1204:~$ mysql
+    kevin@linux:~$ mysql
     Welcome to the MySQL monitor.  Commands end with ; or \g.
     Your MySQL connection id is 56
     Server version: 5.5.24-0ubuntu0.12.04.1 (Ubuntu)
@@ -138,7 +138,7 @@ show you how. First, we log on to our MySQL server and execute the
 command `show databases` to see which databases exist on
 our mysql server.
 
-    kevin@ubu1204:~$ mysql
+    kevin@linux:~$ mysql
     Welcome to the MySQL monitor.  Commands end with ; or \g.
     Your MySQL connection id is 57
     Server version: 5.5.24-0ubuntu0.12.04.1 (Ubuntu)

@@ -5,7 +5,7 @@
 This example shows how to create a new `mount point` with
 `mkdir`.
 
-    root@RHELv8u2:~# mkdir /home/project42
+    root@linux:~# mkdir /home/project42
 
 ### mount
 
@@ -13,7 +13,7 @@ When the `mount point` is created, and a `file system` is present on the
 partition, then `mount` can `mount` the `file system` on the
 `mount point directory`.
 
-    root@RHELv8u2:~# mount -t ext2 /dev/sdb1 /home/project42/
+    root@linux:~# mount -t ext2 /dev/sdb1 /home/project42/
 
 Once mounted, the new file system is accessible to users.
 
@@ -28,7 +28,7 @@ system, then `mount` will first probe
 `/etc/filesystems`. Mount will skip lines with the
 `nodev` directive.
 
-    paul@RHELv8u4:~$ cat /etc/filesystems 
+    student@linux:~$ cat /etc/filesystems 
     ext3
     ext2
     nodev proc
@@ -42,7 +42,7 @@ system, then `mount` will first probe
 When `/etc/filesystems` does not exist, or ends with a single \* on the
 last line, then `mount` will read `/proc/filesystems`.
 
-    [root@RHEL52 ~]# cat /proc/filesystems | grep -v ^nodev
+    [root@linux ~]# cat /proc/filesystems | grep -v ^nodev
         ext2
         iso9660
         ext3
@@ -51,7 +51,7 @@ last line, then `mount` will read `/proc/filesystems`.
 
 You can `unmount` a mounted file system using the `umount` command.
 
-    root@pasha:~# umount /home/reet
+    root@linux:~# umount /home/reet
 
 ## displaying mounted file systems
 
@@ -63,7 +63,7 @@ at the files `/proc/mounts` and `/etc/mtab`.
 The simplest and most common way to view all mounts is by issuing the
 `mount` command without any arguments.
 
-    root@RHELv8u2:~# mount | grep /dev/sdb
+    root@linux:~# mount | grep /dev/sdb
     /dev/sdb1 on /home/project42 type ext2 (rw)
 
 ### /proc/mounts
@@ -73,7 +73,7 @@ The kernel provides the info in `/proc/mounts` in file form, but
 `/proc/mounts` is looking at information that comes directly from the
 kernel.
 
-    root@RHELv8u2:~# cat /proc/mounts | grep /dev/sdb
+    root@linux:~# cat /proc/mounts | grep /dev/sdb
     /dev/sdb1 /home/project42 ext2 rw 0 0
 
 ### /etc/mtab
@@ -81,7 +81,7 @@ kernel.
 The `/etc/mtab` file is not updated by the kernel, but is maintained by
 the `mount` command. Do not edit `/etc/mtab` manually.
 
-    root@RHELv8u2:~# cat /etc/mtab | grep /dev/sdb
+    root@linux:~# cat /etc/mtab | grep /dev/sdb
     /dev/sdb1 /home/project42 ext2 rw 0 0
 
 ### df
@@ -92,14 +92,14 @@ showing you the free space on each mounted disk. Like a lot of Linux
 commands, `df` supports the `-h` switch to make the output more
 `human readable`.
 
-    root@RHELv8u2:~# df
+    root@linux:~# df
     Filesystem           1K-blocks      Used Available Use% Mounted on
     /dev/mapper/VolGroup00-LogVol00
     11707972   6366996   4746240  58% /
     /dev/sda1             101086    9300    86567  10% /boot
     none                  127988       0   127988   0% /dev/shm
     /dev/sdb1             108865    1550   101694   2% /home/project42
-    root@RHELv8u2:~# df -h
+    root@linux:~# df -h
     Filesystem            Size  Used Avail Use% Mounted on
     /dev/mapper/VolGroup00-LogVol00
     12G  6.1G  4.6G  58% /
@@ -112,7 +112,7 @@ commands, `df` supports the `-h` switch to make the output more
 In the `df -h` example below you can see the size, free
 space, used gigabytes and percentage and mount point of a partition.
 
-    root@laika:~# df -h | egrep -e "(sdb2|File)"
+    root@linux:~# df -h | egrep -e "(sdb2|File)"
     Filesystem            Size Used Avail Use% Mounted on
     /dev/sdb2              92G   83G  8.6G  91% /media/sdb2
 
@@ -127,7 +127,7 @@ will give you a total summary for the parent directory. This option is
 often used together with `-h`. This means `du -sh` on a mount point
 gives the total amount used by the file system in that partition.
 
-    root@debian6~# du -sh /boot /srv/wolf
+    root@linux~# du -sh /boot /srv/wolf
     6.2M    /boot
     1.1T    /srv/wolf
 
@@ -136,7 +136,7 @@ gives the total amount used by the file system in that partition.
 Below is a screenshot that show a summary roadmap starting with
 detection of the hardware (/dev/sdb) up until mounting on `/mnt`.
 
-    [root@centos65 ~]# dmesg | grep '\[sdb\]'
+    [root@linux ~]# dmesg | grep '\[sdb\]'
     sd 3:0:0:0: [sdb] 150994944 512-byte logical blocks: (77.3 GB/72.0 GiB)
     sd 3:0:0:0: [sdb] Write Protect is off
     sd 3:0:0:0: [sdb] Mode Sense: 00 3a 00 00
@@ -144,7 +144,7 @@ detection of the hardware (/dev/sdb) up until mounting on `/mnt`.
     DPO or FUA
     sd 3:0:0:0: [sdb] Attached SCSI disk
 
-    [root@centos65 ~]# parted /dev/sdb
+    [root@linux ~]# parted /dev/sdb
 
     (parted) mklabel msdos
     (parted) mkpart primary ext4 1 77000
@@ -158,7 +158,7 @@ detection of the hardware (/dev/sdb) up until mounting on `/mnt`.
      1      1049kB  77.0GB  77.0GB  primary
 
     (parted) quit
-    [root@centos65 ~]# mkfs.ext4 /dev/sdb1
+    [root@linux ~]# mkfs.ext4 /dev/sdb1
     mke2fs 1.41.12 (17-May-2010)
     Filesystem label=
     OS type: Linux
@@ -174,14 +174,14 @@ detection of the hardware (/dev/sdb) up until mounting on `/mnt`.
     8192 inodes per group
     ( output truncated )
     ...
-    [root@centos65 ~]# mount /dev/sdb1 /mnt
-    [root@centos65 ~]# mount | grep mnt
+    [root@linux ~]# mount /dev/sdb1 /mnt
+    [root@linux ~]# mount | grep mnt
     /dev/sdb1 on /mnt type ext4 (rw)
-    [root@centos65 ~]# df -h | grep mnt
+    [root@linux ~]# df -h | grep mnt
     /dev/sdb1              71G  180M   67G   1% /mnt
-    [root@centos65 ~]# du -sh /mnt
+    [root@linux ~]# du -sh /mnt
     20K     /mnt
-    [root@centos65 ~]# umount /mnt
+    [root@linux ~]# umount /mnt
 
 ## permanent mounts
 
@@ -197,7 +197,7 @@ at boot time.
 
 Below is a sample `/etc/fstab` file.
 
-    root@RHELv8u2:~# cat /etc/fstab 
+    root@linux:~# cat /etc/fstab 
     /dev/VolGroup00/LogVol00 /                ext3    defaults        1 1
     LABEL=/boot             /boot             ext3    defaults        1 2
     none                    /dev/pts          devpts  gid=5,mode=620  0 0
@@ -217,7 +217,7 @@ Adding an entry to `/etc/fstab` has the added advantage that you can
 simplify the `mount` command. The command in the screenshot below forces
 `mount` to look for the partition info in `/etc/fstab`.
 
-    root@rhel65:~# mount /home/project42
+    root@linux:~# mount /home/project42
 
 ## securing mounts
 
@@ -229,8 +229,8 @@ examples.
 The `ro` option will mount a file system as read only, preventing anyone
 from writing.
 
-    root@rhel53 ~# mount -t ext2 -o ro /dev/hdb1 /home/project42
-    root@rhel53 ~# touch /home/project42/testwrite
+    root@linux ~# mount -t ext2 -o ro /dev/hdb1 /home/project42
+    root@linux ~# touch /home/project42/testwrite
     touch: cannot touch `/home/project42/testwrite': Read-only file system
 
 ### noexec
@@ -238,13 +238,13 @@ from writing.
 The `noexec` option will prevent the execution of binaries
 and scripts on the mounted file system.
 
-    root@rhel53 ~# mount -t ext2 -o noexec /dev/hdb1 /home/project42
-    root@rhel53 ~# cp /bin/cat /home/project42
-    root@rhel53 ~# /home/project42/cat /etc/hosts
+    root@linux ~# mount -t ext2 -o noexec /dev/hdb1 /home/project42
+    root@linux ~# cp /bin/cat /home/project42
+    root@linux ~# /home/project42/cat /etc/hosts
     -bash: /home/project42/cat: Permission denied
-    root@rhel53 ~# echo echo hello > /home/project42/helloscript
-    root@rhel53 ~# chmod +x /home/project42/helloscript 
-    root@rhel53 ~# /home/project42/helloscript 
+    root@linux ~# echo echo hello > /home/project42/helloscript
+    root@linux ~# chmod +x /home/project42/helloscript 
+    root@linux ~# /home/project42/helloscript 
     -bash: /home/project42/helloscript: Permission denied
 
 ### nosuid
@@ -254,29 +254,29 @@ set binaries on the mounted file system.
 
 Note that you can still set the `setuid` bit on files.
 
-    root@rhel53 ~# mount -o nosuid /dev/hdb1 /home/project42
-    root@rhel53 ~# cp /bin/sleep /home/project42/
-    root@rhel53 ~# chmod 4555 /home/project42/sleep 
-    root@rhel53 ~# ls -l /home/project42/sleep 
+    root@linux ~# mount -o nosuid /dev/hdb1 /home/project42
+    root@linux ~# cp /bin/sleep /home/project42/
+    root@linux ~# chmod 4555 /home/project42/sleep 
+    root@linux ~# ls -l /home/project42/sleep 
     -r-sr-xr-x 1 root root 19564 Jun 24 17:57 /home/project42/sleep
                 
 
 But users cannot exploit the `setuid` feature.
 
-    root@rhel53 ~# su - paul
-    [paul@rhel53 ~]$ /home/project42/sleep 500 &
+    root@linux ~# su - paul
+    [student@linux ~]$ /home/project42/sleep 500 &
     [1] 2876
-    [paul@rhel53 ~]$ ps -f 2876
+    [student@linux ~]$ ps -f 2876
     UID        PID  PPID  C STIME TTY      STAT   TIME CMD
     paul      2876  2853  0 17:58 pts/0    S      0:00 /home/project42/sleep 500
-    [paul@rhel53 ~]$
+    [student@linux ~]$
 
 ### noacl
 
 To prevent cluttering permissions with `acl's`, use the
 `noacl` option.
 
-    root@rhel53 ~# mount -o noacl /dev/hdb1 /home/project42
+    root@linux ~# mount -o noacl /dev/hdb1 /home/project42
 
 More `mount options` can be found in the manual page of `mount`.
 
@@ -294,9 +294,9 @@ with the mount command.
 This example shows how to connect to the `10.0.0.42` server, to a share
 named `data2`.
 
-    [root@centos65 ~]# mount -t cifs -o user=paul //10.0.0.42/data2 /home/data2
+    [root@linux ~]# mount -t cifs -o user=paul //10.0.0.42/data2 /home/data2
     Password: 
-    [root@centos65 ~]# mount | grep cifs
+    [root@linux ~]# mount | grep cifs
     //10.0.0.42/data2 on /home/data2 type cifs (rw)
 
 The above requires `yum install cifs-client`.
@@ -312,13 +312,13 @@ This command shows how to connect to the nfs server named `server42`,
 which is sharing the directory `/srv/data`. The `mount point` at the end
 of the command (`/home/data`) must already exist.
 
-    [root@centos65 ~]# mount -t nfs server42:/srv/data /home/data
-    [root@centos65 ~]#
+    [root@linux ~]# mount -t nfs server42:/srv/data /home/data
+    [root@linux ~]#
 
 If this `server42` has ip-address `10.0.0.42` then you can also write:
 
-    [root@centos65 ~]# mount -t nfs 10.0.0.42:/srv/data /home/data
-    [root@centos65 ~]# mount | grep data
+    [root@linux ~]# mount -t nfs 10.0.0.42:/srv/data /home/data
+    [root@linux ~]# mount | grep data
     10.0.0.42:/srv/data on /home/data type nfs (rw,vers=4,addr=10.0.0.42,clienta\
     ddr=10.0.0.33)
 

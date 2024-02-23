@@ -5,7 +5,7 @@ contain sets of rules.
 
 The `filter table` is used for packet filtering.
 
-    root@debian6~# iptables -t filter -L
+    root@linux~# iptables -t filter -L
     Chain INPUT (policy ACCEPT)
     target     prot opt source               destination         
 
@@ -17,7 +17,7 @@ The `filter table` is used for packet filtering.
 
 The `nat table` is used for address translation.
 
-    root@debian6~# iptables -t nat -L
+    root@linux~# iptables -t nat -L
     Chain PREROUTING (policy ACCEPT)
     target     prot opt source               destination         
 
@@ -46,7 +46,7 @@ Hat/Fedora/CentOS and compatible distributions.
 Debian and \*buntu distributions do not have this script, but allow for
 an uninstall.
 
-    root@debian6~# aptitude purge iptables
+    root@linux~# aptitude purge iptables
 
 ## the filter table
 
@@ -69,7 +69,7 @@ packets that are forwarded (routed) through the system.
 The screenshot below shows how to list the filter table and all its
 rules.
 
-    [root@RHEL5 ~]# iptables -t filter -nL
+    [root@linux ~]# iptables -t filter -nL
     Chain INPUT (policy ACCEPT)
     target     prot opt source               destination         
 
@@ -78,7 +78,7 @@ rules.
 
     Chain OUTPUT (policy ACCEPT)
     target     prot opt source               destination         
-    [root@RHEL5 ~]#
+    [root@linux ~]#
 
 As you can see, all three chains in the filter table are set to ACCEPT
 everything. ACCEPT is the default behaviour.
@@ -114,9 +114,9 @@ To start, let\'s set the default policy for all three chains to drop
 everything. Note that you might lose your connection when typing this
 over ssh ;-).
 
-    [root@RHEL5 ~]# iptables -P INPUT DROP
-    [root@RHEL5 ~]# iptables -P FORWARD DROP
-    [root@RHEL5 ~]# iptables -P OUTPUT DROP
+    [root@linux ~]# iptables -P INPUT DROP
+    [root@linux ~]# iptables -P FORWARD DROP
+    [root@linux ~]# iptables -P OUTPUT DROP
 
 Next, we allow the server to use its own loopback device (this allows
 the server to access its services running on localhost). We first append
@@ -124,13 +124,13 @@ a rule to the INPUT chain to allow (ACCEPT) traffic from the lo
 (loopback) interface, then we do the same to allow packets to leave the
 system through the loopback interface.
 
-    [root@RHEL5 ~]# iptables -A INPUT -i lo -j ACCEPT
-    [root@RHEL5 ~]# iptables -A OUTPUT -o lo -j ACCEPT
+    [root@linux ~]# iptables -A INPUT -i lo -j ACCEPT
+    [root@linux ~]# iptables -A OUTPUT -o lo -j ACCEPT
 
 Looking at the filter table again (omitting -t filter because it is the
 default table).
 
-    [root@RHEL5 ~]# iptables -nL
+    [root@linux ~]# iptables -nL
     Chain INPUT (policy DROP)
     target     prot opt source               destination
     ACCEPT     all  --  0.0.0.0/0            0.0.0.0/0
@@ -147,13 +147,13 @@ default table).
 This example show how to add two rules to allow ssh access to your
 system from outside.
 
-    [root@RHEL5 ~]# iptables -A INPUT -i eth0 -p tcp --dport 22 -j ACCEPT
-    [root@RHEL5 ~]# iptables -A OUTPUT -o eth0 -p tcp --sport 22 -j ACCEPT
+    [root@linux ~]# iptables -A INPUT -i eth0 -p tcp --dport 22 -j ACCEPT
+    [root@linux ~]# iptables -A OUTPUT -o eth0 -p tcp --sport 22 -j ACCEPT
 
 The filter table will look something like this screenshot (note that -v
 is added for more verbose output).
 
-    [root@RHEL5 ~]# iptables -nvL
+    [root@linux ~]# iptables -nvL
     Chain INPUT (policy DROP 7 packets, 609 bytes)
      pkts bytes target prot opt in    out   source     destination 
         0     0 ACCEPT all  --  lo    *     0.0.0.0/0  0.0.0.0/0 
@@ -166,7 +166,7 @@ is added for more verbose output).
      pkts bytes target prot opt in    out   source     destination
         0     0 ACCEPT all  --  *     lo    0.0.0.0/0  0.0.0.0/0
         0     0 ACCEPT tcp  --  *     eth0  0.0.0.0/0  0.0.0.0/0  tcp spt:22
-    [root@RHEL5 ~]#
+    [root@linux ~]#
 
 ### Allowing access from a subnet
 
@@ -174,12 +174,12 @@ This example shows how to allow access from any computer in the
 10.1.1.0/24 network, but only through eth1. There is no port
 (application) limitation here.
 
-    [root@RHEL5 ~]# iptables -A INPUT -i eth1 -s 10.1.1.0/24 -p tcp -j ACCEPT
-    [root@RHEL5 ~]# iptables -A OUTPUT -o eth1 -d 10.1.1.0/24 -p tcp -j ACCEPT
+    [root@linux ~]# iptables -A INPUT -i eth1 -s 10.1.1.0/24 -p tcp -j ACCEPT
+    [root@linux ~]# iptables -A OUTPUT -o eth1 -d 10.1.1.0/24 -p tcp -j ACCEPT
 
 Together with the previous examples, the policy is expanding.
 
-    [root@RHEL5 ~]# iptables -nvL
+    [root@linux ~]# iptables -nvL
     Chain INPUT (policy DROP 7 packets, 609 bytes)
      pkts bytes target prot opt in    out   source      destination
         0     0 ACCEPT all  --  lo    *     0.0.0.0/0   0.0.0.0/0
@@ -200,9 +200,9 @@ Together with the previous examples, the policy is expanding.
 Use `iptables save` to automatically implement these rules
 when the firewall is (re)started.
 
-    [root@RHEL5 ~]# /etc/init.d/iptables save
+    [root@linux ~]# /etc/init.d/iptables save
     Saving firewall rules to /etc/sysconfig/iptables:          [  OK  ]
-    [root@RHEL5 ~]#
+    [root@linux ~]#
 
 ### scripting example
 
@@ -239,7 +239,7 @@ chapter.
 When you enable iptables, you will get an `'Operation not permitted'`
 message when trying to ping other hosts.
 
-    [root@RHEL5 ~# ping 192.168.187.130
+    [root@linux ~# ping 192.168.187.130
     PING 192.168.187.130 (192.168.187.130) 56(84) bytes of data.
     ping: sendmsg: Operation not permitted
     ping: sendmsg: Operation not permitted
@@ -247,13 +247,13 @@ message when trying to ping other hosts.
 The screenshot below shows you how to setup iptables to allow a ping
 from or to your machine.
 
-    [root@RHEL5 ~]# iptables -A INPUT -p icmp --icmp-type any -j ACCEPT
-    [root@RHEL5 ~]# iptables -A OUTPUT -p icmp --icmp-type any -j ACCEPT
+    [root@linux ~]# iptables -A INPUT -p icmp --icmp-type any -j ACCEPT
+    [root@linux ~]# iptables -A OUTPUT -p icmp --icmp-type any -j ACCEPT
 
 The previous two lines do not allow other computers to route ping
 messages through your router, because it only handles INPUT and OUTPUT.
 For routing of ping, you will need to enable it on the FORWARD chain.
 The following command enables routing of icmp messages between networks.
 
-    [root@RHEL5 ~]# iptables -A FORWARD -p icmp --icmp-type any -j ACCEPT
+    [root@linux ~]# iptables -A FORWARD -p icmp --icmp-type any -j ACCEPT
 

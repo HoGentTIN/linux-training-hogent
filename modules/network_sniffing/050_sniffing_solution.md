@@ -28,7 +28,7 @@ query and response ?
 
     Enter 'dns' in the filter box and click apply.
 
-    root@ubuntu910:~# ping www.linux-training.be
+    root@linux:~# ping www.linux-training.be
     PING www.linux-training.be (88.151.243.8) 56(84) bytes of data.
     64 bytes from fosfor.openminds.be (88.151.243.8): icmp_seq=1 ttl=58 time=14.9 ms
     64 bytes from fosfor.openminds.be (88.151.243.8): icmp_seq=2 ttl=58 time=16.0 ms

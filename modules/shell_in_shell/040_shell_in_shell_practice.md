@@ -22,7 +22,7 @@ the variable exist in your current shell now ?
 (optional)7. Given the following screenshot, add exactly four characters
 to that command line so that the total output is FirstMiddleLast.
 
-    [paul@RHEL8b ~]$ echo  First; echo  Middle; echo  Last
+    [student@linux ~]$ echo  First; echo  Middle; echo  Last
 
 8\. Display a `long listing` (ls -l) of the `passwd` command using the
 `which` command inside an embedded shell.

@@ -59,7 +59,7 @@ Random access hard disk devices have an abstraction layer called
 512 bytes) blocks. Blocks can be accessed independent of access to other
 blocks.
 
-    [root@centos65 ~]# lsblk
+    [root@linux ~]# lsblk
     NAME                        MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
     sda                           8:0    0   40G  0 disk 
     --sda1                        8:1    0  500M  0 part /boot
@@ -72,7 +72,7 @@ blocks.
 A block device has the letter b to denote the file type in the output of
 `ls -l`.
 
-    [root@centos65 ~]# ls -l /dev/sd*
+    [root@linux ~]# ls -l /dev/sd*
     brw-rw----. 1 root disk 8,  0 Apr 19 10:12 /dev/sda
     brw-rw----. 1 root disk 8,  1 Apr 19 10:12 /dev/sda1
     brw-rw----. 1 root disk 8,  2 Apr 19 10:12 /dev/sda2
@@ -82,7 +82,7 @@ A block device has the letter b to denote the file type in the output of
 Virtual devices like `raid` or `lvm` are also listed as `block devices`
 as seen in this RHEL7 virtual machine.
 
-    [root@centos7 ~]# lsblk
+    [root@linux ~]# lsblk
     NAME                    MAJ:MIN RM   SIZE RO TYPE  MOUNTPOINT
     sda                       8:0    0     8G  0 disk
     ├─sda1                    8:1    0   400M  0 part
@@ -100,7 +100,7 @@ as seen in this RHEL7 virtual machine.
       ├─centos_centos7-swap 253:0    0     2G  0 lvm   [SWAP]
       └─centos_centos7-root 253:1    0    18G  0 lvm   /
     sr0                      11:0    1  1024M  0 rom
-    [root@centos7 ~]#
+    [root@linux ~]#
 
 Note that a `character device` is a constant stream of
 characters, being denoted by a c in `ls -l`. Note also that the
@@ -184,7 +184,7 @@ You can start by using `/sbin/fdisk` to find out what kind
 of disks are seen by the kernel. Below the result on old Debian desktop,
 with two `ata-ide disks` present.
 
-    root@barry:~# fdisk -l | grep Disk
+    root@linux:~# fdisk -l | grep Disk
     Disk /dev/hda: 60.0 GB, 60022480896 bytes
     Disk /dev/hdb: 81.9 GB, 81964302336 bytes
 
@@ -192,7 +192,7 @@ And here an example of `sata and scsi disks` on a server with CentOS.
 Remember that `sata` disks are also presented to you with the `scsi`
 /dev/sd\* notation.
 
-    [root@centos65 ~]# fdisk -l | grep 'Disk /dev/sd'
+    [root@linux ~]# fdisk -l | grep 'Disk /dev/sd'
     Disk /dev/sda: 42.9 GB, 42949672960 bytes
     Disk /dev/sdb: 77.3 GB, 77309411328 bytes
     Disk /dev/sdc: 154.6 GB, 154618822656 bytes
@@ -218,7 +218,7 @@ devices are configured.
 You can also use `fdisk` to obtain information about one specific hard
 disk device.
 
-    [root@centos65 ~]# fdisk -l /dev/sdc
+    [root@linux ~]# fdisk -l /dev/sdc
 
     Disk /dev/sdc: 154.6 GB, 154618822656 bytes
     255 heads, 63 sectors/track, 18798 cylinders
@@ -236,7 +236,7 @@ Kernel boot messages can be seen after boot with `dmesg`.
 Since hard disk devices are detected by the kernel during boot, you can
 also use dmesg to find information about disk devices.
 
-    [root@centos65 ~]# dmesg | grep 'sd[a-z]' | head
+    [root@linux ~]# dmesg | grep 'sd[a-z]' | head
     sd 0:0:0:0: [sda] 83886080 512-byte logical blocks: (42.9 GB/40.0 GiB)
     sd 0:0:0:0: [sda] Write Protect is off
     sd 0:0:0:0: [sda] Mode Sense: 00 3a 00 00
@@ -253,14 +253,14 @@ also use dmesg to find information about disk devices.
 Here is another example of `dmesg` on a computer with a
 200GB ata disk.
 
-    paul@barry:~$ dmesg | grep -i "ata disk"
+    student@linux:~$ dmesg | grep -i "ata disk"
     [    2.624149] hda: ST360021A, ATA DISK drive
     [    2.904150] hdb: Maxtor 6Y080L0, ATA DISK drive
     [    3.472148] hdd: WDC WD2000BB-98DWA0, ATA DISK drive
 
 Third and last example of `dmesg` running on RHEL5.3.
 
-    root@rhel53 ~# dmesg | grep -i "scsi disk"
+    root@linux ~# dmesg | grep -i "scsi disk"
     sd 0:0:2:0: Attached scsi disk sda
     sd 0:0:3:0: Attached scsi disk sdb
     sd 0:0:6:0: Attached scsi disk sdc
@@ -272,7 +272,7 @@ show a lot of information about disks (and partitions).
 
 Below a truncated screenshot on Debian 6:
 
-    root@debian6~# lshw -class volume | grep -A1 -B2 scsi
+    root@linux~# lshw -class volume | grep -A1 -B2 scsi
            description: Linux raid autodetect partition
            physical id: 1
            bus info: scsi@1:0.0.0,1
@@ -324,7 +324,7 @@ all scsi (and scsi emulated devices). This first screenshot shows
 Below a screenshot of `lsscsi` on a QNAP NAS (which has four 750GB disks
 and boots from a usb stick).
 
-    lroot@debian6~# lsscsi 
+    lroot@linux~# lsscsi 
     [0:0:0:0]    disk    SanDisk  Cruzer Edge      1.19  /dev/sda
     [1:0:0:0]    disk    ATA      ST3750330AS      SD04  /dev/sdb
     [2:0:0:0]    disk    ATA      ST3750330AS      SD04  /dev/sdc
@@ -333,7 +333,7 @@ and boots from a usb stick).
 
 This screenshot shows the classic output of `lsscsi`.
 
-    root@debian6~# lsscsi -c
+    root@linux~# lsscsi -c
     Attached devices: 
     Host: scsi0 Channel: 00 Target: 00 Lun: 00
       Vendor: SanDisk  Model: Cruzer Edge      Rev: 1.19
@@ -371,7 +371,7 @@ This screenshot is from a `sparc` computer with adaptec RAID5.
 Here we run `cat /proc/scsi/scsi` on the QNAP from above (with Debian
 Linux).
 
-    root@debian6~# cat /proc/scsi/scsi 
+    root@linux~# cat /proc/scsi/scsi 
     Attached devices:
     Host: scsi0 Channel: 00 Id: 00 Lun: 00
       Vendor: SanDisk  Model: Cruzer Edge      Rev: 1.19
@@ -397,7 +397,7 @@ kernel. You can enable it (after a kernel compile) using this entry:
 Redhat and CentOS have this by default (if there are scsi devices
 present).
 
-    [root@centos65 ~]# cat /proc/scsi/scsi 
+    [root@linux ~]# cat /proc/scsi/scsi 
     Attached devices:
     Host: scsi0 Channel: 00 Id: 00 Lun: 00
       Vendor: ATA      Model: VBOX HARDDISK    Rev: 1.0 
@@ -416,7 +416,7 @@ to erase it. By simply repartitioning, or by using the Microsoft Windows
 format utility, or even after an `mkfs` command, some people will still
 be able to read most of the data on the disk.
 
-    root@debian6~# aptitude search foremost autopsy sleuthkit | tr -s ' '
+    root@linux~# aptitude search foremost autopsy sleuthkit | tr -s ' '
     p autopsy - graphical interface to SleuthKit 
     p foremost - Forensics application to recover data 
     p sleuthkit - collection of tools for forensics analysis
@@ -426,7 +426,7 @@ to look for bad blocks, you can use it to completely erase all data from
 a disk. Since this is really writing to every sector of the disk, it can
 take a long time!
 
-    root@RHELv8u2:~# badblocks -ws /dev/sdb
+    root@linux:~# badblocks -ws /dev/sdb
     Testing with pattern 0xaa: done
     Reading and comparing: done
     Testing with pattern 0x55: done
@@ -443,7 +443,7 @@ all data.
 Warning, this screenshot shows how to permanently destroy all data on a
 block device.
 
-    [root@rhel65 ~]# dd if=/dev/zero of=/dev/sdb
+    [root@linux ~]# dd if=/dev/zero of=/dev/sdb
 
 ## advanced hard disk settings
 
@@ -455,7 +455,7 @@ parameters about an ATA (or SATA) hard disk device. The -i and -I
 options will give you even more information about the physical
 properties of the device.
 
-    root@laika:~# hdparm /dev/sdb
+    root@linux:~# hdparm /dev/sdb
 
     /dev/sdb:
      IO_support   =  0 (default 16-bit)
@@ -465,7 +465,7 @@ properties of the device.
 
 Below `hdparm` info about a 200GB IDE disk.
 
-    root@barry:~# hdparm /dev/hdd
+    root@linux:~# hdparm /dev/hdd
 
     /dev/hdd:
      multcount     =  0 (off)
@@ -479,11 +479,11 @@ Below `hdparm` info about a 200GB IDE disk.
 
 Here a screenshot of `sdparm` on Ubuntu 10.10.
 
-    root@ubu1010:~# aptitude install sdparm
+    root@linux:~# aptitude install sdparm
     ...
-    root@ubu1010:~# sdparm /dev/sda | head -1
+    root@linux:~# sdparm /dev/sda | head -1
         /dev/sda: ATA       FUJITSU MJA2160B  0081
-    root@ubu1010:~# man sdparm
+    root@linux:~# man sdparm
 
 Use `hdparm` and `sdparm` with care.
 

@@ -11,11 +11,11 @@ to put a filesystem on it)
 
 5\. Create a `raid 1` to mirror two disks.
 
-    [root@rhel6c ~]# mdadm --create /dev/md0 --level=1 --raid-devices=2 \
+    [root@linux ~]# mdadm --create /dev/md0 --level=1 --raid-devices=2 \
     /dev/sdb1 /dev/sdc1 
     mdadm: Defaulting to version 1.2 metadata
     mdadm: array /dev/md0 started.
-    [root@rhel6c ~]# cat /proc/mdstat 
+    [root@linux ~]# cat /proc/mdstat 
     Personalities : [raid6] [raid5] [raid4] [raid1] 
     md0 : active raid1 sdc1[1] sdb1[0]
           8384862 blocks super 1.2 [2/2] [UU]

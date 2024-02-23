@@ -15,7 +15,7 @@
 4\. Create a 200MB primary partition on a small disk.
 
     Choose one of the disks you added (this example uses /dev/sdc).
-    root@rhel53 ~# fdisk /dev/sdc
+    root@linux ~# fdisk /dev/sdc
     ...
     Command (m for help): n
     Command action

@@ -15,16 +15,16 @@ These `pipes` can be created with the `mkfifo` command.
 The screenshots shows the creation of four distinct pipes (in a new
 directory).
 
-    paul@ubuntu910:~$ mkdir procs
-    paul@ubuntu910:~$ cd procs/
-    paul@ubuntu910:~/procs$ mkfifo pipe33a pipe33b pipe42a pipe42b
-    paul@ubuntu910:~/procs$ ls -l
+    student@linux:~$ mkdir procs
+    student@linux:~$ cd procs/
+    student@linux:~/procs$ mkfifo pipe33a pipe33b pipe42a pipe42b
+    student@linux:~/procs$ ls -l
     total 0
     prw-r--r-- 1 paul paul 0 2010-04-12 13:21 pipe33a
     prw-r--r-- 1 paul paul 0 2010-04-12 13:21 pipe33b
     prw-r--r-- 1 paul paul 0 2010-04-12 13:21 pipe42a
     prw-r--r-- 1 paul paul 0 2010-04-12 13:21 pipe42b
-    paul@ubuntu910:~/procs$
+    student@linux:~/procs$
             
 
 ### some fun with cat
@@ -38,15 +38,15 @@ enables us to easily recognize the processes within `top`. You could do
 the same exercise without copying the cat command, but using different
 users. Or you could just look at the `pid` of each process.)
 
-    paul@ubuntu910:~/procs$ cp /bin/cat proj33
-    paul@ubuntu910:~/procs$ cp /bin/cat proj42
-    paul@ubuntu910:~/procs$ echo -n x | ./proj33 - pipe33a > pipe33b &
+    student@linux:~/procs$ cp /bin/cat proj33
+    student@linux:~/procs$ cp /bin/cat proj42
+    student@linux:~/procs$ echo -n x | ./proj33 - pipe33a > pipe33b &
     [1] 1670
-    paul@ubuntu910:~/procs$ ./proj33 <pipe33b >pipe33a &
+    student@linux:~/procs$ ./proj33 <pipe33b >pipe33a &
     [2] 1671
-    paul@ubuntu910:~/procs$ echo -n z | ./proj42 - pipe42a > pipe42b &
+    student@linux:~/procs$ echo -n z | ./proj42 - pipe42a > pipe42b &
     [3] 1673
-    paul@ubuntu910:~/procs$ ./proj42 <pipe42b >pipe42a &
+    student@linux:~/procs$ ./proj42 <pipe42b >pipe42a &
     [4] 1674
             
 
@@ -76,7 +76,7 @@ with four or more `cpu cores`.
 The `top -p 1670,1671,1673,1674` screenshot below shows four processes,
 all of then using approximately 25 percent of the `cpu`.
 
-    paul@ubuntu910:~$ top -p 1670,1671,1673,1674
+    student@linux:~$ top -p 1670,1671,1673,1674
 
       PID USER      PR  NI  VIRT  RES  SHR S %CPU %MEM    TIME+  COMMAND
      1674 paul      20   0  2972  616  524 S 26.6  0.1   0:11.92 proj42
@@ -97,9 +97,9 @@ Since the processes are already running, we need to use the
 
 The screenshot shows how to use `renice` on both the `proj33` processes.
 
-    paul@ubuntu910:~$ renice +8 1670
+    student@linux:~$ renice +8 1670
     1670: old priority 0, new priority 8
-    paul@ubuntu910:~$ renice +8 1671
+    student@linux:~$ renice +8 1671
     1671: old priority 0, new priority 8
             
 
@@ -132,6 +132,6 @@ when starting a command.
 
 The screenshot shows how to start a script with a `nice` value of five.
 
-    paul@ubuntu910:~$ nice -5 ./backup.sh
+    student@linux:~$ nice -5 ./backup.sh
             
 

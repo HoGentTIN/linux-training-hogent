@@ -35,7 +35,7 @@ of a `volume group`.
 
 The commands used to manage a `physical volume` start with pv.
 
-    [root@centos65 ~]# pv
+    [root@linux ~]# pv
     pvchange   pvck       pvcreate   pvdisplay  pvmove     pvremove
     pvresize   pvs        pvscan
 
@@ -46,7 +46,7 @@ A `volume group` is an abstraction layer between `block devices` and
 
 The commands used to manage a `volume group` start with vg.
 
-    [root@centos65 ~]# vg
+    [root@linux ~]# vg
     vgcfgbackup    vgconvert      vgextend       vgmknodes      vgs
     vgcfgrestore   vgcreate       vgimport       vgreduce       vgscan
     vgchange       vgdisplay      vgimportclone  vgremove       vgsplit
@@ -61,7 +61,7 @@ standard commands (mkfs, mount, fsck, df, \...).
 
 The commands used to manage a `logical volume` start with lv.
 
-    [root@centos65 ~]# lv
+    [root@linux ~]# lv
     lvchange     lvextend     lvmdiskscan  lvmsar       lvresize     
     lvconvert    lvm          lvmdump      lvreduce     lvs          
     lvcreate     lvmchange    lvmetad      lvremove     lvscan       
@@ -102,7 +102,7 @@ The last step `lvcreate` creates a logical volume.
 The logical volume /dev/vg/lvol0 can now be formatted with ext3, and
 mounted for normal use.
 
-    root@RHELv8u2:~# mke2fs -m0 -j /dev/vg/lvol0 
+    root@linux:~# mke2fs -m0 -j /dev/vg/lvol0 
     mke2fs 1.35 (28-Feb-2004)
     Filesystem label=
     OS type: Linux
@@ -124,9 +124,9 @@ mounted for normal use.
                 
     This filesystem will be automatically checked every 37 mounts or
     180 days, whichever comes first.  Use tune2fs -c or -i to override.
-    root@RHELv8u2:~# mkdir /home/project10
-    root@RHELv8u2:~# mount /dev/vg/lvol0 /home/project10/
-    root@RHELv8u2:~# df -h | grep proj
+    root@linux:~# mkdir /home/project10
+    root@linux:~# mount /dev/vg/lvol0 /home/project10/
+    root@linux:~# df -h | grep proj
     /dev/mapper/vg-lvol0  485M   11M  474M   3% /home/project10
 
 A logical volume is very similar to a partition, it can be formatted
@@ -143,7 +143,7 @@ The fdisk command shows us newly added scsi-disks that will serve our
 lvm volume. This volume will then be extended. First, take a look at
 these disks.
 
-    [root@RHEL5 ~]# fdisk -l | grep sd[bc]
+    [root@linux ~]# fdisk -l | grep sd[bc]
     Disk /dev/sdb doesn't contain a valid partition table
     Disk /dev/sdc doesn't contain a valid partition table
     Disk /dev/sdb: 1181 MB, 1181115904 bytes
@@ -153,7 +153,7 @@ You already know how to partition a disk, below the first disk is
 partitioned (in one big primary partition), the second disk is left
 untouched.
 
-    [root@RHEL5 ~]# fdisk -l | grep sd[bc]
+    [root@linux ~]# fdisk -l | grep sd[bc]
     Disk /dev/sdc doesn't contain a valid partition table
     Disk /dev/sdb: 1181 MB, 1181115904 bytes
     /dev/sdb1               1         143     1148616   83  Linux
@@ -164,17 +164,17 @@ You also know how to prepare disks for lvm with
 `vgcreate`. This example adds both the partitioned disk
 and the untouched disk to the volume group named `vg2`.
 
-    [root@RHEL5 ~]# pvcreate /dev/sdb1
+    [root@linux ~]# pvcreate /dev/sdb1
       Physical volume "/dev/sdb1" successfully created
-    [root@RHEL5 ~]# pvcreate /dev/sdc
+    [root@linux ~]# pvcreate /dev/sdc
       Physical volume "/dev/sdc" successfully created
-    [root@RHEL5 ~]# vgcreate vg2 /dev/sdb1 /dev/sdc
+    [root@linux ~]# vgcreate vg2 /dev/sdb1 /dev/sdc
       Volume group "vg2" successfully created
 
 You can use `pvdisplay` to verify that both the disk and
 the partition belong to the volume group.
 
-    [root@RHEL5 ~]# pvdisplay | grep -B1 vg2
+    [root@linux ~]# pvdisplay | grep -B1 vg2
       PV Name               /dev/sdb1
       VG Name               vg2
     --
@@ -185,22 +185,22 @@ And you are familiar both with the `lvcreate` command to
 create a small logical volume and the `mke2fs` command to
 put ext3 on it.
 
-    [root@RHEL5 ~]# lvcreate --size 200m vg2
+    [root@linux ~]# lvcreate --size 200m vg2
       Logical volume "lvol0" created
-    [root@RHEL5 ~]# mke2fs -m20 -j /dev/vg2/lvol0 
+    [root@linux ~]# mke2fs -m20 -j /dev/vg2/lvol0 
     ...
 
 As you see, we end up with a mounted logical volume that according to
 `df` is almost 200 megabyte in size.
 
-    [root@RHEL5 ~]# mkdir /home/resizetest
-    [root@RHEL5 ~]# mount /dev/vg2/lvol0 /home/resizetest/
-    [root@RHEL5 ~]# df -h | grep resizetest
+    [root@linux ~]# mkdir /home/resizetest
+    [root@linux ~]# mount /dev/vg2/lvol0 /home/resizetest/
+    [root@linux ~]# df -h | grep resizetest
                           194M  5.6M  149M   4% /home/resizetest
 
 Extending the volume is easy with `lvextend`.
 
-    [root@RHEL5 ~]# lvextend -L +100 /dev/vg2/lvol0 
+    [root@linux ~]# lvextend -L +100 /dev/vg2/lvol0 
       Extending logical volume lvol0 to 300.00 MB
       Logical volume lvol0 successfully resized
 
@@ -209,19 +209,19 @@ able to display the extended volume in its full size. This is because
 the filesystem is only set for the size of the volume before the
 extension was added.
 
-    [root@RHEL5 ~]# df -h | grep resizetest
+    [root@linux ~]# df -h | grep resizetest
                           194M  5.6M  149M   4% /home/resizetest
 
 With `lvdisplay` however we can see that the volume is
 indeed extended.
 
-    [root@RHEL5 ~]# lvdisplay /dev/vg2/lvol0 | grep Size
+    [root@linux ~]# lvdisplay /dev/vg2/lvol0 | grep Size
       LV Size                300.00 MB
 
 To finish the extension, you need `resize2fs` to span the
 filesystem over the full size of the logical volume.
 
-    [root@RHEL5 ~]# resize2fs /dev/vg2/lvol0 
+    [root@linux ~]# resize2fs /dev/vg2/lvol0 
     resize2fs 1.39 (29-May-2006)
     Filesystem at /dev/vg2/lvol0 is mounted on /home/resizetest; on-line re\
     sizing required
@@ -230,9 +230,9 @@ filesystem over the full size of the logical volume.
 
 Congratulations, you just successfully expanded a logical volume.
 
-    [root@RHEL5 ~]# df -h | grep resizetest
+    [root@linux ~]# df -h | grep resizetest
                           291M  6.1M  225M   3% /home/resizetest
-    [root@RHEL5 ~]#
+    [root@linux ~]#
 
 ## example: resize a physical Volume
 
@@ -241,23 +241,23 @@ lvm (after you resize it with fdisk). The demonstration starts with a
 100MB partition named /dev/sde1. We used fdisk to create it, and to
 verify the size.
 
-    [root@RHEL5 ~]# fdisk -l 2>/dev/null | grep sde1
+    [root@linux ~]# fdisk -l 2>/dev/null | grep sde1
     /dev/sde1               1         100      102384   83  Linux
-    [root@RHEL5 ~]#
+    [root@linux ~]#
 
 Now we can use pvcreate to create the Physical Volume, followed by pvs
 to verify the creation.
 
-    [root@RHEL5 ~]# pvcreate /dev/sde1
+    [root@linux ~]# pvcreate /dev/sde1
       Physical volume "/dev/sde1" successfully created
-    [root@RHEL5 ~]# pvs | grep sde1
+    [root@linux ~]# pvs | grep sde1
       /dev/sde1             lvm2 --    99.98M  99.98M
-    [root@RHEL5 ~]#
+    [root@linux ~]#
 
 The next step is to use fdisk to enlarge the partition (actually
 deleting it and then recreating /dev/sde1 with more cylinders).
 
-    [root@RHEL5 ~]# fdisk /dev/sde
+    [root@linux ~]# fdisk /dev/sde
 
     Command (m for help): p
 
@@ -288,28 +288,28 @@ deleting it and then recreating /dev/sde1 with more cylinders).
 
     Calling ioctl() to re-read partition table.
     Syncing disks.
-    [root@RHEL5 ~]#
+    [root@linux ~]#
 
 When we now use fdisk and pvs to verify the size of the partition and
 the Physical Volume, then there is a size difference. LVM is still using
 the old size.
 
-    [root@RHEL5 ~]# fdisk -l 2>/dev/null | grep sde1
+    [root@linux ~]# fdisk -l 2>/dev/null | grep sde1
     /dev/sde1               1         200      204784   83  Linux
-    [root@RHEL5 ~]# pvs | grep sde1
+    [root@linux ~]# pvs | grep sde1
       /dev/sde1             lvm2 --    99.98M  99.98M
-    [root@RHEL5 ~]#
+    [root@linux ~]#
 
 Executing pvresize on the Physical Volume will make lvm aware of the
 size change of the partition. The correct size can be displayed with
 pvs.
 
-    [root@RHEL5 ~]# pvresize /dev/sde1
+    [root@linux ~]# pvresize /dev/sde1
       Physical volume "/dev/sde1" changed
       1 physical volume(s) resized / 0 physical volume(s) not resized
-    [root@RHEL5 ~]# pvs | grep sde1
+    [root@linux ~]# pvs | grep sde1
       /dev/sde1             lvm2 --   199.98M 199.98M
-    [root@RHEL5 ~]#
+    [root@linux ~]#
 
 ## example: mirror a logical volume
 
@@ -317,11 +317,11 @@ We start by creating three physical volumes for lvm. Then we verify the
 creation and the size with pvs. Three physical disks because lvm uses
 two disks for the mirror and a third disk for the mirror log!
 
-    [root@RHEL5 ~]# pvcreate /dev/sdb /dev/sdc /dev/sdd
+    [root@linux ~]# pvcreate /dev/sdb /dev/sdc /dev/sdd
       Physical volume "/dev/sdb" successfully created
       Physical volume "/dev/sdc" successfully created
       Physical volume "/dev/sdd" successfully created
-    [root@RHEL5 ~]# pvs
+    [root@linux ~]# pvs
       PV         VG         Fmt  Attr PSize   PFree  
       /dev/sdb              lvm2 --   409.60M 409.60M
       /dev/sdc              lvm2 --   409.60M 409.60M
@@ -331,23 +331,23 @@ Then we create the Volume Group and verify again with pvs. Notice how
 the three physical volumes now belong to vg33, and how the size is
 rounded down (in steps of the extent size, here 4MB).
 
-    [root@RHEL5 ~]# vgcreate vg33 /dev/sdb /dev/sdc /dev/sdd
+    [root@linux ~]# vgcreate vg33 /dev/sdb /dev/sdc /dev/sdd
       Volume group "vg33" successfully created
-    [root@RHEL5 ~]# pvs
+    [root@linux ~]# pvs
       PV         VG         Fmt  Attr PSize   PFree  
       /dev/sda2  VolGroup00 lvm2 a-    15.88G      0 
       /dev/sdb   vg33       lvm2 a-   408.00M 408.00M
       /dev/sdc   vg33       lvm2 a-   408.00M 408.00M
       /dev/sdd   vg33       lvm2 a-   408.00M 408.00M
-    [root@RHEL5 ~]#
+    [root@linux ~]#
 
 The last step is to create the Logical Volume with `lvcreate`. Notice
 the `-m 1` switch to create one mirror. Notice also the change in free
 space in all three Physical Volumes!
 
-    [root@RHEL5 ~]# lvcreate --size 300m -n lvmir -m 1 vg33 
+    [root@linux ~]# lvcreate --size 300m -n lvmir -m 1 vg33 
       Logical volume "lvmir" created
-    [root@RHEL5 ~]# pvs
+    [root@linux ~]# pvs
       PV         VG         Fmt  Attr PSize   PFree  
       /dev/sda2  VolGroup00 lvm2 a-    15.88G      0 
       /dev/sdb   vg33       lvm2 a-   408.00M 108.00M
@@ -357,7 +357,7 @@ space in all three Physical Volumes!
 You can see the copy status of the mirror with lvs. It currently shows a
 100 percent copy.
 
-    [root@RHEL5 ~]# lvs vg33/lvmir
+    [root@linux ~]# lvs vg33/lvmir
       LV    VG   Attr   LSize   Origin Snap%  Move Log        Copy% 
       lvmir vg33 mwi-ao 300.00M                    lvmir_mlog 100.00
 
@@ -369,37 +369,37 @@ files of the snapshotted Logical Volume.
 
 The example below creates a snapshot of the bigLV Logical Volume.
 
-    [root@RHEL5 ~]# lvcreate -L100M -s -n snapLV vg42/bigLV
+    [root@linux ~]# lvcreate -L100M -s -n snapLV vg42/bigLV
       Logical volume "snapLV" created
-    [root@RHEL5 ~]#
+    [root@linux ~]#
 
 You can see with lvs that the snapshot snapLV is indeed a snapshot of
 bigLV. Moments after taking the snapshot, there are few changes to bigLV
 (0.02 percent).
 
-    [root@RHEL5 ~]# lvs
+    [root@linux ~]# lvs
       LV       VG         Attr   LSize   Origin Snap%  Move Log Copy%
       bigLV    vg42       owi-a- 200.00M                              
       snapLV   vg42       swi-a- 100.00M bigLV    0.02                
-    [root@RHEL5 ~]#
+    [root@linux ~]#
 
 But after using bigLV for a while, more changes are done. This means the
 snapshot volume has to keep more original data (10.22 percent).
 
-    [root@RHEL5 ~]# lvs | grep vg42
+    [root@linux ~]# lvs | grep vg42
       bigLV    vg42       owi-ao 200.00M                              
       snapLV   vg42       swi-a- 100.00M bigLV   10.22                
-    [root@RHEL5 ~]#
+    [root@linux ~]#
 
 You can now use regular backup tools (dump, tar, cpio, \...) to take a
 backup of the snapshot Logical Volume. This backup will contain all data
 as it existed on bigLV at the time the snapshot was taken. When the
 backup is done, you can remove the snapshot.
 
-    [root@RHEL5 ~]# lvremove vg42/snapLV
+    [root@linux ~]# lvremove vg42/snapLV
     Do you really want to remove active logical volume "snapLV"? [y/n]: y
       Logical volume "snapLV" successfully removed
-    [root@RHEL5 ~]#
+    [root@linux ~]#
 
 ## verifying existing physical volumes
 
@@ -409,7 +409,7 @@ To get a list of block devices that can be used with LVM, use
 `lvmdiskscan`. The example below uses grep to limit the
 result to SCSI devices.
 
-    [root@RHEL5 ~]# lvmdiskscan | grep sd
+    [root@linux ~]# lvmdiskscan | grep sd
       /dev/sda1                [      101.94 MB] 
       /dev/sda2                [       15.90 GB] LVM physical volume
       /dev/sdb                 [      409.60 MB] 
@@ -419,7 +419,7 @@ result to SCSI devices.
       /dev/sde5                [      191.98 MB] 
       /dev/sdf                 [      819.20 MB] LVM physical volume
       /dev/sdg1                [      818.98 MB] 
-    [root@RHEL5 ~]#
+    [root@linux ~]#
 
 ### pvs
 
@@ -430,13 +430,13 @@ is part of Volgroup00 and is almost 16GB in size. It also shows /dev/sdc
 and /dev/sdd as part of vg33. The device /dev/sdb is knwon to lvm, but
 not linked to any Volume Group.
 
-    [root@RHEL5 ~]# pvs
+    [root@linux ~]# pvs
       PV         VG         Fmt  Attr PSize   PFree  
       /dev/sda2  VolGroup00 lvm2 a-    15.88G      0 
       /dev/sdb              lvm2 --   409.60M 409.60M
       /dev/sdc   vg33       lvm2 a-   408.00M 408.00M
       /dev/sdd   vg33       lvm2 a-   408.00M 408.00M
-    [root@RHEL5 ~]#
+    [root@linux ~]#
 
 ### pvscan
 
@@ -444,13 +444,13 @@ The `pvscan` command will scan all disks for existing
 Physical Volumes. The information is similar to pvs, plus you get a line
 with total sizes.
 
-    [root@RHEL5 ~]# pvscan
+    [root@linux ~]# pvscan
       PV /dev/sdc    VG vg33         lvm2 [408.00 MB / 408.00 MB free]
       PV /dev/sdd    VG vg33         lvm2 [408.00 MB / 408.00 MB free]
       PV /dev/sda2   VG VolGroup00   lvm2 [15.88 GB / 0    free]
       PV /dev/sdb                    lvm2 [409.60 MB]
       Total: 4 [17.07 GB] / in use: 3 [16.67 GB] / in no VG: 1 [409.60 MB]
-    [root@RHEL5 ~]#
+    [root@linux ~]#
 
 ### pvdisplay
 
@@ -458,7 +458,7 @@ Use `pvdisplay` to get more information about physical
 volumes. You can also use `pvdisplay` without an argument to display
 information about all physical (lvm) volumes.
 
-    [root@RHEL5 ~]# pvdisplay /dev/sda2
+    [root@linux ~]# pvdisplay /dev/sda2
       --- Physical volume ---
       PV Name               /dev/sda2
       VG Name               VolGroup00
@@ -470,7 +470,7 @@ information about all physical (lvm) volumes.
       Allocated PE          508
       PV UUID               TobYfp-Ggg0-Rf8r-xtLd-5XgN-RSPc-8vkTHD
        
-    [root@RHEL5 ~]#
+    [root@linux ~]#
 
 ## verifying existing volume groups
 
@@ -480,10 +480,10 @@ Similar to `pvs` is the use of `vgs` to display a quick
 overview of all volume groups. There is only one volume group in the
 screenshot below, it is named VolGroup00 and is almost 16GB in size.
 
-    [root@RHEL5 ~]# vgs
+    [root@linux ~]# vgs
       VG         #PV #LV #SN Attr   VSize  VFree
       VolGroup00   1   2   0 wz--n- 15.88G    0 
-    [root@RHEL5 ~]#
+    [root@linux ~]#
 
 ### vgscan
 
@@ -491,10 +491,10 @@ The `vgscan` command will scan all disks for existing
 Volume Groups. It will also update the `/etc/lvm/.cache`
 file. This file contains a list of all current lvm devices.
 
-    [root@RHEL5 ~]# vgscan
+    [root@linux ~]# vgscan
       Reading all physical volumes.  This may take a while...
       Found volume group "VolGroup00" using metadata type lvm2
-    [root@RHEL5 ~]#
+    [root@linux ~]#
 
 LVM will run the vgscan automatically at boot-up, so if you add hot swap
 devices, then you will need to run vgscan to update /etc/lvm/.cache with
@@ -506,7 +506,7 @@ The `vgdisplay` command will give you more detailed
 information about a volume group (or about all volume groups if you omit
 the argument).
 
-    [root@RHEL5 ~]# vgdisplay VolGroup00
+    [root@linux ~]# vgdisplay VolGroup00
       --- Volume group ---
       VG Name               VolGroup00
       System ID             
@@ -528,7 +528,7 @@ the argument).
       Free  PE / Size       0 / 0   
       VG UUID               qsXvJb-71qV-9l7U-ishX-FobM-qptE-VXmKIg
        
-    [root@RHEL5 ~]#
+    [root@linux ~]#
 
 ## verifying existing logical volumes
 
@@ -538,28 +538,28 @@ Use `lvs` for a quick look at all existing logical
 volumes. Below you can see two logical volumes named LogVol00 and
 LogVol01.
 
-    [root@RHEL5 ~]# lvs
+    [root@linux ~]# lvs
       LV       VG         Attr   LSize  Origin Snap%  Move Log Copy% 
       LogVol00 VolGroup00 -wi-ao 14.88G                              
       LogVol01 VolGroup00 -wi-ao  1.00G                              
-    [root@RHEL5 ~]#
+    [root@linux ~]#
 
 ### lvscan
 
 The `lvscan` command will scan all disks for existing
 Logical Volumes.
 
-    [root@RHEL5 ~]# lvscan
+    [root@linux ~]# lvscan
       ACTIVE            '/dev/VolGroup00/LogVol00' [14.88 GB] inherit
       ACTIVE            '/dev/VolGroup00/LogVol01' [1.00 GB] inherit
-    [root@RHEL5 ~]#
+    [root@linux ~]#
 
 ### lvdisplay
 
 More detailed information about logical volumes is available through the
 `lvdisplay(1)` command.
 
-    [root@RHEL5 ~]# lvdisplay VolGroup00/LogVol01
+    [root@linux ~]# lvdisplay VolGroup00/LogVol01
       --- Logical volume ---
       LV Name                /dev/VolGroup00/LogVol01
       VG Name                VolGroup00
@@ -574,7 +574,7 @@ More detailed information about logical volumes is available through the
       Read ahead sectors     0
       Block device           253:1
        
-    [root@RHEL5 ~]#
+    [root@linux ~]#
 
 ## manage physical volumes
 
@@ -583,35 +583,35 @@ More detailed information about logical volumes is available through the
 Use the `pvcreate` command to add devices to lvm. This
 example shows how to add a disk (or hardware RAID device) to lvm.
 
-    [root@RHEL5 ~]# pvcreate /dev/sdb
+    [root@linux ~]# pvcreate /dev/sdb
       Physical volume "/dev/sdb" successfully created
-    [root@RHEL5 ~]#
+    [root@linux ~]#
 
 This example shows how to add a partition to lvm.
 
-    [root@RHEL5 ~]# pvcreate /dev/sdc1
+    [root@linux ~]# pvcreate /dev/sdc1
       Physical volume "/dev/sdc1" successfully created
-    [root@RHEL5 ~]#
+    [root@linux ~]#
 
 You can also add multiple disks or partitions as target to pvcreate.
 This example adds three disks to lvm.
 
-    [root@RHEL5 ~]# pvcreate /dev/sde /dev/sdf /dev/sdg
+    [root@linux ~]# pvcreate /dev/sde /dev/sdf /dev/sdg
       Physical volume "/dev/sde" successfully created
       Physical volume "/dev/sdf" successfully created
       Physical volume "/dev/sdg" successfully created
-    [root@RHEL5 ~]#
+    [root@linux ~]#
 
 ### pvremove
 
 Use the `pvremove` command to remove physical volumes from
 lvm. The devices may not be in use.
 
-    [root@RHEL5 ~]# pvremove /dev/sde /dev/sdf /dev/sdg
+    [root@linux ~]# pvremove /dev/sde /dev/sdf /dev/sdg
       Labels on physical volume "/dev/sde" successfully wiped
       Labels on physical volume "/dev/sdf" successfully wiped
       Labels on physical volume "/dev/sdg" successfully wiped
-    [root@RHEL5 ~]#
+    [root@linux ~]#
 
 ### pvresize
 
@@ -619,7 +619,7 @@ When you used fdisk to resize a partition on a disk, then you must use
 `pvresize` to make lvm recognize the new size of the
 physical volume that represents this partition.
 
-    [root@RHEL5 ~]# pvresize /dev/sde1
+    [root@linux ~]# pvresize /dev/sde1
       Physical volume "/dev/sde1" changed
       1 physical volume(s) resized / 0 physical volume(s) not resized
 
@@ -629,18 +629,18 @@ With `pvchange` you can prevent the allocation of a
 Physical Volume in a new Volume Group or Logical Volume. This can be
 useful if you plan to remove a Physical Volume.
 
-    [root@RHEL5 ~]# pvchange -xn /dev/sdd
+    [root@linux ~]# pvchange -xn /dev/sdd
       Physical volume "/dev/sdd" changed
       1 physical volume changed / 0 physical volumes not changed
-    [root@RHEL5 ~]#
+    [root@linux ~]#
 
 To revert your previous decision, this example shows you how te
 re-enable the Physical Volume to allow allocation.
 
-    [root@RHEL5 ~]# pvchange -xy /dev/sdd
+    [root@linux ~]# pvchange -xy /dev/sdd
       Physical volume "/dev/sdd" changed
       1 physical volume changed / 0 physical volumes not changed
-    [root@RHEL5 ~]#
+    [root@linux ~]#
 
 ### pvmove
 
@@ -648,13 +648,13 @@ With `pvmove` you can move Logical Volumes from within a
 Volume Group to another Physical Volume. This must be done before
 removing a Physical Volume.
 
-    [root@RHEL5 ~]# pvs | grep vg1
+    [root@linux ~]# pvs | grep vg1
       /dev/sdf   vg1        lvm2 a-   816.00M      0 
       /dev/sdg   vg1        lvm2 a-   816.00M 816.00M
-    [root@RHEL5 ~]# pvmove /dev/sdf
+    [root@linux ~]# pvmove /dev/sdf
       /dev/sdf: Moved: 70.1%
       /dev/sdf: Moved: 100.0%
-    [root@RHEL5 ~]# pvs | grep vg1
+    [root@linux ~]# pvs | grep vg1
       /dev/sdf   vg1        lvm2 a-   816.00M 816.00M
       /dev/sdg   vg1        lvm2 a-   816.00M      0
 
@@ -666,27 +666,27 @@ Use the `vgcreate` command to create a volume group. You
 can immediately name all the physical volumes that span the volume
 group.
 
-    [root@RHEL5 ~]# vgcreate vg42 /dev/sde /dev/sdf
+    [root@linux ~]# vgcreate vg42 /dev/sde /dev/sdf
       Volume group "vg42" successfully created
-    [root@RHEL5 ~]#
+    [root@linux ~]#
 
 ### vgextend
 
 Use the `vgextend` command to extend an existing volume
 group with a physical volume.
 
-    [root@RHEL5 ~]# vgextend vg42 /dev/sdg
+    [root@linux ~]# vgextend vg42 /dev/sdg
       Volume group "vg42" successfully extended
-    [root@RHEL5 ~]#
+    [root@linux ~]#
 
 ### vgremove
 
 Use the `vgremove` command to remove volume groups from
 lvm. The volume groups may not be in use.
 
-    [root@RHEL5 ~]# vgremove vg42
+    [root@linux ~]# vgremove vg42
       Volume group "vg42" successfully removed
-    [root@RHEL5 ~]#
+    [root@linux ~]#
 
 ### vgreduce
 
@@ -696,15 +696,15 @@ from the Volume Group.
 The following example adds Physical Volume /dev/sdg to the vg1 Volume
 Group using vgextend. And then removes it again using vgreduce.
 
-    [root@RHEL5 ~]# pvs | grep sdg
+    [root@linux ~]# pvs | grep sdg
       /dev/sdg              lvm2 --   819.20M 819.20M
-    [root@RHEL5 ~]# vgextend vg1 /dev/sdg
+    [root@linux ~]# vgextend vg1 /dev/sdg
       Volume group "vg1" successfully extended
-    [root@RHEL5 ~]# pvs | grep sdg
+    [root@linux ~]# pvs | grep sdg
       /dev/sdg   vg1        lvm2 a-   816.00M 816.00M
-    [root@RHEL5 ~]# vgreduce vg1 /dev/sdg
+    [root@linux ~]# vgreduce vg1 /dev/sdg
       Removed "/dev/sdg" from volume group "vg1"
-    [root@RHEL5 ~]# pvs | grep sdg
+    [root@linux ~]# pvs | grep sdg
       /dev/sdg              lvm2 --   819.20M 819.20M
 
 ### vgchange
@@ -715,23 +715,23 @@ Volume Group.
 This example shows how to prevent Physical Volumes from being added or
 removed to the Volume Group vg1.
 
-    [root@RHEL5 ~]# vgchange -xn vg1
+    [root@linux ~]# vgchange -xn vg1
       Volume group "vg1" successfully changed
-    [root@RHEL5 ~]# vgextend vg1 /dev/sdg
+    [root@linux ~]# vgextend vg1 /dev/sdg
       Volume group vg1 is not resizable.
 
 You can also use vgchange to change most other properties of a Volume
 Group. This example changes the maximum number of Logical Volumes and
 maximum number of Physical Volumes that vg1 can serve.
 
-    [root@RHEL5 ~]# vgdisplay vg1 | grep -i max
+    [root@linux ~]# vgdisplay vg1 | grep -i max
       MAX LV                0
       Max PV                0
-    [root@RHEL5 ~]# vgchange -l16 vg1
+    [root@linux ~]# vgchange -l16 vg1
       Volume group "vg1" successfully changed
-    [root@RHEL5 ~]# vgchange -p8 vg1
+    [root@linux ~]# vgchange -p8 vg1
       Volume group "vg1" successfully changed
-    [root@RHEL5 ~]# vgdisplay vg1 | grep -i max
+    [root@linux ~]# vgdisplay vg1 | grep -i max
       MAX LV                16
       Max PV                8
 
@@ -741,9 +741,9 @@ Merging two Volume Groups into one is done with `vgmerge`.
 The following example merges vg2 into vg1, keeping all the properties of
 vg1.
 
-    [root@RHEL5 ~]# vgmerge vg1 vg2
+    [root@linux ~]# vgmerge vg1 vg2
       Volume group "vg2" successfully merged into "vg1"
-    [root@RHEL5 ~]#
+    [root@linux ~]#
 
 ## manage logical volumes
 
@@ -753,37 +753,37 @@ Use the `lvcreate` command to create Logical Volumes in a
 Volume Group. This example creates an 8GB Logical Volume in Volume Group
 vg42.
 
-    [root@RHEL5 ~]# lvcreate -L5G vg42
+    [root@linux ~]# lvcreate -L5G vg42
       Logical volume "lvol0" created
-    [root@RHEL5 ~]#
+    [root@linux ~]#
 
 As you can see, lvm automatically names the Logical Volume
 `lvol0`. The next example creates a 200MB Logical Volume
 named MyLV in Volume Group vg42.
 
-    [root@RHEL5 ~]# lvcreate -L200M -nMyLV vg42
+    [root@linux ~]# lvcreate -L200M -nMyLV vg42
       Logical volume "MyLV" created
-    [root@RHEL5 ~]#
+    [root@linux ~]#
 
 The next example does the same thing, but with different syntax.
 
-    [root@RHEL5 ~]# lvcreate --size 200M -n MyLV vg42
+    [root@linux ~]# lvcreate --size 200M -n MyLV vg42
       Logical volume "MyLV" created
-    [root@RHEL5 ~]#
+    [root@linux ~]#
 
 This example creates a Logical Volume that occupies 10 percent of the
 Volume Group.
 
-    [root@RHEL5 ~]# lvcreate -l 10%VG -n MyLV2 vg42
+    [root@linux ~]# lvcreate -l 10%VG -n MyLV2 vg42
       Logical volume "MyLV2" created
-    [root@RHEL5 ~]#
+    [root@linux ~]#
 
 This example creates a Logical Volume that occupies 30 percent of the
 remaining free space in the Volume Group.
 
-    [root@RHEL5 ~]# lvcreate -l 30%FREE -n MyLV3 vg42
+    [root@linux ~]# lvcreate -l 30%FREE -n MyLV3 vg42
       Logical volume "MyLV3" created
-    [root@RHEL5 ~]#
+    [root@linux ~]#
 
 ### lvremove
 
@@ -791,59 +791,59 @@ Use the `lvremove` command to remove Logical Volumes from
 a Volume Group. Removing a Logical Volume requires the name of the
 Volume Group.
 
-    [root@RHEL5 ~]# lvremove vg42/MyLV
+    [root@linux ~]# lvremove vg42/MyLV
     Do you really want to remove active logical volume "MyLV"? [y/n]: y
       Logical volume "MyLV" successfully removed
-    [root@RHEL5 ~]#
+    [root@linux ~]#
 
 Removing multiple Logical Volumes will request confirmation for each
 individual volume.
 
-    [root@RHEL5 ~]# lvremove vg42/MyLV vg42/MyLV2 vg42/MyLV3
+    [root@linux ~]# lvremove vg42/MyLV vg42/MyLV2 vg42/MyLV3
     Do you really want to remove active logical volume "MyLV"? [y/n]: y
       Logical volume "MyLV" successfully removed
     Do you really want to remove active logical volume "MyLV2"? [y/n]: y
       Logical volume "MyLV2" successfully removed
     Do you really want to remove active logical volume "MyLV3"? [y/n]: y
       Logical volume "MyLV3" successfully removed
-    [root@RHEL5 ~]#
+    [root@linux ~]#
 
 ### lvextend
 
 Extending the volume is easy with `lvextend`. This example
 extends a 200MB Logical Volume with 100 MB.
 
-    [root@RHEL5 ~]# lvdisplay /dev/vg2/lvol0 | grep Size
+    [root@linux ~]# lvdisplay /dev/vg2/lvol0 | grep Size
       LV Size                200.00 MB
-    [root@RHEL5 ~]# lvextend -L +100 /dev/vg2/lvol0
+    [root@linux ~]# lvextend -L +100 /dev/vg2/lvol0
       Extending logical volume lvol0 to 300.00 MB
       Logical volume lvol0 successfully resized
-    [root@RHEL5 ~]# lvdisplay /dev/vg2/lvol0 | grep Size
+    [root@linux ~]# lvdisplay /dev/vg2/lvol0 | grep Size
       LV Size                300.00 MB
 
 The next example creates a 100MB Logical Volume, and then extends it to
 500MB.
 
-    [root@RHEL5 ~]# lvcreate --size 100M -n extLV vg42
+    [root@linux ~]# lvcreate --size 100M -n extLV vg42
       Logical volume "extLV" created
-    [root@RHEL5 ~]# lvextend -L 500M vg42/extLV
+    [root@linux ~]# lvextend -L 500M vg42/extLV
       Extending logical volume extLV to 500.00 MB
       Logical volume extLV successfully resized
-    [root@RHEL5 ~]#
+    [root@linux ~]#
 
 This example doubles the size of a Logical Volume.
 
-    [root@RHEL5 ~]# lvextend -l+100%LV vg42/extLV
+    [root@linux ~]# lvextend -l+100%LV vg42/extLV
       Extending logical volume extLV to 1000.00 MB
       Logical volume extLV successfully resized
-    [root@RHEL5 ~]#
+    [root@linux ~]#
 
 ### lvrename
 
 Renaming a Logical Volume is done with `lvrename`. This
 example renames extLV to bigLV in the vg42 Volume Group.
 
-    [root@RHEL5 ~]# lvrename vg42/extLV vg42/bigLV
+    [root@linux ~]# lvrename vg42/extLV vg42/bigLV
       Renamed "extLV" to "bigLV" in volume group "vg42"
-    [root@RHEL5 ~]#
+    [root@linux ~]#
 

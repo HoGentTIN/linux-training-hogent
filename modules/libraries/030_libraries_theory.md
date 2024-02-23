@@ -17,7 +17,7 @@ links. Most `libraries` have a detailed version number in their name,
 but receive a symbolic link from a filename which only contains the
 major version number.
 
-    root@rhel53 ~# ls -l /lib/libext*
+    root@linux ~# ls -l /lib/libext*
     lrwxrwxrwx 1 root root   16 Feb 18 16:36 /lib/libext2fs.so.2 -> libext2fs.so.2.4
     -rwxr-xr-x 1 root root 113K Jun 30  2009 /lib/libext2fs.so.2.4
 
@@ -28,7 +28,7 @@ libraries. You can display these dependencies with `ldd`.
 
 This example shows the dependencies of the `su` command.
 
-    paul@RHEL5 ~$ ldd /bin/su
+    student@linux ~$ ldd /bin/su
         linux-gate.so.1 =>  (0x003f7000)
         libpam.so.0 => /lib/libpam.so.0 (0x00d5c000)
         libpam_misc.so.0 => /lib/libpam_misc.so.0 (0x0073c000)
@@ -46,8 +46,8 @@ get only a summary count (there can be many calls), and the -l option to
 only show calls in one library file. All this to see what calls are made
 when executing `su - serena` as root.
 
-    root@deb106:~# ltrace -c -l /lib/libpam.so.0 su - serena
-    serena@deb106:~$ exit
+    root@linux:~# ltrace -c -l /lib/libpam.so.0 su - serena
+    serena@linux:~$ exit
     logout
     % time     seconds  usecs/call     calls      function
     ------ ----------- ----------- --------- --------------------
@@ -69,13 +69,13 @@ when executing `su - serena` as root.
 Find out on Debian/Ubuntu to which package a library
 belongs.
 
-    paul@deb106:/lib$ dpkg -S libext2fs.so.2.4 
+    student@linux:/lib$ dpkg -S libext2fs.so.2.4 
     e2fslibs: /lib/libext2fs.so.2.4
 
 You can then verify the integrity of all files in this package using
 `debsums`.
 
-    paul@deb106:~$ debsums e2fslibs
+    student@linux:~$ debsums e2fslibs
     /usr/share/doc/e2fslibs/changelog.Debian.gz                               OK
     /usr/share/doc/e2fslibs/copyright                                         OK
     /lib/libe2p.so.2.3                                                        OK
@@ -84,7 +84,7 @@ You can then verify the integrity of all files in this package using
 Should a library be broken, then reinstall it with
 `aptitude reinstall $package`.
 
-    root@deb106:~# aptitude reinstall e2fslibs
+    root@linux:~# aptitude reinstall e2fslibs
     Reading package lists... Done
     Building dependency tree       
     Reading state information... Done
@@ -100,21 +100,21 @@ Should a library be broken, then reinstall it with
 Find out on Red Hat/Fedora to which package a library
 belongs.
 
-    paul@RHEL5 ~$ rpm -qf /lib/libext2fs.so.2.4 
+    student@linux ~$ rpm -qf /lib/libext2fs.so.2.4 
     e2fsprogs-libs-1.39-8.el5
 
 You can then use `rpm -V` to verify all files in this
 package. In the example below the output shows that the `S`ize and the
 `T`ime stamp of the file have changed since installation.
 
-    root@rhel53 ~# rpm -V e2fsprogs-libs
+    root@linux ~# rpm -V e2fsprogs-libs
     prelink: /lib/libext2fs.so.2.4: prelinked file size differs
     S.?....T    /lib/libext2fs.so.2.4
 
 You can then use `yum reinstall $package` to overwrite the
 existing library with an original version.
 
-    root@rhel53 lib# yum reinstall e2fsprogs-libs
+    root@linux lib# yum reinstall e2fsprogs-libs
     Loaded plugins: rhnplugin, security
     Setting up Reinstall Process
     Resolving Dependencies
@@ -126,38 +126,38 @@ existing library with an original version.
 
 The package verification now reports no problems with the library.
 
-    root@rhel53 lib# rpm -V e2fsprogs-libs
-    root@rhel53 lib#
+    root@linux lib# rpm -V e2fsprogs-libs
+    root@linux lib#
 
 ## tracing with strace
 
 More detailed tracing of all function calls can be done with
 `strace`. We start by creating a read only file.
 
-    root@deb106:~# echo hello > 42.txt
-    root@deb106:~# chmod 400 42.txt 
-    root@deb106:~# ls -l 42.txt 
+    root@linux:~# echo hello > 42.txt
+    root@linux:~# chmod 400 42.txt 
+    root@linux:~# ls -l 42.txt 
     -r-------- 1 root root 6 2011-09-26 12:03 42.txt
 
 We open the file with `vi`, but include the `strace`
 command with an output file for the trace before `vi`. This will create
 a file with all the function calls done by `vi`.
 
-    root@deb106:~# strace -o strace.txt vi 42.txt
+    root@linux:~# strace -o strace.txt vi 42.txt
 
 The file is read only, but we still change the contents, and use the
 `:w!` directive to write to this file. Then we close `vi` and take a
 look at the trace log.
 
-    root@deb106:~# grep chmod strace.txt 
+    root@linux:~# grep chmod strace.txt 
     chmod("42.txt", 0100600)                = -1 ENOENT (No such file or directory)
     chmod("42.txt", 0100400)                = 0
-    root@deb106:~# ls -l 42.txt 
+    root@linux:~# ls -l 42.txt 
     -r-------- 1 root root 12 2011-09-26 12:04 42.txt
 
 Notice that `vi` changed the permissions on the file twice. The trace
 log is too long to show a complete screenshot in this book.
 
-    root@deb106:~# wc -l strace.txt 
+    root@linux:~# wc -l strace.txt 
     941 strace.txt
 

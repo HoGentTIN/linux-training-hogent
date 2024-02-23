@@ -20,13 +20,13 @@ failed logins.
 Answer depends on whether you machine uses `syslog` or `rsyslog`
 (newer).
 
-    [root@rhel53 ~]# grep authpriv /etc/syslog.conf
+    [root@linux ~]# grep authpriv /etc/syslog.conf
     authpriv.*                                              /var/log/secure
 
-    [root@rhel71 ~]# grep ^authpriv /etc/rsyslog.conf
+    [root@linux ~]# grep ^authpriv /etc/rsyslog.conf
     authpriv.*                                              /var/log/secure
 
-    paul@debian8:~$ grep ^auth /etc/rsyslog.conf
+    student@linux:~$ grep ^auth /etc/rsyslog.conf
     auth,authpriv.*                   /var/log/auth.log
 
 5\. Configure syslog to put local4.error and above messages in
@@ -80,7 +80,7 @@ On Debian/Ubuntu edit `/etc/default/syslog` or `/etc/default/rsyslog`.
 8\. Write a script that executes logger to local4 every 15 seconds
 (different message). Use tail -f and watch on your local4 log files.
 
-    root@rhel53 scripts# cat logloop 
+    root@linux scripts# cat logloop 
     #!/bin/bash
 
     for i in `seq 1 10`
@@ -89,10 +89,10 @@ On Debian/Ubuntu edit `/etc/default/syslog` or `/etc/default/rsyslog`.
     sleep 15
     done
 
-    root@rhel53 scripts# chmod +x logloop
-    root@rhel53 scripts# ./logloop &
+    root@linux scripts# chmod +x logloop
+    root@linux scripts# ./logloop &
     [1] 8264
-    root@rhel53 scripts# tail -f /var/log/local4.all.log 
+    root@linux scripts# tail -f /var/log/local4.all.log 
     Mar 28 13:13:36 rhel53 root: local4.info test number 1
     Mar 28 13:13:51 rhel53 root: local4.info test number 2
     ...

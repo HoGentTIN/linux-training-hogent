@@ -34,7 +34,7 @@ to have one line per cpu, or one summary line for all cpu\'s.
 You can customize top to display the columns of your choice, or to
 display only the processes that you find interesting.
 
-    [paul@RHELv8u3 ~]$ top p 3456 p 8732 p 9654
+    [student@linux ~]$ top p 3456 p 8732 p 9654
 
 ## free
 
@@ -42,7 +42,7 @@ The `free` command is common on Linux to monitor free
 memory. You can use free to display information every x seconds, but the
 output is not ideal.
 
-    [paul@RHELv8u3 gen]$ free -om -s 10
+    [student@linux gen]$ free -om -s 10
     total       used       free     shared    buffers     cached
     Mem:        249        222         27          0         50        109
     Swap:       511          0        511
@@ -51,7 +51,7 @@ output is not ideal.
     Mem:        249        222         27          0         50        109
     Swap:       511          0        511
             
-    [paul@RHELv8u3 gen]$
+    [student@linux gen]$
 
 ## watch
 
@@ -59,7 +59,7 @@ It might be more interesting to combine free with the
 `watch` program. This program can run commands with a
 delay, and can highlight changes (with the -d switch).
 
-    [paul@RHELv8u3 ~]$ watch -d -n 3 free -om
+    [student@linux ~]$ watch -d -n 3 free -om
     ...
     Every 3.0s: free -om                             Sat Jan 27 12:13:03 2007
 
@@ -76,7 +76,7 @@ number of processes waiting for the CPU, sleeping processes go below b.
 Swap usage (swpd) stayed constant at 144 kilobytes, free memory dropped
 from 16.7MB to 12.9MB. See man vmstat for the rest.
 
-    [paul@RHELv8u3 ~]$ vmstat 2 100
+    [student@linux ~]$ vmstat 2 100
     procs ----------memory--------- --swap-- ---io--- --system-- ---cpu----
     r  b  swpd   free   buff  cache  si  so  bi   bo   in    cs us sy id wa
     0  0   144  16708  58212 111612   0   0   3    4   75    62  0  1 99  0
@@ -92,7 +92,7 @@ from 16.7MB to 12.9MB. See man vmstat for the rest.
     0  0   144  12988  60948 111612   0   0   0    0  977    15  0  0 100 0
     0  0   144  12988  60948 111612   0   0   0    0  978    18  0  0 100 0
             
-    [paul@RHELv8u3 ~]$
+    [student@linux ~]$
 
 ## iostat
 
@@ -101,7 +101,7 @@ The `iostat` tool can display disk and cpu statistics. The
 every two seconds). The first block displays statistics since the last
 reboot.
 
-    [paul@RHELv8u3 ~]$ iostat -d 2 500
+    [student@linux ~]$ iostat -d 2 500
     Linux 2.6.9-34.EL (RHELv8u3.localdomain)        01/27/2007
             
     Device:         tps   Blk_read/s   Blk_wrtn/s   Blk_read   Blk_wrtn
@@ -120,12 +120,12 @@ reboot.
     dm-0           0.00         0.00         0.00          0          0
     dm-1           0.00         0.00         0.00          0          0
     ...
-    [paul@RHELv8u3 ~]$
+    [student@linux ~]$
 
 You can have more statistics using `iostat -d -x`, or display only cpu
 statistics with `iostat -c`.
 
-    [paul@RHELv8u3 ~]$ iostat -c 5 500
+    [student@linux ~]$ iostat -c 5 500
     Linux 2.6.9-34.EL (RHELv8u3.localdomain)        01/27/2007
             
     avg-cpu:  %user   %nice    %sys %iowait   %idle
@@ -143,21 +143,21 @@ statistics with `iostat -c`.
     avg-cpu:  %user   %nice    %sys %iowait   %idle
     0.00    0.00    0.20    0.20   99.59
             
-        [paul@RHELv8u3 ~]$
+        [student@linux ~]$
 
 ## mpstat
 
 On multi-processor machines, `mpstat` can display
 statistics for all, or for a selected cpu.
 
-    paul@laika:~$ mpstat -P ALL
+    student@linux:~$ mpstat -P ALL
     Linux 2.6.20-3-generic (laika)  02/09/2007
             
     CPU %user  %nice   %sys %iowait   %irq   %soft  %steal   %idle   intr/s
     all  1.77   0.03   1.37    1.03   0.02    0.39    0.00   95.40  1304.91
       0  1.73   0.02   1.47    1.93   0.04    0.77    0.00   94.04  1304.91
       1  1.81   0.03   1.27    0.13   0.00    0.00    0.00   96.76     0.00
-    paul@laika:~$
+    student@linux:~$
 
 ## sadc and sar
 
@@ -173,7 +173,7 @@ contain a lot of statistics.
 You can also use sar to display a portion of the statistics that were
 gathered. Like this example for cpu statistics.
 
-    [paul@RHELv8u3 sa]$ sar -u | head
+    [student@linux sa]$ sar -u | head
     Linux 2.6.9-34.EL (RHELv8u3.localdomain)        01/27/2007
             
     12:00:01 AM       CPU     %user     %nice   %system   %iowait    %idle
@@ -184,7 +184,7 @@ gathered. Like this example for cpu statistics.
     12:50:01 AM       all      0.42      0.01      0.60      0.10    98.87
     01:00:01 AM       all      0.47      0.01      0.65      0.08    98.80
     01:10:01 AM       all      0.45      0.01      0.68      0.08    98.78
-    [paul@RHELv8u3 sa]$
+    [student@linux sa]$
 
 There are other useful sar options, like `sar -I PROC` to display
 interrupt activity per interrupt and per CPU, or `sar -r`
@@ -224,8 +224,8 @@ Hat servers.
 Use `iptraf` for a colourful display of ip traffic over the network
 cards.
 
-    [root@centos65 ~]# iptraf 
-    [root@centos65 ~]# iptraf -i eth0
+    [root@linux ~]# iptraf 
+    [root@linux ~]# iptraf -i eth0
 
 ## nload
 

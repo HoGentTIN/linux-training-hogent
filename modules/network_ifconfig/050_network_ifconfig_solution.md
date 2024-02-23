@@ -2,11 +2,11 @@
 
 1\. Verify whether `dhclient` is running.
 
-    paul@debian9:~$ ps fax | grep dhclient
+    student@linux:~$ ps fax | grep dhclient
 
 2\. Display your current ip address(es).
 
-    paul@debian9:~$ /sbin/ifconfig | grep 'inet '
+    student@linux:~$ /sbin/ifconfig | grep 'inet '
           inet addr:192.168.1.31  Bcast:192.168.1.255  Mask:255.255.255.0
           inet addr:127.0.0.1  Mask:255.0.0.0
 
@@ -34,7 +34,7 @@ question ? If not, then do this now.
 
 6\. Verify that you have a gateway.
 
-    paul@debian9:~$ /sbin/route
+    student@linux:~$ /sbin/route
     Kernel IP routing table
     Destination   Gateway       Genmask        Flags Metric Ref  Use Iface
     192.168.1.0   *             255.255.255.0  U     0      0      0 eth0
@@ -42,7 +42,7 @@ question ? If not, then do this now.
 
 7\. Verify that you can connect to the gateway, that it is alive.
 
-    paul@debian9:~$ ping -c3 192.168.1.1
+    student@linux:~$ ping -c3 192.168.1.1
     PING 192.168.1.1 (192.168.1.1) 56(84) bytes of data.
     64 bytes from 192.168.1.1: icmp_seq=1 ttl=254 time=2.28 ms
     64 bytes from 192.168.1.1: icmp_seq=2 ttl=254 time=2.94 ms
@@ -54,26 +54,26 @@ question ? If not, then do this now.
 
 8\. Change the last two digits of your `mac address`.
 
-    [root@rhel610 ~]# ifconfig eth0 hw ether 08:00:27:ab:67:XX
+    [root@linux ~]# ifconfig eth0 hw ether 08:00:27:ab:67:XX
 
 9\. Which ports are used by http, pop3, ssh, telnet, nntp and ftp ?
 
-    root@rhel610 ~# grep ^'http ' /etc/services 
+    root@linux ~# grep ^'http ' /etc/services 
     http       80/tcp          www www-http    # WorldWideWeb HTTP
     http       80/udp          www www-http    # HyperText Transfer Protocol
-    root@rhel610 ~# grep ^'smtp ' /etc/services 
+    root@linux ~# grep ^'smtp ' /etc/services 
     smtp       25/tcp          mail
     smtp       25/udp          mail
-    root@rhel610 ~# grep ^'ssh ' /etc/services 
+    root@linux ~# grep ^'ssh ' /etc/services 
     ssh        22/tcp                     # The Secure Shell (SSH) Protocol
     ssh        22/udp                     # The Secure Shell (SSH) Protocol
-    root@rhel610 ~# grep ^'telnet ' /etc/services 
+    root@linux ~# grep ^'telnet ' /etc/services 
     telnet     23/tcp
     telnet     23/udp
-    root@rhel610 ~# grep ^'nntp ' /etc/services 
+    root@linux ~# grep ^'nntp ' /etc/services 
     nntp       119/tcp         readnews untp   # USENET News Transfer Protocol
     nntp       119/udp         readnews untp   # USENET News Transfer Protocol
-    root@rhel610 ~# grep ^'ftp ' /etc/services 
+    root@linux ~# grep ^'ftp ' /etc/services 
     ftp        21/tcp
     ftp        21/udp          fsp fspd
 
@@ -96,7 +96,7 @@ question ? If not, then do this now.
 
 12\. Which ip-addresses did your computer recently have contact with ?
 
-    root@rhel610 ~# arp -a
+    root@linux ~# arp -a
     ? (192.168.1.1) at 00:02:cf:aa:68:f0 [ether] on eth2
     ? (192.168.1.30) at 00:26:bb:12:7a:5e [ether] on eth2
     ? (192.168.1.31) at 08:00:27:8e:8a:a8 [ether] on eth2

@@ -26,7 +26,7 @@ All Linux systems have a directory structure that starts at the
 your Linux system can be found below this root directory. Let\'s take a
 brief look at the contents of the root directory.
 
-    [paul@RHELv8u3 ~]$ ls /
+    [student@linux ~]$ ls /
     bin   dev  home  media  mnt  proc  sbin     srv  tftpboot  usr
     boot  etc  lib   misc   opt  root  selinux  sys  tmp       var
         
@@ -48,7 +48,7 @@ In the screenshot below you see common Unix/Linux commands like cat, cp,
 cpio, date, dd, echo, grep, and so on. Many of these will be covered in
 this book.
 
-    paul@laika:~$ ls /bin
+    student@linux:~$ ls /bin
     archdetect       egrep             mt               setupcon
     autopartition    false             mt-gnu           sh
     bash             fgconsole         mv               sh.distrib
@@ -85,7 +85,7 @@ privilege to perform certain tasks.
 Below a screenshot containing `system binaries` to change the ip
 address, partition a disk and create an ext4 file system.
 
-    paul@ubu1010:~$ ls -l /sbin/ifconfig /sbin/fdisk /sbin/mkfs.ext4
+    student@linux:~$ ls -l /sbin/ifconfig /sbin/fdisk /sbin/mkfs.ext4
     -rwxr-xr-x 1 root root 97172 2011-02-02 09:56 /sbin/fdisk
     -rwxr-xr-x 1 root root 65708 2010-07-02 09:27 /sbin/ifconfig
     -rwxr-xr-x 5 root root 55140 2010-08-18 18:01 /sbin/mkfs.ext4
@@ -96,7 +96,7 @@ Binaries found in `/bin` and `/sbin` often use `shared libraries`
 located in `/lib`. Below is a screenshot of the partial
 contents of `/lib`.
 
-    paul@laika:~$ ls /lib/libc*
+    student@linux:~$ ls /lib/libc*
     /lib/libc-2.5.so     /lib/libcfont.so.0.0.0  /lib/libcom_err.so.2.1    
     /lib/libcap.so.1     /lib/libcidn-2.5.so     /lib/libconsole.so.0      
     /lib/libcap.so.1.10  /lib/libcidn.so.1       /lib/libconsole.so.0.0.0  
@@ -118,10 +118,10 @@ compilation time of the libraries. A 64-bit computer may have some
 applications. This screenshot uses the `file` utility to
 demonstrate the difference.
 
-    paul@laika:~$ file /lib32/libc-2.5.so 
+    student@linux:~$ file /lib32/libc-2.5.so 
     /lib32/libc-2.5.so: ELF 32-bit LSB shared object, Intel 80386, \
     version 1 (SYSV), for GNU/Linux 2.6.0, stripped
-    paul@laika:~$ file /lib64/libcap.so.1.10 
+    student@linux:~$ file /lib64/libcap.so.1.10 
     /lib64/libcap.so.1.10: ELF 64-bit LSB shared object, AMD x86-64, \
     version 1 (SYSV), stripped
                 
@@ -160,7 +160,7 @@ people often use the `Editable Text Configuration` backronym.
 Many times the name of a configuration files is the same as the
 application, daemon, or protocol with `.conf` added as the extension.
 
-    paul@laika:~$ ls /etc/*.conf
+    student@linux:~$ ls /etc/*.conf
     /etc/adduser.conf        /etc/ld.so.conf       /etc/scrollkeeper.conf
     /etc/brltty.conf         /etc/lftp.conf        /etc/sysctl.conf
     /etc/ccertificates.conf  /etc/libao.conf       /etc/syslog.conf
@@ -173,7 +173,7 @@ application, daemon, or protocol with `.conf` added as the extension.
     /etc/host.conf           /etc/pnm2ppa.conf     /etc/wodim.conf
     /etc/inetd.conf          /etc/povray.conf      /etc/wvdial.conf
     /etc/kernel-img.conf     /etc/resolv.conf
-    paul@laika:~$ 
+    student@linux:~$ 
 
 There is much more to be found in `/etc`.
 
@@ -205,7 +205,7 @@ them in greater detail. The screenshot below is the
 `/etc/sysconfig` directory from RHELv8u4 with everything
 installed.
 
-    paul@RHELv8u4:~$ ls /etc/sysconfig/
+    student@linux:~$ ls /etc/sysconfig/
     apmd         firstboot     irda              network      saslauthd
     apm-scripts  grub          irqbalance        networking   selinux
     authconfig   hidd          keyboard          ntpd         spamassassin
@@ -217,7 +217,7 @@ installed.
     desktop      ipmi          netdump           rawdevices   tux
     diskdump     iptables      netdump_id_dsa    rhn          vncservers
     dund         iptables-cfg  netdump_id_dsa.p  samba        xinetd
-    paul@RHELv8u4:~$
+    student@linux:~$
 
 The file `/etc/sysconfig/firstboot` tells the Red Hat
 Setup Agent not to run at boot time. If you want to run the Red Hat
@@ -227,7 +227,7 @@ Agent allows you to install the latest updates, create a user account,
 join the Red Hat Network and more. It will then create the
 /etc/sysconfig/firstboot file again.
 
-    paul@RHELv8u4:~$ cat /etc/sysconfig/firstboot 
+    student@linux:~$ cat /etc/sysconfig/firstboot 
     RUN_FIRSTBOOT=NO
 
 The `/etc/sysconfig/harddisks` file contains some
@@ -243,7 +243,7 @@ information, check the manual pages of `keymaps(5)`,
 `dumpkeys(1)`, `loadkeys(1)` and the
 directory `/lib/kbd/keymaps/`.
 
-    root@RHELv8u4:/etc/sysconfig# cat keyboard 
+    root@linux:/etc/sysconfig# cat keyboard 
     KEYBOARDTYPE="pc"
     KEYTABLE="us"
 
@@ -259,7 +259,7 @@ is common (but not mandatory by the fhs) practice to name the users home
 directory after the user name in the format `/home/$USERNAME`. For
 example:
 
-    paul@ubu606:~$ ls /home 
+    student@linux:~$ ls /home 
     geert  annik  sandra  paul  tom
 
 Besides giving every user (or every project or group) a location to
@@ -268,7 +268,7 @@ location to store the user profile. A typical Unix user profile contains
 many hidden files (files whose file name starts with a dot). The hidden
 files of the Unix user profiles contain settings specific for that user.
 
-    paul@ubu606:~$ ls -d /home/paul/.*
+    student@linux:~$ ls -d /home/paul/.*
     /home/paul/.              /home/paul/.bash_profile  /home/paul/.ssh
     /home/paul/..             /home/paul/.bashrc        /home/paul/.viminfo
     /home/paul/.bash_history  /home/paul/.lesshst
@@ -299,7 +299,7 @@ world, you could very well encounter systems running without this
 directory. Solaris 9 does not have it, Solaris 10 does. Most Linux
 distributions today mount all removable media in `/media`.
 
-    paul@debian10:~$ ls /media/
+    student@linux:~$ ls /media/
     cdrom  cdrom0  usbdisk
 
 ### /mnt
@@ -337,13 +337,13 @@ devices will be discussed later.)
     #
     # SATA or SCSI or USB
     #
-    paul@laika:~$ ls /dev/sd*
+    student@linux:~$ ls /dev/sd*
     /dev/sda  /dev/sda1  /dev/sda2  /dev/sda3  /dev/sdb  /dev/sdb1  /dev/sdb2
 
     #
     # IDE or ATAPI
     #
-    paul@barry:~$ ls /dev/hd*
+    student@linux:~$ ls /dev/hd*
     /dev/hda  /dev/hda1  /dev/hda2  /dev/hdb  /dev/hdb1  /dev/hdb2  /dev/hdc
                 
 
@@ -375,14 +375,14 @@ ordinary files, but not taking up disk space. It is actually a view of
 the kernel, or better, what the kernel manages, and is a means to
 interact with it directly. `/proc` is a proc filesystem.
 
-    paul@RHELv8u4:~$ mount -t proc
+    student@linux:~$ mount -t proc
     none on /proc type proc (rw)
             
 
 When listing the /proc directory you will see many numbers (on any Unix)
 and some interesting files (on Linux)
 
-    mul@laika:~$ ls /proc
+    mul@linux:~$ ls /proc
     1      2339   4724  5418  6587  7201       cmdline      mounts
     10175  2523   4729  5421  6596  7204       cpuinfo      mtrr
     10211  2783   4741  5658  6599  7206       crypto       net
@@ -414,16 +414,16 @@ Let\'s investigate the file properties inside `/proc`. Looking at the
 date and time will display the current date and time showing the files
 are constantly updated (a view on the kernel).
 
-    paul@RHELv8u4:~$ date
+    student@linux:~$ date
     Mon Jan 29 18:06:32 EST 2007
-    paul@RHELv8u4:~$ ls -al /proc/cpuinfo 
+    student@linux:~$ ls -al /proc/cpuinfo 
     -r--r--r--  1 root root 0 Jan 29 18:06 /proc/cpuinfo
-    paul@RHELv8u4:~$ 
-    paul@RHELv8u4:~$  ...time passes...
-    paul@RHELv8u4:~$ 
-    paul@RHELv8u4:~$ date
+    student@linux:~$ 
+    student@linux:~$  ...time passes...
+    student@linux:~$ 
+    student@linux:~$ date
     Mon Jan 29 18:10:00 EST 2007
-    paul@RHELv8u4:~$ ls -al /proc/cpuinfo 
+    student@linux:~$ ls -al /proc/cpuinfo 
     -r--r--r--  1 root root 0 Jan 29 18:10 /proc/cpuinfo
             
 
@@ -431,9 +431,9 @@ Most files in /proc are 0 bytes, yet they contain data\--sometimes a lot
 of data. You can see this by executing cat on files like
 `/proc/cpuinfo`, which contains information about the CPU.
 
-    paul@RHELv8u4:~$ file /proc/cpuinfo 
+    student@linux:~$ file /proc/cpuinfo 
     /proc/cpuinfo: empty
-    paul@RHELv8u4:~$ cat /proc/cpuinfo 
+    student@linux:~$ cat /proc/cpuinfo 
     processor       : 0
     vendor_id       : AuthenticAMD
     cpu family      : 15
@@ -456,7 +456,7 @@ of data. You can see this by executing cat on files like
 
 *Just for fun, here is /proc/cpuinfo on a Sun Sunblade 1000\...*
 
-    paul@pasha:~$ cat /proc/cpuinfo
+    student@linux:~$ cat /proc/cpuinfo
     cpu : TI UltraSparc III (Cheetah)
     fpu : UltraSparc III integrated FPU
     promlib : Version 3 Revision 2
@@ -483,7 +483,7 @@ writable. Let\'s discuss some of the files in /proc.
 On the x86 architecture, `/proc/interrupts` displays the
 interrupts.
 
-    paul@RHELv8u4:~$ cat /proc/interrupts 
+    student@linux:~$ cat /proc/interrupts 
                CPU0       
       0:   13876877    IO-APIC-edge  timer
       1:         15    IO-APIC-edge  i8042
@@ -501,7 +501,7 @@ interrupts.
 
 On a machine with two CPU\'s, the file looks like this.
 
-    paul@laika:~$ cat /proc/interrupts 
+    student@linux:~$ cat /proc/interrupts 
               CPU0      CPU1       
       0:    860013        0  IO-APIC-edge     timer
       1:      4533        0  IO-APIC-edge     i8042
@@ -527,9 +527,9 @@ The physical memory is represented in `/proc/kcore`. Do
 not try to cat this file, instead use a debugger. The size of
 /proc/kcore is the same as your physical memory, plus four bytes.
 
-    paul@laika:~$ ls -lh /proc/kcore 
+    student@linux:~$ ls -lh /proc/kcore 
     -r-------- 1 root root 2.0G 2007-01-30 08:57 /proc/kcore
-    paul@laika:~$
+    student@linux:~$
 
 ### /sys Linux 2.6 hot plugging
 
@@ -555,7 +555,7 @@ share (NFS is discussed later).
 
 The `/usr/bin` directory contains a lot of commands.
 
-    paul@deb508:~$ ls /usr/bin | wc -l
+    student@linux:~$ ls /usr/bin | wc -l
     1395
 
 (On Solaris the `/bin` directory is a symbolic link to `/usr/bin`.)
@@ -565,7 +565,7 @@ The `/usr/bin` directory contains a lot of commands.
 The `/usr/include` directory contains general use include
 files for C.
 
-    paul@ubu1010:~$ ls /usr/include/
+    student@linux:~$ ls /usr/include/
     aalib.h        expat_config.h      math.h           search.h
     af_vfs.h       expat_external.h    mcheck.h         semaphore.h
     aio.h          expat.h             memory.h         setjmp.h
@@ -578,7 +578,7 @@ files for C.
 The `/usr/lib` directory contains libraries that are not
 directly executed by users or scripts.
 
-    paul@deb508:~$ ls /usr/lib | head -7
+    student@linux:~$ ls /usr/lib | head -7
     4Suite
     ao
     apt
@@ -592,9 +592,9 @@ directly executed by users or scripts.
 The `/usr/local` directory can be used by an administrator
 to install software locally.
 
-    paul@deb508:~$ ls /usr/local/
+    student@linux:~$ ls /usr/local/
     bin  etc  games  include  lib  man  sbin  share  src
-    paul@deb508:~$ du -sh /usr/local/
+    student@linux:~$ du -sh /usr/local/
     128K    /usr/local/
 
 ### /usr/share
@@ -602,15 +602,15 @@ to install software locally.
 The `/usr/share` directory contains architecture
 independent data. As you can see, this is a fairly large directory.
 
-    paul@deb508:~$ ls /usr/share/ | wc -l
+    student@linux:~$ ls /usr/share/ | wc -l
     263
-    paul@deb508:~$ du -sh /usr/share/
+    student@linux:~$ du -sh /usr/share/
     1.3G    /usr/share/
 
 This directory typically contains `/usr/share/man` for
 manual pages.
 
-    paul@deb508:~$ ls /usr/share/man
+    student@linux:~$ ls /usr/share/man
     cs  fr        hu        it.UTF-8  man2  man6  pl.ISO8859-2  sv
     de  fr.ISO8859-1  id        ja    man3  man7  pl.UTF-8      tr
     es  fr.UTF-8      it        ko    man4  man8  pt_BR     zh_CN
@@ -619,7 +619,7 @@ manual pages.
 And it contains `/usr/share/games` for all static game
 data (so no high-scores or play logs).
 
-    paul@ubu1010:~$ ls /usr/share/games/
+    student@linux:~$ ls /usr/share/games/
     openttd  wesnoth
 
 ### /usr/src
@@ -627,7 +627,7 @@ data (so no high-scores or play logs).
 The `/usr/src` directory is the recommended location for
 kernel source files.
 
-    paul@deb508:~$ ls -l /usr/src/
+    student@linux:~$ ls -l /usr/src/
     total 12
     drwxr-xr-x  4 root root 4096 2011-02-01 14:43 linux-headers-2.6.26-2-686
     drwxr-xr-x 18 root root 4096 2011-02-01 14:43 linux-headers-2.6.26-2-common
@@ -643,7 +643,7 @@ files, should be located in `/var`.
 The `/var/log` directory serves as a central point to
 contain all log files.
 
-    [paul@RHEL8b ~]$ ls /var/log
+    [student@linux ~]$ ls /var/log
     acpid           cron.2    maillog.2   quagga           secure.4
     amanda          cron.3    maillog.3   radius           spooler
     anaconda.log    cron.4    maillog.4   rpmpkgs          spooler.1
@@ -666,7 +666,7 @@ derivatives) is the `/var/log/messages` file. By default
 this file will contain information on what just happened to the system.
 The file is called `/var/log/syslog` on Debian and Ubuntu.
 
-    [root@RHEL8b ~]# tail /var/log/messages
+    [root@linux ~]# tail /var/log/messages
     Jul 30 05:13:56 anacron: anacron startup succeeded
     Jul 30 05:13:56 atd: atd startup succeeded
     Jul 30 05:13:57 messagebus: messagebus startup succeeded
@@ -683,7 +683,7 @@ The file is called `/var/log/syslog` on Debian and Ubuntu.
 The `/var/cache` directory can contain `cache data` for
 several applications.
 
-    paul@ubu1010:~$ ls /var/cache/
+    student@linux:~$ ls /var/cache/
     apt      dictionaries-common    gdm       man        software-center
     binfmts  flashplugin-installer  hald      pm-utils
     cups     fontconfig             jockey    pppconfig

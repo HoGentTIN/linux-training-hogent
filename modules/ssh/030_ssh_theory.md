@@ -40,9 +40,9 @@ the protocol version via `/etc/ssh/ssh_config` for the
 client side and `/etc/ssh/sshd_config` for the
 openssh-server daemon.
 
-    paul@ubu1204:/etc/ssh$ grep Protocol ssh_config 
+    student@linux:/etc/ssh$ grep Protocol ssh_config 
     #   Protocol 2,1
-    paul@ubu1204:/etc/ssh$ grep Protocol sshd_config 
+    student@linux:/etc/ssh$ grep Protocol sshd_config 
     Protocol 2
 
 ### public and private keys
@@ -84,7 +84,7 @@ The following screenshot shows how to use `ssh` to log on to a remote
 computer running Linux. The local user is named `paul` and he is logging
 on as user `admin42` on the remote system.
 
-    paul@ubu1204:~$ ssh admin42@192.168.1.30
+    student@linux:~$ ssh admin42@192.168.1.30
     The authenticity of host '192.168.1.30 (192.168.1.30)' can't be established.
     RSA key fingerprint is b5:fb:3c:53:50:b4:ab:81:f3:cd:2e:bb:ba:44:d3:75.
     Are you sure you want to continue connecting (yes/no)?
@@ -94,7 +94,7 @@ authentication fingerprint from the remote system. The user can accepts
 this bu typing `yes`. We will see later that an entry will be added to
 the `~/.ssh/known_hosts` file.
 
-    paul@ubu1204:~$ ssh admin42@192.168.1.30
+    student@linux:~$ ssh admin42@192.168.1.30
     The authenticity of host '192.168.1.30 (192.168.1.30)' can't be established.
     RSA key fingerprint is b5:fb:3c:53:50:b4:ab:81:f3:cd:2e:bb:ba:44:d3:75.
     Are you sure you want to continue connecting (yes/no)? yes
@@ -116,17 +116,17 @@ using `Ctrl-d`.
     admin42@ubuserver:~$ exit
     logout
     Connection to 192.168.1.30 closed.
-    paul@ubu1204:~$
+    student@linux:~$
 
 ## executing a command in remote
 
 This screenshot shows how to execute the `pwd` command on the remote
 server. There is no need to `exit` the server manually.
 
-    paul@ubu1204:~$ ssh admin42@192.168.1.30 pwd
+    student@linux:~$ ssh admin42@192.168.1.30 pwd
     admin42@192.168.1.30's password: 
     /home/admin42
-    paul@ubu1204:~$
+    student@linux:~$
 
 ## scp
 
@@ -135,14 +135,14 @@ destination of the copy to be behind `ssh`. Here is an example where we
 copy the `/etc/hosts` file from the remote server to the home directory
 of user paul.
 
-    paul@ubu1204:~$ scp admin42@192.168.1.30:/etc/hosts /home/paul/serverhosts
+    student@linux:~$ scp admin42@192.168.1.30:/etc/hosts /home/paul/serverhosts
     admin42@192.168.1.30's password: 
     hosts                                        100%  809     0.8KB/s   00:00
 
 Here is an example of the reverse, copying a local file to a remote
 server.
 
-    paul@ubu1204:~$ scp ~/serverhosts admin42@192.168.1.30:/etc/hosts.new
+    student@linux:~$ scp ~/serverhosts admin42@192.168.1.30:/etc/hosts.new
     admin42@192.168.1.30's password: 
     serverhosts                                  100%  809     0.8KB/s   00:00
 
@@ -165,7 +165,7 @@ access.
 The example below shows how Alice uses `ssh-keygen` to
 generate a key pair. Alice does not enter a passphrase.
 
-    [alice@RHEL5 ~]$ ssh-keygen -t rsa
+    [alice@linux ~]$ ssh-keygen -t rsa
     Generating public/private rsa key pair.
     Enter file in which to save the key (/home/alice/.ssh/id_rsa): 
     Created directory '/home/alice/.ssh'.
@@ -174,8 +174,8 @@ generate a key pair. Alice does not enter a passphrase.
     Your identification has been saved in /home/alice/.ssh/id_rsa.
     Your public key has been saved in /home/alice/.ssh/id_rsa.pub.
     The key fingerprint is:
-    9b:ac:ac:56:c2:98:e5:d9:18:c4:2a:51:72:bb:45:eb alice@RHEL5
-    [alice@RHEL5 ~]$
+    9b:ac:ac:56:c2:98:e5:d9:18:c4:2a:51:72:bb:45:eb alice@linux
+    [alice@linux ~]$
 
 You can use `ssh-keygen -t dsa` in the same way.
 
@@ -190,18 +190,18 @@ keys are not secure!).
 As you can see, the `.ssh` directory is secure in Alice\'s home
 directory.
 
-    [alice@RHEL5 ~]$ ls -ld .ssh
+    [alice@linux ~]$ ls -ld .ssh
     drwx------ 2 alice alice 4096 May  1 07:38 .ssh
-    [alice@RHEL5 ~]$
+    [alice@linux ~]$
 
 Bob is using Ubuntu at home. He decides to manually create the `.ssh`
 directory, so he needs to manually secure it.
 
-    bob@laika:~$ mkdir .ssh
-    bob@laika:~$ ls -ld .ssh
+    bob@linux:~$ mkdir .ssh
+    bob@linux:~$ ls -ld .ssh
     drwxr-xr-x 2 bob bob 4096 2008-05-14 16:53 .ssh
-    bob@laika:~$ chmod 700 .ssh/
-    bob@laika:~$
+    bob@linux:~$ chmod 700 .ssh/
+    bob@linux:~$
 
 ### id_rsa and id_rsa.pub
 
@@ -209,7 +209,7 @@ The `ssh-keygen` command generate two keys in .ssh. The
 public key is named `~/.ssh/id_rsa.pub`. The private key
 is named `~/.ssh/id_rsa`.
 
-    [alice@RHEL5 ~]$ ls -l .ssh/
+    [alice@linux ~]$ ls -l .ssh/
     total 16
     -rw------- 1 alice alice 1671 May  1 07:38 id_rsa
     -rw-r--r-- 1 alice alice  393 May  1 07:38 id_rsa.pub
@@ -222,7 +222,7 @@ The files will be named `id_dsa` and
 To copy the public key from Alice\'s server tot Bob\'s laptop, Alice
 decides to use `scp`.
 
-    [alice@RHEL5 .ssh]$ scp id_rsa.pub bob@192.168.48.92:~/.ssh/authorized_keys
+    [alice@linux .ssh]$ scp id_rsa.pub bob@192.168.48.92:~/.ssh/authorized_keys
     bob@192.168.48.92's password: 
     id_rsa.pub                                    100%  393     0.4KB/s   00:00
 
@@ -244,13 +244,13 @@ private keys to prove their identity and gain access to your account via
 ssh (without password). The example shows Bob\'s authorized_keys file
 containing the public key of Alice.
 
-    bob@laika:~$ cat .ssh/authorized_keys 
+    bob@linux:~$ cat .ssh/authorized_keys 
     ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEApCQ9xzyLzJes1sR+hPyqW2vyzt1D4zTLqk\
     MDWBR4mMFuUZD/O583I3Lg/Q+JIq0RSksNzaL/BNLDou1jMpBe2Dmf/u22u4KmqlJBfDhe\
     yTmGSBzeNYCYRSMq78CT9l9a+y6x/shucwhaILsy8A2XfJ9VCggkVtu7XlWFDL2cum08/0\
     mRFwVrfc/uPsAn5XkkTscl4g21mQbnp9wJC40pGSJXXMuFOk8MgCb5ieSnpKFniAKM+tEo\
     /vjDGSi3F/bxu691jscrU0VUdIoOSo98HUfEf7jKBRikxGAC7I4HLa+/zX73OIvRFAb2hv\
-    tUhn6RHrBtUJUjbSGiYeFTLDfcTQ== alice@RHEL5
+    tUhn6RHrBtUJUjbSGiYeFTLDfcTQ== alice@linux
 
 ### passwordless ssh
 
@@ -258,10 +258,10 @@ Alice can now use ssh to connect passwordless to Bob\'s laptop. In
 combination with `ssh`\'s capability to execute commands on the remote
 host, this can be useful in pipes across different machines.
 
-    [alice@RHEL5 ~]$ ssh bob@192.168.48.92 "ls -l .ssh"
+    [alice@linux ~]$ ssh bob@192.168.48.92 "ls -l .ssh"
     total 4
     -rw-r--r-- 1 bob bob 393 2008-05-14 17:03 authorized_keys
-    [alice@RHEL5 ~]$
+    [alice@linux ~]$
 
 ## X forwarding via ssh
 
@@ -273,7 +273,7 @@ computer to start the graphical application mozilla-thunderbird.
 Although the application will run on the remote computer from greet, it
 will be displayed on the screen attached locally to paul\'s computer.
 
-    paul@debian10:~/PDF$ ssh -X greet@greet.dyndns.org -p 55555
+    student@linux:~/PDF$ ssh -X greet@greet.dyndns.org -p 55555
     Warning: Permanently added the RSA host key for IP address \
     '81.240.174.161' to the list of known hosts.
     Password: 
@@ -288,7 +288,7 @@ will be displayed on the screen attached locally to paul\'s computer.
 
 Use `ssh -v` to get debug information about the ssh connection attempt.
 
-    paul@debian10:~$ ssh -v bert@192.168.1.192
+    student@linux:~$ ssh -v bert@192.168.1.192
     OpenSSH_4.3p2 Debian-8ubuntu1, OpenSSL 0.9.8c 05 Sep 2006
     debug1: Reading configuration data /home/paul/.ssh/config
     debug1: Reading configuration data /etc/ssh/ssh_config
@@ -308,7 +308,7 @@ Use `ssh -v` to get debug information about the ssh connection attempt.
 The ssh server is called `sshd` and is provided by the
 `openssh-server` package.
 
-    root@ubu1204~# dpkg -l openssh-server | tail -1
+    root@linux~# dpkg -l openssh-server | tail -1
     ii  openssh-server   1:5.9p1-5ubuntu1    secure shell (SSH) server,... 
 
 ## sshd keys
@@ -317,7 +317,7 @@ The public keys used by the sshd server are located in
 `/etc/ssh` and
 are world readable. The private keys are only readable by root.
 
-    root@ubu1204~# ls -l /etc/ssh/ssh_host_*
+    root@linux~# ls -l /etc/ssh/ssh_host_*
     -rw------- 1 root root  668 Jun  7  2011 /etc/ssh/ssh_host_dsa_key
     -rw-r--r-- 1 root root  598 Jun  7  2011 /etc/ssh/ssh_host_dsa_key.pub
     -rw------- 1 root root 1679 Jun  7  2011 /etc/ssh/ssh_host_rsa_key
@@ -333,14 +333,14 @@ passphrase every time, you can add the key to `ssh-agent` using
 Most Linux distributions will start the `ssh-agent` automatically when
 you log on.
 
-    root@ubu1204~# ps -ef | grep ssh-agent
+    root@linux~# ps -ef | grep ssh-agent
     paul     2405  2365  0 08:13 ?        00:00:00 /usr/bin/ssh-agent...
 
 This clipped screenshot shows how to use `ssh-add` to list the keys that
 are currently added to the `ssh-agent`
 
-    paul@debian10:~$ ssh-add -L
+    student@linux:~$ ssh-add -L
     ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAvgI+Vx5UrIsusZPl8da8URHGsxG7yivv3/\
     ...
-    wMGqa48Kelwom8TGb4Sgcwpp/VO/ldA5m+BGCw== paul@deb106
+    wMGqa48Kelwom8TGb4Sgcwpp/VO/ldA5m+BGCw== student@linux
 

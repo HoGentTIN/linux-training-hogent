@@ -5,7 +5,7 @@
 To see the version of samba installed on Red Hat, Fedora or CentOS use
 `rpm -q samba`.
 
-    [root@RHEL52 ~]# rpm -q samba
+    [root@linux ~]# rpm -q samba
     samba-3.0.28-1.el5_2.1
 
 The screenshot above shows that RHEL5 has `Samba` version
@@ -24,12 +24,12 @@ Use `dpkg -l` or `aptitide show` on Debian
 or Ubuntu. Both Debian 7.0 (Wheezy) and Ubuntu 12.04 (Precise) use
 version 3.6.3 of the Samba server.
 
-    root@debian10~# aptitude show samba | grep Version
+    root@linux~# aptitude show samba | grep Version
     Version: 2:3.6.3-1
 
 Ubuntu 12.04 is currently at Samba version 3.6.3.
 
-    root@ubu1204:~# dpkg -l samba | tail -1
+    root@linux:~# dpkg -l samba | tail -1
     ii samba 2:3.6.3-2ubuntu2.1 SMB/CIFS file, print, and login server for Unix
 
 ## installing samba
@@ -44,7 +44,7 @@ Server\" in the Server section. The non-graphical way is to use
 
 When you downloaded the .rpm file, you can install Samba like this.
 
-    [paul@RHEL52 ~]$ rpm -i samba-3.0.28-1.el5_2.1.rpm
+    [student@linux ~]$ rpm -i samba-3.0.28-1.el5_2.1.rpm
 
 When you have a subscription to RHN (Red Hat Network), then `yum` is an
 easy tool to use. This `yum` command works by default on Fedora and
@@ -57,7 +57,7 @@ CentOS.
 Ubuntu and Debian users can use the `aptitude` program (or
 use a graphical tool like Synaptic).
 
-    root@debian10~# aptitude install samba
+    root@linux~# aptitude install samba
     The following NEW packages will be installed:
       samba samba-common{a} samba-common-bin{a} tdb-tools{a} 
     0 packages upgraded, 4 newly installed, 0 to remove and 1 not upgraded.
@@ -88,7 +88,7 @@ the server itself.
 This action is very similar on Ubuntu and Debian except that the pdf
 files are in a separate package named `samba-doc-pdf`.
 
-    root@ubu1204:~# aptitude install samba-doc-pdf
+    root@linux:~# aptitude install samba-doc-pdf
     The following NEW packages will be installed:
       samba-doc-pdf
     ...
@@ -105,28 +105,28 @@ You can start the daemons by invoking
 `/etc/init.d/smb start` (some systems use
 `/etc/init.d/samba`) on any linux.
 
-    root@laika:~# /etc/init.d/samba stop
+    root@linux:~# /etc/init.d/samba stop
      * Stopping Samba daemons                                    [ OK ] 
-    root@laika:~# /etc/init.d/samba start
+    root@linux:~# /etc/init.d/samba start
      * Starting Samba daemons                                    [ OK ] 
-    root@laika:~# /etc/init.d/samba restart
+    root@linux:~# /etc/init.d/samba restart
      * Stopping Samba daemons                                    [ OK ] 
      * Starting Samba daemons                                    [ OK ] 
-    root@laika:~# /etc/init.d/samba status
+    root@linux:~# /etc/init.d/samba status
      * SMBD is running                                           [ OK ]
 
 Red Hat derived systems are happy with
 `service smb start`.
 
-    [root@RHEL8b ~]# /etc/init.d/smb start
+    [root@linux ~]# /etc/init.d/smb start
     Starting SMB services:                                     [  OK  ]
     Starting NMB services:                                     [  OK  ]
-    [root@RHEL8b ~]# service smb restart
+    [root@linux ~]# service smb restart
     Shutting down SMB services:                                [  OK  ]
     Shutting down NMB services:                                [  OK  ]
     Starting SMB services:                                     [  OK  ]
     Starting NMB services:                                     [  OK  ]
-    [root@RHEL8b ~]#
+    [root@linux ~]#
 
 ## samba daemons
 
@@ -139,7 +139,7 @@ The `nmbd` daemon takes care of all the names and naming. It registers
 and resolves names, and handles browsing. According to the Samba
 documentation, it should be the first daemon to start.
 
-    [root@RHEL52 ~]# ps -C nmbd
+    [root@linux ~]# ps -C nmbd
       PID TTY          TIME CMD
      5681 ?        00:00:00 nmbd
 
@@ -147,7 +147,7 @@ documentation, it should be the first daemon to start.
 
 The `smbd` daemon manages file transfers and authentication.
 
-    [root@RHEL52 ~]# ps -C smbd
+    [root@linux ~]# ps -C smbd
       PID TTY          TIME CMD
      5678 ?        00:00:00 smbd
      5683 ?        00:00:00 smbd
@@ -161,9 +161,9 @@ Note that `winbindd` is started by the
 `/etc/init.d/winbind` script (two dd\'s for the daemon and
 only one d for the script).
 
-    [root@RHEL52 ~]# /etc/init.d/winbind start
+    [root@linux ~]# /etc/init.d/winbind start
     Starting Winbind services:                                 [  OK  ]
-    [root@RHEL52 ~]# ps -C winbindd
+    [root@linux ~]# ps -C winbindd
       PID TTY          TIME CMD
      5752 ?        00:00:00 winbindd
      5754 ?        00:00:00 winbindd

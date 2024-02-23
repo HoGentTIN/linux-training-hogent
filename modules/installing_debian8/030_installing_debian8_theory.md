@@ -56,11 +56,11 @@ when the install is finished.
 
 ![](assets/debian10_isodown.png)
 
-I already have Debian 8 installed on my laptop (hence the `paul@debian8`
+I already have Debian 8 installed on my laptop (hence the `student@linux`
 prompt). Anyway, this is the downloaded file just before starting the
 installation.
 
-    paul@debian8:~$ ls -hl debian-testing-amd64-netinst.iso
+    student@linux:~$ ls -hl debian-testing-amd64-netinst.iso
     -rw-r--r-- 1 paul paul 231M Nov 10 17:59 debian-testing-amd64-netinst.iso
 
 Create a new virtualbox machine (I already have five, you might have
@@ -212,11 +212,11 @@ account. Do you remember the password ? Was it `hunter2` ?
 The screenshots in this book will look like this from now on. You can
 just type those commands in the terminal (after you logged on).
 
-    root@server42:~# who am i
+    root@linux:~# who am i
     root     tty1         2014-11-10 18:21
-    root@server42:~# hostname
+    root@linux:~# hostname
     server42
-    root@server42:~# date
+    root@linux:~# date
     Mon Nov 10 18:21:56 CET 2014
 
 ## virtualbox networking
@@ -229,7 +229,7 @@ receive an ip address from your local dhcp server.
 The default virtualbox networking is to attach virtual network cards to
 `nat`. This screenshiot shows the ip address `10.0.2.15` when on `nat`:
 
-    root@server42:~# ifconfig
+    root@linux:~# ifconfig
     eth0      Link encap:Ethernet  HWaddr 08:00:27:f5:74:cf
               inet addr:10.0.2.15  Bcast:10.0.2.255  Mask:255.255.255.0
               inet6 addr: fe80::a00:27ff:fef5:74cf/64 Scope:Link
@@ -253,8 +253,8 @@ The default virtualbox networking is to attach virtual network cards to
 By shutting down the network interface and enabling it again, we force
 Debian to renew an ip address from the bridged network.
 
-    root@server42:~# # do not run ifdown while connected over ssh!
-    root@server42:~# ifdown eth0
+    root@linux:~# # do not run ifdown while connected over ssh!
+    root@linux:~# ifdown eth0
     Killed old client process
     Internet Systems Consortium DHCP Client 4.3.1
     Copyright 2004-2014 Internet Systems Consortium.
@@ -265,8 +265,8 @@ Debian to renew an ip address from the bridged network.
     Sending on   LPF/eth0/08:00:27:f5:74:cf
     Sending on   Socket/fallback
     DHCPRELEASE on eth0 to 10.0.2.2 port 67
-    root@server42:~# # now enable bridge in virtualbox settings
-    root@server42:~# ifup eth0
+    root@linux:~# # now enable bridge in virtualbox settings
+    root@linux:~# ifup eth0
     Internet Systems Consortium DHCP Client 4.3.1
     Copyright 2004-2014 Internet Systems Consortium.
     All rights reserved.
@@ -281,7 +281,7 @@ Debian to renew an ip address from the bridged network.
     DHCPOFFER from 192.168.1.42
     DHCPACK from 192.168.1.42
     bound to 192.168.1.111 -- renewal in 2938 seconds.
-    root@server42:~# ifconfig eth0
+    root@linux:~# ifconfig eth0
     eth0      Link encap:Ethernet  HWaddr 08:00:27:f5:74:cf
               inet addr:192.168.1.111  Bcast:192.168.1.255  Mask:255.255.255.0
               inet6 addr: fe80::a00:27ff:fef5:74cf/64 Scope:Link
@@ -290,14 +290,14 @@ Debian to renew an ip address from the bridged network.
               TX packets:31 errors:0 dropped:0 overruns:0 carrier:0
               collisions:0 txqueuelen:1000
               RX bytes:3156 (3.0 KiB)  TX bytes:3722 (3.6 KiB)
-    root@server42:~#
+    root@linux:~#
 
 Here is an example of `ssh` to this freshly installed computer. Note
 that `Debian 8` has disabled remote root access, so i need to use the
 normal user account.
 
-    paul@debian8:~$ ssh paul@192.168.1.111
-    paul@192.168.1.111's password:
+    student@linux:~$ ssh paul@192.168.1.111
+    student@192.168.1.111's password:
 
     The programs included with the Debian GNU/Linux system are free software;
     the exact distribution terms for each program are described in the
@@ -305,10 +305,10 @@ normal user account.
 
     Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
     permitted by applicable law.
-    paul@server42:~$
-    paul@server42:~$ su -
+    student@linux:~$
+    student@linux:~$ su -
     Password:
-    root@server42:~#
+    root@linux:~#
 
 TODO: putty screenshot here\...
 
@@ -317,15 +317,15 @@ TODO: putty screenshot here\...
 The hostname of the server is asked during installation, so there is no
 need to configure this manually.
 
-    root@server42:~# hostname
+    root@linux:~# hostname
     server42
-    root@server42:~# cat /etc/hostname
+    root@linux:~# cat /etc/hostname
     server42
-    root@server42:~# dnsdomainname
+    root@linux:~# dnsdomainname
     paul.local
-    root@server42:~# grep server42 /etc/hosts
+    root@linux:~# grep server42 /etc/hosts
     127.0.1.1       server42.paul.local     server42
-    root@server42:~#
+    root@linux:~#
 
 ## adding a static ip address
 
@@ -336,18 +336,18 @@ next `reboot` (or until the next `ifdown`).
 
 a
 
-    root@server42:~# ifconfig eth0:0 10.104.33.39
+    root@linux:~# ifconfig eth0:0 10.104.33.39
 
 Adding a couple of lines to the `/etc/network/interfaces` file to enable
 an extra ip address forever.
 
-    root@server42:~# vi /etc/network/interfaces
-    root@server42:~# tail -4 /etc/network/interfaces
+    root@linux:~# vi /etc/network/interfaces
+    root@linux:~# tail -4 /etc/network/interfaces
     auto eth0:0
     iface eth0:0 inet static
     address 10.104.33.39
     netmask 255.255.0.0
-    root@server42:~# ifconfig
+    root@linux:~# ifconfig
     eth0      Link encap:Ethernet  HWaddr 08:00:27:f5:74:cf
               inet addr:192.168.1.111  Bcast:192.168.1.255  Mask:255.255.255.0
               inet6 addr: fe80::a00:27ff:fef5:74cf/64 Scope:Link
@@ -370,14 +370,14 @@ an extra ip address forever.
               collisions:0 txqueuelen:0
               RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
 
-    root@server42:~#
+    root@linux:~#
 
 ## Debian package management
 
 To get all information about the newest packages form the online
 repository:
 
-    root@server42:~# aptitude update
+    root@linux:~# aptitude update
     Get: 1 http://ftp.be.debian.org jessie InRelease [191 kB]
     Get: 2 http://security.debian.org jessie/updates InRelease [84.1 kB]
     Get: 3 http://ftp.be.debian.org jessie-updates InRelease [117 kB]
@@ -388,7 +388,7 @@ repository:
 
 To download and apply all updates for all installed packages:
 
-    root@server42:~# aptitude upgrade
+    root@linux:~# aptitude upgrade
     Resolving dependencies...
     The following NEW packages will be installed:
       firmware-linux-free{a} irqbalance{a} libnuma1{a} linux-image-3.16.0-4-amd64{a}
@@ -402,7 +402,7 @@ To download and apply all updates for all installed packages:
 
 To install new software (`vim` and `tmux` in this example):
 
-    root@server42:~# aptitude install vim tmux
+    root@linux:~# aptitude install vim tmux
     The following NEW packages will be installed:
       tmux vim vim-runtime{a}
     0 packages upgraded, 3 newly installed, 0 to remove and 0 not upgraded.

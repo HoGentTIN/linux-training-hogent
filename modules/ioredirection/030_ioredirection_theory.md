@@ -31,12 +31,12 @@ the file.
 The `>` notation is in fact the abbreviation of `1>` (`stdout` being
 referred to as stream `1`).
 
-    [paul@RHELv8u3 ~]$ echo It is cold today!
+    [student@linux ~]$ echo It is cold today!
     It is cold today!
-    [paul@RHELv8u3 ~]$ echo It is cold today! > winter.txt
-    [paul@RHELv8u3 ~]$ cat winter.txt 
+    [student@linux ~]$ echo It is cold today! > winter.txt
+    [student@linux ~]$ cat winter.txt 
     It is cold today!
-    [paul@RHELv8u3 ~]$
+    [student@linux ~]$
 
 Note that the bash shell effectively `removes` the redirection from the
 command line before argument 0 is executed. This means that in the case
@@ -54,50 +54,50 @@ While scanning the line, the shell will see the \> sign and
 this means that even when the command fails, the file will have been
 cleared!
 
-    [paul@RHELv8u3 ~]$ cat winter.txt 
+    [student@linux ~]$ cat winter.txt 
     It is cold today!
-    [paul@RHELv8u3 ~]$ zcho It is cold today! > winter.txt
+    [student@linux ~]$ zcho It is cold today! > winter.txt
     -bash: zcho: command not found
-    [paul@RHELv8u3 ~]$ cat winter.txt 
-    [paul@RHELv8u3 ~]$
+    [student@linux ~]$ cat winter.txt 
+    [student@linux ~]$
 
 ### noclobber
 
 Erasing a file while using \> can be prevented by setting the
 `noclobber` option.
 
-    [paul@RHELv8u3 ~]$ cat winter.txt 
+    [student@linux ~]$ cat winter.txt 
     It is cold today!
-    [paul@RHELv8u3 ~]$ set -o noclobber
-    [paul@RHELv8u3 ~]$ echo It is cold today! > winter.txt
+    [student@linux ~]$ set -o noclobber
+    [student@linux ~]$ echo It is cold today! > winter.txt
     -bash: winter.txt: cannot overwrite existing file
-    [paul@RHELv8u3 ~]$ set +o noclobber
-    [paul@RHELv8u3 ~]$
+    [student@linux ~]$ set +o noclobber
+    [student@linux ~]$
 
 ### overruling noclobber
 
 The `noclobber` can be overruled with `>|`.
 
-    [paul@RHELv8u3 ~]$ set -o noclobber
-    [paul@RHELv8u3 ~]$ echo It is cold today! > winter.txt
+    [student@linux ~]$ set -o noclobber
+    [student@linux ~]$ echo It is cold today! > winter.txt
     -bash: winter.txt: cannot overwrite existing file
-    [paul@RHELv8u3 ~]$ echo It is very cold today! >| winter.txt
-    [paul@RHELv8u3 ~]$ cat winter.txt 
+    [student@linux ~]$ echo It is very cold today! >| winter.txt
+    [student@linux ~]$ cat winter.txt 
     It is very cold today!
-    [paul@RHELv8u3 ~]$
+    [student@linux ~]$
 
 ### \>\> append
 
 Use `>>` to `append` output to a file.
 
-    [paul@RHELv8u3 ~]$ echo It is cold today! > winter.txt
-    [paul@RHELv8u3 ~]$ cat winter.txt 
+    [student@linux ~]$ echo It is cold today! > winter.txt
+    [student@linux ~]$ cat winter.txt 
     It is cold today!
-    [paul@RHELv8u3 ~]$ echo Where is the summer ? >> winter.txt
-    [paul@RHELv8u3 ~]$ cat winter.txt 
+    [student@linux ~]$ echo Where is the summer ? >> winter.txt
+    [student@linux ~]$ cat winter.txt 
     It is cold today!
     Where is the summer ?
-    [paul@RHELv8u3 ~]$
+    [student@linux ~]$
 
 ## error redirection
 
@@ -112,16 +112,16 @@ The screenshot below shows redirection of `stdout` to a file, and
 `stderr` to `/dev/null`. Writing `1>` is the
 same as \>.
 
-    [paul@RHELv8u3 ~]$ find / > allfiles.txt 2> /dev/null
-    [paul@RHELv8u3 ~]$
+    [student@linux ~]$ find / > allfiles.txt 2> /dev/null
+    [student@linux ~]$
 
 ### 2\>&1
 
 To redirect both `stdout` and `stderr` to the same file, use
 `2>&1`.
 
-    [paul@RHELv8u3 ~]$ find / > allfiles_and_errors.txt 2>&1
-    [paul@RHELv8u3 ~]$
+    [student@linux ~]$ find / > allfiles_and_errors.txt 2>&1
+    [student@linux ~]$
 
 Note that the order of redirections is significant. For example, the
 command
@@ -142,7 +142,7 @@ redirected to dirlist.
 By default you cannot grep inside `stderr` when using pipes on the
 command line, because only `stdout` is passed.
 
-    paul@debian10:~$ rm file42 file33 file1201 | grep file42
+    student@linux:~$ rm file42 file33 file1201 | grep file42
     rm: cannot remove ‘file42’: No such file or directory
     rm: cannot remove ‘file33’: No such file or directory
     rm: cannot remove ‘file1201’: No such file or directory
@@ -150,21 +150,21 @@ command line, because only `stdout` is passed.
 With `2>&1` you can force `stderr` to go to `stdout`. This enables the
 next command in the pipe to act on both streams.
 
-    paul@debian10:~$ rm file42 file33 file1201 2>&1 | grep file42
+    student@linux:~$ rm file42 file33 file1201 2>&1 | grep file42
     rm: cannot remove ‘file42’: No such file or directory
 
 You cannot use both `1>&2` and `2>&1` to switch `stdout` and `stderr`.
 
-    paul@debian10:~$ rm file42 file33 file1201 2>&1 1>&2 | grep file42
+    student@linux:~$ rm file42 file33 file1201 2>&1 1>&2 | grep file42
     rm: cannot remove ‘file42’: No such file or directory
-    paul@debian10:~$ echo file42 2>&1 1>&2 | sed 's/file42/FILE42/' 
+    student@linux:~$ echo file42 2>&1 1>&2 | sed 's/file42/FILE42/' 
     FILE42
 
 You need a third stream to switch stdout and stderr after a pipe symbol.
 
-    paul@debian10:~$ echo file42 3>&1 1>&2 2>&3 | sed 's/file42/FILE42/' 
+    student@linux:~$ echo file42 3>&1 1>&2 2>&3 | sed 's/file42/FILE42/' 
     file42
-    paul@debian10:~$ rm file42 3>&1 1>&2 2>&3 | sed 's/file42/FILE42/' 
+    student@linux:~$ rm file42 3>&1 1>&2 2>&3 | sed 's/file42/FILE42/' 
     rm: cannot remove ‘FILE42’: No such file or directory
 
 ## joining stdout and stderr
@@ -172,13 +172,13 @@ You need a third stream to switch stdout and stderr after a pipe symbol.
 The `&>` construction will put both `stdout` and `stderr` in one stream
 (to a file).
 
-    paul@debian10:~$ rm file42 &> out_and_err
-    paul@debian10:~$ cat out_and_err 
+    student@linux:~$ rm file42 &> out_and_err
+    student@linux:~$ cat out_and_err 
     rm: cannot remove ‘file42’: No such file or directory
-    paul@debian10:~$ echo file42 &> out_and_err
-    paul@debian10:~$ cat out_and_err 
+    student@linux:~$ echo file42 &> out_and_err
+    student@linux:~$ cat out_and_err 
     file42
-    paul@debian10:~$ 
+    student@linux:~$ 
 
 ## input redirection
 
@@ -186,13 +186,13 @@ The `&>` construction will put both `stdout` and `stderr` in one stream
 
 Redirecting `stdin` is done with \< (short for 0\<).
 
-    [paul@RHEL8b ~]$ cat < text.txt
+    [student@linux ~]$ cat < text.txt
     one
     two
-    [paul@RHEL8b ~]$ tr 'onetw' 'ONEZZ' < text.txt
+    [student@linux ~]$ tr 'onetw' 'ONEZZ' < text.txt
     ONE
     ZZO
-    [paul@RHEL8b ~]$
+    [student@linux ~]$
 
 ### \<\< here document
 
@@ -201,19 +201,19 @@ a way to append input until a certain sequence (usually EOF) is
 encountered. The `EOF` marker can be typed literally or
 can be called with Ctrl-D.
 
-    [paul@RHEL8b ~]$ cat <<EOF > text.txt
+    [student@linux ~]$ cat <<EOF > text.txt
     > one
     > two
     > EOF
-    [paul@RHEL8b ~]$ cat text.txt 
+    [student@linux ~]$ cat text.txt 
     one
     two
-    [paul@RHEL8b ~]$ cat <<brol > text.txt
+    [student@linux ~]$ cat <<brol > text.txt
     > brel
     > brol
-    [paul@RHEL8b ~]$ cat text.txt 
+    [student@linux ~]$ cat text.txt 
     brel
-    [paul@RHEL8b ~]$
+    [student@linux ~]$
             
 
 ### \<\<\< here string
@@ -222,9 +222,9 @@ The `here string` can be used to directly pass strings to
 a command. The result is the same as using `echo string | command` (but
 you have one less process running).
 
-    paul@ubu1110~$ base64 <<< linux-training.be
+    student@linux~$ base64 <<< linux-training.be
     bGludXgtdHJhaW5pbmcuYmUK
-    paul@ubu1110~$ base64 -d <<< bGludXgtdHJhaW5pbmcuYmUK
+    student@linux~$ base64 -d <<< bGludXgtdHJhaW5pbmcuYmUK
     linux-training.be
 
 See rfc 3548 for more information about `base64`.

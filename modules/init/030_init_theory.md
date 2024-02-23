@@ -13,7 +13,7 @@ When `/sbin/init` is started, it will first read its
 configuration file `/etc/inittab`. In that file, it will
 look for the value of initdefault (3 in the screenshot below).
 
-    [paul@rhel4 ~]$ grep ^id /etc/inittab 
+    [student@linux ~]$ grep ^id /etc/inittab 
     id:3:initdefault:
 
 ### initdefault
@@ -55,7 +55,7 @@ hardware, sets some basic environment, populates
 `/etc/mtab` while mounting file systems, starts swap and
 more.
 
-    [paul@rhel ~]$ egrep -e"^# Ini" -e"^# Sta" -e"^# Che" /etc/rc.d/rc.sysinit
+    [student@linux ~]$ egrep -e"^# Ini" -e"^# Sta" -e"^# Che" /etc/rc.d/rc.sysinit
     # Check SELinux status
     # Initialize hardware
     # Start the graphical boot, if necessary; /usr may not be mounted yet...
@@ -83,7 +83,7 @@ The `/etc/init.d/rcS` script will always run on Debian
 all scripts in the `/etc/rcS.d/` directory in alphabetical
 order.
 
-    root@barry:~# cat /etc/init.d/rcS 
+    root@linux:~# cat /etc/init.d/rcS 
     #! /bin/sh
     #
     # rcS
@@ -129,7 +129,7 @@ When you take a look any of the `/etc/rcX.d/` directories,
 then you will see a lot of (links to) scripts who\'s name start with
 either uppercase K or uppercase S.
 
-    [root@RHEL52 rc3.d]# ls -l | tail -4
+    [root@linux rc3.d]# ls -l | tail -4
     lrwxrwxrwx 1 root root 19 Oct 11  2008 S98haldaemon -> ../init.d/haldaemon
     lrwxrwxrwx 1 root root 19 Oct 11  2008 S99firstboot -> ../init.d/firstboot
     lrwxrwxrwx 1 root root 11 Jan 21 04:16 S99local -> ../rc.local
@@ -154,7 +154,7 @@ Almost at the end of `/etc/inittab` there is a section to
 start and `respawn` several `mingetty`
 daemons.
 
-    [root@RHEL8b ~]# grep getty /etc/inittab 
+    [root@linux ~]# grep getty /etc/inittab 
     # Run gettys in standard runlevels
     1:2345:respawn:/sbin/mingetty tty1
     2:2345:respawn:/sbin/mingetty tty2
@@ -183,7 +183,7 @@ daemon will `respawn` a new mingetty. So even if you
 This example shows that init respawns mingetty daemons. Look at the
 PID\'s of the last two mingetty processes.
 
-    [root@RHEL52 ~]# ps -C mingetty
+    [root@linux ~]# ps -C mingetty
       PID TTY          TIME CMD
      2407 tty1     00:00:00 mingetty
      2408 tty2     00:00:00 mingetty
@@ -196,8 +196,8 @@ PID\'s of the last two mingetty processes.
 When we `kill` the last two mingettys, then `init` will
 notice this and start them again (with a different PID).
 
-    [root@RHEL52 ~]# kill 2411 2412
-    [root@RHEL52 ~]# ps -C mingetty
+    [root@linux ~]# kill 2411 2412
+    [root@linux ~]# ps -C mingetty
       PID TTY          TIME CMD
      2407 tty1     00:00:00 mingetty
      2408 tty2     00:00:00 mingetty
@@ -217,7 +217,7 @@ init about the change of its configuration file with
 The example below shows how to disable mingetty on tty3 to tty6 in
 runlevels 4 and 5.
 
-    [root@RHEL52 ~]# grep getty /etc/inittab 
+    [root@linux ~]# grep getty /etc/inittab 
     # Run gettys in standard runlevels
     1:2345:respawn:/sbin/mingetty tty1
     2:2345:respawn:/sbin/mingetty tty2
@@ -256,14 +256,14 @@ following parameters: start, stop, restart, status.
 
 For example in this screenshot we restart the samba daemon.
 
-    root@laika:~# /etc/init.d/samba restart
+    root@linux:~# /etc/init.d/samba restart
      * Stopping Samba daemons...                               [ OK ] 
      * Starting Samba daemons...                               [ OK ]
 
 You can achieve the same result on RHEL/Fedora with the
 `service` command.
 
-    [root@RHEL8b ~]# service smb restart
+    [root@linux ~]# service smb restart
     Shutting down SMB services:                                [  OK  ]
     Shutting down NMB services:                                [  OK  ]
     Starting SMB services:                                     [  OK  ]
@@ -284,14 +284,14 @@ Here we use `chkconfig` to list the status of a service in the different
 runlevels. You can see that the `crond` daemon (or service) is only
 activated in runlevels 2 to 5.
 
-    [root@RHEL52 ~]# chkconfig --list crond
+    [root@linux ~]# chkconfig --list crond
     crond           0:off   1:off   2:on    3:on    4:on    5:on    6:off
 
 When you compare the screenshot above with the one below, you can see
 that `off` equals to a K link to the script, whereas `on` equals to an S
 link.
 
-    [root@RHEL52 etc]# find ./rc?.d/ -name \*crond -exec ls -l {} \;|cut -b40-
+    [root@linux etc]# find ./rc?.d/ -name \*crond -exec ls -l {} \;|cut -b40-
     ./rc0.d/K60crond -> ../init.d/crond
     ./rc1.d/K60crond -> ../init.d/crond
     ./rc2.d/S90crond -> ../init.d/crond
@@ -307,14 +307,14 @@ certain runlevel.
 
 This screenshot shows how to disable `crond` in runlevel 3.
 
-    [root@RHEL52 ~]# chkconfig --level 3 crond off
-    [root@RHEL52 ~]# chkconfig --list crond
+    [root@linux ~]# chkconfig --level 3 crond off
+    [root@linux ~]# chkconfig --list crond
     crond           0:off   1:off   2:on    3:off   4:on    5:on    6:off
 
 This screenshot shows how to enable `crond` in runlevels 3 and 4.
 
-    [root@RHEL52 ~]# chkconfig --level 34 crond on
-    [root@RHEL52 ~]# chkconfig --list crond
+    [root@linux ~]# chkconfig --level 34 crond on
+    [root@linux ~]# chkconfig --list crond
     crond           0:off   1:off   2:on    3:on    4:on    5:on    6:off
 
 ### chkconfig configuration
@@ -324,7 +324,7 @@ tell chkconfig what to do with the service. The line with `# chkconfig:`
 contains the runlevels in which the service should be started (2345),
 followed by the priority for start (90) and stop (60).
 
-    [root@RHEL52 ~]# head -9 /etc/init.d/crond | tail -5
+    [root@linux ~]# head -9 /etc/init.d/crond | tail -5
     # chkconfig: 2345 90 60
     # description: cron is a standard UNIX program that runs user-specified
     #              programs at periodic scheduled times. vixie cron adds a
@@ -337,11 +337,11 @@ Services can be enabled or disabled in all runlevels with one command.
 Runlevels 0, 1 and 6 are always stopping services (or calling the
 scripts with `stop`) even when their name starts with uppercase S.
 
-    [root@RHEL52 ~]# chkconfig crond off
-    [root@RHEL52 ~]# chkconfig --list crond
+    [root@linux ~]# chkconfig crond off
+    [root@linux ~]# chkconfig --list crond
     crond           0:off   1:off   2:off   3:off   4:off   5:off   6:off
-    [root@RHEL52 ~]# chkconfig crond on
-    [root@RHEL52 ~]# chkconfig --list crond 
+    [root@linux ~]# chkconfig crond on
+    [root@linux ~]# chkconfig --list crond 
     crond           0:off   1:off   2:on    3:on    4:on    5:on    6:off
 
 ## update-rc.d
@@ -356,13 +356,13 @@ When there are existing links in `/etc/rcX.d/` then `update-rc.d` does
 not do anything. This is to avoid that post installation scripts using
 `update-rc.d` are overwriting changes made by a system administrator.
 
-    root@barry:~# update-rc.d cron remove
+    root@linux:~# update-rc.d cron remove
     update-rc.d: /etc/init.d/cron exists during rc.d purge (use -f to force)
 
 As you can see in the next screenshot, nothing changed for the cron
 daemon.
 
-    root@barry:~# find /etc/rc?.d/ -name '*cron' -exec ls -l {} \;|cut -b44-
+    root@linux:~# find /etc/rc?.d/ -name '*cron' -exec ls -l {} \;|cut -b44-
     /etc/rc0.d/K11cron -> ../init.d/cron
     /etc/rc1.d/K11cron -> ../init.d/cron
     /etc/rc2.d/S89cron -> ../init.d/cron
@@ -376,7 +376,7 @@ daemon.
 Here we remove `cron` from all runlevels. Remember that the proper way
 to disable a service is to put K scripts oin all runlevels!
 
-    root@barry:~# update-rc.d -f cron remove
+    root@linux:~# update-rc.d -f cron remove
      Removing any system startup links for /etc/init.d/cron ...
        /etc/rc0.d/K11cron
        /etc/rc1.d/K11cron
@@ -385,15 +385,15 @@ to disable a service is to put K scripts oin all runlevels!
        /etc/rc4.d/S89cron
        /etc/rc5.d/S89cron
        /etc/rc6.d/K11cron
-    root@barry:~# find /etc/rc?.d/ -name '*cron' -exec ls -l {} \;|cut -b44-
-    root@barry:~#
+    root@linux:~# find /etc/rc?.d/ -name '*cron' -exec ls -l {} \;|cut -b44-
+    root@linux:~#
 
 ### enable a service
 
 This screenshot shows how to use `update-rc.d` to enable a service in
 runlevels 2, 3, 4 and 5 and disable the service in runlevels 0, 1 and 6.
 
-    root@barry:~# update-rc.d cron defaults
+    root@linux:~# update-rc.d cron defaults
      Adding system startup for /etc/init.d/cron ...
        /etc/rc0.d/K20cron -> ../init.d/cron
        /etc/rc1.d/K20cron -> ../init.d/cron
@@ -408,7 +408,7 @@ runlevels 2, 3, 4 and 5 and disable the service in runlevels 0, 1 and 6.
 And here is an example on how to set your custom configuration for the
 cron daemon.
 
-    root@barry:~# update-rc.d -n cron start 11 2 3 4 5 . stop 89 0 1 6 .
+    root@linux:~# update-rc.d -n cron start 11 2 3 4 5 . stop 89 0 1 6 .
      Adding system startup for /etc/init.d/cron ...
        /etc/rc0.d/K89cron -> ../init.d/cron
        /etc/rc1.d/K89cron -> ../init.d/cron
@@ -435,13 +435,13 @@ The runlevel command is typical Linux and will output the previous and
 the current runlevel. If there was no previous runlevel, then it will
 mark it with the letter N.
 
-    [root@RHEL8b ~]# runlevel 
+    [root@linux ~]# runlevel 
     N 3
 
 The history of `who -r` dates back to Seventies Unix, it still works on
 Linux.
 
-    [root@RHEL8b ~]# who -r
+    [root@linux ~]# who -r
              run-level 3  Jul 28 09:15                   last=S
 
 ### changing the runlevel
@@ -453,10 +453,10 @@ to `/sbin/init`.
 This screenshot shows how to switch from runlevel 2 to runlevel 3
 without reboot.
 
-    root@barry:~# runlevel 
+    root@linux:~# runlevel 
     N 2
-    root@barry:~# init 3
-    root@barry:~# runlevel 
+    root@linux:~# init 3
+    root@linux:~# runlevel 
     2 3
 
 ### /sbin/shutdown
@@ -476,7 +476,7 @@ shutting down.
 This screenshot shows how to use `shutdown` with five seconds between
 TERM and KILL signals.
 
-    root@barry:~# shutdown -t5 -h now
+    root@linux:~# shutdown -t5 -h now
 
 The `now` is the time argument. This can be `+m` for the number of
 minutes to wait before shutting down (with `now` as an alias for `+0`.
@@ -502,7 +502,7 @@ switch off the power when halting the system.
 `/var/log/wtmp`. To look at `/var/log/wtmp`, we need to
 use th `last`.
 
-    [root@RHEL52 ~]# last | grep reboot
+    [root@linux ~]# last | grep reboot
     reboot   system boot  2.6.18-128.el5   Fri May 29 11:44   (192+05:01)
     reboot   system boot  2.6.18-128.el5   Wed May 27 12:10    (06:49)
     reboot   system boot  2.6.18-128.el5   Mon May 25 19:34   (1+15:59)
@@ -516,14 +516,14 @@ when the user hits `Ctrl-Alt-Delete` on the keyboard.
 
 Here is what Debian 4.0 does.
 
-    root@barry:~# grep -i ctrl /etc/inittab 
+    root@linux:~# grep -i ctrl /etc/inittab 
     # What to do when CTRL-ALT-DEL is pressed.
     ca:12345:ctrlaltdel:/sbin/shutdown -t1 -a -r now
 
 Which is very similar to the default Red Hat Enterprise Linux 5.2
 action.
 
-    [root@RHEL52 ~]# grep -i ctrl /etc/inittab 
+    [root@linux ~]# grep -i ctrl /etc/inittab 
     # Trap CTRL-ALT-DELETE
     ca::ctrlaltdel:/sbin/shutdown -t3 -r now
 
@@ -533,7 +533,7 @@ invoke `shutdown` pressing `Ctrl-Alt-Delete`.
 
 ### UPS and loss of power
 
-    [root@RHEL52 ~]# grep ^p /etc/inittab 
+    [root@linux ~]# grep ^p /etc/inittab 
     pf::powerfail:/sbin/shutdown -f -h +2 "Power Failure; System Shutting Down"
     pr:12345:powerokwait:/sbin/shutdown -c "Power Restored; Shutdown Cancelled"
 
@@ -541,7 +541,7 @@ It will read commands on what to execute in case of `powerfailure`,
 `powerok` and `Ctrl-Alt-Delete`. The init process never
 stops keeping an eye on power failures and that triple key combo.
 
-    root@barry:~# grep ^p /etc/inittab 
+    root@linux:~# grep ^p /etc/inittab 
     pf::powerwait:/etc/init.d/powerfail start
     pn::powerfailnow:/etc/init.d/powerfail now
     po::powerokwait:/etc/init.d/powerfail stop
@@ -555,23 +555,23 @@ init/runlevel/rc functionality. Both Red Hat and Debian have decided in
 
 The screenshot below shows `systemd` running as `pid 1` on RHEL7.
 
-    [root@rhel7 ~]# ps fax | grep systemd | cut -c1-76
+    [root@linux ~]# ps fax | grep systemd | cut -c1-76
         1 ?        Ss     0:01 /usr/lib/systemd/systemd --switched-root --system
       505 ?        Ss     0:00 /usr/lib/systemd/systemd-journald
       545 ?        Ss     0:00 /usr/lib/systemd/systemd-udevd
       670 ?        Ss     0:00 /usr/lib/systemd/systemd-logind
       677 ?        Ssl    0:00 /bin/dbus-daemon --system --address=systemd: --no
      2662 pts/1    S+     0:00          \_ grep --color=auto systemd
-    [root@rhel7 ~]#
+    [root@linux ~]#
 
 Debian 8 (not yet released in September 2014) uses parts of `systemd`,
 but still has `init` as `pid 1`.
 
-    root@debian8:~# ps fax | grep systemd
+    root@linux:~# ps fax | grep systemd
      2042 ?        S      0:00 /sbin/cgmanager --daemon -m name=systemd
     10127 pts/4    S+     0:00          |                   \_ grep systemd
      2777 ?        S      0:00 /lib/systemd/systemd-logind
-    root@debian8:~#
+    root@linux:~#
 
 ### systemd targets
 
@@ -579,7 +579,7 @@ The first command to learn is `systemctl list-units --type=target` (or
 the shorter version `systemctl -t target`). It will show you the
 different targets on the system.
 
-    [root@rhel7 ~]# systemctl list-units --type=target
+    [root@linux ~]# systemctl list-units --type=target
     UNIT                LOAD   ACTIVE SUB    DESCRIPTION
     basic.target        loaded active active Basic System
     cryptsetup.target   loaded active active Encrypted Volumes
@@ -604,7 +604,7 @@ different targets on the system.
 
     16 loaded units listed. Pass --all to see loaded but inactive units, too.
     To show all installed unit files use 'systemctl list-unit-files'.
-    [root@rhel7 ~]#
+    [root@linux ~]#
 
 Targets are the replacement of runlevels and define specific points to
 reach when booting the system. For example the `graphical.target` is
@@ -615,21 +615,21 @@ To switch to a target (for example `multi-user.target`), we now use
 `systemctl isolate` (instead of the equivalent `init 3` to change the
 runlevel).
 
-    [root@rhel7 ~]# ps fax | wc -l
+    [root@linux ~]# ps fax | wc -l
     169
-    [root@rhel7 ~]# systemctl isolate multi-user.target
-    [root@rhel7 ~]# ps fax | wc -l
+    [root@linux ~]# systemctl isolate multi-user.target
+    [root@linux ~]# ps fax | wc -l
     129
-    [root@rhel7 ~]#
+    [root@linux ~]#
 
 To change the default target, we again use this `systemctl` command
 (instead of editing the `/etc/inittab` file).
 
-    [root@rhel7 ~]# systemctl enable multi-user.target --force
+    [root@linux ~]# systemctl enable multi-user.target --force
     rm '/etc/systemd/system/default.target'
     ln -s '/usr/lib/systemd/system/multi-user.target' '/etc/systemd/system/default\
     .target'
-    [root@rhel7 ~]#
+    [root@linux ~]#
 
 This command removed the file `/etc/systemd/system/default.target` and
 replaced it with a symbolic link to the `multi-user-.target` target.
@@ -641,7 +641,7 @@ scripts, but by configuration in `/etc/systemd/system/`. For example
 here are the required services for the `multi-user.target` on Red Hat
 Enterprise 7.
 
-    [root@rhel7 ~]# ls /etc/systemd/system/multi-user.target.wants/
+    [root@linux ~]# ls /etc/systemd/system/multi-user.target.wants/
     abrt-ccpp.service     hypervkvpd.service      postfix.service
     abrtd.service         hypervvssd.service      remote-fs.target
     abrt-oops.service     irqbalance.service      rhsmcertd.service
@@ -653,11 +653,11 @@ Enterprise 7.
     chronyd.service       ModemManager.service    sysstat.service
     crond.service         NetworkManager.service  tuned.service
     cups.path             nfs.target              vmtoolsd.service
-    [root@rhel7 ~]#
+    [root@linux ~]#
 
 Debian8 is not fully migrated yet.
 
-    root@debian8:~# ls /etc/systemd/system/multi-user.target.wants/ 
+    root@linux:~# ls /etc/systemd/system/multi-user.target.wants/ 
     anacron.service       binfmt-support.service  pppd-dns.service  ssh.service
     atd.service           fancontrol.service      remote-fs.target
     avahi-daemon.service  lm-sensors.service      rsyslog.service
@@ -666,17 +666,17 @@ Typical `rc scripts` are replaced with services. Issue the
 `systemctl list-units -t service --all` (or `systemctl -at service`) to
 get a list of all services on your system.
 
-    [root@rhel7 ~]# systemctl -at service | head -5 | column -t | cut -c1-78
+    [root@linux ~]# systemctl -at service | head -5 | column -t | cut -c1-78
     UNIT                 LOAD    ACTIVE    SUB      DESCRIPTION
     abrt-ccpp.service    loaded  active    exited   Install      ABRT     coredump
     abrt-oops.service    loaded  active    running  ABRT         kernel   log
     abrt-vmcore.service  loaded  inactive  dead     Harvest      vmcores  for
     abrt-xorg.service    loaded  active    running  ABRT         Xorg     log
-    [root@rhel7 ~]#
+    [root@linux ~]#
 
 And here an example on how to see the status of the `sshd` service.
 
-    [root@rhel7 ~]# systemctl status sshd.service
+    [root@linux ~]# systemctl status sshd.service
     sshd.service - OpenSSH server daemon
        Loaded: loaded (/usr/lib/systemd/system/sshd.service; enabled)
        Active: active (running) since Wed 2014-09-10 13:42:21 CEST; 55min ago
@@ -687,7 +687,7 @@ And here an example on how to see the status of the `sshd` service.
     Sep 10 13:42:21 rhel7 systemd[1]: Started OpenSSH server daemon.
     Sep 10 13:42:21 rhel7 sshd[1400]: Server listening on 0.0.0.0 port 22.
     Sep 10 13:42:21 rhel7 sshd[1400]: Server listening on :: port 22.
-    [root@rhel7 ~]#
+    [root@linux ~]#
 
 ### systemd services
 
@@ -696,61 +696,61 @@ are replaced with `systemctl`.
 
 This screenshot shows the new way to start and stop a service.
 
-    [root@rhel7 ~]# systemctl start crond.service
-    [root@rhel7 ~]# systemctl show crond.service | grep State
+    [root@linux ~]# systemctl start crond.service
+    [root@linux ~]# systemctl show crond.service | grep State
     LoadState=loaded
     ActiveState=active
     SubState=running
     UnitFileState=enabled
-    [root@rhel7 ~]# systemctl stop crond.service
-    [root@rhel7 ~]# systemctl show crond.service | grep State
+    [root@linux ~]# systemctl stop crond.service
+    [root@linux ~]# systemctl show crond.service | grep State
     LoadState=loaded
     ActiveState=inactive
     SubState=dead
     UnitFileState=enabled
-    [root@rhel7 ~]#
+    [root@linux ~]#
 
 And here is the new way to stop and disable a service.
 
-    [root@rhel7 ~]# systemctl stop crond.service
-    [root@rhel7 ~]# systemctl disable crond.service
+    [root@linux ~]# systemctl stop crond.service
+    [root@linux ~]# systemctl disable crond.service
     rm '/etc/systemd/system/multi-user.target.wants/crond.service'
-    [root@rhel7 ~]# systemctl show crond.service | grep State
+    [root@linux ~]# systemctl show crond.service | grep State
     LoadState=loaded
     ActiveState=inactive
     SubState=dead
     UnitFileState=disabled
-    [root@rhel7 ~]#
+    [root@linux ~]#
 
 This screenshot shows how to enable and start the service again.
 
-    [root@rhel7 ~]# systemctl enable crond.service
+    [root@linux ~]# systemctl enable crond.service
     ln -s '/usr/lib/systemd/system/crond.service' '/etc/systemd/system/multi-user.\
     target.wants/crond.service'
-    [root@rhel7 ~]# systemctl start crond.service
-    [root@rhel7 ~]# systemctl show crond.service | grep State
+    [root@linux ~]# systemctl start crond.service
+    [root@linux ~]# systemctl show crond.service | grep State
     LoadState=loaded
     ActiveState=active
     SubState=running
     UnitFileState=enabled
-    [root@rhel7 ~]#
+    [root@linux ~]#
 
 ### systemd signalling
 
 You can also use `systemd` to `kill` problematic services.
 
-    [root@rhel7 ~]# systemctl show crond.service | grep State
+    [root@linux ~]# systemctl show crond.service | grep State
     LoadState=loaded
     ActiveState=active
     SubState=running
     UnitFileState=enabled
-    [root@rhel7 ~]# systemctl kill -s SIGKILL crond.service
-    [root@rhel7 ~]# systemctl show crond.service | grep State
+    [root@linux ~]# systemctl kill -s SIGKILL crond.service
+    [root@linux ~]# systemctl show crond.service | grep State
     LoadState=loaded
     ActiveState=failed
     SubState=failed
     UnitFileState=enabled
-    [root@rhel7 ~]#
+    [root@linux ~]#
 
 ### systemd shutdown
 
@@ -782,7 +782,7 @@ an `ssh daemon` running on the remote system.
 This screenshot shows how to use `systemctl` to verify a service on an
 other RHEL server.
 
-    [root@rhel7 ~]# systemctl -H root@192.168.1.65 status sshd
+    [root@linux ~]# systemctl -H root@192.168.1.65 status sshd
     root@192.168.1.65's password:
     sshd.service - OpenSSH server daemon
        Loaded: loaded (/usr/lib/systemd/system/sshd.service; enabled)
@@ -791,7 +791,7 @@ other RHEL server.
     SS)
      Main PID: 1363 (sshd)
        CGroup: /system.slice/sshd.service
-    [root@rhel7 ~]#
+    [root@linux ~]#
 
 ### there is more systemd
 
@@ -810,7 +810,7 @@ There are other tools\...
 For example `systemd-analyze blame` will give you an overview of the
 time it took for each service to boot.
 
-    [root@rhel7 ~]# systemd-analyze blame | head
+    [root@linux ~]# systemd-analyze blame | head
               1.977s firewalld.service
               1.096s tuned.service
                993ms postfix.service
@@ -821,5 +821,5 @@ time it took for each service to boot.
                829ms network.service
                822ms iprupdate.service
                795ms boot.mount
-    [root@rhel7 ~]#
+    [root@linux ~]#
 

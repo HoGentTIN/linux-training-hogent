@@ -31,17 +31,17 @@ files and watch the permissions. Try changing and deleting files\...
 then try changing your password as a normal user. Reset the permissions
 back and try again.
 
-    root@deb106:~# ls -l /usr/bin/passwd 
+    root@linux:~# ls -l /usr/bin/passwd 
     -rwsr-xr-x 1 root root 31704 2009-11-14 15:41 /usr/bin/passwd
-    root@deb106:~# chmod 755 /usr/bin/passwd 
-    root@deb106:~# ls -l /usr/bin/passwd 
+    root@linux:~# chmod 755 /usr/bin/passwd 
+    root@linux:~# ls -l /usr/bin/passwd 
     -rwxr-xr-x 1 root root 31704 2009-11-14 15:41 /usr/bin/passwd
         
 
 A normal user cannot change password now.
 
-    root@deb106:~# chmod 4755 /usr/bin/passwd 
-    root@deb106:~# ls -l /usr/bin/passwd 
+    root@linux:~# chmod 4755 /usr/bin/passwd 
+    root@linux:~# ls -l /usr/bin/passwd 
     -rwsr-xr-x 1 root root 31704 2009-11-14 15:41 /usr/bin/passwd
         
 
@@ -49,19 +49,19 @@ A normal user cannot change password now.
 this practice), read about file attributes in the man page of chattr and
 lsattr. Try setting the i attribute on a file and test that it works.
 
-    paul@laika:~$ sudo su -
+    student@linux:~$ sudo su -
     [sudo] password for paul: 
-    root@laika:~# mkdir attr
-    root@laika:~# cd attr/
-    root@laika:~/attr# touch file42
-    root@laika:~/attr# lsattr
+    root@linux:~# mkdir attr
+    root@linux:~# cd attr/
+    root@linux:~/attr# touch file42
+    root@linux:~/attr# lsattr
     ------------------ ./file42
-    root@laika:~/attr# chattr +i file42 
-    root@laika:~/attr# lsattr
+    root@linux:~/attr# chattr +i file42 
+    root@linux:~/attr# lsattr
     ----i------------- ./file42
-    root@laika:~/attr# rm -rf file42 
+    root@linux:~/attr# rm -rf file42 
     rm: cannot remove `file42': Operation not permitted
-    root@laika:~/attr# chattr -i file42 
-    root@laika:~/attr# rm -rf file42 
-    root@laika:~/attr#
+    root@linux:~/attr# chattr -i file42 
+    root@linux:~/attr# rm -rf file42 
+    root@linux:~/attr#
 

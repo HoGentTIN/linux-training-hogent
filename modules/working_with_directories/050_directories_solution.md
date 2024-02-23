@@ -84,13 +84,13 @@ previous directories. Pushd adds a directory to the stack and changes to
 a new current directory, popd removes a directory from the stack and
 sets the current directory.
 
-    paul@debian10:/etc$ cd /bin
-    paul@debian10:/bin$ pushd /lib
+    student@linux:/etc$ cd /bin
+    student@linux:/bin$ pushd /lib
     /lib /bin
-    paul@debian10:/lib$ pushd /proc
+    student@linux:/lib$ pushd /proc
     /proc /lib /bin
-    paul@debian10:/proc$ popd
+    student@linux:/proc$ popd
     /lib /bin
-    paul@debian10:/lib$ popd
+    student@linux:/lib$ popd
     /bin
 

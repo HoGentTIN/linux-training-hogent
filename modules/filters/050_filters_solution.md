@@ -25,19 +25,19 @@ only ip address and the subnet mask.
 
 6\. Write a line that removes all non-letters from a stream.
 
-    paul@deb106:~$ cat text
+    student@linux:~$ cat text
     This is, yes really! , a text with ?&* too many str$ange# characters ;-)
-    paul@deb106:~$ cat text | tr -d ',!$?.*&^%#@;()-'
+    student@linux:~$ cat text | tr -d ',!$?.*&^%#@;()-'
     This is yes really  a text with  too many strange characters
         
 
 7\. Write a line that receives a text file, and outputs all words on a
 separate line.
 
-    paul@deb106:~$ cat text2 
+    student@linux:~$ cat text2 
     it is very cold today without the sun
 
-    paul@deb106:~$ cat text2 | tr ' ' '\n'
+    student@linux:~$ cat text2 | tr ' ' '\n'
     it
     is
     very
@@ -51,16 +51,16 @@ separate line.
 8\. Write a spell checker on the command line. (There may be a
 dictionary in `/usr/share/dict/` .)
 
-    paul@rhel ~$ echo "The zun is shining today" > text
+    student@linux ~$ echo "The zun is shining today" > text
 
-    paul@rhel ~$ cat > DICT
+    student@linux ~$ cat > DICT
     is
     shining
     sun
     the
     today
 
-    paul@rhel ~$ cat text | tr 'A-Z ' 'a-z\n' | sort | uniq | comm -23 - DICT
+    student@linux ~$ cat text | tr 'A-Z ' 'a-z\n' | sort | uniq | comm -23 - DICT
     zun
         
 

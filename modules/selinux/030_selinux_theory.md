@@ -11,35 +11,35 @@ The `disabled` mode disables `selinux`.
 Verify that `syslog` is running and activated on boot to enable logging
 of deny messages in `/var/log/messages`.
 
-    [root@rhel55 ~]# chkconfig --list syslog
+    [root@linux ~]# chkconfig --list syslog
     syslog          0:off   1:off   2:on    3:on    4:on    5:on    6:off
 
 Verify that `auditd` is running and activated on boot to
 enable logging of easier to read messages in
 `/var/log/audit/audit.log`.
 
-    [root@rhel55 ~]# chkconfig --list auditd
+    [root@linux ~]# chkconfig --list auditd
     auditd          0:off   1:off   2:on    3:on    4:on    5:on    6:off
 
 If not activated, then run
 `chkconfig --levels 2345 auditd on` and
 `service auditd start`.
 
-    [root@rhel55 ~]# service auditd status
+    [root@linux ~]# service auditd status
     auditd (pid  1660) is running...
-    [root@rhel55 ~]# service syslog status
+    [root@linux ~]# service syslog status
     syslogd (pid  1688) is running...
     klogd (pid  1691) is running...
 
 The `/var/log/messages` log file will tell you that `selinux` is
 disabled.
 
-    root@deb106:~# grep -i selinux /var/log/messages
+    root@linux:~# grep -i selinux /var/log/messages
     Jun 25 15:59:34 deb106 kernel: [    0.084083] SELinux:  Disabled at boot.
 
 Or that it is enabled.
 
-    root@deb106:~# grep SELinux /var/log/messages | grep -i Init
+    root@linux:~# grep SELinux /var/log/messages | grep -i Init
     Jun 25 15:09:52 deb106 kernel: [    0.084094] SELinux:  Initializing.
 
 ## activating selinux
@@ -48,7 +48,7 @@ On RHEL you can use the GUI tool to activate `selinux`, on Debian there
 is the `selinux-activate` command. Activation requires a
 reboot.
 
-    root@deb106:~# selinux-activate 
+    root@linux:~# selinux-activate 
     Activating SE Linux
     Searching for GRUB installation directory ... found: /boot/grub
     Searching for default file ... found: /boot/grub/default
@@ -64,7 +64,7 @@ reboot.
 Use `getenforce` to verify whether selinux is `enforced`,
 `disabled` or `permissive`.
 
-    [root@rhel55 ~]# getenforce 
+    [root@linux ~]# getenforce 
     Permissive
 
 The `/selinux/enforce` file contains 1 when enforcing, and 0 when
@@ -78,29 +78,29 @@ permissive mode is active.
 You can use `setenforce` to switch between the
 `Permissive` or the `Enforcing` state once `selinux` is activated..
 
-    [root@rhel55 ~]# setenforce Enforcing
-    [root@rhel55 ~]# getenforce 
+    [root@linux ~]# setenforce Enforcing
+    [root@linux ~]# getenforce 
     Enforcing
-    [root@rhel55 ~]# setenforce Permissive
-    [root@rhel55 ~]# getenforce 
+    [root@linux ~]# setenforce Permissive
+    [root@linux ~]# getenforce 
     Permissive
 
 Or you could just use 0 and 1 as argument.
 
-    [root@centos65 ~]# setenforce 1
-    [root@centos65 ~]# getenforce 
+    [root@linux ~]# setenforce 1
+    [root@linux ~]# getenforce 
     Enforcing
-    [root@centos65 ~]# setenforce 0
-    [root@centos65 ~]# getenforce 
+    [root@linux ~]# setenforce 0
+    [root@linux ~]# getenforce 
     Permissive
-    [root@centos65 ~]#
+    [root@linux ~]#
 
 ## sestatus
 
 You can see the current `selinux` status and policy with
 the `sestatus` command.
 
-    [root@rhel55 ~]# sestatus 
+    [root@linux ~]# sestatus 
     SELinux status:                 enabled
     SELinuxfs mount:                /selinux
     Current mode:                   permissive
@@ -124,7 +124,7 @@ looks like this.
 
 The targeted policy is selected in `/etc/selinux/config`.
 
-    [root@centos65 ~]# cat /etc/selinux/config 
+    [root@linux ~]# cat /etc/selinux/config 
     # This file controls the state of SELinux on the system.
     # SELINUX= can take one of these three values:
     #       enforcing - SELinux security policy is enforced.
@@ -166,13 +166,13 @@ For MAC permissions there is new `-Z` option added to
 `ls`. The output shows that file in `/root` have a XXXtype
 of `admin_home_t`.
 
-    [root@centos65 ~]# ls -Z
+    [root@linux ~]# ls -Z
     -rw-------. root root system_u:object_r:admin_home_t:s0 anaconda-ks.cfg
     -rw-r--r--. root root system_u:object_r:admin_home_t:s0 install.log
     -rw-r--r--. root root system_u:object_r:admin_home_t:s0 install.log.syslog
 
-    [root@centos65 ~]# useradd -m -s /bin/bash pol
-    [root@centos65 ~]# ls -Z /home/pol/.bashrc
+    [root@linux ~]# useradd -m -s /bin/bash pol
+    [root@linux ~]# ls -Z /home/pol/.bashrc
     -rw-r--r--. pol pol unconfined_u:object_r:user_home_t:s0 /home/pol/.bashrc
 
 ## -Z
@@ -190,7 +190,7 @@ There are also some other tools with the -Z switch:
 When selinux is active, there is a new virtual file system named
 `/selinux`. (You can compare it to /proc and /dev.)
 
-    [root@centos65 ~]# ls -l /selinux/
+    [root@linux ~]# ls -l /selinux/
     total 0
     -rw-rw-rw-.  1 root root    0 Apr 12 19:40 access
     dr-xr-xr-x.  2 root root    0 Apr 12 19:40 avc
@@ -220,9 +220,9 @@ Although some files in `/selinux` appear wih size 0, they
 often contain a boolean value. Check `/selinux/enforce` to
 see if selinux is running in enforced mode.
 
-    [root@RHEL5 ~]# ls -l /selinux/enforce 
+    [root@linux ~]# ls -l /selinux/enforce 
     -rw-r--r-- 1 root root 0 Apr 29 08:21 /selinux/enforce
-    [root@RHEL5 ~]# echo $(cat /selinux/enforce) 
+    [root@linux ~]# echo $(cat /selinux/enforce) 
     1
 
 ## identity
@@ -232,7 +232,7 @@ ID. An identity is part of a security context, and (via domains)
 determines what you can do. The screenshot shows user `root` having
 identity `user_u`.
 
-    [root@rhel55 ~]# id -Z
+    [root@linux ~]# id -Z
     user_u:system_r:unconfined_t
 
 ## role
@@ -248,9 +248,9 @@ process. An `selinux type` determines what a process can do. The
 screenshot shows init running in type `init_t` and the mingetty\'s
 running in type `getty_t`.
 
-    [root@centos65 ~]# ps fax -Z | grep /sbin/init
+    [root@linux ~]# ps fax -Z | grep /sbin/init
     system_u:system_r:init_t:s0         1 ?        Ss     0:00 /sbin/init
-    [root@centos65 ~]# ps fax -Z | grep getty_t
+    [root@linux ~]# ps fax -Z | grep getty_t
     system_u:system_r:getty_t:s0   1307 tty1    Ss+   0:00 /sbin/mingetty /dev/tty1
     system_u:system_r:getty_t:s0   1309 tty2    Ss+   0:00 /sbin/mingetty /dev/tty2
     system_u:system_r:getty_t:s0   1311 tty3    Ss+   0:00 /sbin/mingetty /dev/tty3
@@ -263,7 +263,7 @@ refers to directories and files instead of processes.
 
 Hundreds of binaries also have a type:
 
-    [root@centos65 sbin]# ls -lZ useradd usermod userdel httpd postcat postfix
+    [root@linux sbin]# ls -lZ useradd usermod userdel httpd postcat postfix
     -rwxr-xr-x. root root system_u:object_r:httpd_exec_t:s0 httpd
     -rwxr-xr-x. root root system_u:object_r:postfix_master_exec_t:s0 postcat
     -rwxr-xr-x. root root system_u:object_r:postfix_master_exec_t:s0 postfix
@@ -273,7 +273,7 @@ Hundreds of binaries also have a type:
 
 Ports also have a context.
 
-    [root@centos65 sbin]# netstat -nptlZ | tr -s ' ' | cut -d' ' -f6-
+    [root@linux sbin]# netstat -nptlZ | tr -s ' ' | cut -d' ' -f6-
 
     Foreign Address State PID/Program name Security Context 
     LISTEN 1096/rpcbind system_u:system_r:rpcbind_t:s0 
@@ -288,7 +288,7 @@ Ports also have a context.
 
 You can also get a list of ports that are managed by SELinux:
 
-    [root@centos65 ~]# semanage port -l | tail
+    [root@linux ~]# semanage port -l | tail
     xfs_port_t                     tcp      7100
     xserver_port_t                 tcp      6000-6150
     zabbix_agent_port_t            tcp      10050
@@ -306,13 +306,13 @@ The combination of identity, role and domain or type make up the
 `selinux security context`. The `id` will show you your
 security context in the form identity:role:domain.
 
-    [paul@RHEL5 ~]$ id | cut -d' ' -f4
+    [student@linux ~]$ id | cut -d' ' -f4
     context=user_u:system_r:unconfined_t
 
 The `ls -Z` command shows the security context for a file in the form
 identity:role:type.
 
-    [paul@RHEL5 ~]$ ls -Z test
+    [student@linux ~]$ ls -Z test
     -rw-rw-r--  paul paul user_u:object_r:user_home_t      test
 
 The security context for processes visible in /proc defines both the
@@ -321,14 +321,14 @@ Let\'s take a look at the init process and /proc/1/ .
 
 The init process runs in domain `init_t`.
 
-    [root@RHEL5 ~]# ps -ZC init
+    [root@linux ~]# ps -ZC init
     LABEL                             PID TTY          TIME CMD
     system_u:system_r:init_t            1 ?        00:00:01 init
 
 The `/proc/1/` directory, which identifies the `init` process, has type
 `init_t`.
 
-    [root@RHEL5 ~]# ls -Zd /proc/1/
+    [root@linux ~]# ls -Zd /proc/1/
     dr-xr-xr-x  root root system_u:system_r:init_t         /proc/1/
 
 It is not a coincidence that the domain of the `init` process and the
@@ -345,10 +345,10 @@ type happens when you create a file.
 
 An example of file type transition.
 
-    [pol@centos65 ~]$ touch test /tmp/test
-    [pol@centos65 ~]$ ls -Z test 
+    [pol@linux ~]$ touch test /tmp/test
+    [pol@linux ~]$ ls -Z test 
     -rw-rw-r--. pol pol unconfined_u:object_r:user_home_t:s0 test
-    [pol@centos65 ~]$ ls -Z /tmp/test
+    [pol@linux ~]$ ls -Z /tmp/test
     -rw-rw-r--. pol pol unconfined_u:object_r:user_tmp_t:s0 /tmp/test
 
 ## extended attributes
@@ -357,20 +357,20 @@ Extended attributes are used by `selinux` to store security contexts.
 These attributes can be viewed with `ls` when `selinux` is
 running.
 
-    [root@RHEL5 home]# ls --context 
+    [root@linux home]# ls --context 
     drwx------  paul paul system_u:object_r:user_home_dir_t paul
     drwxr-xr-x  root root user_u:object_r:user_home_dir_t  project42
     drwxr-xr-x  root root user_u:object_r:user_home_dir_t  project55
-    [root@RHEL5 home]# ls -Z
+    [root@linux home]# ls -Z
     drwx------  paul paul system_u:object_r:user_home_dir_t paul
     drwxr-xr-x  root root user_u:object_r:user_home_dir_t  project42
     drwxr-xr-x  root root user_u:object_r:user_home_dir_t  project55
-    [root@RHEL5 home]#
+    [root@linux home]#
 
 When selinux is not running, then `getfattr` is the tool
 to use.
 
-    [root@RHEL5 etc]# getfattr -m . -d hosts
+    [root@linux etc]# getfattr -m . -d hosts
     # file: hosts
     security.selinux="system_u:object_r:etc_t:s0\000"
 
@@ -379,7 +379,7 @@ to use.
 A new option is added to `ps` to see the selinux security
 context of processes.
 
-    [root@RHEL5 etc]# ps -ZC mingetty
+    [root@linux etc]# ps -ZC mingetty
     LABEL                             PID TTY          TIME CMD
     system_u:system_r:getty_t        2941 tty1     00:00:00 mingetty
     system_u:system_r:getty_t        2942 tty2     00:00:00 mingetty
@@ -390,11 +390,11 @@ Use `chcon` to change the selinux security context.
 
 This example shows how to use `chcon` to change the `type` of a file.
 
-    [root@rhel55 ~]# ls -Z /var/www/html/test42.txt 
+    [root@linux ~]# ls -Z /var/www/html/test42.txt 
     -rw-r--r--  root root user_u:object_r:httpd_sys_content_t /var/www/html/test4\
     2.txt
-    [root@rhel55 ~]# chcon -t samba_share_t /var/www/html/test42.txt 
-    [root@rhel55 ~]# ls -Z /var/www/html/test42.txt 
+    [root@linux ~]# chcon -t samba_share_t /var/www/html/test42.txt 
+    [root@linux ~]# ls -Z /var/www/html/test42.txt 
     -rw-r--r--  root root user_u:object_r:samba_share_t    /var/www/html/test42.txt
 
 Be sure to read `man chcon`.
@@ -405,26 +405,26 @@ The `Apache2 webserver` is by default targeted with `SELinux`. The next
 screenshot shows that any file created in `/var/www/html` will by
 default get the `httpd_sys_content_t` type.
 
-    [root@centos65 ~]# touch /var/www/html/test42.txt
-    [root@centos65 ~]# ls -Z /var/www/html/test42.txt
+    [root@linux ~]# touch /var/www/html/test42.txt
+    [root@linux ~]# ls -Z /var/www/html/test42.txt
     -rw-r--r--. root root unconfined_u:object_r:httpd_sys_content_t:s0 /var/www/h\
     tml/test42.txt
 
 Files created elsewhere do not get this type.
 
-    [root@centos65 ~]# touch /root/test42.txt
-    [root@centos65 ~]# ls -Z /root/test42.txt 
+    [root@linux ~]# touch /root/test42.txt
+    [root@linux ~]# ls -Z /root/test42.txt 
     -rw-r--r--. root root unconfined_u:object_r:admin_home_t:s0 /root/test42.txt
 
 Make sure `Apache2` runs.
 
-    [root@centos65 ~]# service httpd restart 
+    [root@linux ~]# service httpd restart 
     Stopping httpd:                                            [  OK  ]
     Starting httpd:                                            [  OK  ]
 
 Will this work ? Yes it does.
 
-    [root@centos65 ~]# wget http://localhost/test42.txt
+    [root@linux ~]# wget http://localhost/test42.txt
     --2014-04-12 20:56:47--  http://localhost/test42.txt
     Resolving localhost... ::1, 127.0.0.1
     Connecting to localhost|::1|:80... connected.
@@ -436,7 +436,7 @@ Will this work ? Yes it does.
 Why does this work ? Because Apache2 runs in the `httpd_t` domain and
 the files in `/var/www/html` have the `httpd_sys_content_t` type.
 
-    [root@centos65 ~]# ps -ZC httpd | head -4
+    [root@linux ~]# ps -ZC httpd | head -4
     LABEL                             PID TTY          TIME CMD
     unconfined_u:system_r:httpd_t:s0 1666 ?        00:00:00 httpd
     unconfined_u:system_r:httpd_t:s0 1668 ?        00:00:00 httpd
@@ -444,19 +444,19 @@ the files in `/var/www/html` have the `httpd_sys_content_t` type.
 
 So let\'s set SELinux to `enforcing` and change the `type` of this file.
 
-    [root@centos65 ~]# chcon -t samba_share_t /var/www/html/test42.txt 
-    [root@centos65 ~]# ls -Z /var/www/html/test42.txt 
+    [root@linux ~]# chcon -t samba_share_t /var/www/html/test42.txt 
+    [root@linux ~]# ls -Z /var/www/html/test42.txt 
     -rw-r--r--. root root unconfined_u:object_r:samba_share_t:s0 /var/www/html/t\
     est42.txt
-    [root@centos65 ~]# setenforce 1
-    [root@centos65 ~]# getenforce 
+    [root@linux ~]# setenforce 1
+    [root@linux ~]# getenforce 
     Enforcing
 
 There are two possibilities now: either it works, or it fails. It works
 when `selinux` is in `permissive mode`, it fails when in
 `enforcing mode`.
 
-    [root@centos65 ~]# wget http://localhost/test42.txt
+    [root@linux ~]# wget http://localhost/test42.txt
     --2014-04-12 21:05:02--  http://localhost/test42.txt
     Resolving localhost... ::1, 127.0.0.1
     Connecting to localhost|::1|:80... connected.
@@ -465,7 +465,7 @@ when `selinux` is in `permissive mode`, it fails when in
 
 The log file gives you a cryptic message\...
 
-    [root@centos65 ~]# tail -3 /var/log/audit/audit.log 
+    [root@linux ~]# tail -3 /var/log/audit/audit.log 
     type=SYSCALL msg=audit(1398200702.803:64): arch=c000003e syscall=4 succ\
     ess=no exit=-13 a0=7f5fbc334d70 a1=7fff553b4f10 a2=7fff553b4f10 a3=0 it\
     ems=0 ppid=1666 pid=1673 auid=500 uid=48 gid=48 euid=48 suid=48 fsuid=4\
@@ -488,22 +488,22 @@ And `/var/log/messages` mentions nothing of the failed download.
 The log file above was not very helpful, but these two packages can make
 your life much easier.
 
-    [root@centos65 ~]# yum -y install setroubleshoot setroubleshoot-server
+    [root@linux ~]# yum -y install setroubleshoot setroubleshoot-server
 
 You need to `reboot` for this to work\...
 
 So we reboot, restart the httpd server, reactive SELinux Enforce, and do
 the wget again\... and it fails (because of SELinux).
 
-    [root@centos65 ~]# service httpd restart
+    [root@linux ~]# service httpd restart
     Stopping httpd:                                         [FAILED]
     Starting httpd:                                         [  OK  ]
-    [root@centos65 ~]# getenforce 
+    [root@linux ~]# getenforce 
     Permissive
-    [root@centos65 ~]# setenforce  1
-    [root@centos65 ~]# getenforce 
+    [root@linux ~]# setenforce  1
+    [root@linux ~]# getenforce 
     Enforcing
-    [root@centos65 ~]# wget http://localhost/test42.txt
+    [root@linux ~]# wget http://localhost/test42.txt
     --2014-04-12 21:44:13--  http://localhost/test42.txt
     Resolving localhost... ::1, 127.0.0.1
     Connecting to localhost|::1|:80... connected.
@@ -513,7 +513,7 @@ the wget again\... and it fails (because of SELinux).
 The `/var/log/audit/` is still not out best friend, but take a look at
 `/var/log/messages`.
 
-    [root@centos65 ~]# tail -2 /var/log/messages
+    [root@linux ~]# tail -2 /var/log/messages
     Apr 12 21:44:16  centos65  setroubleshoot: SELinux is preventing /usr/sbin/h\
     ttpd from getattr access on the file /var/www/html/test42.txt. For complete \
     SELinux messages. run sealert -l b2a84386-54c1-4344-96fb-dcf969776696
@@ -523,7 +523,7 @@ The `/var/log/audit/` is still not out best friend, but take a look at
 
 So we run the command it suggests\...
 
-    [root@centos65 ~]# sealert -l b2a84386-54c1-4344-96fb-dcf969776696
+    [root@linux ~]# sealert -l b2a84386-54c1-4344-96fb-dcf969776696
     SELinux is preventing /usr/sbin/httpd from getattr access on the file /va\
     r/www/html/test42.txt.
 
@@ -538,10 +538,10 @@ So we run the command it suggests\...
 
 We follow the friendly advice and try again to download our file:
 
-    [root@centos65 ~]# /sbin/restorecon -v /var/www/html/test42.txt
+    [root@linux ~]# /sbin/restorecon -v /var/www/html/test42.txt
     /sbin/restorecon reset /var/www/html/test42.txt context unconfined_u:objec\
     t_r:samba_share_t:s0->unconfined_u:object_r:httpd_sys_content_t:s0
-    [root@centos65 ~]# wget http://localhost/test42.txt
+    [root@linux ~]# wget http://localhost/test42.txt
     --2014-04-12 21:54:03--  http://localhost/test42.txt
     Resolving localhost... ::1, 127.0.0.1
     Connecting to localhost|::1|:80... connected.
@@ -553,7 +553,7 @@ It works!
 
 Booleans are on/off switches
 
-    [root@centos65 ~]# getsebool -a | head
+    [root@linux ~]# getsebool -a | head
     abrt_anon_write --> off
     abrt_handle_event --> off
     allow_console_login --> on
@@ -567,22 +567,22 @@ Booleans are on/off switches
 
 You can set and read individual booleans.
 
-    [root@centos65 ~]# setsebool httpd_read_user_content=1
-    [root@centos65 ~]# getsebool httpd_read_user_content
+    [root@linux ~]# setsebool httpd_read_user_content=1
+    [root@linux ~]# getsebool httpd_read_user_content
     httpd_read_user_content --> on
-    [root@centos65 ~]# setsebool httpd_enable_homedirs=1
-    [root@centos65 ~]# getsebool httpd_enable_homedirs
+    [root@linux ~]# setsebool httpd_enable_homedirs=1
+    [root@linux ~]# getsebool httpd_enable_homedirs
     httpd_enable_homedirs --> on
 
 You can set these booleans permanent.
 
-    [root@centos65 ~]# setsebool -P httpd_enable_homedirs=1
-    [root@centos65 ~]# setsebool -P httpd_read_user_content=1
+    [root@linux ~]# setsebool -P httpd_enable_homedirs=1
+    [root@linux ~]# setsebool -P httpd_read_user_content=1
 
 The above commands regenerate the complete /etc/selinux/targeted
 directory!
 
-    [root@centos65 ~]# cat /etc/selinux/targeted/modules/active/booleans.local 
+    [root@linux ~]# cat /etc/selinux/targeted/modules/active/booleans.local 
     # This file is auto-generated by libsemanage
     # Do not edit directly.
 

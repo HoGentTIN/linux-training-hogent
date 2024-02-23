@@ -15,11 +15,11 @@ to `chmod +x hello_world` to make it executable. And
 unless you add the scripts directory to your path, you\'ll have to type
 the path to the script for the shell to be able to find it.
 
-    [paul@RHEL8a ~]$ echo echo Hello World > hello_world
-    [paul@RHEL8a ~]$ chmod +x hello_world 
-    [paul@RHEL8a ~]$ ./hello_world 
+    [student@linux ~]$ echo echo Hello World > hello_world
+    [student@linux ~]$ chmod +x hello_world 
+    [student@linux ~]$ ./hello_world 
     Hello World
-    [paul@RHEL8a ~]$
+    [student@linux ~]$
 
 ## she-bang
 
@@ -107,33 +107,33 @@ Here is a simple example of a variable inside a script.
 Scripts can contain variables, but since scripts are run in their own
 shell, the variables do not survive the end of the script.
 
-    [paul@RHEL8a ~]$ echo $var1
+    [student@linux ~]$ echo $var1
 
-    [paul@RHEL8a ~]$ ./vars
+    [student@linux ~]$ ./vars
     var1 = 4
-    [paul@RHEL8a ~]$ echo $var1
+    [student@linux ~]$ echo $var1
 
-    [paul@RHEL8a ~]$
+    [student@linux ~]$
 
 ## sourcing a script
 
 Luckily, you can force a script to run in the same shell; this is called
 `sourcing` a script.
 
-    [paul@RHEL8a ~]$ source ./vars
+    [student@linux ~]$ source ./vars
     var1 = 4
-    [paul@RHEL8a ~]$ echo $var1
+    [student@linux ~]$ echo $var1
     4
-    [paul@RHEL8a ~]$ 
+    [student@linux ~]$ 
             
 
 The above is identical to the below.
 
-    [paul@RHEL8a ~]$ . ./vars
+    [student@linux ~]$ . ./vars
     var1 = 4
-    [paul@RHEL8a ~]$ echo $var1
+    [student@linux ~]$ echo $var1
     4
-    [paul@RHEL8a ~]$ 
+    [student@linux ~]$ 
             
 
 ## troubleshooting a script
@@ -141,21 +141,21 @@ The above is identical to the below.
 Another way to run a script in a separate shell is by typing `bash` with
 the name of the script as a parameter.
 
-    paul@debian10~/test$ bash runme
+    student@linux~/test$ bash runme
     42
 
 Expanding this to `bash -x` allows you to see the commands
 that the shell is executing (after shell expansion).
 
-    paul@debian10~/test$ bash -x runme
+    student@linux~/test$ bash -x runme
     + var4=42
     + echo 42
     42
-    paul@debian10~/test$ cat runme
+    student@linux~/test$ cat runme
     # the runme script
     var4=42
     echo $var4
-    paul@debian10~/test$
+    student@linux~/test$
 
 Notice the absence of the commented (#) line, and the replacement of the
 variable before execution of `echo`.

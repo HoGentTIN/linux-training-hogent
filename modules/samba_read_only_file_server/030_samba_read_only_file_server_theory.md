@@ -5,15 +5,15 @@ Samba. Everyone (even anonymous guests) will receive read access.
 
 The first step is to create a directory and put some test files in it.
 
-    [root@RHEL52 ~]# mkdir -p /srv/samba/readonly
-    [root@RHEL52 ~]# cd /srv/samba/readonly/
-    [root@RHEL52 readonly]# echo "It is cold today." > winter.txt
-    [root@RHEL52 readonly]# echo "It is hot today." > summer.txt
-    [root@RHEL52 readonly]# ls -l
+    [root@linux ~]# mkdir -p /srv/samba/readonly
+    [root@linux ~]# cd /srv/samba/readonly/
+    [root@linux readonly]# echo "It is cold today." > winter.txt
+    [root@linux readonly]# echo "It is hot today." > summer.txt
+    [root@linux readonly]# ls -l
     total 8
     -rw-r--r-- 1 root root 17 Jan 21 05:49 summer.txt
     -rw-r--r-- 1 root root 18 Jan 21 05:49 winter.txt
-    [root@RHEL52 readonly]#
+    [root@linux readonly]#
 
 ## configure the share
 
@@ -24,7 +24,7 @@ workgroup). We also set a descriptive server string, this
 string is visible to users browsing the network with net view, windows
 explorer or smbclient.
 
-    [root@RHEL52 samba]# head -5 smb.conf
+    [root@linux samba]# head -5 smb.conf
     [global]
      workgroup = WORKGROUP
      server string = Public Anonymous File Server
@@ -55,7 +55,7 @@ and security is set to read only.
 
 Here is a very similar configuration on Ubuntu 11.10.
 
-    root@ubu1110:~# cat /etc/samba/smb.conf
+    root@linux:~# cat /etc/samba/smb.conf
     [global]
     workgroup = LINUXTR
     netbios name = UBU1110
@@ -68,7 +68,7 @@ Here is a very similar configuration on Ubuntu 11.10.
 It doesn\'t really matter which Linux distribution you use. Below the
 same config on Debian 6, as good as identical.
 
-    root@debian6:~# cat /etc/samba/smb.conf
+    root@linux:~# cat /etc/samba/smb.conf
     [global]
     workgroup = LINUXTR
     netbios name = DEBIAN6
@@ -83,7 +83,7 @@ same config on Debian 6, as good as identical.
 After testing with `testparm`, restart the samba server (so you don\'t
 have to wait).
 
-    [root@RHEL8b readonly]# service smb restart
+    [root@linux readonly]# service smb restart
     Shutting down SMB services:                                [  OK  ]
     Shutting down NMB services:                                [  OK  ]
     Starting SMB services:                                     [  OK  ]
@@ -96,7 +96,7 @@ have to wait).
 You can now verify the existence of the share with
 `smbclient`. Our `pubread` is listed as the fourth share.
 
-    [root@RHEL52 samba]# smbclient -NL 127.0.0.1
+    [root@linux samba]# smbclient -NL 127.0.0.1
     Domain=[WORKGROUP] OS=[Unix] Server=[Samba 3.0.33-3.7.el5]
 
         Sharename       Type      Comment
@@ -170,7 +170,7 @@ To enable this connection, type the following on the windows computer
 And then connect to this machine with netcat from any Linux computer.
 You end up with a cmd.exe prompt inside your Linux shell.
 
-    paul@laika:~$ nc 192.168.1.38 23
+    student@linux:~$ nc 192.168.1.38 23
     Microsoft Windows [Version 5.2.3790]
     (C) Copyright 1985-2003 Microsoft Corp.
 

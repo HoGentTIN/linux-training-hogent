@@ -64,7 +64,7 @@ You get a configuration file with many examples.
 
 Installing is easy with `yum`.
 
-    [root@rhel71 ~]# yum install dhcp
+    [root@linux ~]# yum install dhcp
     Loaded plugins: product-id, subscription-manager
     Resolving Dependencies
     --> Running transaction check
@@ -99,26 +99,26 @@ Installing is easy with `yum`.
       dhcp.x86_64 12:4.2.5-36.el7
 
     Complete!
-    [root@rhel71 ~]#
+    [root@linux ~]#
 
 After installing we get a `/etc/dhcp/dhcpd.conf` that points us to an
 example file named `dhcpd.conf.sample`.
 
-    [root@rhel71 ~]# cat /etc/dhcp/dhcpd.conf
+    [root@linux ~]# cat /etc/dhcp/dhcpd.conf
     #
     # DHCP Server Configuration file.
     #   see /usr/share/doc/dhcp*/dhcpd.conf.example
     #   see dhcpd.conf(5) man page
     #
-    [root@rhel71 ~]#
+    [root@linux ~]#
 
 So we copy the sample and adjust it for our real situation. We name the
 copy `/etc/dhcp/dhcpd.conf`.
 
-    [root@rhel71 ~]# cp /usr/share/doc/dhcp-4.2.5/dhcpd.conf.example /etc/dhcp/dhcp\
+    [root@linux ~]# cp /usr/share/doc/dhcp-4.2.5/dhcpd.conf.example /etc/dhcp/dhcp\
     d.conf
-    [root@rhel71 ~]# vi /etc/dhcp/dhcpd.conf
-    [root@rhel71 ~]# cat /etc/dhcp/dhcpd.conf
+    [root@linux ~]# vi /etc/dhcp/dhcpd.conf
+    [root@linux ~]# cat /etc/dhcp/dhcpd.conf
     option domain-name "linux-training.be";
     option domain-name-servers 10.42.42.42;
     default-lease-time 600;
@@ -129,7 +129,7 @@ copy `/etc/dhcp/dhcpd.conf`.
       range 10.42.200.11 10.42.200.120;
       option routers 10.42.200.1;
     }
-    [root@rhel71 ~]#
+    [root@linux ~]#
 
 The \'routers\' option is valid for the subnet alone, whereas the
 \'domain-name\' option is global (for all subnets).
@@ -138,8 +138,8 @@ Time to start the server. Remember to use `systemctl start dhcpd` on
 RHEL7/CentOS8 and `service dhcpd start` on previous versions of
 RHEL/CentOS.
 
-    [root@rhel71 ~]# systemctl start dhcpd
-    [root@rhel71 ~]#
+    [root@linux ~]# systemctl start dhcpd
+    [root@linux ~]#
 
 ## client reservations
 

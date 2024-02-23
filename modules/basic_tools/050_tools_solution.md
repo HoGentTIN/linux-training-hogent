@@ -76,11 +76,11 @@ You cannot locate this with `locate` because it is not yet in the index.
 
 8\. Use find and -exec to rename all .htm files to .html.
 
-    paul@rhel55 ~$ find . -name '*.htm'
+    student@linux ~$ find . -name '*.htm'
     ./one.htm
     ./two.htm
-    paul@rhel55 ~$ find . -name '*.htm' -exec mv {} {}l \;
-    paul@rhel55 ~$ find . -name '*.htm*'
+    student@linux ~$ find . -name '*.htm' -exec mv {} {}l \;
+    student@linux ~$ find . -name '*.htm*'
     ./one.html
     ./two.html
 

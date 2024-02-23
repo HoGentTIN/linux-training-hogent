@@ -4,14 +4,14 @@ Type `man` followed by a command (for which you want help)
 and start reading. Press `q` to quit the manpage. Some man pages contain
 examples (near the end).
 
-    paul@laika:~$ man whois
+    student@linux:~$ man whois
     Reformatting whois(1), please wait...
 
 ## man \$configfile
 
 Most `configuration files` have their own manual.
 
-    paul@laika:~$ man syslog.conf
+    student@linux:~$ man syslog.conf
     Reformatting syslog.conf(5), please wait...
 
 ## man \$daemon
@@ -19,7 +19,7 @@ Most `configuration files` have their own manual.
 This is also true for most `daemons` (background programs)
 on your system..
 
-    paul@laika:~$ man syslogd
+    student@linux:~$ man syslogd
     Reformatting syslogd(8), please wait...
 
 ## man -k (apropos)
@@ -27,7 +27,7 @@ on your system..
 `man -k` (or `apropos`) shows a list of man
 pages containing a string.
 
-    paul@laika:~$ man -k syslog
+    student@linux:~$ man -k syslog
     lm-syslog-setup (8)  - configure laptop mode to switch syslog.conf ...
     logger (1)           - a shell command interface to the syslog(3) ...
     syslog-facility (8)  - Setup and remove LOCALx facility for sysklogd
@@ -40,19 +40,19 @@ pages containing a string.
 To see just the description of a manual page, use `whatis`
 followed by a string.
 
-    paul@u810:~$ whatis route
+    student@linux:~$ whatis route
     route (8)            - show / manipulate the IP routing table
 
 ## whereis
 
 The location of a manpage can be revealed with `whereis`.
 
-    paul@laika:~$ whereis -m whois
+    student@linux:~$ whereis -m whois
     whois: /usr/share/man/man1/whois.1.gz
 
 This file is directly readable by `man`.
 
-    paul@laika:~$ man /usr/share/man/man1/whois.1.gz
+    student@linux:~$ man /usr/share/man/man1/whois.1.gz
 
 ## man sections
 
@@ -77,8 +77,8 @@ see it written as `passwd(1)`; when referring to the
 `passwd file`, you will see it written as `passwd(5)`. The
 screenshot explains how to open the man page in the correct section.
 
-    [paul@RHEL52 ~]$ man passwd      # opens the first manual found
-    [paul@RHEL52 ~]$ man 5 passwd    # opens a page from section 5
+    [student@linux ~]$ man passwd      # opens the first manual found
+    [student@linux ~]$ man 5 passwd    # opens a page from section 5
 
 ## man man
 
@@ -87,7 +87,7 @@ If you want to know more about `man`, then Read The Fantastic Manual
 
 *Unfortunately, manual pages do not have the answer to everything\...*
 
-    paul@laika:~$ man woman
+    student@linux:~$ man woman
     No manual entry for woman
 
 ## mandb
@@ -95,7 +95,7 @@ If you want to know more about `man`, then Read The Fantastic Manual
 Should you be convinced that a man page exists, but you can\'t access
 it, then try running `mandb` on Debian/Mint.
 
-    root@laika:~# mandb
+    root@linux:~# mandb
     0 man subdirectories contained newer manual pages.
     0 manual pages were added.
     0 stray cats were added.
@@ -103,10 +103,10 @@ it, then try running `mandb` on Debian/Mint.
 
 Or run `makewhatis` on CentOS/Redhat.
 
-    [root@centos65 ~]# apropos scsi
+    [root@linux ~]# apropos scsi
     scsi: nothing appropriate
-    [root@centos65 ~]# makewhatis 
-    [root@centos65 ~]# apropos scsi
+    [root@linux ~]# makewhatis 
+    [root@linux ~]# apropos scsi
     hpsa                 (4)  - HP Smart Array SCSI driver
     lsscsi               (8)  - list SCSI devices (or hosts) and their attributes
     sd                   (4)  - Driver for SCSI Disk Drives

@@ -35,7 +35,7 @@ The ipv6 `localhost` address is
 `0000:0000:0000:0000:0000:0000:0000:0001`, which can be abbreviated to
 `::1`.
 
-    paul@debian10:~/github/lt/images$ /sbin/ifconfig lo | grep inet6
+    student@linux:~/github/lt/images$ /sbin/ifconfig lo | grep inet6
               inet6 addr: ::1/128 Scope:Host
 
 ## network id and host id
@@ -58,7 +58,7 @@ The localhost address looks like this with cidr:
 The host part of an automatically generated (stateless) ipv6 address
 contains part of the hosts mac address:
 
-    paul@debian10:~$ /sbin/ifconfig | head -3
+    student@linux:~$ /sbin/ifconfig | head -3
     eth3      Link encap:Ethernet  HWaddr 08:00:27:ab:67:30  
               inet addr:192.168.1.29  Bcast:192.168.1.255  Mask:255.255.255.0
               inet6 addr: fe80::a00:27ff:feab:6730/64 Scope:Link
@@ -82,7 +82,7 @@ segment (replace the dot with an hexadecimal digit). This is the reason
 you see `Scope:Link` behind the address in this screenshot. This address
 serves only the `local link`.
 
-    paul@deb106:~$ /sbin/ifconfig | grep inet6
+    student@linux:~$ /sbin/ifconfig | grep inet6
        inet6 addr: fe80::a00:27ff:fe8e:8aa8/64 Scope:Link
        inet6 addr: ::1/128 Scope:Host
 
@@ -119,7 +119,7 @@ For example 192.168.1.42/24 will be encoded as:
 
 You can use the command below to convert any ipv4 address to this range.
 
-    paul@ubu1010:~$ printf "2002:%02x%02x:%02x%02x:%04x::1\n" `echo 192.168.1.42/24 \
+    student@linux:~$ printf "2002:%02x%02x:%02x%02x:%04x::1\n" `echo 192.168.1.42/24 \
     |tr "./" "  "`
     2002:c0a8:012a:0018::1
 
@@ -220,7 +220,7 @@ Below a transcript of a 6to4 setup on Linux.
 Thanks to http://www.anyweb.co.nz/tutorial/v6Linux6to4 and
 http://mirrors.bieringer.de/Linux+IPv6-HOWTO/ and tldp.org!
 
-    root@mac:~# ifconfig 
+    root@linux:~# ifconfig 
     eth0      Link encap:Ethernet  HWaddr 00:26:bb:5d:2e:52  
               inet addr:81.165.101.125  Bcast:255.255.255.255  Mask:255.255.248.0
               inet6 addr: fe80::226:bbff:fe5d:2e52/64 Scope:Link
@@ -240,17 +240,17 @@ http://mirrors.bieringer.de/Linux+IPv6-HOWTO/ and tldp.org!
               collisions:0 txqueuelen:0 
               RX bytes:61737 (61.7 KB)  TX bytes:61737 (61.7 KB)
 
-    root@mac:~# sysctl -w net.ipv6.conf.default.forwarding=1
+    root@linux:~# sysctl -w net.ipv6.conf.default.forwarding=1
     net.ipv6.conf.default.forwarding = 1
-    root@mac:~# ip tunnel add tun6to4 mode sit remote any local 81.165.101.125
-    root@mac:~# ip link set dev tun6to4 mtu 1472 up
-    root@mac:~# ip link show dev tun6to4
+    root@linux:~# ip tunnel add tun6to4 mode sit remote any local 81.165.101.125
+    root@linux:~# ip link set dev tun6to4 mtu 1472 up
+    root@linux:~# ip link show dev tun6to4
     10: tun6to4: <NOARP,UP,LOWER_UP> mtu 1472 qdisc noqueue state UNKNOWN 
         link/sit 81.165.101.125 brd 0.0.0.0
-    root@mac:~# ip -6 addr add dev tun6to4 2002:51a5:657d:0::1/64
-    root@mac:~# ip -6 addr add dev eth0 2002:51a5:657d:1::1/64
-    root@mac:~# ip -6 addr add dev eth0 fdcb:43c1:9c18:1::1/64
-    root@mac:~# ifconfig
+    root@linux:~# ip -6 addr add dev tun6to4 2002:51a5:657d:0::1/64
+    root@linux:~# ip -6 addr add dev eth0 2002:51a5:657d:1::1/64
+    root@linux:~# ip -6 addr add dev eth0 fdcb:43c1:9c18:1::1/64
+    root@linux:~# ifconfig
     eth0      Link encap:Ethernet  HWaddr 00:26:bb:5d:2e:52  
               inet addr:81.165.101.125  Bcast:255.255.255.255  Mask:255.255.248.0
               inet6 addr: fe80::226:bbff:fe5d:2e52/64 Scope:Link
@@ -281,9 +281,9 @@ http://mirrors.bieringer.de/Linux+IPv6-HOWTO/ and tldp.org!
               collisions:0 txqueuelen:0 
               RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
 
-    root@mac:~# ip -6 route add 2002::/16 dev tun6to4
-    root@mac:~# ip -6 route add ::/0 via ::192.88.99.1 dev tun6to4 metric 1
-    root@mac:~# ip -6 route show
+    root@linux:~# ip -6 route add 2002::/16 dev tun6to4
+    root@linux:~# ip -6 route add ::/0 via ::192.88.99.1 dev tun6to4 metric 1
+    root@linux:~# ip -6 route show
     ::/96 via :: dev tun6to4  metric 256  mtu 1472 advmss 1412 hoplimit 0
     2002:51a5:657d::/64 dev tun6to4  proto kernel  metric 256  mtu 1472 advmss 1412 hoplimit 0
     2002:51a5:657d:1::/64 dev eth0  proto kernel  metric 256  mtu 1500 advmss 1440 hoplimit 0
@@ -292,7 +292,7 @@ http://mirrors.bieringer.de/Linux+IPv6-HOWTO/ and tldp.org!
     fe80::/64 dev eth0  proto kernel  metric 256  mtu 1500 advmss 1440 hoplimit 0
     fe80::/64 dev tun6to4  proto kernel  metric 256  mtu 1472 advmss 1412 hoplimit 0
     default via ::192.88.99.1 dev tun6to4  metric 1  mtu 1472 advmss 1412 hoplimit 0
-    root@mac:~# ping6 ipv6-test.com
+    root@linux:~# ping6 ipv6-test.com
     PING ipv6-test.com(ipv6-test.com) 56 data bytes
     64 bytes from ipv6-test.com: icmp_seq=1 ttl=57 time=42.4 ms
     64 bytes from ipv6-test.com: icmp_seq=2 ttl=57 time=43.0 ms

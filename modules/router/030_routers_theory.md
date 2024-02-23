@@ -112,7 +112,7 @@ change the `net.ipv4.ip_forward` variable in
 For more information, take a look at the man page of
 `sysctl`.
 
-    root@debian6~# man sysctl
-    root@debian6~# sysctl -a 2>/dev/null | grep ip_forward
+    root@linux~# man sysctl
+    root@linux~# sysctl -a 2>/dev/null | grep ip_forward
     net.ipv4.ip_forward = 0
 

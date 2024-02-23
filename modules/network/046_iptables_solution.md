@@ -2,7 +2,7 @@
 
 1\. Verify whether the firewall is running.
 
-    root@rhel55 ~# service iptables status | head
+    root@linux ~# service iptables status | head
     Table: filter
     Chain INPUT (policy ACCEPT)
     num  target     prot opt source               destination         
@@ -16,10 +16,10 @@
 
 2\. Stop the running firewall.
 
-    root@rhel55 ~# service iptables stop
+    root@linux ~# service iptables stop
     Flushing firewall rules:                                   [  OK  ]
     Setting chains to policy ACCEPT: filter                    [  OK  ]
     Unloading iptables modules:                                [  OK  ]
-    root@rhel55 ~# service iptables status
+    root@linux ~# service iptables status
     Firewall is stopped.
 

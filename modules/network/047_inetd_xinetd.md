@@ -17,13 +17,13 @@ Recent Linux distributions like RHEL5 and Ubuntu10.04 do not activate
 First verify whether your computer is running `inetd` or `xinetd`. This
 Debian 4.0 Etch is running `inetd`.
 
-    root@barry:~# ps fax | grep inet
+    root@linux:~# ps fax | grep inet
      3870 ?        Ss     0:00 /usr/sbin/inetd
             
 
 This Red Hat Enterprise Linux 4 update 4 is running `xinetd`.
 
-    [root@RHEL8b ~]# ps fax | grep inet
+    [root@linux ~]# ps fax | grep inet
      3003 ?        Ss     0:00 xinetd -stayalive -pidfile /var/run/xinetd.pid
             
 
@@ -42,7 +42,7 @@ superdaemon is configured through `/etc/xinetd.conf` and
 the files in the directory `/etc/xinetd.d`. Let\'s first
 take a look at /etc/xinetd.conf.
 
-    paul@RHELv8u2:~$ cat /etc/xinetd.conf 
+    student@linux:~$ cat /etc/xinetd.conf 
     #
     # Simple configuration file for xinetd
     #
@@ -59,7 +59,7 @@ take a look at /etc/xinetd.conf.
                     
     includedir /etc/xinetd.d
                     
-    paul@RHELv8u2:~$ 
+    student@linux:~$ 
             
 
 According to the settings in this file, xinetd can handle 60 client
@@ -71,13 +71,13 @@ second), it holds subsequent requests for 30 seconds.
 The directory `/etc/xinetd.d` contains more specific configuration
 files. Let\'s also take a look at one of them.
 
-    paul@RHELv8u2:~$ ls /etc/xinetd.d
+    student@linux:~$ ls /etc/xinetd.d
     amanda     chargen-udp  echo      klogin       rexec   talk
     amandaidx  cups-lpd     echo-udp  krb5-telnet  rlogin  telnet
     amidxtape  daytime      eklogin   kshell       rsh     tftp
     auth       daytime-udp  finger    ktalk        rsync   time
     chargen    dbskkd-cdb   gssftp    ntalk        swat    time-udp
-    paul@RHELv8u2:~$ cat /etc/xinetd.d/swat 
+    student@linux:~$ cat /etc/xinetd.d/swat 
     # default: off
     # description: SWAT is the Samba Web Admin Tool. Use swat \
     #              to configure your Samba server. To use SWAT, \
@@ -93,7 +93,7 @@ files. Let\'s also take a look at one of them.
     log_on_failure  += USERID
     disable         = yes
     }
-    paul@RHELv8u2:~$
+    student@linux:~$
             
 
 The services should be listed in the `/etc/services` file.
@@ -113,16 +113,16 @@ This superdaemon has only one configuration file
 `/etc/inetd.conf`. Every protocol or daemon that it is
 listening for, gets one line in this file.
 
-    root@barry:~# grep ftp /etc/inetd.conf 
+    root@linux:~# grep ftp /etc/inetd.conf 
     tftp dgram udp wait nobody /usr/sbin/tcpd /usr/sbin/in.tftpd /boot/tftp
-    root@barry:~#
+    root@linux:~#
             
 
 You can disable a service in inetd.conf above by putting a \# at the
 start of that line. Here an example of the disabled vmware web interface
 (listening on tcp port 902).
 
-    paul@laika:~$ grep vmware /etc/inetd.conf 
+    student@linux:~$ grep vmware /etc/inetd.conf 
     #902 stream tcp nowait root /usr/sbin/vmware-authd vmware-authd
             
 

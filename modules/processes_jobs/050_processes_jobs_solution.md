@@ -12,13 +12,13 @@ running in background.
 
 3\. Verify with `jobs` that `vi` is suspended in background.
 
-    [paul@rhel53 ~]$ jobs
+    [student@linux ~]$ jobs
     [1]+  Stopped                 vim text.txt
 
 4\. Start `find / > allfiles.txt 2>/dev/null` in foreground. Suspend it
 in background before it finishes.
 
-    [paul@rhel53 ~]$ find / > allfiles.txt 2>/dev/null
+    [student@linux ~]$ find / > allfiles.txt 2>/dev/null
        (press ctrl-z)
     [2]+  Stopped                 find / > allfiles.txt 2> /dev/null
 
@@ -28,7 +28,7 @@ in background before it finishes.
 
 6\. Display all `jobs` in background.
 
-    [paul@rhel53 ~]$ jobs
+    [student@linux ~]$ jobs
     [1]-  Stopped                 vim text.txt
     [2]+  Stopped                 find / > allfiles.txt 2> /dev/null
     [3]   Running                 sleep 4000 &
@@ -36,8 +36,8 @@ in background before it finishes.
 
 7\. Use the `kill` command to suspend the last `sleep` process.
 
-    [paul@rhel53 ~]$ kill -SIGSTOP 4519
-    [paul@rhel53 ~]$ jobs
+    [student@linux ~]$ kill -SIGSTOP 4519
+    [student@linux ~]$ jobs
     [1]   Stopped                 vim text.txt
     [2]-  Stopped                 find / > allfiles.txt 2> /dev/null
     [3]   Running                 sleep 4000 &
@@ -55,20 +55,20 @@ in background before it finishes.
 where the numbers come from in the next screenshot. When are the
 variables replaced by their value ? By which shell ?
 
-    [paul@RHEL8b ~]$ echo $$ $PPID
+    [student@linux ~]$ echo $$ $PPID
     4224 4223
-    [paul@RHEL8b ~]$ bash -c "echo $$ $PPID"
+    [student@linux ~]$ bash -c "echo $$ $PPID"
     4224 4223
-    [paul@RHEL8b ~]$ bash -c 'echo $$ $PPID'
+    [student@linux ~]$ bash -c 'echo $$ $PPID'
     5059 4224
-    [paul@RHEL8b ~]$ bash -c `echo $$ $PPID`
+    [student@linux ~]$ bash -c `echo $$ $PPID`
     4223: 4224: command not found
         
 
 The current bash shell will replace the \$\$ and \$PPID while scanning
 the line, and before executing the echo command.
 
-    [paul@RHEL8b ~]$ echo $$ $PPID
+    [student@linux ~]$ echo $$ $PPID
     4224 4223
         
 
@@ -76,7 +76,7 @@ The variables are now double quoted, but the current bash shell will
 replace \$\$ and \$PPID while scanning the line, and before executing
 the `bash -c` command.
 
-    [paul@RHEL8b ~]$ bash -c "echo $$ $PPID"
+    [student@linux ~]$ bash -c "echo $$ $PPID"
     4224 4223
         
 
@@ -85,7 +85,7 @@ replace the \$\$ and the \$PPID. The bash -c command will be executed
 before the variables replaced with their value. This latter bash is the
 one replacing the \$\$ and \$PPID with their value.
 
-    [paul@RHEL8b ~]$ bash -c 'echo $$ $PPID'
+    [student@linux ~]$ bash -c 'echo $$ $PPID'
     5059 4224
         
 
@@ -94,7 +94,7 @@ embedded echo is executed. The result of this echo is the two process
 id\'s. These are given as commands to bash -c. But two numbers are not
 commands!
 
-    [paul@RHEL8b ~]$ bash -c `echo $$ $PPID`
+    [student@linux ~]$ bash -c `echo $$ $PPID`
     4223: 4224: command not found
         
 

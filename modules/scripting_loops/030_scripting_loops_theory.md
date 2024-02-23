@@ -3,30 +3,30 @@
 The `test` command can test whether something is true or
 false. Let\'s start by testing whether 10 is greater than 55.
 
-    [paul@RHEL8b ~]$ test 10 -gt 55 ; echo $?
+    [student@linux ~]$ test 10 -gt 55 ; echo $?
     1
-    [paul@RHEL8b ~]$
+    [student@linux ~]$
 
 The test command returns 1 if the test fails. And as you see in the next
 screenshot, test returns 0 when a test succeeds.
 
-    [paul@RHEL8b ~]$ test 56 -gt 55 ; echo $?
+    [student@linux ~]$ test 56 -gt 55 ; echo $?
     0
-    [paul@RHEL8b ~]$
+    [student@linux ~]$
 
 If you prefer true and false, then write the test like this.
 
-    [paul@RHEL8b ~]$ test 56 -gt 55 && echo true || echo false
+    [student@linux ~]$ test 56 -gt 55 && echo true || echo false
     true
-    [paul@RHEL8b ~]$ test 6 -gt 55 && echo true || echo false
+    [student@linux ~]$ test 6 -gt 55 && echo true || echo false
     false
 
 The test command can also be written as square brackets,
 the screenshot below is identical to the one above.
 
-    [paul@RHEL8b ~]$ [ 56 -gt 55 ] && echo true || echo false
+    [student@linux ~]$ [ 56 -gt 55 ] && echo true || echo false
     true
-    [paul@RHEL8b ~]$ [ 6 -gt 55 ] && echo true || echo false
+    [student@linux ~]$ [ 6 -gt 55 ] && echo true || echo false
     false
 
 Below are some example tests. Take a look at `man test` to see more
@@ -46,11 +46,11 @@ options for tests.
 
 Tests can be combined with logical AND and OR.
 
-    paul@RHEL8b:~$ [ 66 -gt 55 -a 66 -lt 500 ] && echo true || echo false
+    student@linux:~$ [ 66 -gt 55 -a 66 -lt 500 ] && echo true || echo false
     true
-    paul@RHEL8b:~$ [ 66 -gt 55 -a 660 -lt 500 ] && echo true || echo false
+    student@linux:~$ [ 66 -gt 55 -a 660 -lt 500 ] && echo true || echo false
     false
-    paul@RHEL8b:~$ [ 66 -gt 55 -o 660 -lt 500 ] && echo true || echo false
+    student@linux:~$ [ 66 -gt 55 -o 660 -lt 500 ] && echo true || echo false
     true
 
 ## if then else
@@ -69,12 +69,12 @@ exists then a proper message is echoed.
 
 If we name the above script \'choice\', then it executes like this.
 
-    [paul@RHEL8a scripts]$ ./choice 
+    [student@linux scripts]$ ./choice 
     isit.txt not found!
-    [paul@RHEL8a scripts]$ touch isit.txt
-    [paul@RHEL8a scripts]$ ./choice 
+    [student@linux scripts]$ touch isit.txt
+    [student@linux scripts]$ ./choice 
     isit.txt exists!
-    [paul@RHEL8a scripts]$
+    [student@linux scripts]$
 
 ## if then elif
 

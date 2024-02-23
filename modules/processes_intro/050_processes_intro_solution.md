@@ -2,7 +2,7 @@
 
 1\. Use `ps` to search for the `init` process by name.
 
-    root@rhel53 ~# ps -C init
+    root@linux ~# ps -C init
       PID TTY          TIME CMD
         1 ?        00:00:04 init
         
@@ -13,15 +13,15 @@
 
 3\. Use the `who am i` command to determine your terminal name.
 
-    root@rhel53 ~# who am i
+    root@linux ~# who am i
     paul     pts/0        2010-04-12 17:44 (192.168.1.38)
         
 
 4\. Using your terminal name from above, use `ps` to find all processes
 associated with your terminal.
 
-    oot@rhel53 ~# ps fax | grep pts/0
-     2941 ?        S      0:00      \_ sshd: paul@pts/0 
+    oot@linux ~# ps fax | grep pts/0
+     2941 ?        S      0:00      \_ sshd: student@pts/0 
      2942 pts/0    Ss     0:00          \_ -bash
      2972 pts/0    S      0:00              \_ su -
      2973 pts/0    S      0:00                  \_ -bash
@@ -31,8 +31,8 @@ associated with your terminal.
 
 or also
 
-    root@rhel53 ~# ps -ef | grep pts/0
-    paul      2941  2939  0 17:44 ?        00:00:00 sshd: paul@pts/0 
+    root@linux ~# ps -ef | grep pts/0
+    paul      2941  2939  0 17:44 ?        00:00:00 sshd: student@pts/0 
     paul      2942  2941  0 17:44 pts/0    00:00:00 -bash
     root      2972  2942  0 17:45 pts/0    00:00:00 su -
     root      2973  2972  0 17:45 pts/0    00:00:00 -bash

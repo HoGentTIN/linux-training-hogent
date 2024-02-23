@@ -55,7 +55,7 @@ Below a picture of a `reverse lookup query`.
 Here is a screenshot of a `reverse lookup query` in
 `nslookup`.
 
-    root@debian10:~# nslookup
+    root@linux:~# nslookup
     > set type=PTR
     > 188.93.155.87
     Server:         192.168.1.42
@@ -67,7 +67,7 @@ Here is a screenshot of a `reverse lookup query` in
 This is what a reverse lookup looks like when sniffing with
 `tcpdump`.
 
-    root@debian10:~# tcpdump udp port 53
+    root@linux:~# tcpdump udp port 53
     tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
     listening on eth0, link-type EN10MB (Ethernet), capture size 65535 bytes
     11:01:29.357685 IP 192.168.1.103.42041 > 192.168.1.42.domain: 14763+ PT\
@@ -89,19 +89,19 @@ either provided by a `dhcp server` or manually entered.
 Linux clients keep this information in the
 `/etc/resolv.conf` file.
 
-    root@debian10:~# cat /etc/resolv.conf
+    root@linux:~# cat /etc/resolv.conf
     domain linux-training.be
     search linux-training.be
     nameserver 192.168.1.42
-    root@debian10:~#
+    root@linux:~#
 
 You can manually change the ip address in this file to use another `dns`
 server. For example Google provides a public name server at 8.8.8.8 and
 8.8.4.4.
 
-    root@debian10:~# cat /etc/resolv.conf
+    root@linux:~# cat /etc/resolv.conf
     nameserver 8.8.8.8
-    root@debian10:~#
+    root@linux:~#
 
 Please note that on `dhcp clients` this value can be overwritten when
 the `dhcp lease` is renewed.
@@ -146,7 +146,7 @@ Every `dns server software` will come with a list of
 This screenshot shows a small portion of the root hints file that comes
 with `bind 9.8.4`.
 
-    root@debian10:~# grep -w 'A ' /etc/bind/db.root
+    root@linux:~# grep -w 'A ' /etc/bind/db.root
     A.ROOT-SERVERS.NET.      3600000      A     198.41.0.4
     B.ROOT-SERVERS.NET.      3600000      A     192.228.79.201
     C.ROOT-SERVERS.NET.      3600000      A     192.33.4.12
@@ -160,7 +160,7 @@ with `bind 9.8.4`.
     K.ROOT-SERVERS.NET.      3600000      A     193.0.14.129
     L.ROOT-SERVERS.NET.      3600000      A     199.7.83.42
     M.ROOT-SERVERS.NET.      3600000      A     202.12.27.33
-    root@debian10:~#
+    root@linux:~#
 
 ### domains
 
@@ -442,8 +442,8 @@ You can force a refresh from a zone with `rndc`. The example below force
 a transfer of the `fred.local` zone, and shows the log from
 `/var/log/syslog`.
 
-    root@debian10:/etc/bind# rndc refresh fred.local
-    root@debian10:/etc/bind# grep fred /var/log/syslog | tail -7 | cut -c38-
+    root@linux:/etc/bind# rndc refresh fred.local
+    root@linux:/etc/bind# grep fred /var/log/syslog | tail -7 | cut -c38-
     zone fred.local/IN: sending notifies (serial 1)
     received control channel command 'refresh fred.local'
     zone fred.local/IN: Transfer started.
@@ -451,7 +451,7 @@ a transfer of the `fred.local` zone, and shows the log from
     zone fred.local/IN: transferred serial 2
     transfer of 'fred.local/IN' from 10.104.109.1#53: Transfer completed: 1 messages, 10 records, 264 bytes, 0.001 secs (264000 bytes/sec)
     zone fred.local/IN: sending notifies (serial 2)
-    root@debian10:/etc/bind#
+    root@linux:/etc/bind#
 
 ## master and slave
 
@@ -480,7 +480,7 @@ to queries, without receiving a zone update.
 Below an example of how to use nslookup to query the `soa record` of a
 zone (linux-training.be).
 
-    root@debian6:~# nslookup 
+    root@linux:~# nslookup 
     > set type=SOA
     > server ns1.openminds.be
     > linux-training.be
@@ -566,7 +566,7 @@ contains the `zone database`).
 
 Here is an example of such an entry in `/etc/bind/named.conf.local`:
 
-    root@debian10:~# cat /etc/bind/named.conf.local
+    root@linux:~# cat /etc/bind/named.conf.local
     //
     // Do any local configuration here
     //
@@ -580,17 +580,17 @@ Here is an example of such an entry in `/etc/bind/named.conf.local`:
             file "/etc/bind/db.paul.local";
             allow-update { none; };
     };
-    root@debian10:~#
+    root@linux:~#
 
 To create the zone file, the easy method is to copy an existing zone
 file (this is easier than writing from scratch).
 
-    root@debian10:/etc/bind# cp db.empty db.paul.local
-    root@debian10:/etc/bind# vi db.paul.local
+    root@linux:/etc/bind# cp db.empty db.paul.local
+    root@linux:/etc/bind# vi db.paul.local
 
 Here is an example of a zone file.
 
-    root@debian10:/etc/bind# cat db.paul.local
+    root@linux:/etc/bind# cat db.paul.local
     ; zone for classroom teaching
     $TTL    86400
     @       IN      SOA     debianpaul.paul.local. root.paul.local (
@@ -617,21 +617,21 @@ Here is an example of a zone file.
 
 1\. installing DNS software on Debian
 
-    root@debian10:~# aptitude update && aptitude upgrade
+    root@linux:~# aptitude update && aptitude upgrade
     ...
-    root@debian10:~# aptitude install bind9
+    root@linux:~# aptitude install bind9
     ...
-    root@debian10:~# dpkg -l | grep bind9 | tr -s ' '
+    root@linux:~# dpkg -l | grep bind9 | tr -s ' '
     ii bind9 1:9.8.4.dfsg.P1-6+nmu2+deb7u2 amd64 Internet Domain Name Server
     ii bind9-host 1:9.8.4.dfsg.P1-6+nmu2+deb7u2 amd64 Version of 'host' bundled...
     ii bind9utils 1:9.8.4.dfsg.P1-6+nmu2+deb7u2 amd64 Utilities for BIND
     ii libbind9-80 1:9.8.4.dfsg.P1-6+nmu2+deb7u2 amd64 BIND9 Shared Library use...
-    root@debian10:~#
+    root@linux:~#
 
 2\. Discover the default configuration files. Can you define the purpose
 of each file ?
 
-    root@debian10:~# ls -l /etc/bind
+    root@linux:~# ls -l /etc/bind
     total 52
     -rw-r--r-- 1 root root 2389 Sep  5 20:25 bind.keys
     -rw-r--r-- 1 root root  237 Sep  5 20:25 db.0
@@ -676,32 +676,32 @@ of this server is 8.8.8.8 .
 
 Before the change:
 
-    root@debian10:~# grep -A2 'forwarders {' /etc/bind/named.conf.options
+    root@linux:~# grep -A2 'forwarders {' /etc/bind/named.conf.options
             // forwarders {
             //      0.0.0.0;
             // };
 
 changing:
 
-    root@debian10:~# vi /etc/bind/named.conf.options
+    root@linux:~# vi /etc/bind/named.conf.options
 
 After the change:
 
-    root@debian10:~# grep -A2 'forwarders {' /etc/bind/named.conf.options
+    root@linux:~# grep -A2 'forwarders {' /etc/bind/named.conf.options
              forwarders {
                     8.8.8.8;
              };
 
 Restart the server:
 
-    root@debian10:~# service bind9 restart
+    root@linux:~# service bind9 restart
     Stopping domain name service...: bind9.
     Starting domain name service...: bind9.
 
 6\. Explain the purpose of adding the `forwarder`. What is our
 `dns server` doing when it receives a query ?
 
-    root@debian10:~# nslookup
+    root@linux:~# nslookup
     > server
     Default server: 10.104.33.30
     Address: 10.104.33.30#53
@@ -717,7 +717,7 @@ Restart the server:
 This is the output of `tcpdump udp port 53` while executing the above
 query for `linux-training.be` in `nslookup`.
 
-    root@debian10:~# tcpdump udp port 53
+    root@linux:~# tcpdump udp port 53
     tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
     listening on eth0, link-type EN10MB (Ethernet), capture size 65535 bytes
 
@@ -741,23 +741,23 @@ authoritative ?
 
 9\. You can also use `dig` instead of `nslookup`.
 
-    root@debian10:~# dig @10.104.33.30 linux-training.be +short
+    root@linux:~# dig @10.104.33.30 linux-training.be +short
     188.93.155.87
-    root@debian10:~#
+    root@linux:~#
 
 10\. How can we avoid having to set the server in dig or nslookup ?
 
 Change this:
 
-    root@debian10:~# cat /etc/resolv.conf
+    root@linux:~# cat /etc/resolv.conf
     nameserver 10.46.101.1
-    root@debian10:~#
+    root@linux:~#
 
 into this:
 
-    root@debian10:~# cat /etc/resolv.conf
+    root@linux:~# cat /etc/resolv.conf
     nameserver 10.104.33.30
-    root@debian10:~#
+    root@linux:~#
 
 11\. When you use `dig` for the first time for a domain, where is the
 answer coming from ? And the second time ? How can you tell ?
@@ -770,7 +770,7 @@ now make our server authoritative for our own domain.
 2\. I choose the top level domain `.local` and the domain `paul.local`
 and put the information in `/etc/bind/named.conf.local`.
 
-    root@debian10:~# cat /etc/bind/named.conf.local
+    root@linux:~# cat /etc/bind/named.conf.local
     //
     // Do any local configuration here
     //
@@ -790,7 +790,7 @@ records for testing). Set the `Refresh` and `Retry` values not too high
 so you can sniff this traffic (this example makes the slave server
 contact the master every hour).
 
-    root@debian10:~# cat /etc/bind/db.paul.local
+    root@linux:~# cat /etc/bind/db.paul.local
     ; zone for classroom teaching
     $TTL    86400
     @       IN      SOA     debianpaul.paul.local. root.paul.local (
@@ -812,7 +812,7 @@ contact the master every hour).
     debian10         IN      A       10.104.33.30
     ns1             IN      A       10.104.33.30
     ;www            IN      A       10.104.33.30
-    root@debian10:~#
+    root@linux:~#
 
 Note that the `www` record is commented out, so it will not resolve.
 
@@ -821,14 +821,14 @@ Note that the `www` record is commented out, so it will not resolve.
 If you are confident that your `dns server` works, then set it as
 default and only dns server in `/etc/resolv.conf`.
 
-    root@debian10:~# cat /etc/resolv.conf
+    root@linux:~# cat /etc/resolv.conf
     nameserver 10.104.33.30
-    root@debian10:~#
+    root@linux:~#
 
 In case you also use `dhclient`, you will need to add your dns server to
 `/etc/dhcp/dhclient.conf`.
 
-    root@debian10:~# diff /etc/dhcp/dhclient.conf /etc/dhcp/dhclient.conf.original
+    root@linux:~# diff /etc/dhcp/dhclient.conf /etc/dhcp/dhclient.conf.original
     21c21
     < prepend domain-name-servers 10.104.33.30;
     ---
@@ -838,7 +838,7 @@ In case you also use `dhclient`, you will need to add your dns server to
     <       domain-name, domain-search, host-name,
     ---
     >       domain-name, domain-name-servers, domain-search, host-name,
-    root@debian10:~#
+    root@linux:~#
 
 The above screenshot shows that 10.104.33.30 is now a default option
 that the `dhcp client` should no longer request from the `dhcp server`.
@@ -846,35 +846,35 @@ that the `dhcp client` should no longer request from the `dhcp server`.
 Adjust `/etc/hosts` to reflect your `domain name` and verify with
 `hostname` and `dnsdomainname`.
 
-    root@debian10:~# grep debian10 /etc/hosts
+    root@linux:~# grep debian10 /etc/hosts
     127.0.1.1 debian10.paul.local debian10
-    root@debian10:~# hostname
+    root@linux:~# hostname
     debian10
-    root@debian10:~# hostname --fqdn
+    root@linux:~# hostname --fqdn
     debian10.paul.local
-    root@debian10:~# dnsdomainname
+    root@linux:~# dnsdomainname
     paul.local
 
 ### using your own domain
 
 Consider the following screenshot:
 
-    root@debian10b:~# cat /etc/resolv.conf
+    root@linux:~# cat /etc/resolv.conf
     nameserver 10.104.33.30
-    root@debian10b:~# ping -c1 www
+    root@linux:~# ping -c1 www
     ping: unknown host www
-    root@debian10b:~# vi /etc/resolv.conf
-    root@debian10b:~# cat /etc/resolv.conf
+    root@linux:~# vi /etc/resolv.conf
+    root@linux:~# cat /etc/resolv.conf
     nameserver 10.104.33.30
     domain paul.local
-    root@debian10b:~# ping -c1 www
+    root@linux:~# ping -c1 www
     PING www.paul.local (10.104.33.31) 56(84) bytes of data.
     64 bytes from 10.104.33.31: icmp_req=1 ttl=64 time=0.021 ms
 
     --- www.paul.local ping statistics ---
     1 packets transmitted, 1 received, 0% packet loss, time 0ms
     rtt min/avg/max/mdev = 0.021/0.021/0.021/0.000 ms
-    root@debian10b:~#
+    root@linux:~#
 
 Adding the `domain paul.local` directive to `/etc/resolv.conf` allows
 omitting the domain when using hostnames.
@@ -882,17 +882,17 @@ omitting the domain when using hostnames.
 You can accomplish this feature automatically by adjusting
 `dhclient.conf`.
 
-    root@debian10:~# grep paul.local /etc/dhcp/dhclient.conf
+    root@linux:~# grep paul.local /etc/dhcp/dhclient.conf
     prepend domain-name "paul.local";
     prepend domain-search "paul.local";
-    root@debian10:~#
+    root@linux:~#
 
 4\. Restart the DNS server and check your zone in the error log.
 
-    root@debian10:~# service bind9 restart
+    root@linux:~# service bind9 restart
     Stopping domain name service...: bind9.
     Starting domain name service...: bind9.
-    root@debian10:~# grep paul.local /var/log/syslog
+    root@linux:~# grep paul.local /var/log/syslog
     Oct  6 09:22:18 debian10 named[2707]: zone paul.local/IN: loaded seria\
     l 2014100101
     Oct  6 09:22:18 debian10 named[2707]: zone paul.local/IN: sending noti\
@@ -900,19 +900,19 @@ You can accomplish this feature automatically by adjusting
 
 5\. Use `dig` or `nslookup` (or even `ping`) to test your A records.
 
-    root@debian10:~# ping -c1 ns1.paul.local
+    root@linux:~# ping -c1 ns1.paul.local
     PING ns1.paul.local (10.104.33.30) 56(84) bytes of data.
     64 bytes from 10.104.33.30: icmp_req=1 ttl=64 time=0.006 ms
 
     --- ns1.paul.local ping statistics ---
     1 packets transmitted, 1 received, 0% packet loss, time 0ms
     rtt min/avg/max/mdev = 0.006/0.006/0.006/0.000 ms
-    root@debian10:~# ping -c1 www.paul.local
+    root@linux:~# ping -c1 www.paul.local
     ping: unknown host www.paul.local
 
 Note that the `www` record was commented out, so it should fail.
 
-    root@debian10:~# dig debian10.paul.local
+    root@linux:~# dig debian10.paul.local
 
     ; <<>> DiG 9.8.4-rpz2+rl005.12-P1 <<>> debian10.paul.local
     ;; global options: +cmd
@@ -940,7 +940,7 @@ Note that the `www` record was commented out, so it should fail.
     ;; WHEN: Mon Oct  6 09:35:25 2014
     ;; MSG SIZE  rcvd: 141
 
-    root@debian10:~#
+    root@linux:~#
 
 6\. Our primary server appears to be up and running. Note the
 information here:
@@ -971,7 +971,7 @@ Jesse\'s computer and a slave zone of jesse.local on my computer.
 Below is an example of an `allow-transfer` statement. Careful, maybe the
 default allows transfer to any.
 
-    root@debian10:/etc/bind# cat named.conf.local
+    root@linux:/etc/bind# cat named.conf.local
     //
     // Do any local configuration here
     //
@@ -990,16 +990,16 @@ default allows transfer to any.
 3\. With the configuration below I can make my server a slave for the
 `jesse.local` zone.
 
-    root@debian10:/etc/bind# tail -6 named.conf.local
+    root@linux:/etc/bind# tail -6 named.conf.local
     zone "jesse.local" IN {
             type slave;
             file "/var/cache/named/db.jesse.local";
             masters { 10.104.15.20; };
     };
 
-    root@debian10:/etc/bind# mkdir /var/cache/named/
-    root@debian10:/etc/bind# chown bind:bind /var/cache/named/
-    root@debian10:/etc/bind# ls -ld /var/cache/named/
+    root@linux:/etc/bind# mkdir /var/cache/named/
+    root@linux:/etc/bind# chown bind:bind /var/cache/named/
+    root@linux:/etc/bind# ls -ld /var/cache/named/
     drwxr-xr-x 2 bind bind 4096 Oct  1 20:01 /var/cache/named/
 
 Note that we put the `slave zones` in `/var/cache/named` and not in
@@ -1010,7 +1010,7 @@ database file. Verify this in `/var/log/syslog`. (time and date are
 truncated from the screenshot, and Jesse did not use the current date in
 the serial number\...)
 
-    root@debian10:/etc/bind# grep jesse /var/log/syslog
+    root@linux:/etc/bind# grep jesse /var/log/syslog
     named[2731]: zone jesse.local/IN: Transfer started.
     named[2731]: transfer of 'jesse.local/IN' from 10.104.15.20#53: connected u\
     sing 10.104.33.30#44719
@@ -1020,7 +1020,7 @@ the serial number\...)
 
 And the contents of the `slave zone`:
 
-    root@debian10:/etc/bind# cat /var/cache/named/db.jesse.local
+    root@linux:/etc/bind# cat /var/cache/named/db.jesse.local
     $ORIGIN .
     $TTL 604800     ; 1 week
     jesse.local             IN SOA  ns.jesse.local. root.jesse.local.jesse.local. (
@@ -1037,5 +1037,5 @@ And the contents of the `slave zone`:
     ns                      A       10.104.15.20
     ubu1010srv              A       10.104.15.20
     www                     A       10.104.15.25
-    root@debian10:/etc/bind#
+    root@linux:/etc/bind#
 

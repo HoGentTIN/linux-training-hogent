@@ -18,11 +18,11 @@ To list the buses recognised by the Linux kernel on your computer, look
 at the contents of the `/proc/bus/` directory (screenshot
 from Ubuntu 7.04 and RHEL4u4 below).
 
-    root@laika:~# ls /proc/bus/
+    root@linux:~# ls /proc/bus/
     input  pccard  pci  usb
             
 
-    [root@RHEL8b ~]# ls /proc/bus/
+    [root@linux ~]# ls /proc/bus/
     input  pci  usb
             
 
@@ -47,7 +47,7 @@ executed here on a SPARC system with Ubuntu.
 The `/var/lib/usbutils/usb.ids` file contains a gzipped
 list of all known usb devices.
 
-    paul@barry:~$ zmore /var/lib/usbutils/usb.ids | head
+    student@linux:~$ zmore /var/lib/usbutils/usb.ids | head
     ------> /var/lib/usbutils/usb.ids <------
     #
     #   List of USB ID's
@@ -66,7 +66,7 @@ To get a list of all pci devices connected, you could take a look at
 `/proc/bus/pci` or run `lspci` (partial
 output below).
 
-    paul@laika:~$ lspci
+    student@linux:~$ lspci
     ...
     00:06.0 FireWire (IEEE 1394): Texas Instruments TSB43AB22/A IEEE-139...
     00:08.0 Ethernet controller: Realtek Semiconductor Co., Ltd. RTL-816...
@@ -99,7 +99,7 @@ same as IRQ 9.
 You can see a listing of interrupts on your system in
 `/proc/interrupts`.
 
-    paul@laika:~$ cat /proc/interrupts 
+    student@linux:~$ cat /proc/interrupts 
           CPU0     CPU1       
     0:  1320048     555  IO-APIC-edge      timer
     1:    10224       7  IO-APIC-edge      i8042
@@ -122,7 +122,7 @@ You can see a listing of interrupts on your system in
 You can also use `dmesg` to find irq\'s allocated at boot
 time.
 
-    paul@laika:~$ dmesg | grep "irq 1[45]"
+    student@linux:~$ dmesg | grep "irq 1[45]"
     [ 28.930069] ata3: PATA max UDMA/133 cmd 0x1f0 ctl 0x3f6 bmdma 0x2090 irq 14
     [ 28.930071] ata4: PATA max UDMA/133 cmd 0x170 ctl 0x376 bmdma 0x2098 irq 15
             
@@ -142,7 +142,7 @@ information about the device. Unlike interrupts, ports cannot be shared!
 You can see a listing of your system\'s IO ports via
 `/proc/ioports`.
 
-    [root@RHEL8b ~]# cat /proc/ioports 
+    [root@linux ~]# cat /proc/ioports 
     0000-001f : dma1
     0020-0021 : pic1
     0040-0043 : timer0
@@ -173,7 +173,7 @@ Looking at `/proc/dma` might not give you the information
 that you want, since it only contains currently assigned `dma` channels
 for `isa` devices.
 
-    root@laika:~# cat /proc/dma 
+    root@linux:~# cat /proc/dma 
     1: parport0
     4: cascade
             
@@ -183,7 +183,7 @@ case `dmesg` can be useful. The screenshot below shows
 that during boot the parallel port received dma channel 1, and the
 Infrared port received dma channel 3.
 
-    root@laika:~# dmesg | egrep -C 1 'dma 1|dma 3'
+    root@linux:~# dmesg | egrep -C 1 'dma 1|dma 3'
     [   20.576000] parport: PnPBIOS parport detected.
     [   20.580000] parport0: PC-style at 0x378 (0x778), irq 7, dma 1...
     [   20.764000] irda_init()

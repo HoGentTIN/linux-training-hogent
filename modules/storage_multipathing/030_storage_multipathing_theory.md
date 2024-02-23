@@ -63,11 +63,11 @@ The same must be true for the multipath Initiator:
 Test the triple discovery in three networks (screenshot newer than
 above).
 
-    [root@centos7 ~]# iscsiadm -m discovery -t st -p 192.168.1.150
+    [root@linux ~]# iscsiadm -m discovery -t st -p 192.168.1.150
     192.168.1.150:3260,1 iqn.2015-04.be.linux:target1
-    [root@centos7 ~]# iscsiadm -m discovery -t st -p 192.168.2.150
+    [root@linux ~]# iscsiadm -m discovery -t st -p 192.168.2.150
     192.168.2.150:3260,1 iqn.2015-04.be.linux:target1
-    [root@centos7 ~]# iscsiadm -m discovery -t st -p 192.168.3.150
+    [root@linux ~]# iscsiadm -m discovery -t st -p 192.168.3.150
     192.168.3.150:3260,1 iqn.2015-04.be.linux:target1
 
 ## start multipathd and iscsi

@@ -15,11 +15,11 @@ Below are some tips to help you.
 This is the relevant portion in /etc/X11/xorg.conf, first for Belgian
 azerty, then for US-qwerty.
 
-    [paul@RHEL5 ~]$ grep -i xkb /etc/X11/xorg.conf 
+    [student@linux ~]$ grep -i xkb /etc/X11/xorg.conf 
             Option      "XkbModel" "pc105"
             Option      "XkbLayout" "be"
 
-    [paul@RHEL5 ~]$ grep -i xkb /etc/X11/xorg.conf
+    [student@linux ~]$ grep -i xkb /etc/X11/xorg.conf
             Option      "XkbModel" "pc105"
             Option      "XkbLayout" "us"
 
@@ -33,12 +33,12 @@ When in bash, take a look in the /etc/sysconfig/keyboard file. Below a
 sample US-qwerty configuration, followed by a Belgian azerty
 configuration.
 
-    [paul@RHEL5 ~]$ cat /etc/sysconfig/keyboard 
+    [student@linux ~]$ cat /etc/sysconfig/keyboard 
     KEYBOARDTYPE="pc"
     KEYTABLE="us"
         
 
-    [paul@RHEL5 ~]$ cat /etc/sysconfig/keyboard 
+    [student@linux ~]$ cat /etc/sysconfig/keyboard 
     KEYBOARDTYPE="pc"
     KEYTABLE="be-latin1"
         
@@ -46,7 +46,7 @@ configuration.
 The keymaps themselves can be found in /usr/share/keymaps or
 /lib/kbd/keymaps.
 
-    [paul@RHEL5 ~]$ ls -l /lib/kbd/keymaps/
+    [student@linux ~]$ ls -l /lib/kbd/keymaps/
     total 52
     drwxr-xr-x 2 root root 4096 Apr  1 00:14 amiga
     drwxr-xr-x 2 root root 4096 Apr  1 00:14 atari

@@ -34,7 +34,7 @@ three LUN\'s.
 
 Restart the service.
 
-    [root@centos65 ~]# service tgtd start
+    [root@linux ~]# service tgtd start
     Starting SCSI target daemon:                               [  OK  ]
 
 The standard local port for iSCSI Target is 3260, in case of doubt you
@@ -430,7 +430,7 @@ connected : partition, make filesystem, mount.
 
 The prefered tool to setup an iSCSI Target on RHEL is `targetcli`.
 
-    [root@centos7 ~]# yum install targetcli
+    [root@linux ~]# yum install targetcli
     Loaded plugins: fastestmirror
     ...
     ...
@@ -438,7 +438,7 @@ The prefered tool to setup an iSCSI Target on RHEL is `targetcli`.
       targetcli.noarch 0:2.1.fb37-3.el7
 
     Complete!
-    [root@centos7 ~]#
+    [root@linux ~]#
 
 The `targetcli` tool is interactive and represents the configuration fo
 the `target` in a structure that resembles a directory tree with several
@@ -448,7 +448,7 @@ and `pwd`, this are not files on the file system.
 This tool also has tab-completion, which is very handy for the `iqn`
 names.
 
-    [root@centos7 ~]# targetcli
+    [root@linux ~]# targetcli
     targetcli shell version 2.1.fb37
     Copyright 2011-2013 by Datera, Inc and others.
     For help on commands, type 'help'.
@@ -517,26 +517,26 @@ names.
     Global pref auto_save_on_exit=true
     Last 10 configs saved in /etc/target/backup.
     Configuration saved to /etc/target/saveconfig.json
-    [root@centos7 ~]#
+    [root@linux ~]#
 
 Use the `systemd` tools to manage the service:
 
-    [root@centos7 ~]# systemctl enable target
+    [root@linux ~]# systemctl enable target
     ln -s '/usr/lib/systemd/system/target.service' '/etc/systemd/system/multi-user.target.wants/target.service'
-    [root@centos7 ~]# systemctl start target
-    [root@centos7 ~]#
+    [root@linux ~]# systemctl start target
+    [root@linux ~]#
 
 Depending on your organisations policy, you may need to configure
 firewall and SELinux. The screenshot belows adds a firewall rule to
 allow all traffic over port 3260, and disables SELinux.
 
-    [root@centos7 ~]# firewall-cmd --permanent --add-port=3260/tcp
-    [root@centos7 ~]# firewall-cmd --reload
-    [root@centos7 ~]# setenforce 0
+    [root@linux ~]# firewall-cmd --permanent --add-port=3260/tcp
+    [root@linux ~]# firewall-cmd --reload
+    [root@linux ~]# setenforce 0
 
 The total configuration is visible using `ls` from the root.
 
-    [root@centos7 ~]# targetcli
+    [root@linux ~]# targetcli
     targetcli shell version 2.1.fb37
     Copyright 2011-2013 by Datera, Inc and others.
     For help on commands, type 'help'.
@@ -565,7 +565,7 @@ The total configuration is visible using `ls` from the root.
     Global pref auto_save_on_exit=true
     Last 10 configs saved in /etc/target/backup.
     Configuration saved to /etc/target/saveconfig.json
-    [root@centos7 ~]#
+    [root@linux ~]#
 
 The iSCSI Target is now ready.
 
@@ -573,7 +573,7 @@ The iSCSI Target is now ready.
 
 This is identical to the RHEL6/CentOS6 procedure:
 
-    [root@centos7 ~]# yum install iscsi-initiator-utils
+    [root@linux ~]# yum install iscsi-initiator-utils
     Loaded plugins: fastestmirror
     ...
     ...
@@ -587,23 +587,23 @@ This is identical to the RHEL6/CentOS6 procedure:
 
 Map your initiator name to the `targetcli` acl.
 
-    [root@centos7 ~]# cat /etc/iscsi/initiatorname.iscsi
+    [root@linux ~]# cat /etc/iscsi/initiatorname.iscsi
     InitiatorName=iqn.2015-04.be.linux:server2
-    [root@centos7 ~]#
+    [root@linux ~]#
 
 Enter the CHAP authentication in `/etc/iscsi/iscsid.conf`.
 
-    [root@centos7 ~]# vi /etc/iscsi/iscsid.conf
+    [root@linux ~]# vi /etc/iscsi/iscsid.conf
     ...
-    [root@centos7 ~]# grep ^node.session.auth /etc/iscsi/iscsid.conf
+    [root@linux ~]# grep ^node.session.auth /etc/iscsi/iscsid.conf
     node.session.auth.authmethod = CHAP
     node.session.auth.username = paul
     node.session.auth.password = hunter2
-    [root@centos7 ~]#
+    [root@linux ~]#
 
 There are no extra devices yet\...
 
-    [root@centos7 ~]# fdisk -l | grep sd
+    [root@linux ~]# fdisk -l | grep sd
     Disk /dev/sda: 22.0 GB, 22038806528 bytes, 43044544 sectors
     /dev/sda1   *        2048     1026047      512000   83  Linux
     /dev/sda2         1026048    43042815    21008384   8e  Linux LVM
@@ -611,22 +611,22 @@ There are no extra devices yet\...
 
 Enable the service and discover the target.
 
-    [root@centos7 ~]# systemctl enable iscsid
+    [root@linux ~]# systemctl enable iscsid
     ln -s '/usr/lib/systemd/system/iscsid.service' '/etc/systemd/system/multi-user.target.wants/iscsid.service'
-    [root@centos7 ~]# iscsiadm -m discovery -t st -p 192.168.1.128
+    [root@linux ~]# iscsiadm -m discovery -t st -p 192.168.1.128
     192.168.1.128:3260,1 iqn.2015-04.be.linux:iscsi1
 
 Log into the target and see /dev/sdc appear.
 
-    [root@centos7 ~]# iscsiadm -m node -T iqn.2015-04.be.linux:iscsi1 -p 192.168.1.128 -l
+    [root@linux ~]# iscsiadm -m node -T iqn.2015-04.be.linux:iscsi1 -p 192.168.1.128 -l
     Logging in to [iface: default, target: iqn.2015-04.be.linux:iscsi1, portal: 192.168.1.128,3260] (multiple)
     Login to [iface: default, target: iqn.2015-04.be.linux:iscsi1, portal: 192.168.1.128,3260] successful.
-    [root@centos7 ~]#
-    [root@centos7 ~]# fdisk -l | grep sd
+    [root@linux ~]#
+    [root@linux ~]# fdisk -l | grep sd
     Disk /dev/sda: 22.0 GB, 22038806528 bytes, 43044544 sectors
     /dev/sda1   *        2048     1026047      512000   83  Linux
     /dev/sda2         1026048    43042815    21008384   8e  Linux LVM
     Disk /dev/sdb: 2147 MB, 2147483648 bytes, 4194304 sectors
     Disk /dev/sdc: 2147 MB, 2147483648 bytes, 4194304 sectors
-    [root@centos7 ~]# 
+    [root@linux ~]# 
 

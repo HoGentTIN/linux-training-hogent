@@ -5,7 +5,7 @@ File systems that support `access control lists`, or
 `/etc/fstab`. In the example below, you can see that the
 root file system has `acl` support, whereas /home/data does not.
 
-    root@laika:~# tail -4 /etc/fstab
+    root@linux:~# tail -4 /etc/fstab
     /dev/sda1        /              ext3     acl,relatime    0  1
     /dev/sdb2        /home/data     auto     noacl,defaults  0  0
     pasha:/home/r    /home/pasha    nfs      defaults        0  0
@@ -17,7 +17,7 @@ Reading `acls` can be done with `/usr/bin/getfacl`. This
 screenshot shows how to read the `acl` of `file33` with
 `getfacl`.
 
-    paul@laika:~/test$ getfacl file33
+    student@linux:~/test$ getfacl file33
     # file: file33
     # owner: paul
     # group: paul
@@ -34,16 +34,16 @@ the `acl` of `file33` with `setfacl`.
 
 First we add `u`ser `sandra` with octal permission `7` to the `acl`.
 
-    paul@laika:~/test$ setfacl -m u:sandra:7 file33
+    student@linux:~/test$ setfacl -m u:sandra:7 file33
 
 Then we add the `g`roup tennis with octal permission `6` to the `acl` of
 the same file.
 
-    paul@laika:~/test$ setfacl -m g:tennis:6 file33
+    student@linux:~/test$ setfacl -m g:tennis:6 file33
 
 The result is visible with `getfacl`.
 
-    paul@laika:~/test$ getfacl file33 
+    student@linux:~/test$ getfacl file33 
     # file: file33
     # owner: paul
     # group: paul
@@ -59,11 +59,11 @@ The result is visible with `getfacl`.
 The `-x` option of the `setfacl` command will remove an `acl` entry from
 the targeted file.
 
-    paul@laika:~/test$ setfacl -m u:sandra:7 file33 
-    paul@laika:~/test$ getfacl file33 | grep sandra
+    student@linux:~/test$ setfacl -m u:sandra:7 file33 
+    student@linux:~/test$ getfacl file33 | grep sandra
     user:sandra:rwx
-    paul@laika:~/test$ setfacl -x sandra file33
-    paul@laika:~/test$ getfacl file33 | grep sandra
+    student@linux:~/test$ setfacl -x sandra file33
+    student@linux:~/test$ getfacl file33 | grep sandra
 
 Note that omitting the `u` or `g` when defining the `acl` for an account
 will default it to a user account.
@@ -73,8 +73,8 @@ will default it to a user account.
 The `-b` option of the `setfacl` command will remove the `acl` from the
 targeted file.
 
-    paul@laika:~/test$ setfacl -b file33 
-    paul@laika:~/test$ getfacl file33 
+    student@linux:~/test$ setfacl -b file33 
+    student@linux:~/test$ getfacl file33 
     # file: file33
     # owner: paul
     # group: paul
@@ -90,8 +90,8 @@ in the `acl`. This `mask` is calculated every time you execute the
 
 You can prevent the calculation by using the `--no-mask` switch.
 
-    paul@laika:~/test$ setfacl --no-mask -m u:sandra:7 file33
-    paul@laika:~/test$ getfacl file33
+    student@linux:~/test$ setfacl --no-mask -m u:sandra:7 file33
+    student@linux:~/test$ getfacl file33
     # file: file33
     # owner: paul
     # group: paul
@@ -112,6 +112,6 @@ Desktop users might want to use `eiciel` to manage
 You will need to install `eiciel` and `nautilus-actions` to have an
 extra tab in `nautilus` to manage `acls`.
 
-    paul@laika:~$ sudo aptitude install eiciel nautilus-actions
+    student@linux:~$ sudo aptitude install eiciel nautilus-actions
             
 

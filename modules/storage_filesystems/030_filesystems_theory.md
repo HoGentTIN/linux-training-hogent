@@ -16,14 +16,14 @@ membership) in combination with one or more access control lists.
 
 The manual page about filesystems is accessed by typing `man fs`.
 
-    [root@rhel65 ~]# man fs
+    [root@linux ~]# man fs
 
 ### /proc/filesystems
 
 The Linux kernel will inform you about currently loaded file system
 drivers in `/proc/filesystems`.
 
-    root@rhel53 ~# cat /proc/filesystems  | grep -v nodev
+    root@linux ~# cat /proc/filesystems  | grep -v nodev
         ext2
         iso9660
         ext3
@@ -35,7 +35,7 @@ The `/etc/filesystems` file contains a list of autodetected filesystems
 
 Help for this file is provided by `man mount`.
 
-    [root@rhel65 ~]# man mount
+    [root@linux ~]# man mount
 
 ## common file systems
 
@@ -140,7 +140,7 @@ and then probe `/proc/filesystems` for all the filesystems without the
 `nodev` label. If `/etc/filesystems` ends with a line
 containing only an asterisk (\*) then both files are probed.
 
-    paul@RHELv8u4:~$ cat /proc/filesystems 
+    student@linux:~$ cat /proc/filesystems 
     nodev   sysfs
     nodev   rootfs
     nodev   bdev
@@ -165,14 +165,14 @@ containing only an asterisk (\*) then both files are probed.
     nodev   rpc_pipefs
     nodev   vmware-hgfs
     nodev   autofs
-    paul@RHELv8u4:~$
+    student@linux:~$
 
 ## putting a file system on a partition
 
 We now have a fresh partition. The system binaries to make file systems
 can be found with ls.
 
-    [root@RHEL8b ~]# ls -lS /sbin/mk*
+    [root@linux ~]# ls -lS /sbin/mk*
     -rwxr-xr-x  3 root root 34832 Apr 24  2006 /sbin/mke2fs
     -rwxr-xr-x  3 root root 34832 Apr 24  2006 /sbin/mkfs.ext2
     -rwxr-xr-x  3 root root 34832 Apr 24  2006 /sbin/mkfs.ext3
@@ -185,14 +185,14 @@ can be found with ls.
     -rwxr-xr-x  1 root root 13036 May 24  2006 /sbin/mkswap
     -rwxr-xr-x  1 root root  6912 May 24  2006 /sbin/mkfs
     -rwxr-xr-x  1 root root  5905 Aug  3  2004 /sbin/mkbootdisk
-    [root@RHEL8b ~]#
+    [root@linux ~]#
 
 It is time for you to read the manual pages of `mkfs` and
 `mke2fs`. In the example below, you see the creation of an
 `ext2 file system` on /dev/sdb1. In real life, you might
 want to use options like -m0 and -j.
 
-    root@RHELv8u2:~# mke2fs /dev/sdb1
+    root@linux:~# mke2fs /dev/sdb1
     mke2fs 1.35 (28-Feb-2004)
     Filesystem label=
     OS type: Linux
@@ -220,44 +220,44 @@ You can use `tune2fs` to list and set file system
 settings. The first screenshot lists the reserved space for root (which
 is set at five percent).
 
-    [root@rhel4 ~]# tune2fs -l /dev/sda1 | grep -i "block count"
+    [root@linux ~]# tune2fs -l /dev/sda1 | grep -i "block count"
     Block count:              104388
     Reserved block count:     5219
-    [root@rhel4 ~]#
+    [root@linux ~]#
 
 This example changes this value to ten percent. You can use tune2fs
 while the file system is active, even if it is the root file system (as
 in this example).
 
-    [root@rhel4 ~]# tune2fs -m10 /dev/sda1 
+    [root@linux ~]# tune2fs -m10 /dev/sda1 
     tune2fs 1.35 (28-Feb-2004)
     Setting reserved blocks percentage to 10 (10430 blocks)
-    [root@rhel4 ~]# tune2fs -l /dev/sda1 | grep -i "block count"
+    [root@linux ~]# tune2fs -l /dev/sda1 | grep -i "block count"
     Block count:              104388
     Reserved block count:     10430
-    [root@rhel4 ~]#
+    [root@linux ~]#
 
 ## checking a file system
 
 The `fsck` command is a front end tool used to check a
 file system for errors.
 
-    [root@RHEL8b ~]# ls /sbin/*fsck*
+    [root@linux ~]# ls /sbin/*fsck*
     /sbin/dosfsck  /sbin/fsck         /sbin/fsck.ext2  /sbin/fsck.msdos
     /sbin/e2fsck   /sbin/fsck.cramfs  /sbin/fsck.ext3  /sbin/fsck.vfat
-    [root@RHEL8b ~]#
+    [root@linux ~]#
 
 The last column in `/etc/fstab` is used to determine
 whether a file system should be checked at boot-up.
 
-    [paul@RHEL8b ~]$ grep ext /etc/fstab 
+    [student@linux ~]$ grep ext /etc/fstab 
     /dev/VolGroup00/LogVol00   /             ext3    defaults        1 1
     LABEL=/boot                /boot         ext3    defaults        1 2
-    [paul@RHEL8b ~]$
+    [student@linux ~]$
 
 Manually checking a mounted file system results in a warning from fsck.
 
-    [root@RHEL8b ~]# fsck /boot
+    [root@linux ~]# fsck /boot
     fsck 1.35 (28-Feb-2004)
     e2fsck 1.35 (28-Feb-2004)
     /dev/sda1 is mounted.  
@@ -272,13 +272,13 @@ Manually checking a mounted file system results in a warning from fsck.
 But after unmounting fsck and `e2fsck` can be used to
 check an ext2 file system.
 
-    [root@RHEL8b ~]# fsck  /boot
+    [root@linux ~]# fsck  /boot
     fsck 1.35 (28-Feb-2004)
     e2fsck 1.35 (28-Feb-2004)
     /boot: clean, 44/26104 files, 17598/104388 blocks
-    [root@RHEL8b ~]# fsck -p /boot
+    [root@linux ~]# fsck -p /boot
     fsck 1.35 (28-Feb-2004)
     /boot: clean, 44/26104 files, 17598/104388 blocks
-    [root@RHEL8b ~]# e2fsck -p /dev/sda1
+    [root@linux ~]# e2fsck -p /dev/sda1
     /boot: clean, 44/26104 files, 17598/104388 blocks
 

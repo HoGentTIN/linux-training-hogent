@@ -26,9 +26,9 @@
 when the `touch` failed. All on one command line as a normal user (not
 root). Test this line in your home directory and in `/bin/` .
 
-    paul@deb106:~$ cd ; touch test42 && echo it worked || echo it failed
+    student@linux:~$ cd ; touch test42 && echo it worked || echo it failed
     it worked
-    paul@deb106:~$ cd /bin; touch test42 && echo it worked || echo it failed
+    student@linux:~$ cd /bin; touch test42 && echo it worked || echo it failed
     touch: cannot touch `test42': Permission denied
     it failed
 

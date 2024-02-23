@@ -14,7 +14,7 @@ Software distributed in the `rpm` format will be named
 
 To obtain a list of all installed software, use the `rpm -qa` command.
 
-    [root@RHEL52 ~]# rpm -qa | grep samba
+    [root@linux ~]# rpm -qa | grep samba
     system-config-samba-1.2.39-1.el5
     samba-3.0.28-1.el5_2.1
     samba-client-3.0.28-1.el5_2.1
@@ -24,9 +24,9 @@ To obtain a list of all installed software, use the `rpm -qa` command.
 
 To verify whether one package is installed, use `rpm -q`.
 
-    root@RHELv8u4:~# rpm -q gcc
+    root@linux:~# rpm -q gcc
     gcc-3.4.6-3
-    root@RHELv8u4:~# rpm -q laika
+    root@linux:~# rpm -q laika
     package laika is not installed
 
 ## rpm -Uvh
@@ -35,18 +35,18 @@ To install or upgrade a package, use the -Uvh switches. The -U switch is
 the same as -i for install, except that older versions of the software
 are removed. The -vh switches are for nicer output.
 
-    root@RHELv8u4:~# rpm -Uvh gcc-3.4.6-3
+    root@linux:~# rpm -Uvh gcc-3.4.6-3
 
 ## rpm -e
 
 To remove a package, use the -e switch.
 
-    root@RHELv8u4:~# rpm -e gcc-3.4.6-3
+    root@linux:~# rpm -e gcc-3.4.6-3
 
 `rpm -e` verifies dependencies, and thus will prevent you from
 accidentailly erasing packages that are needed by other packages.
 
-    [root@RHEL52 ~]# rpm -e gcc-4.1.2-42.el5
+    [root@linux ~]# rpm -e gcc-4.1.2-42.el5
     error: Failed dependencies:
     gcc = 4.1.2-42.el5 is needed by (installed) gcc-c++-4.1.2-42.el5.i386
     gcc = 4.1.2-42.el5 is needed by (installed) gcc-gfortran-4.1.2-42.el5.i386
@@ -64,17 +64,17 @@ of software.
 We can use `rpm2cpio` to convert an `rpm` to a
 `cpio` archive.
 
-    [root@RHEL53 ~]# file kernel.src.rpm 
+    [root@linux ~]# file kernel.src.rpm 
     kernel.src.rpm: RPM v3 src PowerPC kernel-2.6.18-92.1.13.el5
-    [root@RHEL53 ~]# rpm2cpio kernel.src.rpm > kernel.cpio
-    [root@RHEL53 ~]# file kernel.cpio 
+    [root@linux ~]# rpm2cpio kernel.src.rpm > kernel.cpio
+    [root@linux ~]# file kernel.cpio 
     kernel.cpio: ASCII cpio archive (SVR4 with no CRC)
 
 But why would you want to do this ?
 
 Perhaps just to see of list of files in the `rpm` file.
 
-    [root@RHEL53 ~]# rpm2cpio kernel.src.rpm | cpio -t | head -5
+    [root@linux ~]# rpm2cpio kernel.src.rpm | cpio -t | head -5
     COPYING.modules
     Config.mk
     Module.kabi_i686
@@ -83,7 +83,7 @@ Perhaps just to see of list of files in the `rpm` file.
 
 Or to extract one file from an `rpm` package.
 
-    [root@RHEL53 ~]# rpm2cpio kernel.src.rpm | cpio -iv Config.mk
+    [root@linux ~]# rpm2cpio kernel.src.rpm | cpio -iv Config.mk
     Config.mk
     246098 blocks
 
@@ -100,15 +100,15 @@ Fedora and Red Hat Enterprise Linux since version 5.2.
 Issue `yum list available` to see a list of available packages. The
 `available` parameter is optional.
 
-    root@rhel65:/etc# yum list | wc -l
+    root@linux:/etc# yum list | wc -l
     This system is receiving updates from Red Hat Subscription Management.
     3935
-    root@rhel65:/etc#
+    root@linux:/etc#
 
 Issue `yum list $package` to get all versions (in different
 repositories) of one package.
 
-    [root@rhel55 ~]# yum list samba
+    [root@linux ~]# yum list samba
     Loaded plugins: rhnplugin, security
     Installed Packages
     samba.i386                 3.0.33-3.28.el5         installed         
@@ -120,7 +120,7 @@ repositories) of one package.
 To search for a package containing a certain string in the description
 or name use `yum search $string`.
 
-    [root@rhel55 ~]# yum search gcc44
+    [root@linux ~]# yum search gcc44
     Loaded plugins: rhnplugin, security
     ========================== Matched: gcc44 ===========================
     gcc44.i386 : Preview of GCC version 4.4
@@ -132,7 +132,7 @@ or name use `yum search $string`.
 To search for a package containing a certain file (you might need for
 compiling things) use `yum provides $filename`.
 
-    root@rhel65:/etc# yum provides /usr/share/man/man5/passwd.5.gz
+    root@linux:/etc# yum provides /usr/share/man/man5/passwd.5.gz
     Loaded plugins: product-id, subscription-manager
     This system is receiving updates from Red Hat Subscription Management.
     rhel-6-server-cf-tools-1-rpms                                 | 2.8 kB     00:00
@@ -165,14 +165,14 @@ compiling things) use `yum provides $filename`.
 
 
 
-    root@rhel65:/etc#
+    root@linux:/etc#
 
 ## yum install
 
 To install an application, use `yum install $package`. Naturally `yum`
 will install all the necessary dependencies.
 
-    [root@rhel55 ~]# yum install sudo
+    [root@linux ~]# yum install sudo
     Loaded plugins: rhnplugin, security
     Setting up Install Process
     Resolving Dependencies
@@ -223,7 +223,7 @@ be updated to the latest version that is available in the repository.
 
 If you only want to update one package, use `yum update $package`.
 
-    [root@rhel55 ~]# yum update sudo
+    [root@linux ~]# yum update sudo
     Loaded plugins: rhnplugin, security
     Skipping security plugin, no data
     Setting up Update Process
@@ -267,7 +267,7 @@ If you only want to update one package, use `yum update $package`.
 
 Issue `yum grouplist` to see a list of all available software groups.
 
-    [root@rhel55 ~]# yum grouplist
+    [root@linux ~]# yum grouplist
     Loaded plugins: rhnplugin, security
     Setting up Group Process
     Installed Groups:
@@ -312,7 +312,7 @@ Issue `yum grouplist` to see a list of all available software groups.
 To install a set of applications, brought together via a group, use
 `yum groupinstall $groupname`.
 
-    [root@rhel55 ~]# yum groupinstall 'Sound and video'
+    [root@linux ~]# yum groupinstall 'Sound and video'
     Loaded plugins: rhnplugin, security
     Setting up Group Process
     Package alsa-utils-1.0.17-1.el5.i386 already installed and latest version

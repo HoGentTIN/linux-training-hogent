@@ -2,7 +2,7 @@
 
 1\. Set the password for `serena` to `hunter2`.
 
-    root@debian10:~# passwd serena
+    root@linux:~# passwd serena
     Enter new UNIX password:
     Retype new UNIX password:
     passwd: password updated successfully
@@ -11,14 +11,14 @@
 account with `usermod`. Verify the locking in `/etc/shadow` before and
 after you lock it.
 
-    root@debian10:~# passwd venus
+    root@linux:~# passwd venus
     Enter new UNIX password:
     Retype new UNIX password:
     passwd: password updated successfully
-    root@debian10:~# grep venus /etc/shadow | cut -c1-70
+    root@linux:~# grep venus /etc/shadow | cut -c1-70
     venus:$6$gswzXICW$uSnKFV1kFKZmTPaMVS4AvNA/KO27OxN0v5LHdV9ed0gTyXrjUeM/
-    root@debian10:~# usermod -L venus
-    root@debian10:~# grep venus /etc/shadow | cut -c1-70
+    root@linux:~# usermod -L venus
+    root@linux:~# grep venus /etc/shadow | cut -c1-70
     venus:!$6$gswzXICW$uSnKFV1kFKZmTPaMVS4AvNA/KO27OxN0v5LHdV9ed0gTyXrjUeM
 
 Note that `usermod -L` precedes the password hash with an exclamation
@@ -27,13 +27,13 @@ mark (!).
 3\. Use `passwd -d` to disable the `serena` password. Verify the
 `serena` line in `/etc/shadow` before and after disabling.
 
-    root@debian10:~# grep serena /etc/shadow | cut -c1-70
+    root@linux:~# grep serena /etc/shadow | cut -c1-70
     serena:$6$Es/omrPE$F2Ypu8kpLrfKdW0v/UIwA5jrYyBD2nwZ/dt.i/IypRgiPZSdB/B
-    root@debian10:~# passwd -d serena
+    root@linux:~# passwd -d serena
     passwd: password expiry information changed.
-    root@debian10:~# grep serena /etc/shadow
+    root@linux:~# grep serena /etc/shadow
     serena::16358:0:99999:7:::
-    root@debian10:~#
+    root@linux:~#
 
 4\. What is the difference between locking a user account and disabling
 a user account\'s password like we just did with `usermod -L` and

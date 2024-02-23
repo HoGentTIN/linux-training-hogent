@@ -10,7 +10,7 @@ working directory (cwd) for the /sbin/init command. The FD column
 displays `rtd` for root directory, `cwd` for current directory and `txt`
 for text (both including data and code).
 
-    root@debian10:~# lsof | head -4
+    root@linux:~# lsof | head -4
     COMMAND PID  TID   USER   FD    TYPE     DEVICE SIZE/OFF      NODE NAME
     init      1        root  cwd     DIR      254,0     4096         2 /
     init      1        root  rtd     DIR      254,0     4096         2 /
@@ -27,18 +27,18 @@ The screenshot below shows basic use of `lsof` to prove that `vi` keeps
 a `.swp` file open (even when stopped in background) on our freshly
 mounted file system.
 
-    [root@RHEL65 ~]# df -h | grep sdb
+    [root@linux ~]# df -h | grep sdb
     /dev/sdb1                     541M   17M  497M   4% /srv/project33
-    [root@RHEL65 ~]# vi /srv/project33/busyfile.txt
+    [root@linux ~]# vi /srv/project33/busyfile.txt
     [1]+  Stopped                 vi /srv/project33/busyfile.txt
-    [root@RHEL65 ~]# lsof /srv/*
+    [root@linux ~]# lsof /srv/*
     COMMAND  PID USER  FD  TYPE DEVICE SIZE/OFF NODE NAME
     vi      3243 root   3u  REG   8,17   4096   12 /srv/project33/.busyfile.txt.swp
 
 Here we see that `rsyslog` has a couple of log files open
 for writing (the FD column).
 
-    root@debian10:~# lsof /var/log/*
+    root@linux:~# lsof /var/log/*
     COMMAND   PID USER   FD   TYPE DEVICE SIZE/OFF    NODE NAME
     rsyslogd 2013 root    1w   REG  254,0   454297 1308187 /var/log/syslog
     rsyslogd 2013 root    2w   REG  254,0   419328 1308189 /var/log/kern.log
@@ -50,7 +50,7 @@ for writing (the FD column).
 You can specify a specific user with `lsof -u`. This example shows the
 current working directory for a couple of command line programs.
 
-    [paul@RHEL65 ~]$ lsof -u paul | grep home
+    [student@linux ~]$ lsof -u paul | grep home
     bash    3302 paul  cwd    DIR  253,0     4096  788024 /home/paul
     lsof    3329 paul  cwd    DIR  253,0     4096  788024 /home/paul
     grep    3330 paul  cwd    DIR  253,0     4096  788024 /home/paul
@@ -70,32 +70,32 @@ In this example we still have a vi process in background and we use
 `fuser` to find the process id of the process using this
 file system.
 
-    [root@RHEL65 ~]# jobs
+    [root@linux ~]# jobs
     [1]+  Stopped                 vi /srv/project33/busyfile.txt
-    [root@RHEL65 ~]# fuser -m /srv/project33/
+    [root@linux ~]# fuser -m /srv/project33/
     /srv/project33/:      3243
 
 Adding the `-u` switch will also display the user name.
 
-    [root@RHEL65 ~]# fuser -m -u /srv/project33/
+    [root@linux ~]# fuser -m -u /srv/project33/
     /srv/project33/:      3243(root)
 
 You can quickly kill all processes that are using a specific file (or
 directory) with the -k switch.
 
-    [root@RHEL65 ~]# fuser -m -k -u /srv/project33/
+    [root@linux ~]# fuser -m -k -u /srv/project33/
     /srv/project33/:      3243(root)
     [1]+  Killed                  vi /srv/project33/busyfile.txt
-    [root@RHEL65 ~]# fuser -m -u /srv/project33/
-    [root@RHEL65 ~]#
+    [root@linux ~]# fuser -m -u /srv/project33/
+    [root@linux ~]#
 
 This example shows all processes that are using the current directory
 (bash and vi in this case).
 
-    root@debian10:~/test42# vi file42
+    root@linux:~/test42# vi file42
 
     [1]+  Stopped                 vi file42
-    root@debian10:~/test42# fuser -v .
+    root@linux:~/test42# fuser -v .
                          USER        PID ACCESS COMMAND
     /root/test42:        root       2909 ..c.. bash
                          root       3113 ..c.. vi
@@ -103,21 +103,21 @@ This example shows all processes that are using the current directory
 This example shows that the `vi` command actually accesses
 `/usr/bin/vim.basic` as an `executable` file.
 
-    root@debian10:~/test42# fuser -v $(which vi)
+    root@linux:~/test42# fuser -v $(which vi)
                          USER        PID ACCESS COMMAND
     /usr/bin/vim.basic:  root       3113 ...e. vi
 
 The last example shows how to find the process that is accessing a
 specific file.
 
-    [root@RHEL65 ~]# vi /srv/project33/busyfile.txt
+    [root@linux ~]# vi /srv/project33/busyfile.txt
 
     [1]+  Stopped                 vi /srv/project33/busyfile.txt
-    [root@RHEL65 ~]# fuser -v -m /srv/project33/busyfile.txt
+    [root@linux ~]# fuser -v -m /srv/project33/busyfile.txt
                          USER        PID ACCESS COMMAND
     /srv/project33/busyfile.txt:
                          root      13938 F.... vi
-    [root@RHEL65 ~]# ps -fp 13938
+    [root@linux ~]# ps -fp 13938
     UID        PID  PPID  C STIME TTY          TIME CMD
     root     13938  3110  0 15:47 pts/0    00:00:00 vi /srv/project33/busyfile.txt
 
@@ -184,7 +184,7 @@ It also includes a small cpu usage summary. This example shows `iostat`
 running every ten seconds with `/dev/sdc` and `/dev/sde` showing a lot
 of write activity.
 
-    [root@RHEL65 ~]# iostat 10 3
+    [root@linux ~]# iostat 10 3
     Linux 2.6.32-431.el6.x86_64 (RHEL65)  06/16/2014    _x86_64_    (1 CPU)
 
     avg-cpu:  %user   %nice %system %iowait  %steal   %idle
@@ -229,7 +229,7 @@ of write activity.
     dm-0            503.62     26938.46       178.28     238136       1576
     dm-1              2.83        22.62         0.00        200          0
 
-    [root@RHEL65 ~]#
+    [root@linux ~]#
 
 Other options are to specify the disks you want to monitor (every 5
 seconds here):
@@ -248,7 +248,7 @@ by input/output instead of by CPU.
 By default `iotop` will show all processes. This example uses `iotop -o`
 to only display processes with actual I/O.
 
-    [root@RHEL65 ~]# iotop -o
+    [root@linux ~]# iotop -o
 
     Total DISK READ: 8.63 M/s | Total DISK WRITE: 0.00 B/s
       TID  PRIO  USER  DISK READ  DISK WRITE  SWAPIN     IO>    COMMAND
@@ -261,7 +261,7 @@ to only display processes with actual I/O.
 Use the `-b` switch to create a log of `iotop` output (instead of the
 default interactive view).
 
-    [root@RHEL65 ~]# iotop -bod 10
+    [root@linux ~]# iotop -bod 10
     Total DISK READ: 12.82 M/s | Total DISK WRITE: 5.69 M/s
       TID  PRIO  USER  DISK READ  DISK WRITE  SWAPIN      IO    COMMAND
     25153 be/4 root     2.05 M/s    0.00 B/s  0.00 %  7.81 % tar cjf /srv/di...
@@ -278,7 +278,7 @@ This is an example of `iotop` to track disk I/O every ten seconds for
 one user named `vagrant` (and only one process of this user, but this
 can be omitted). The `-a` switch accumulates I/O over time.
 
-    [root@RHEL65 ~]# iotop -q -a -u vagrant -b -p 5216 -d 10 -n 10
+    [root@linux ~]# iotop -q -a -u vagrant -b -p 5216 -d 10 -n 10
     Total DISK READ: 0.00 B/s | Total DISK WRITE: 0.00 B/s
       TID  PRIO  USER     DISK READ  DISK WRITE  SWAPIN      IO    COMMAND
      5216 be/4 vagrant       0.00 B      0.00 B  0.00 %  0.00 % gzip
@@ -303,7 +303,7 @@ devices and swap space.
 This example shows some disk activity (underneath the `-----io----`
 column), without swapping.
 
-    [root@RHEL65 ~]# vmstat 5 10
+    [root@linux ~]# vmstat 5 10
     procs ----------memory---------- ---swap-- -----io---- --system-- -----cpu-----
      r  b  swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st
      0  0  5420   9092  14020 340876    7   12   235   252   77  100  2  1 98  0  0
@@ -313,13 +313,13 @@ column), without swapping.
      0  0  5420  14300  13420 341564    0    0     0    16   28   18  0  0 100  0  0
      0  0  5420  14300  13420 341564    0    0     0     0   22   16  0  0 100  0  0
     ...
-    [root@RHEL65 ~]#
+    [root@linux ~]#
 
 You can benefit from `vmstat`\'s ability to display memory in kilobytes,
 megabytes or even kibibytes and mebibytes using -S (followed by k K m or
 M).
 
-    [root@RHEL65 ~]# vmstat -SM 5 10
+    [root@linux ~]# vmstat -SM 5 10
     procs ----------memory---------- ---swap-- -----io---- --system-- -----cpu-----
      r  b  swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st
      0  0     5     14     11    334    0    0   259   255   79  107  2  1 97  0  0
@@ -332,7 +332,7 @@ M).
      1  0     5     14     11    336    0    0  6467  3788  765 1384 43  9 48  0  0
      0  0     5     14     11    336    0    0     0    13   28   24  0  0 100  0  0
      0  0     5     14     11    336    0    0     0     0   20   15  0  0 100  0  0
-    [root@RHEL65 ~]#
+    [root@linux ~]#
 
 `vmstat` is also discussed in other chapters.
 

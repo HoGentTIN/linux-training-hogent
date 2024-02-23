@@ -10,14 +10,14 @@ Consider this example from the `/etc/bind/db.paul.local` zone
 configuration file. There are two A records for `www` pointing to two
 distinct ip addresses.
 
-    root@debian10:~# grep www /etc/bind/db.paul.local
+    root@linux:~# grep www /etc/bind/db.paul.local
     www             IN      A       10.104.33.30
     www             IN      A       10.104.33.31
 
 Below a screenshot of `nslookup` querying a load balanced A record.
 Notice the order of ip addresses returned.
 
-    root@debian10:~# nslookup www.paul.local 10.104.33.30
+    root@linux:~# nslookup www.paul.local 10.104.33.30
     Server:         10.104.33.30
     Address:        10.104.33.30#53
 
@@ -26,7 +26,7 @@ Notice the order of ip addresses returned.
     Name:   www.paul.local
     Address: 10.104.33.30
 
-    root@debian10:~# nslookup www.paul.local 10.104.33.30
+    root@linux:~# nslookup www.paul.local 10.104.33.30
     Server:         10.104.33.30
     Address:        10.104.33.30#53
 
@@ -60,7 +60,7 @@ We start by adjusting the `/etc/bind/named.comf.local` file (on the
 server hosting the parent domain) to make sure that no forwarder will be
 used when resolving authoritative names.
 
-    root@debian10:~# grep -A4 paul.local /etc/bind/named.conf.local
+    root@linux:~# grep -A4 paul.local /etc/bind/named.conf.local
     zone "paul.local" IN {
             type master;
             file "/etc/bind/db.paul.local";
@@ -68,7 +68,7 @@ used when resolving authoritative names.
             allow-transfer { 10.104.15.20; };
             forwarders { };
     };
-    root@debian10:~#
+    root@linux:~#
 
 Technically, you could also set `allow-transfer` to `{ any; };` while
 troubleshooting and then refine it later, but this is not needed for
@@ -76,21 +76,21 @@ delegation.
 
 Then we add the delegation to our zone database:
 
-    root@debian10:~# tail -3 /etc/bind/db.paul.local
+    root@linux:~# tail -3 /etc/bind/db.paul.local
     $ORIGIN test42.paul.local.
     @       IN      NS      ns2.test42.paul.local.
     ns2     IN      A       10.104.33.31    ; the glue record
-    root@debian10:~#
+    root@linux:~#
 
 Don\'t forget to restart `bind` and verify `/var/log/syslog`.
 
-    root@debian10:~# service bind9 restart
+    root@linux:~# service bind9 restart
     Stopping domain name service...: bind9.
     Starting domain name service...: bind9.
-    root@debian10:~# grep paul.local /var/log/syslog | cut -c28- | tail -2
+    root@linux:~# grep paul.local /var/log/syslog | cut -c28- | tail -2
     named[3202]: zone paul.local/IN: loaded serial 2014100801
     named[3202]: zone paul.local/IN: sending notifies (serial 2014100801)
-    root@debian10:~#
+    root@linux:~#
 
 *Note that on your terminal you can type `tail -40 /var/log/syslog`
 because the only reason I use `grep`, `cut` and `tail -2` is to limit
@@ -99,7 +99,7 @@ the size of the screenshots in this book.*
 Next we create a zone database file on the second server, as seen in
 this screenshot:
 
-    root@debian10b:~# cat /etc/bind/db.test42.paul.local
+    root@linux:~# cat /etc/bind/db.test42.paul.local
     ; child zone for classroom teaching
     $TTL    86400
     $ORIGIN test42.paul.local.
@@ -120,12 +120,12 @@ this screenshot:
     ns2             IN      A       10.104.33.31
     debian10b        IN      A       10.104.33.31
     testsrv         IN      A       10.104.33.31
-    root@debian10b:~#
+    root@linux:~#
 
 The second server also needs a zone definition in `named.conf.local`,
 followed by a restart of `bind`.
 
-    root@debian10b:~# cat /etc/bind/named.conf.local
+    root@linux:~# cat /etc/bind/named.conf.local
     //
     // Do any local configuration here
     //
@@ -140,15 +140,15 @@ followed by a restart of `bind`.
             allow-update { none; };
             allow-transfer { any; };
     };
-    root@debian10b:~#
+    root@linux:~#
 
 Testing on the parent server:
 
-    root@debian10:~# dig ns1.paul.local +short
+    root@linux:~# dig ns1.paul.local +short
     10.104.33.30
-    root@debian10:~# dig ns2.test42.paul.local +short
+    root@linux:~# dig ns2.test42.paul.local +short
     10.104.33.31
-    root@debian10:~# dig debian10b.test42.paul.local +short
+    root@linux:~# dig debian10b.test42.paul.local +short
     10.104.33.31
 
 ## example: split-horizon dns
@@ -170,7 +170,7 @@ and our paul.local zone from our own network.
 
 We start by creating three `view` clauses in `named.conf.local`.
 
-    root@debian10:/etc/bind# cat named.conf.local
+    root@linux:/etc/bind# cat named.conf.local
     view "paul" {
     match-clients { 10.104.33.0; localhost; };
     include "/etc/bind/named.conf.default-zones";
@@ -207,7 +207,7 @@ can see that the `round robin` is still active for internal users,
 computers from 10.104.15.0/24 (Jesse) will always receive 10.104.33.30
 while computers from 10.104.42.0/24 (Keith) will receive 10.104.33.31.
 
-    root@debian10:/etc/bind# grep www db.paul.local db.paul.local.[jk]*
+    root@linux:/etc/bind# grep www db.paul.local db.paul.local.[jk]*
     db.paul.local:www               IN      A       10.104.33.30
     db.paul.local:www               IN      A       10.104.33.31
     db.paul.local.jesse:www         IN      A       10.104.33.30
@@ -227,7 +227,7 @@ dns zone.
 (we set notify to no to avoid sending of notify messages to other name
 servers):
 
-    root@ubu1010srv:/etc/bind# grep -A4 arpa named.conf.local 
+    root@linux:/etc/bind# grep -A4 arpa named.conf.local 
     zone "1.168.192.in-addr.arpa" {
         type master;
         notify no;
@@ -236,7 +236,7 @@ servers):
 
 3\. Also create a zone database file for this reverse lookup zone.
 
-    root@ubu1010srv:/etc/bind# cat db.192 
+    root@linux:/etc/bind# cat db.192 
     ;
     ; BIND reverse data file for 192.168.1.0/24 network
     ;
@@ -252,11 +252,11 @@ servers):
     37  IN  PTR ns.cobbaut.paul.
     1   IN  PTR anya.cobbaut.paul.
     30  IN  PTR mac.cobbaut.paul.
-    root@ubu1010srv:/etc/bind# 
+    root@linux:/etc/bind# 
 
 4\. Test with nslookup or dig:
 
-    root@ubu1010srv:/etc/bind# dig 1.168.192.in-addr.arpa AXFR
+    root@linux:/etc/bind# dig 1.168.192.in-addr.arpa AXFR
 
 ### old DNS load balancing
 
@@ -295,7 +295,7 @@ incremental zone transfer.
 
 You need DDNS allowed for `nsupdate` to work.
 
-    root@ubu1010srv:/etc/bind# nsupdate
+    root@linux:/etc/bind# nsupdate
     > server 127.0.0.1
     > update add mac14.linux-training.be 86400 A 192.168.1.23
     > send

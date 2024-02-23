@@ -21,23 +21,23 @@ that `systemd` will be replacing `init` in current and future releases
 
 The screenshot below shows `systemd` running as `pid 1` on RHEL8.
 
-    [root@rhel8 ~]# ps fax | grep systemd | cut -c1-76
+    [root@linux ~]# ps fax | grep systemd | cut -c1-76
         1 ?        Ss     0:01 /usr/lib/systemd/systemd --switched-root --system
       505 ?        Ss     0:00 /usr/lib/systemd/systemd-journald
       545 ?        Ss     0:00 /usr/lib/systemd/systemd-udevd
       670 ?        Ss     0:00 /usr/lib/systemd/systemd-logind
       677 ?        Ssl    0:00 /bin/dbus-daemon --system --address=systemd: --no
      2662 pts/1    S+     0:00          \_ grep --color=auto systemd
-    [root@rhel8 ~]#
+    [root@linux ~]#
 
 Debian 10 uses parts of `systemd`, but still has `init` as `pid 1`.
 
-    root@debian10:~# ps fax | grep systemd | cut -c1-76
+    root@linux:~# ps fax | grep systemd | cut -c1-76
       350 ?        Ss     0:00 /lib/systemd/systemd-udevd --daemon
      2206 ?        S      0:11 /sbin/cgmanager --daemon -m name=systemd
      2932 ?        S      0:04 /lib/systemd/systemd-logind
     16353 pts/4    S+     0:00              \_ grep systemd
-    root@debian10:~#
+    root@linux:~#
 
 ### systemd targets
 
@@ -45,7 +45,7 @@ The first command to learn is `systemctl list-units --type=target` (or
 the shorter version `systemctl -t target`). It will show you the
 different targets on the system.
 
-    [root@rhel81 ~]# systemctl -t target
+    [root@linux1 ~]# systemctl -t target
     UNIT                LOAD   ACTIVE SUB    DESCRIPTION
     basic.target        loaded active active Basic System
     cryptsetup.target   loaded active active Encrypted Volumes
@@ -68,7 +68,7 @@ different targets on the system.
 
     14 loaded units listed. Pass --all to see loaded but inactive units, too.
     To show all installed unit files use 'systemctl list-unit-files'.
-    [root@rhel81 ~]#
+    [root@linux1 ~]#
 
 Targets are the replacement of runlevels and define specific points to
 reach when booting the system. For example the `graphical.target` is
@@ -83,21 +83,21 @@ This screenshot shows a `Red Hat Enterprise Linux 8` server switching
 from a graphical interface to command line (decreasing the number of
 running processes).
 
-    [root@rhel8 ~]# ps fax | wc -l
+    [root@linux ~]# ps fax | wc -l
     169
-    [root@rhel8 ~]# systemctl isolate multi-user.target
-    [root@rhel8 ~]# ps fax | wc -l
+    [root@linux ~]# systemctl isolate multi-user.target
+    [root@linux ~]# ps fax | wc -l
     129
-    [root@rhel8 ~]#
+    [root@linux ~]#
 
 To change the default target, we again use this `systemctl` command
 (instead of editing the `/etc/inittab` file).
 
-    [root@rhel8 ~]# systemctl set-de
+    [root@linux ~]# systemctl set-de
     rm '/etc/systemd/system/default.target'
     ln -s '/usr/lib/systemd/system/multi-user.target' '/etc/systemd/system/default\
     .target'
-    [root@rhel8 ~]#
+    [root@linux ~]#
 
 This command removed the file `/etc/systemd/system/default.target` and
 replaced it with a symbolic link to the `multi-user-.target` target.
@@ -109,15 +109,15 @@ scripts, but by configuration in `/etc/systemd/system/`. For example
 here are the required services for the `multi-user.target` on Red Hat
 Enterprise 7.1.
 
-    [root@rhel81 ~]# cat /etc/redhat-release
+    [root@linux1 ~]# cat /etc/redhat-release
     Red Hat Enterprise Linux Server release 7.1 (Maipo)
-    [root@rhel81 ~]# ls /etc/systemd/system/multi-user.target.wants/
+    [root@linux1 ~]# ls /etc/systemd/system/multi-user.target.wants/
     abrt-ccpp.service    auditd.service          postfix.service    sysstat.service
     abrtd.service        chronyd.service         remote-fs.target   tuned.service
     abrt-oops.service    crond.service           rhsmcertd.service
     abrt-vmcore.service  irqbalance.service      rsyslog.service
     abrt-xorg.service    NetworkManager.service  sshd.service
-    [root@rhel81 ~]#
+    [root@linux1 ~]#
 
 Below a screenshot from Debian (bullseye/sid is Debian 11). There is
 already a lot of `systemd` in Debian 8 and 9 (less than in RHEL7).
@@ -134,13 +134,13 @@ Typical `rc scripts` are replaced with services. Issue the
 `systemctl list-units -t service --all` (or `systemctl -at service`) to
 get a list of all services on your system.
 
-    [root@rhel8 ~]# systemctl -at service | head -5 | column -t | cut -c1-78
+    [root@linux ~]# systemctl -at service | head -5 | column -t | cut -c1-78
     UNIT                 LOAD    ACTIVE    SUB      DESCRIPTION
     abrt-ccpp.service    loaded  active    exited   Install      ABRT     coredump
     abrt-oops.service    loaded  active    running  ABRT         kernel   log
     abrt-vmcore.service  loaded  inactive  dead     Harvest      vmcores  for
     abrt-xorg.service    loaded  active    running  ABRT         Xorg     log
-    [root@rhel8 ~]#
+    [root@linux ~]#
 
 ### service status
 
@@ -148,7 +148,7 @@ Below is a (truncated) screenshot showing how to see the status of the
 `sshd` service. (This RHEL server was attacked using brute force ssh on
 2 August 2015.)
 
-    [root@rhel81 ~]# systemctl status sshd.service
+    [root@linux1 ~]# systemctl status sshd.service
 
     sshd.service - OpenSSH server daemon
      Loaded: loaded (/usr/lib/systemd/system/sshd.service; enabled)
@@ -172,19 +172,19 @@ Below is a (truncated) screenshot showing how to see the status of the
     Aug 03 10:21:13 rhel81 sshd[14616]: Received disconnect from 119.188.7.143: 11
     Aug 03 14:20:03 rhel81 sshd[15083]: Accepted password for root from 192.168.1.
     Hint: Some lines were ellipsized, use -l to show in full.
-    [root@rhel81 ~]#
+    [root@linux1 ~]#
 
 This `systemd` feature does not work by default on `Debian 8/9` because
 `init` has pid 1. It only works when the system is booted with `systemd`
 as pid 1.
 
-    root@debian8:~# systemctl status sshd
+    root@linux:~# systemctl status sshd
     Failed to get D-Bus connection: Operation not permitted
-    root@debian8:~# systemctl status ssh
+    root@linux:~# systemctl status ssh
     Failed to get D-Bus connection: Operation not permitted
-    root@debian8:~# service ssh status
+    root@linux:~# service ssh status
     sshd is running.
-    root@debian8:~#
+    root@linux:~#
 
 ### systemd services configuration
 
@@ -193,61 +193,61 @@ are replaced with `systemctl`.
 
 This screenshot shows the new way to start and stop a service.
 
-    [root@rhel8 ~]# systemctl start crond.service
-    [root@rhel8 ~]# systemctl show crond.service | grep State
+    [root@linux ~]# systemctl start crond.service
+    [root@linux ~]# systemctl show crond.service | grep State
     LoadState=loaded
     ActiveState=active
     SubState=running
     UnitFileState=enabled
-    [root@rhel8 ~]# systemctl stop crond.service
-    [root@rhel8 ~]# systemctl show crond.service | grep State
+    [root@linux ~]# systemctl stop crond.service
+    [root@linux ~]# systemctl show crond.service | grep State
     LoadState=loaded
     ActiveState=inactive
     SubState=dead
     UnitFileState=enabled
-    [root@rhel8 ~]#
+    [root@linux ~]#
 
 And here is the new way to stop and disable a service.
 
-    [root@rhel8 ~]# systemctl stop crond.service
-    [root@rhel8 ~]# systemctl disable crond.service
+    [root@linux ~]# systemctl stop crond.service
+    [root@linux ~]# systemctl disable crond.service
     rm '/etc/systemd/system/multi-user.target.wants/crond.service'
-    [root@rhel8 ~]# systemctl show crond.service | grep State
+    [root@linux ~]# systemctl show crond.service | grep State
     LoadState=loaded
     ActiveState=inactive
     SubState=dead
     UnitFileState=disabled
-    [root@rhel8 ~]#
+    [root@linux ~]#
 
 This screenshot shows how to enable and start the service again.
 
-    [root@rhel8 ~]# systemctl enable crond.service
+    [root@linux ~]# systemctl enable crond.service
     ln -s '/usr/lib/systemd/system/crond.service' '/etc/systemd/system/multi-user.\
     target.wants/crond.service'
-    [root@rhel8 ~]# systemctl start crond.service
-    [root@rhel8 ~]# systemctl show crond.service | grep State
+    [root@linux ~]# systemctl start crond.service
+    [root@linux ~]# systemctl show crond.service | grep State
     LoadState=loaded
     ActiveState=active
     SubState=running
     UnitFileState=enabled
-    [root@rhel8 ~]#
+    [root@linux ~]#
 
 ### systemd signalling
 
 You can also use `systemd` to `kill` problematic services.
 
-    [root@rhel8 ~]# systemctl show crond.service | grep State
+    [root@linux ~]# systemctl show crond.service | grep State
     LoadState=loaded
     ActiveState=active
     SubState=running
     UnitFileState=enabled
-    [root@rhel8 ~]# systemctl kill -s SIGKILL crond.service
-    [root@rhel8 ~]# systemctl show crond.service | grep State
+    [root@linux ~]# systemctl kill -s SIGKILL crond.service
+    [root@linux ~]# systemctl show crond.service | grep State
     LoadState=loaded
     ActiveState=failed
     SubState=failed
     UnitFileState=enabled
-    [root@rhel8 ~]#
+    [root@linux ~]#
 
 ### systemd shutdown
 
@@ -279,7 +279,7 @@ an `ssh daemon` running on the remote system.
 This screenshot shows how to use `systemctl` to verify a service on an
 other RHEL server.
 
-    [root@rhel8 ~]# systemctl -H root@192.168.1.65 status sshd
+    [root@linux ~]# systemctl -H root@192.168.1.65 status sshd
     root@192.168.1.65's password:
     sshd.service - OpenSSH server daemon
        Loaded: loaded (/usr/lib/systemd/system/sshd.service; enabled)
@@ -288,7 +288,7 @@ other RHEL server.
     SS)
      Main PID: 1363 (sshd)
        CGroup: /system.slice/sshd.service
-    [root@rhel8 ~]#
+    [root@linux ~]#
 
 ### there is more systemd
 
@@ -307,7 +307,7 @@ There are other tools\...
 For example `systemd-analyze blame` will give you an overview of the
 time it took for each service to boot.
 
-    [root@rhel8 ~]# systemd-analyze blame | head
+    [root@linux ~]# systemd-analyze blame | head
               1.977s firewalld.service
               1.096s tuned.service
                993ms postfix.service
@@ -318,5 +318,5 @@ time it took for each service to boot.
                829ms network.service
                822ms iprupdate.service
                795ms boot.mount
-    [root@rhel8 ~]#
+    [root@linux ~]#
 

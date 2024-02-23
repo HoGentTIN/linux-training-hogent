@@ -39,7 +39,7 @@ at boot-up.
 6\. Use `fdisk` (with `grep` and `/dev/null`) to display the total size
 of the new disks.
 
-    root@rhel53 ~# fdisk -l 2>/dev/null | grep [MGT]B
+    root@linux ~# fdisk -l 2>/dev/null | grep [MGT]B
     Disk /dev/hda: 21.4 GB, 21474836480 bytes
     Disk /dev/hdb: 1073 MB, 1073741824 bytes
     Disk /dev/sda: 2147 MB, 2147483648 bytes
@@ -50,7 +50,7 @@ of the new disks.
 
     #Verify the device (/dev/sdc??) you want to erase before typing this.
     #
-    root@rhel53 ~# badblocks -ws /dev/sdc
+    root@linux ~# badblocks -ws /dev/sdc
     Testing with pattern 0xaa: done                                
     Reading and comparing: done                                
     Testing with pattern 0x55: done                                
@@ -62,7 +62,7 @@ of the new disks.
 
 8\. Look at `/proc/scsi/scsi`.
 
-    root@rhel53 ~# cat /proc/scsi/scsi 
+    root@linux ~# cat /proc/scsi/scsi 
     Attached devices:
     Host: scsi0 Channel: 00 Id: 02 Lun: 00
       Vendor: VBOX     Model: HARDDISK         Rev: 1.0 
@@ -81,7 +81,7 @@ disks.
 
     Fedora: yum install lsscsi lshw
 
-    root@rhel53 ~# lsscsi 
+    root@linux ~# lsscsi 
     [0:0:2:0]    disk    VBOX     HARDDISK         1.0   /dev/sda
     [0:0:3:0]    disk    VBOX     HARDDISK         1.0   /dev/sdb
     [0:0:6:0]    disk    VBOX     HARDDISK         1.0   /dev/sdc

@@ -48,16 +48,16 @@ the directories, but it also means that it is always outdated. If the
 index does not exist yet, then you have to create it (as root on Red Hat
 Enterprise Linux) with the `updatedb` command.
 
-    [paul@RHEL8b ~]$ locate Samba
+    [student@linux ~]$ locate Samba
     warning: locate: could not open database: /var/lib/slocate/slocate.db:...
     warning: You need to run the 'updatedb' command (as root) to create th...
     Please have a look at /etc/updatedb.conf to enable the daily cron job.
-    [paul@RHEL8b ~]$ updatedb 
+    [student@linux ~]$ updatedb 
     fatal error: updatedb: You are not authorized to create a default sloc...
-    [paul@RHEL8b ~]$ su -
+    [student@linux ~]$ su -
     Password: 
-    [root@RHEL8b ~]# updatedb
-    [root@RHEL8b ~]#
+    [root@linux ~]# updatedb
+    [root@linux ~]#
 
 Most Linux distributions will schedule the `updatedb` to run once every
 day.
@@ -67,25 +67,25 @@ day.
 The `date` command can display the date, time, time zone
 and more.
 
-    paul@rhel55 ~$ date
+    student@linux ~$ date
     Sat Apr 17 12:44:30 CEST 2010
 
 A date string can be customised to display the format of your choice.
 Check the man page for more options.
 
-    paul@rhel55 ~$ date +'%A %d-%m-%Y'
+    student@linux ~$ date +'%A %d-%m-%Y'
     Saturday 17-04-2010
 
 Time on any Unix is calculated in number of seconds since 1969 (the
 first second being the first second of the first of January 1970). Use
 `date +%s` to display Unix time in seconds.
 
-    paul@rhel55 ~$ date +%s
+    student@linux ~$ date +%s
     1271501080
 
 When will this seconds counter reach two thousand million ?
 
-    paul@rhel55 ~$ date -d '1970-01-01 + 2000000000 seconds'
+    student@linux ~$ date -d '1970-01-01 + 2000000000 seconds'
     Wed May 18 04:33:20 CEST 2033
 
 ## cal
@@ -93,7 +93,7 @@ When will this seconds counter reach two thousand million ?
 The `cal` command displays the current month, with the
 current day highlighted.
 
-    paul@rhel55 ~$ cal
+    student@linux ~$ cal
          April 2010     
     Su Mo Tu We Th Fr Sa
                  1  2  3
@@ -104,7 +104,7 @@ current day highlighted.
 
 You can select any month in the past or the future.
 
-    paul@rhel55 ~$ cal 2 1970
+    student@linux ~$ cal 2 1970
        February 1970    
     Su Mo Tu We Th Fr Sa
      1  2  3  4  5  6  7
@@ -117,15 +117,15 @@ You can select any month in the past or the future.
 The `sleep` command is sometimes used in scripts to wait a
 number of seconds. This example shows a five second `sleep`.
 
-    paul@rhel55 ~$ sleep 5
-    paul@rhel55 ~$
+    student@linux ~$ sleep 5
+    student@linux ~$
 
 ## time
 
 The `time` command can display how long it takes to
 execute a command. The `date` command takes only a little time.
 
-    paul@rhel55 ~$ time date
+    student@linux ~$ time date
     Sat Apr 17 13:08:27 CEST 2010
 
     real    0m0.014s
@@ -135,7 +135,7 @@ execute a command. The `date` command takes only a little time.
 The `sleep 5` command takes five `real` seconds to execute, but consumes
 little `cpu time`.
 
-    paul@rhel55 ~$ time sleep 5
+    student@linux ~$ time sleep 5
 
     real    0m5.018s
     user    0m0.005s
@@ -144,7 +144,7 @@ little `cpu time`.
 This `bzip2` command compresses a file and uses a lot of
 `cpu time`.
 
-    paul@rhel55 ~$ time bzip2 text.txt 
+    student@linux ~$ time bzip2 text.txt 
 
     real    0m2.368s
     user    0m0.847s
@@ -155,16 +155,16 @@ This `bzip2` command compresses a file and uses a lot of
 Users never have enough disk space, so compression comes in handy. The
 `gzip` command can make files take up less space.
 
-    paul@rhel55 ~$ ls -lh text.txt 
+    student@linux ~$ ls -lh text.txt 
     -rw-rw-r-- 1 paul paul 6.4M Apr 17 13:11 text.txt
-    paul@rhel55 ~$ gzip text.txt 
-    paul@rhel55 ~$ ls -lh text.txt.gz 
+    student@linux ~$ gzip text.txt 
+    student@linux ~$ ls -lh text.txt.gz 
     -rw-rw-r-- 1 paul paul 760K Apr 17 13:11 text.txt.gz
 
 You can get the original back with `gunzip`.
 
-    paul@rhel55 ~$ gunzip text.txt.gz 
-    paul@rhel55 ~$ ls -lh text.txt
+    student@linux ~$ gunzip text.txt.gz 
+    student@linux ~$ ls -lh text.txt
     -rw-rw-r-- 1 paul paul 6.4M Apr 17 13:11 text.txt
 
 ## zcat - zmore
@@ -172,13 +172,13 @@ You can get the original back with `gunzip`.
 Text files that are compressed with `gzip` can be viewed
 with `zcat` and `zmore`.
 
-    paul@rhel55 ~$ head -4 text.txt 
+    student@linux ~$ head -4 text.txt 
     /
     /opt
     /opt/VBoxGuestAdditions-3.1.6
     /opt/VBoxGuestAdditions-3.1.6/routines.sh
-    paul@rhel55 ~$ gzip text.txt 
-    paul@rhel55 ~$ zcat text.txt.gz | head -4
+    student@linux ~$ gzip text.txt 
+    student@linux ~$ zcat text.txt.gz | head -4
     /
     /opt
     /opt/VBoxGuestAdditions-3.1.6
@@ -189,14 +189,14 @@ with `zcat` and `zmore`.
 Files can also be compressed with `bzip2` which takes a
 little more time than `gzip`, but compresses better.
 
-    paul@rhel55 ~$ bzip2 text.txt 
-    paul@rhel55 ~$ ls -lh text.txt.bz2 
+    student@linux ~$ bzip2 text.txt 
+    student@linux ~$ ls -lh text.txt.bz2 
     -rw-rw-r-- 1 paul paul 569K Apr 17 13:11 text.txt.bz2
 
 Files can be uncompressed again with `bunzip2`.
 
-    paul@rhel55 ~$ bunzip2 text.txt.bz2 
-    paul@rhel55 ~$ ls -lh text.txt 
+    student@linux ~$ bunzip2 text.txt.bz2 
+    student@linux ~$ ls -lh text.txt 
     -rw-rw-r-- 1 paul paul 6.4M Apr 17 13:11 text.txt
 
 ## bzcat - bzmore
@@ -204,8 +204,8 @@ Files can be uncompressed again with `bunzip2`.
 And in the same way `bzcat` and `bzmore` can
 display files compressed with `bzip2`.
 
-    paul@rhel55 ~$ bzip2 text.txt 
-    paul@rhel55 ~$ bzcat text.txt.bz2 | head -4
+    student@linux ~$ bzip2 text.txt 
+    student@linux ~$ bzcat text.txt.bz2 | head -4
     /
     /opt
     /opt/VBoxGuestAdditions-3.1.6

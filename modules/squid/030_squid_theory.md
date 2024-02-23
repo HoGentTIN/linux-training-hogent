@@ -3,7 +3,7 @@
 This screenshot shows how to install squid on Debian with `aptitude`.
 Use `yum` if you are on Red Hat/CentOS.
 
-    root@debian10:~# aptitude install squid
+    root@linux:~# aptitude install squid
     The following NEW packages will be installed:
       squid squid-common{a} squid-langpack{a}
     0 packages upgraded, 3 newly installed, 0 to remove and 0 not upgraded.
@@ -21,31 +21,31 @@ Use `yum` if you are on Red Hat/CentOS.
 `/etc/squid/squid.conf`. The file explains every parameter
 in great detail.
 
-    root@debian10:~# wc -l /etc/squid/squid.conf
+    root@linux:~# wc -l /etc/squid/squid.conf
     4948 /etc/squid/squid.conf
 
 ## port 3128
 
 By default the `squid proxy server` will lsiten to `port 3128`.
 
-    root@debian10:~# grep ^http_port /etc/squid/squid.conf
+    root@linux:~# grep ^http_port /etc/squid/squid.conf
     http_port 3128
-    root@debian10:~#
+    root@linux:~#
 
 ## starting and stopping
 
 You can manage `squid` with the standard `service` command as shown in
 this screenshot.
 
-    root@debian10:~# service squid start
+    root@linux:~# service squid start
     Starting Squid HTTP proxy: squid.
-    root@debian10:~# service squid restart
+    root@linux:~# service squid restart
     Restarting Squid HTTP proxy: squid.
-    root@debian10:~# service squid status
+    root@linux:~# service squid status
     squid is running.
-    root@debian10:~# service squid stop
+    root@linux:~# service squid stop
     Stopping Squid HTTP proxy: squid.
-    root@debian10:~#
+    root@linux:~#
 
 ## client proxy settings
 
@@ -64,7 +64,7 @@ message similar to this schreenshot.
 To enable a proxy server with Google Chrome (or Debian Chromium) start
 the program from the command line like this:
 
-    paul@debian10:~$ chromium --proxy-server='192.168.1.60:3128'
+    student@linux:~$ chromium --proxy-server='192.168.1.60:3128'
 
 Disabling the proxy with `service squid stop` should result in an error
 message similar to this screenshot.
@@ -87,11 +87,11 @@ script that uses these tools (and `wget` to download the images locally
 and serve them with `apache2`). In this example we use `imagemagick`
 (which provides tools like `convert` and `mogrify`).
 
-    root@debian10:~# aptitude install imagemagick wget perl apache2
+    root@linux:~# aptitude install imagemagick wget perl apache2
     ...output truncated...
-    root@debian10:~# dpkg -S $(readlink -f $(which mogrify))
+    root@linux:~# dpkg -S $(readlink -f $(which mogrify))
     imagemagick: /usr/bin/mogrify.im6
-    root@debian10:~#
+    root@linux:~#
 
 The perl script that is shown in the screenshot below can be found on
 several websites, yet I have not found the original author. It is
@@ -99,7 +99,7 @@ however a very simple script that uses `wget` and `mogrify` to download
 images (.jpg .gif and .png), flip them and store them in
 `/var/www/images`.
 
-    root@debian10:~# cat /usr/local/bin/flip.pl
+    root@linux:~# cat /usr/local/bin/flip.pl
     #!/usr/bin/perl
     $|=1;
     $count = 0;
@@ -142,11 +142,11 @@ and by the `apache2` webserver (which uses the user `www-data`. The
 screenshot below shows how to create this directory, set the permissions
 and make the users a member of the other groups.
 
-    root@debian10:~# mkdir /var/www/images
-    root@debian10:~# chown www-data:www-data /var/www/images
-    root@debian10:~# chmod 755 /var/www/images
-    root@debian10:~# usermod -aG www-data proxy
-    root@debian10:~# usermod -aG proxy www-data
+    root@linux:~# mkdir /var/www/images
+    root@linux:~# chown www-data:www-data /var/www/images
+    root@linux:~# chmod 755 /var/www/images
+    root@linux:~# usermod -aG www-data proxy
+    root@linux:~# usermod -aG proxy www-data
 
 Test that it works after restarting `squid` and `apache2`.
 
@@ -194,22 +194,22 @@ command line programs to the proxy.
 Testing a client machine can then be done with wget (wget -q is used to
 simplify the screenshot).
 
-    [root@RHEL5 ~]# > /etc/resolv.conf
-    [root@RHEL5 ~]# wget -q http://www.linux-training.be/index.html
-    [root@RHEL5 ~]# ls -l index.html 
+    [root@linux ~]# > /etc/resolv.conf
+    [root@linux ~]# wget -q http://www.linux-training.be/index.html
+    [root@linux ~]# ls -l index.html 
     -rw-r--r-- 1 root root 2269 Sep 18  2008 index.html
-    [root@RHEL5 ~]#
+    [root@linux ~]#
 
 ## name resolution
 
 You need name resolution working on the `squid` server, but you don\'t
 need name resolution on the clients.
 
-    [paul@RHEL5 ~]$ wget http://grep.be
+    [student@linux ~]$ wget http://grep.be
     --14:35:44--  http://grep.be
     Resolving grep.be... failed: Temporary failure in name resolution.
-    [paul@RHEL5 ~]$ export http_proxy=http://192.168.1.39:8080
-    [paul@RHEL5 ~]$ wget http://grep.be
+    [student@linux ~]$ export http_proxy=http://192.168.1.39:8080
+    [student@linux ~]$ wget http://grep.be
     --14:35:49--  http://grep.be/
     Connecting to 192.168.1.39:8080... connected.
     Proxy request sent, awaiting response... 200 OK
@@ -220,5 +220,5 @@ need name resolution on the clients.
 
     14:38:29 (54.8 KB/s) - `index.html' saved [5390/5390]
 
-    [paul@RHEL5 ~]$
+    [student@linux ~]$
 

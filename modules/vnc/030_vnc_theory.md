@@ -13,10 +13,10 @@ BSD and more.
 
 Starting the vnc server for the first time.
 
-    [root@RHELv8u3 conf]# rpm -qa | grep -i vnc
+    [root@linux conf]# rpm -qa | grep -i vnc
     vnc-server-4.0-8.1
     vnc-4.0-8.1
-    [root@RHELv8u3 conf]# vncserver :2
+    [root@linux conf]# vncserver :2
                     
     You will require a password to access your desktops.
                     
@@ -30,7 +30,7 @@ Starting the vnc server for the first time.
     Starting applications specified in /root/.vnc/xstartup
     Log file is /root/.vnc/RHELv8u3.localdomain:2.log
                     
-    [root@RHELv8u3 conf]# 
+    [root@linux conf]# 
             
 
 ## VNC Client
@@ -39,7 +39,7 @@ You can now use the `vncviewer` from another machine to
 connect to your vnc server. It will default to a very simple graphical
 interface\...
 
-    paul@laika:~$ vncviewer 192.168.1.49:2
+    student@linux:~$ vncviewer 192.168.1.49:2
     VNC viewer version 3.3.7 - built Nov 20 2006 13:05:04
     Copyright (C) 2002-2003 RealVNC Ltd.
     Copyright (C) 1994-2000 AT&T Laboratories Cambridge.
@@ -57,7 +57,7 @@ the last two lines of `~/.vnc/xstartup` and add a
 `gnome-session &` line to have vnc default to gnome
 instead.
 
-    [root@RHELv8u3 ~]# cat .vnc/xstartup 
+    [root@linux ~]# cat .vnc/xstartup 
     #!/bin/sh
                     
     # Uncomment the following two lines for normal desktop:
@@ -71,14 +71,14 @@ instead.
     # xterm -geometry 80x24+10+10 -ls -title "$VNCDESKTOP Desktop" &
     # twm &
     gnome-session &
-    [root@RHELv8u3 ~]#
+    [root@linux ~]#
             
 
 Don\'t forget to restart your vnc server after changing this file.
 
-    [root@RHELv8u3 ~]# vncserver -kill :2
+    [root@linux ~]# vncserver -kill :2
     Killing Xvnc process ID 5785
-    [root@RHELv8u3 ~]# vncserver :2
+    [root@linux ~]# vncserver :2
             
     New 'RHELv8u3.localdomain:2 (root)' desktop is RHELv8u3.localdomain:2
                     

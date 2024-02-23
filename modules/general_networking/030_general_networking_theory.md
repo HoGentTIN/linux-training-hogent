@@ -263,7 +263,7 @@ multicast groups are managed by `igmp`.
 These protocols are visible in the protocol field of the ip header, and
 are listed in the `/etc/protocols` file.
 
-    paul@debian10:~$ grep tcp /etc/protocols 
+    student@linux:~$ grep tcp /etc/protocols 
     tcp     6       TCP             # transmission control protocol
 
 ### many services
@@ -275,7 +275,7 @@ Common application level protocols like smtp, http, ssh, telnet and ftp
 have fixed `port numbers`. There is a list of `port numbers` in
 `/etc/services`.
 
-    paul@ubu1010:~$ grep ssh /etc/services 
+    student@linux:~$ grep ssh /etc/services 
     ssh             22/tcp                 # SSH Remote Login Protocol
     ssh             22/udp
 

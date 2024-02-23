@@ -6,15 +6,15 @@ Simple scheduling can be done with the `at` command. This
 screenshot shows the scheduling of the date command at 22:01 and the
 sleep command at 22:03.
 
-    root@laika:~# at 22:01
+    root@linux:~# at 22:01
     at> date
     at> <EOT>
     job 1 at Wed Aug  1 22:01:00 2007
-    root@laika:~# at 22:03
+    root@linux:~# at 22:03
     at> sleep 10
     at> <EOT>
     job 2 at Wed Aug  1 22:03:00 2007
-    root@laika:~#
+    root@linux:~#
 
 *In real life you will hopefully be scheduling more useful commands ;-)*
 
@@ -23,41 +23,41 @@ sleep command at 22:03.
 It is easy to check when jobs are scheduled with the `atq`
 or `at -l` commands.
 
-    root@laika:~# atq
+    root@linux:~# atq
     1       Wed Aug  1 22:01:00 2007 a root
     2       Wed Aug  1 22:03:00 2007 a root
-    root@laika:~# at -l
+    root@linux:~# at -l
     1       Wed Aug  1 22:01:00 2007 a root
     2       Wed Aug  1 22:03:00 2007 a root
-    root@laika:~#
+    root@linux:~#
 
 The at command understands English words like tomorrow and teatime to
 schedule commands the next day and at four in the afternoon.
 
-    root@laika:~# at 10:05 tomorrow
+    root@linux:~# at 10:05 tomorrow
     at> sleep 100
     at> <EOT>
     job 5 at Thu Aug  2 10:05:00 2007
-    root@laika:~# at teatime tomorrow
+    root@linux:~# at teatime tomorrow
     at> tea
     at> <EOT>
     job 6 at Thu Aug  2 16:00:00 2007
-    root@laika:~# atq
+    root@linux:~# atq
     6       Thu Aug  2 16:00:00 2007 a root
     5       Thu Aug  2 10:05:00 2007 a root
-    root@laika:~#
+    root@linux:~#
 
 ### atrm
 
 Jobs in the at queue can be removed with `atrm`.
 
-    root@laika:~# atq
+    root@linux:~# atq
     6       Thu Aug  2 16:00:00 2007 a root
     5       Thu Aug  2 10:05:00 2007 a root
-    root@laika:~# atrm 5
-    root@laika:~# atq
+    root@linux:~# atrm 5
+    root@linux:~# atq
     6       Thu Aug  2 16:00:00 2007 a root
-    root@laika:~#
+    root@linux:~#
 
 ### at.allow and at.deny
 
@@ -139,7 +139,7 @@ run at the times scheduled in `/etc/crontab`. The
 `/etc/cron.d` directory is for special cases, to schedule
 jobs that require finer control than hourly/daily/weekly/monthly.
 
-    paul@laika:~$ ls -ld /etc/cron.*
+    student@linux:~$ ls -ld /etc/cron.*
     drwxr-xr-x 2 root root 4096 2008-04-11 09:14 /etc/cron.d
     drwxr-xr-x 2 root root 4096 2008-04-19 15:04 /etc/cron.daily
     drwxr-xr-x 2 root root 4096 2008-04-11 09:14 /etc/cron.hourly
@@ -151,7 +151,7 @@ jobs that require finer control than hourly/daily/weekly/monthly.
 Note that Red Hat uses `anacron` to schedule daily, weekly and monthly
 cron jobs.
 
-    root@rhel65:/etc# cat anacrontab
+    root@linux:/etc# cat anacrontab
     # /etc/anacrontab: configuration file for anacron
 
     # See anacron(8) and anacrontab(5) for details.
@@ -168,5 +168,5 @@ cron jobs.
     1       5       cron.daily              nice run-parts /etc/cron.daily
     7       25      cron.weekly             nice run-parts /etc/cron.weekly
     @monthly 45     cron.monthly            nice run-parts /etc/cron.monthly
-    root@rhel65:/etc#
+    root@linux:/etc#
 

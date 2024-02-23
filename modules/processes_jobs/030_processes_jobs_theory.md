@@ -6,8 +6,8 @@ Stuff that runs in background of your current shell can be displayed
 with the `jobs` command. By default you will not have any
 `jobs` running in background.
 
-    root@rhel53 ~# jobs
-    root@rhel53 ~#
+    root@linux ~# jobs
+    root@linux ~#
             
 
 This `jobs` command will be used several times in this section.
@@ -21,10 +21,10 @@ effectively freezing the operation of the process.
 When doing this in `vi(m)`, then `vi(m)` goes to the background. The
 background `vi(m)` can be seen with the `jobs` command.
 
-    [paul@RHEL8a ~]$ vi procdemo.txt
+    [student@linux ~]$ vi procdemo.txt
 
     [5]+  Stopped                 vim procdemo.txt
-    [paul@RHEL8a ~]$ jobs
+    [student@linux ~]$ jobs
     [5]+  Stopped                 vim procdemo.txt
             
 
@@ -33,12 +33,12 @@ background `vi(m)` can be seen with the `jobs` command.
 Processes that are started in background using the `&` character at the
 end of the command line are also visible with the `jobs` command.
 
-    [paul@RHEL8a ~]$ find / > allfiles.txt 2> /dev/null &
+    [student@linux ~]$ find / > allfiles.txt 2> /dev/null &
     [6] 5230
-    [paul@RHEL8a ~]$ jobs
+    [student@linux ~]$ jobs
     [5]+  Stopped                 vim procdemo.txt
     [6]-  Running                 find / >allfiles.txt 2>/dev/null &
-    [paul@RHEL8a ~]$
+    [student@linux ~]$
             
 
 ### jobs -p
@@ -46,18 +46,18 @@ end of the command line are also visible with the `jobs` command.
 An interesting option is `jobs -p` to see the `process id` of background
 processes.
 
-    [paul@RHEL8b ~]$ sleep 500 &
+    [student@linux ~]$ sleep 500 &
     [1] 4902
-    [paul@RHEL8b ~]$ sleep 400 &
+    [student@linux ~]$ sleep 400 &
     [2] 4903
-    [paul@RHEL8b ~]$ jobs -p
+    [student@linux ~]$ jobs -p
     4902
     4903
-    [paul@RHEL8b ~]$ ps `jobs -p`
+    [student@linux ~]$ ps `jobs -p`
       PID TTY      STAT   TIME COMMAND
      4902 pts/0    S      0:00 sleep 500
      4903 pts/0    S      0:00 sleep 400
-    [paul@RHEL8b ~]$
+    [student@linux ~]$
             
 
 ### fg
@@ -66,11 +66,11 @@ Running the `fg` command will bring a background job to
 the foreground. The number of the background job to bring forward is the
 parameter of `fg`.
 
-    [paul@RHEL5 ~]$ jobs
+    [student@linux ~]$ jobs
     [1]   Running                 sleep 1000 &
     [2]-  Running                 sleep 1000 &
     [3]+  Running                 sleep 2000 &
-    [paul@RHEL5 ~]$ fg 3
+    [student@linux ~]$ fg 3
     sleep 2000
             
 
@@ -82,20 +82,20 @@ with `bg`. The `bg` will send a `SIGCONT` signal.
 Below an example of the sleep command (suspended with `Ctrl-Z`) being
 reactivated in background with `bg`.
 
-    [paul@RHEL5 ~]$ jobs
-    [paul@RHEL5 ~]$ sleep 5000 &
+    [student@linux ~]$ jobs
+    [student@linux ~]$ sleep 5000 &
     [1] 6702
-    [paul@RHEL5 ~]$ sleep 3000
+    [student@linux ~]$ sleep 3000
 
     [2]+  Stopped                 sleep 3000
-    [paul@RHEL5 ~]$ jobs
+    [student@linux ~]$ jobs
     [1]-  Running                 sleep 5000 &
     [2]+  Stopped                 sleep 3000
-    [paul@RHEL5 ~]$ bg 2
+    [student@linux ~]$ bg 2
     [2]+ sleep 3000 &
-    [paul@RHEL5 ~]$ jobs
+    [student@linux ~]$ jobs
     [1]-  Running                 sleep 5000 &
     [2]+  Running                 sleep 3000 &
-    [paul@RHEL5 ~]$ 
+    [student@linux ~]$ 
             
 

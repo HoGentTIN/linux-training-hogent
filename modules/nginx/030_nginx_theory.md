@@ -5,13 +5,13 @@
 This screenshot shows that there is no `apache` server installed, nor
 does the `/var/www` directory exist.
 
-    root@debian10:~# ls -l /var/www
+    root@linux:~# ls -l /var/www
     ls: cannot access /var/www: No such file or directory
-    root@debian10:~# dpkg -l | grep apache
+    root@linux:~# dpkg -l | grep apache
 
 To install `apache` on Debian:
 
-    root@debian10:~# aptitude install apache2
+    root@linux:~# aptitude install apache2
     The following NEW packages will be installed:
       apache2 apache2-mpm-worker{a} apache2-utils{a} apache2.2-bin{a} apache2.2-com\
     mon{a} libapr1{a} libaprutil1{a} libaprutil1-dbd-sqlite3{a} libaprutil1-ldap{a}\
@@ -23,10 +23,10 @@ To install `apache` on Debian:
 After installation, the same two commands as above will yield a
 different result:
 
-    root@debian10:~# ls -l /var/www
+    root@linux:~# ls -l /var/www
     total 4
     -rw-r--r-- 1 root root 177 Apr 29 11:55 index.html
-    root@debian10:~# dpkg -l | grep apache | tr -s ' '
+    root@linux:~# dpkg -l | grep apache | tr -s ' '
     ii apache2 2.2.22-13+deb7u1 amd64 Apache HTTP Server metapackage
     ii apache2-mpm-worker 2.2.22-13+deb7u1 amd64 Apache HTTP Server - high speed th\
     readed model
@@ -41,55 +41,55 @@ process name instead of `apache`.
 
 To verify whether `apache` is installed in CentOS/RHEL:
 
-    [root@centos65 ~]# rpm -q httpd
+    [root@linux ~]# rpm -q httpd
     package httpd is not installed
-    [root@centos65 ~]# ls -l /var/www
+    [root@linux ~]# ls -l /var/www
     ls: cannot access /var/www: No such file or directory
 
 To install apache on CentOS:
 
-    [root@centos65 ~]# yum install httpd
+    [root@linux ~]# yum install httpd
 
 After running the `yum install httpd` command, the Centos 6.5 server has
 apache installed and the `/var/www` directory exists.
 
-    [root@centos65 ~]# rpm -q httpd
+    [root@linux ~]# rpm -q httpd
     httpd-2.2.15-30.el6.centos.x86_64
-    [root@centos65 ~]# ls -l /var/www
+    [root@linux ~]# ls -l /var/www
     total 16
     drwxr-xr-x. 2 root root 4096 Apr  3 23:57 cgi-bin
     drwxr-xr-x. 3 root root 4096 May  6 13:08 error
     drwxr-xr-x. 2 root root 4096 Apr  3 23:57 html
     drwxr-xr-x. 3 root root 4096 May  6 13:08 icons
-    [root@centos65 ~]#
+    [root@linux ~]#
 
 ### running apache on Debian
 
 This is how you start `apache2` on Debian.
 
-    root@debian10:~# service apache2 status
+    root@linux:~# service apache2 status
     Apache2 is NOT running.
-    root@debian10:~# service apache2 start
+    root@linux:~# service apache2 start
     Starting web server: apache2apache2: Could not reliably determine the server's \
     fully qualified domain name, using 127.0.1.1 for ServerName
     .
 
 To verify, run the `service apache2 status` command again or use `ps`.
 
-    root@debian10:~# service apache2 status
+    root@linux:~# service apache2 status
     Apache2 is running (pid 3680).
-    root@debian10:~# ps -C apache2
+    root@linux:~# ps -C apache2
       PID TTY          TIME CMD
      3680 ?        00:00:00 apache2
      3683 ?        00:00:00 apache2
      3684 ?        00:00:00 apache2
      3685 ?        00:00:00 apache2
-    root@debian10:~#
+    root@linux:~#
 
 Or use `wget` and `file` to verify that your web server serves an html
 document.
 
-    root@debian10:~# wget 127.0.0.1
+    root@linux:~# wget 127.0.0.1
     --2014-05-06 13:27:02--  http://127.0.0.1/
     Connecting to 127.0.0.1:80... connected.
     HTTP request sent, awaiting response... 200 OK
@@ -100,9 +100,9 @@ document.
 
     2014-05-06 13:27:02 (15.8 MB/s) - `index.html' saved [177/177]
 
-    root@debian10:~# file index.html
+    root@linux:~# file index.html
     index.html: HTML document, ASCII text
-    root@debian10:~#
+    root@linux:~#
 
 Or verify that apache is running by opening a web browser, and browse to
 the ip-address of your server. An Apache test page should be shown.
@@ -110,30 +110,30 @@ the ip-address of your server. An Apache test page should be shown.
 You can do the following to quickly avoid the \'could not reliably
 determine the fqdn\' message when restarting apache.
 
-    root@debian10:~# echo ServerName debian10 >> /etc/apache2/apache2.conf
-    root@debian10:~# service apache2 restart
+    root@linux:~# echo ServerName debian10 >> /etc/apache2/apache2.conf
+    root@linux:~# service apache2 restart
     Restarting web server: apache2 ... waiting .
-    root@debian10:~#
+    root@linux:~#
 
 ### running apache on CentOS
 
 Starting the `httpd` on RHEL/CentOS is done with the
 `service` command.
 
-    [root@centos65 ~]# service httpd status
+    [root@linux ~]# service httpd status
     httpd is stopped
-    [root@centos65 ~]# service httpd start
+    [root@linux ~]# service httpd start
     Starting httpd: httpd: Could not reliably determine the server's fully qualifie\
     d domain name, using 127.0.0.1 for ServerName
                                                                [  OK  ]
-    [root@centos65 ~]#
+    [root@linux ~]#
 
 To verify that `apache` is running, use `ps` or issue the
 `service httpd status` command again.
 
-    [root@centos65 ~]# service httpd status
+    [root@linux ~]# service httpd status
     httpd (pid  2410) is running...
-    [root@centos65 ~]# ps -C httpd
+    [root@linux ~]# ps -C httpd
       PID TTY          TIME CMD
      2410 ?        00:00:00 httpd
      2412 ?        00:00:00 httpd
@@ -144,23 +144,23 @@ To verify that `apache` is running, use `ps` or issue the
      2417 ?        00:00:00 httpd
      2418 ?        00:00:00 httpd
      2419 ?        00:00:00 httpd
-    [root@centos65 ~]#
+    [root@linux ~]#
 
 To prevent the \'Could not reliably determine the fqdn\' message, issue
 the following command.
 
-    [root@centos65 ~]# echo ServerName Centos65 >> /etc/httpd/conf/httpd.conf
-    [root@centos65 ~]# service httpd restart
+    [root@linux ~]# echo ServerName Centos65 >> /etc/httpd/conf/httpd.conf
+    [root@linux ~]# service httpd restart
     Stopping httpd:                                            [  OK  ]
     Starting httpd:                                            [  OK  ]
-    [root@centos65 ~]#
+    [root@linux ~]#
 
 ### index file on CentOS
 
 CentOS does not provide a standard index.html or index.php file. A
 simple `wget` gives an error.
 
-    [root@centos65 ~]# wget 127.0.0.1
+    [root@linux ~]# wget 127.0.0.1
     --2014-05-06 15:10:22--  http://127.0.0.1/
     Connecting to 127.0.0.1:80... connected.
     HTTP request sent, awaiting response... 403 Forbidden
@@ -169,7 +169,7 @@ simple `wget` gives an error.
 Instead when visiting the ip-address of your server in a web browser you
 get a `noindex.html` page. You can verify this using `wget`.
 
-    [root@centos65 ~]# wget http://127.0.0.1/error/noindex.html
+    [root@linux ~]# wget http://127.0.0.1/error/noindex.html
     --2014-05-06 15:16:05--  http://127.0.0.1/error/noindex.html
     Connecting to 127.0.0.1:80... connected.
     HTTP request sent, awaiting response... 200 OK
@@ -180,15 +180,15 @@ get a `noindex.html` page. You can verify this using `wget`.
 
     2014-05-06 15:16:05 (289 MB/s) - “noindex.html” saved [5039/5039]
 
-    [root@centos65 ~]# file noindex.html
+    [root@linux ~]# file noindex.html
     noindex.html: HTML document text
-    [root@centos65 ~]#
+    [root@linux ~]#
 
 Any custom `index.html` file in `/var/www/html` will immediately serve
 as an index for this web server.
 
-    [root@centos65 ~]# echo 'Welcome to my website' > /var/www/html/index.html
-    [root@centos65 ~]# wget http://127.0.0.1
+    [root@linux ~]# echo 'Welcome to my website' > /var/www/html/index.html
+    [root@linux ~]# wget http://127.0.0.1
     --2014-05-06 15:19:16--  http://127.0.0.1/
     Connecting to 127.0.0.1:80... connected.
     HTTP request sent, awaiting response... 200 OK
@@ -199,7 +199,7 @@ as an index for this web server.
 
     2014-05-06 15:19:16 (1.95 MB/s) - “index.html” saved [22/22]
 
-    [root@centos65 ~]# cat index.html
+    [root@linux ~]# cat index.html
     Welcome to my website
 
 ### default website
@@ -210,34 +210,34 @@ DocumentRoot directory.
 
 To locate the DocumentRoot directory on Debian:
 
-    root@debian10:~# grep DocumentRoot /etc/apache2/sites-available/default
+    root@linux:~# grep DocumentRoot /etc/apache2/sites-available/default
             DocumentRoot /var/www
 
 This means that `/var/www/index.html` is the default web site.
 
-    root@debian10:~# cat /var/www/index.html
+    root@linux:~# cat /var/www/index.html
     <html><body><h1>It works!</h1>
     <p>This is the default web page for this server.</p>
     <p>The web server software is running but no content has been added, yet.</p>
     </body></html>
-    root@debian10:~#
+    root@linux:~#
 
 This screenshot shows how to locate the `DocumentRoot` directory on
 RHEL/CentOS.
 
-    [root@centos65 ~]# grep ^DocumentRoot /etc/httpd/conf/httpd.conf
+    [root@linux ~]# grep ^DocumentRoot /etc/httpd/conf/httpd.conf
     DocumentRoot "/var/www/html"
 
 RHEL/CentOS have no default web page (only the noindex.html error page
 mentioned before). But an `index.html` file created in `/var/www/html/`
 will automatically be used as default page.
 
-    [root@centos65 ~]# echo '<html><head><title>Default website</title></head><body\
+    [root@linux ~]# echo '<html><head><title>Default website</title></head><body\
     ><p>A new web page</p></body></html>' > /var/www/html/index.html
-    [root@centos65 ~]# cat /var/www/html/index.html
+    [root@linux ~]# cat /var/www/html/index.html
     <html><head><title>Default website</title></head><body><p>A new web page</p></b\
     ody></html>
-    [root@centos65 ~]#
+    [root@linux ~]#
 
 ### apache configuration
 
@@ -247,7 +247,7 @@ get their own chapters with examples.
 
 All configuration on RHEL/CentOS is done in `/etc/httpd`.
 
-    [root@centos65 ~]# ls -l /etc/httpd/
+    [root@linux ~]# ls -l /etc/httpd/
     total 8
     drwxr-xr-x. 2 root root 4096 May  6 13:08 conf
     drwxr-xr-x. 2 root root 4096 May  6 13:08 conf.d
@@ -255,11 +255,11 @@ All configuration on RHEL/CentOS is done in `/etc/httpd`.
     lrwxrwxrwx. 1 root root   29 May  6 13:08 modules -> ../../usr/lib64/httpd/modu\
     les
     lrwxrwxrwx. 1 root root   19 May  6 13:08 run -> ../../var/run/httpd
-    [root@centos65 ~]#
+    [root@linux ~]#
 
 Debian (and ubuntu/mint/\...) use `/etc/apache2`.
 
-    root@debian10:~# ls -l /etc/apache2/
+    root@linux:~# ls -l /etc/apache2/
     total 72
     -rw-r--r-- 1 root root  9659 May  6 14:23 apache2.conf
     drwxr-xr-x 2 root root  4096 May  6 13:19 conf.d
@@ -270,7 +270,7 @@ Debian (and ubuntu/mint/\...) use `/etc/apache2`.
     -rw-r--r-- 1 root root   750 Jan 26 12:13 ports.conf
     drwxr-xr-x 2 root root  4096 May  6 13:19 sites-available
     drwxr-xr-x 2 root root  4096 May  6 13:19 sites-enabled
-    root@debian10:~#
+    root@linux:~#
 
 ## port virtual hosts on Debian
 
@@ -279,7 +279,7 @@ Debian (and ubuntu/mint/\...) use `/etc/apache2`.
 Debian has a virtualhost configuration file for its default website in
 `/etc/apache2/sites-available/default`.
 
-    root@debian10:~# head -2 /etc/apache2/sites-available/default
+    root@linux:~# head -2 /etc/apache2/sites-available/default
     <VirtualHost *:80>
             ServerAdmin webmaster@localhost
 
@@ -294,20 +294,20 @@ One way to put three websites on one web server, is to put each website
 on a different port. This screenshot shows three newly created
 `virtual hosts`, one for each customer.
 
-    root@debian10:~# vi /etc/apache2/sites-available/choochoo
-    root@debian10:~# cat /etc/apache2/sites-available/choochoo
+    root@linux:~# vi /etc/apache2/sites-available/choochoo
+    root@linux:~# cat /etc/apache2/sites-available/choochoo
     <VirtualHost *:7000>
             ServerAdmin webmaster@localhost
             DocumentRoot /var/www/choochoo
     </VirtualHost>
-    root@debian10:~# vi /etc/apache2/sites-available/chessclub42
-    root@debian10:~# cat /etc/apache2/sites-available/chessclub42
+    root@linux:~# vi /etc/apache2/sites-available/chessclub42
+    root@linux:~# cat /etc/apache2/sites-available/chessclub42
     <VirtualHost *:8000>
             ServerAdmin webmaster@localhost
             DocumentRoot /var/www/chessclub42
     </VirtualHost>
-    root@debian10:~# vi /etc/apache2/sites-available/hunter2
-    root@debian10:~# cat /etc/apache2/sites-available/hunter2
+    root@linux:~# vi /etc/apache2/sites-available/hunter2
+    root@linux:~# cat /etc/apache2/sites-available/hunter2
     <VirtualHost *:9000>
             ServerAdmin webmaster@localhost
             DocumentRoot /var/www/hunter2
@@ -325,11 +325,11 @@ We need to enable these three ports on apache in the `ports.conf` file.
 Open this file with `vi` and add three lines to `listen` on three extra
 ports.
 
-    root@debian10:~# vi /etc/apache2/ports.conf
+    root@linux:~# vi /etc/apache2/ports.conf
 
 Verify with `grep` that the `Listen` directives are added correctly.
 
-    root@debian10:~# grep ^Listen /etc/apache2/ports.conf
+    root@linux:~# grep ^Listen /etc/apache2/ports.conf
     Listen 80
     Listen 7000
     Listen 8000
@@ -339,17 +339,17 @@ Verify with `grep` that the `Listen` directives are added correctly.
 
 Next we need to create three `DocumentRoot` directories.
 
-    root@debian10:~# mkdir /var/www/choochoo
-    root@debian10:~# mkdir /var/www/chessclub42
-    root@debian10:~# mkdir /var/www/hunter2
+    root@linux:~# mkdir /var/www/choochoo
+    root@linux:~# mkdir /var/www/chessclub42
+    root@linux:~# mkdir /var/www/hunter2
 
 And we have to put some really simple website in those directories.
 
-    root@debian10:~# echo 'Choo Choo model train Choo Choo' > /var/www/choochoo/inde\
+    root@linux:~# echo 'Choo Choo model train Choo Choo' > /var/www/choochoo/inde\
     x.html
-    root@debian10:~# echo 'Welcome to chess club 42' > /var/www/chessclub42/index.ht\
+    root@linux:~# echo 'Welcome to chess club 42' > /var/www/chessclub42/index.ht\
     ml
-    root@debian10:~# echo 'HaCkInG iS fUn At HuNtEr2' > /var/www/hunter2/index.html
+    root@linux:~# echo 'HaCkInG iS fUn At HuNtEr2' > /var/www/hunter2/index.html
 
 ### enabling extra websites
 
@@ -358,40 +358,40 @@ This command will create links in `sites-enabled`.
 
 The links are not there yet\...
 
-    root@debian10:~# cd /etc/apache2/ 
-    root@debian10:/etc/apache2# ls sites-available/ 
+    root@linux:~# cd /etc/apache2/ 
+    root@linux:/etc/apache2# ls sites-available/ 
     chessclub42  choochoo  default  default-ssl  hunter2
-    root@debian10:/etc/apache2# ls sites-enabled/ 
+    root@linux:/etc/apache2# ls sites-enabled/ 
     000-default
 
 So we run the `a2ensite` command for all websites.
 
-    root@debian10:/etc/apache2# a2ensite choochoo 
+    root@linux:/etc/apache2# a2ensite choochoo 
     Enabling site choochoo.
     To activate the new configuration, you need to run:
       service apache2 reload
-    root@debian10:/etc/apache2# a2ensite chessclub42 
+    root@linux:/etc/apache2# a2ensite chessclub42 
     Enabling site chessclub42.
     To activate the new configuration, you need to run:
       service apache2 reload
-    root@debian10:/etc/apache2# a2ensite hunter2 
+    root@linux:/etc/apache2# a2ensite hunter2 
     Enabling site hunter2.
     To activate the new configuration, you need to run:
       service apache2 reload
 
 The links are created, so we can tell `apache`.
 
-    root@debian10:/etc/apache2# ls sites-enabled/ 
+    root@linux:/etc/apache2# ls sites-enabled/ 
     000-default  chessclub42  choochoo  hunter2
-    root@debian10:/etc/apache2# service apache2 reload 
+    root@linux:/etc/apache2# service apache2 reload 
     Reloading web server config: apache2.
-    root@debian10:/etc/apache2#
+    root@linux:/etc/apache2#
 
 ### testing the three websites
 
 Testing the model train club named `Choo Choo` on port 7000.
 
-    root@debian10:/etc/apache2# wget 127.0.0.1:7000 
+    root@linux:/etc/apache2# wget 127.0.0.1:7000 
     --2014-05-06 21:16:03--  http://127.0.0.1:7000/
     Connecting to 127.0.0.1:7000... connected.
     HTTP request sent, awaiting response... 200 OK
@@ -402,12 +402,12 @@ Testing the model train club named `Choo Choo` on port 7000.
 
     2014-05-06 21:16:03 (2.92 MB/s) - `index.html' saved [32/32]
 
-    root@debian10:/etc/apache2# cat index.html 
+    root@linux:/etc/apache2# cat index.html 
     Choo Choo model train Choo Choo
 
 Testing the chess club named `Chess Club 42` on port 8000.
 
-    root@debian10:/etc/apache2# wget 127.0.0.1:8000 
+    root@linux:/etc/apache2# wget 127.0.0.1:8000 
     --2014-05-06 21:16:20--  http://127.0.0.1:8000/
     Connecting to 127.0.0.1:8000... connected.
     HTTP request sent, awaiting response... 200 OK
@@ -418,12 +418,12 @@ Testing the chess club named `Chess Club 42` on port 8000.
 
     2014-05-06 21:16:20 (2.16 MB/s) - `index.html.1' saved [25/25]
 
-    root@debian10:/etc/apache2# cat index.html.1 
+    root@linux:/etc/apache2# cat index.html.1 
     Welcome to chess club 42
 
 Testing the hacker club named `hunter2` on port 9000.
 
-    root@debian10:/etc/apache2# wget 127.0.0.1:9000 
+    root@linux:/etc/apache2# wget 127.0.0.1:9000 
     --2014-05-06 21:16:30--  http://127.0.0.1:9000/
     Connecting to 127.0.0.1:9000... connected.
     HTTP request sent, awaiting response... 200 OK
@@ -434,12 +434,12 @@ Testing the hacker club named `hunter2` on port 9000.
 
     2014-05-06 21:16:30 (2.01 MB/s) - `index.html.2' saved [26/26]
 
-    root@debian10:/etc/apache2# cat index.html.2 
+    root@linux:/etc/apache2# cat index.html.2 
     HaCkInG iS fUn At HuNtEr2
 
 Cleaning up the temporary files.
 
-    root@debian10:/etc/apache2# rm index.html index.html.1 index.html.2 
+    root@linux:/etc/apache2# rm index.html index.html.1 index.html.2 
 
 Try testing from another computer using the ip-address of your server.
 
@@ -457,28 +457,28 @@ ports. We need to make sure those websites are accesible using the names
 
 We start by creating three new virtualhosts.
 
-    root@debian10:/etc/apache2/sites-available# vi choochoo.local 
-    root@debian10:/etc/apache2/sites-available# vi chessclub42.local 
-    root@debian10:/etc/apache2/sites-available# vi hunter2.local 
-    root@debian10:/etc/apache2/sites-available# cat choochoo.local 
+    root@linux:/etc/apache2/sites-available# vi choochoo.local 
+    root@linux:/etc/apache2/sites-available# vi chessclub42.local 
+    root@linux:/etc/apache2/sites-available# vi hunter2.local 
+    root@linux:/etc/apache2/sites-available# cat choochoo.local 
     <VirtualHost *:80>
             ServerAdmin webmaster@localhost
             ServerName choochoo.local
             DocumentRoot /var/www/choochoo
     </VirtualHost>
-    root@debian10:/etc/apache2/sites-available# cat chessclub42.local 
+    root@linux:/etc/apache2/sites-available# cat chessclub42.local 
     <VirtualHost *:80>
             ServerAdmin webmaster@localhost
             ServerName chessclub42.local
             DocumentRoot /var/www/chessclub42
     </VirtualHost>
-    root@debian10:/etc/apache2/sites-available# cat hunter2.local 
+    root@linux:/etc/apache2/sites-available# cat hunter2.local 
     <VirtualHost *:80>
             ServerAdmin webmaster@localhost
             ServerName hunter2.local
             DocumentRoot /var/www/hunter2
     </VirtualHost>
-    root@debian10:/etc/apache2/sites-available#
+    root@linux:/etc/apache2/sites-available#
 
 Notice that they all listen on `port 80` and have an extra `ServerName`
 directive.
@@ -489,7 +489,7 @@ We need some way to resolve names. This can be done with DNS, which is
 discussed in another chapter. For this demo it is also possible to
 quickly add the three names to the `/etc/hosts` file.
 
-    root@debian10:/etc/apache2/sites-available# grep ^192 /etc/hosts 
+    root@linux:/etc/apache2/sites-available# grep ^192 /etc/hosts 
     192.168.42.50 choochoo.local
     192.168.42.50 chessclub42.local
     192.168.42.50 hunter2.local
@@ -500,15 +500,15 @@ Note that you may have another ip address\...
 
 Next we enable them with `a2ensite`.
 
-    root@debian10:/etc/apache2/sites-available# a2ensite choochoo.local 
+    root@linux:/etc/apache2/sites-available# a2ensite choochoo.local 
     Enabling site choochoo.local.
     To activate the new configuration, you need to run:
       service apache2 reload
-    root@debian10:/etc/apache2/sites-available# a2ensite chessclub42.local 
+    root@linux:/etc/apache2/sites-available# a2ensite chessclub42.local 
     Enabling site chessclub42.local.
     To activate the new configuration, you need to run:
       service apache2 reload
-    root@debian10:/etc/apache2/sites-available# a2ensite hunter2.local 
+    root@linux:/etc/apache2/sites-available# a2ensite hunter2.local 
     Enabling site hunter2.local.
     To activate the new configuration, you need to run:
       service apache2 reload
@@ -518,9 +518,9 @@ Next we enable them with `a2ensite`.
 After a `service apache2 reload` the websites should be available by
 name.
 
-    root@debian10:/etc/apache2/sites-available# service apache2 reload
+    root@linux:/etc/apache2/sites-available# service apache2 reload
     Reloading web server config: apache2.
-    root@debian10:/etc/apache2/sites-available# wget chessclub42.local 
+    root@linux:/etc/apache2/sites-available# wget chessclub42.local 
     --2014-05-06 21:37:13--  http://chessclub42.local/
     Resolving chessclub42.local (chessclub42.local)... 192.168.42.50
     Connecting to chessclub42.local (chessclub42.local)|192.168.42.50|:80... conne\
@@ -533,7 +533,7 @@ name.
 
     2014-05-06 21:37:13 (2.06 MB/s) - `index.html' saved [25/25]
 
-    root@debian10:/etc/apache2/sites-available# cat index.html 
+    root@linux:/etc/apache2/sites-available# cat index.html 
     Welcome to chess club 42
 
 ## password protected website on Debian
@@ -546,21 +546,21 @@ userid and an (encrypted) password.
 This screenshot creates a user and password for the hacker named `cliff`
 and uses the `-c` flag to create the `.htpasswd` file.
 
-    root@debian10:~# htpasswd -c /var/www/.htpasswd cliff 
+    root@linux:~# htpasswd -c /var/www/.htpasswd cliff 
     New password:
     Re-type new password:
     Adding password for user cliff
-    root@debian10:~# cat /var/www/.htpasswd
+    root@linux:~# cat /var/www/.htpasswd
     cliff:$apr1$vujll0KL$./SZ4w9q0swhX93pQ0PVp.
 
 Hacker `rob` also wants access, this screenshot shows how to add a
 second user and password to `.htpasswd`.
 
-    root@debian10:~# htpasswd /var/www/.htpasswd rob 
+    root@linux:~# htpasswd /var/www/.htpasswd rob 
     New password:
     Re-type new password:
     Adding password for user rob
-    root@debian10:~# cat /var/www/.htpasswd 
+    root@linux:~# cat /var/www/.htpasswd 
     cliff:$apr1$vujll0KL$./SZ4w9q0swhX93pQ0PVp.
     rob:$apr1$HNln1FFt$nRlpF0H.IW11/1DRq4lQo0
 
@@ -570,8 +570,8 @@ visible in the `.htpasswd` file because of the different salts.
 Next we need to create a `.htaccess` file in the `DocumentRoot` of the
 website we want to protect. This screenshot shows an example.
 
-    root@debian10:~# cd /var/www/hunter2/ 
-    root@debian10:/var/www/hunter2# cat .htaccess 
+    root@linux:~# cd /var/www/hunter2/ 
+    root@linux:/var/www/hunter2# cat .htaccess 
     AuthUserFile /var/www/.htpasswd
     AuthName "Members only!"
     AuthType Basic
@@ -641,7 +641,7 @@ we specified a unique `DocumentRoot` for each website.
 We need to enable these three ports on apache in the `httpd.conf` file.
 
     [root@CentOS65 ~]# vi /etc/httpd/conf/httpd.conf
-    root@debian10:~# grep ^Listen /etc/httpd/conf/httpd.conf
+    root@linux:~# grep ^Listen /etc/httpd/conf/httpd.conf
     Listen 80
     Listen 7000
     Listen 8000
@@ -729,7 +729,7 @@ Testing the chess club named `Chess Club 42` on port 8000.
 
     2014-05-11 12:01:30 (4.25 MB/s) - `index.html.1' saved [25/25]
 
-    root@debian10:/etc/apache2# cat index.html.1 
+    root@linux:/etc/apache2# cat index.html.1 
     Welcome to chess club 42
 
 Testing the hacker club named `hunter2` on port 9000.
@@ -745,7 +745,7 @@ Testing the hacker club named `hunter2` on port 9000.
 
     2014-05-11 12:02:37 (4.49 MB/s) - `index.html.2' saved [26/26]
 
-    root@debian10:/etc/apache2# cat index.html.2 
+    root@linux:/etc/apache2# cat index.html.2 
     HaCkInG iS fUn At HuNtEr2
 
 Cleaning up the temporary files.
@@ -941,7 +941,7 @@ configuration folder `/etc/apache2` on debian or `/etc/httpd` on CentOS
 and it will tell you the name of the faulty file, the line number and an
 explanation of the error.
 
-    root@debian10:~# service apache2 restart
+    root@linux:~# service apache2 restart
     apache2: Syntax error on line 268 of /etc/apache2/apache2.conf: Syntax error o\
     n line 1 of /etc/apache2/sites-enabled/chessclub42: /etc/apache2/sites-enabled\
     /chessclub42:4: <VirtualHost> was not closed.\n/etc/apache2/sites-enabled/ches\
@@ -952,7 +952,7 @@ explanation of the error.
 
 Below you see the problem\... a missing / before on line 4.
 
-    root@debian10:~# cat /etc/apache2/sites-available/chessclub42
+    root@linux:~# cat /etc/apache2/sites-available/chessclub42
     <VirtualHost *:8000>
             ServerAdmin webmaster@localhost
             DocumentRoot /var/www/chessclub42
@@ -961,8 +961,8 @@ Below you see the problem\... a missing / before on line 4.
 Let us force another error by renaming the directory of one of our
 websites:
 
-    root@debian10:~# mv /var/www/choochoo/ /var/www/chooshoo
-    root@debian10:~# !ser
+    root@linux:~# mv /var/www/choochoo/ /var/www/chooshoo
+    root@linux:~# !ser
     service apache2 restart
     Restarting web server: apache2Warning: DocumentRoot [/var/www/choochoo] does n\
     ot exist
@@ -1013,7 +1013,7 @@ use .htaccess to prevent people from certain domains to access your
 website. Like in this case, where a number of referer spammers are
 blocked from the website.
 
-    paul@lounge:~/cobbaut.be$ cat .htaccess 
+    student@linux:~/cobbaut.be$ cat .htaccess 
     # Options +FollowSymlinks
     RewriteEngine On
     RewriteCond %{HTTP_REFERER} ^http://(www\.)?buy-adipex.fw.nu.*$ [OR]
@@ -1023,7 +1023,7 @@ blocked from the website.
     ...
     RewriteCond %{HTTP_REFERER} ^http://(www\.)?www.healthinsurancehelp.net.*$ [NC]
     RewriteRule .* - [F,L]
-    paul@lounge:~/cobbaut.be$
+    student@linux:~/cobbaut.be$
 
 ## traffic
 
@@ -1037,7 +1037,7 @@ self-signed certificate.
 
 Chances are these packages are already installed.
 
-    root@debian10:~# aptitude install apache2 openssl
+    root@linux:~# aptitude install apache2 openssl
     No packages will be installed, upgraded, or removed.
     0 packages upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
     Need to get 0 B of archives. After unpacking 0 B will be used.
@@ -1045,8 +1045,8 @@ Chances are these packages are already installed.
 Create a directory to store the certs, and use `openssl` to create a
 self signed cert that is valid for 999 days.
 
-    root@debian10:~# mkdir /etc/ssl/localcerts
-    root@debian10:~# openssl req -new -x509 -days 999 -nodes -out /etc/ssl/local\
+    root@linux:~# mkdir /etc/ssl/localcerts
+    root@linux:~# openssl req -new -x509 -days 999 -nodes -out /etc/ssl/local\
     certs/apache.pem -keyout /etc/ssl/localcerts/apache.key
     Generating a 2048 bit RSA private key
     ...
@@ -1070,19 +1070,19 @@ self signed cert that is valid for 999 days.
 
 A little security never hurt anyone.
 
-    root@debian10:~# ls -l /etc/ssl/localcerts/
+    root@linux:~# ls -l /etc/ssl/localcerts/
     total 8
     -rw-r--r-- 1 root root 1704 Sep 16 18:24 apache.key
     -rw-r--r-- 1 root root 1302 Sep 16 18:24 apache.pem
-    root@debian10:~# chmod 600 /etc/ssl/localcerts/*
-    root@debian10:~# ls -l /etc/ssl/localcerts/
+    root@linux:~# chmod 600 /etc/ssl/localcerts/*
+    root@linux:~# ls -l /etc/ssl/localcerts/
     total 8
     -rw------- 1 root root 1704 Sep 16 18:24 apache.key
     -rw------- 1 root root 1302 Sep 16 18:24 apache.pem
 
 Enable the `apache ssl mod`.
 
-    root@debian10:~# a2enmod ssl
+    root@linux:~# a2enmod ssl
     Enabling module ssl.
     See /usr/share/doc/apache2.2-common/README.Debian.gz on how to configure SSL\
      and create self-signed certificates.
@@ -1091,8 +1091,8 @@ Enable the `apache ssl mod`.
 
 Create the website configuration.
 
-    root@debian10:~# vi /etc/apache2/sites-available/choochoos
-    root@debian10:~# cat /etc/apache2/sites-available/choochoos
+    root@linux:~# vi /etc/apache2/sites-available/choochoos
+    root@linux:~# cat /etc/apache2/sites-available/choochoos
     <VirtualHost *:7000>
             ServerAdmin webmaster@localhost
             DocumentRoot /var/www/choochoos
@@ -1100,21 +1100,21 @@ Create the website configuration.
             SSLCertificateFile /etc/ssl/localcerts/apache.pem
             SSLCertificateKeyFile /etc/ssl/localcerts/apache.key
     </VirtualHost>
-    root@debian10:~#
+    root@linux:~#
 
 And create the website itself.
 
-    root@debian10:/var/www/choochoos# vi index.html
-    root@debian10:/var/www/choochoos# cat index.html
+    root@linux:/var/www/choochoos# vi index.html
+    root@linux:/var/www/choochoos# cat index.html
     Choo Choo HTTPS secured model train Choo Choo
 
 Enable the website and restart (or reload) apache2.
 
-    root@debian10:/var/www/choochoos# a2ensite choochoos
+    root@linux:/var/www/choochoos# a2ensite choochoos
     Enabling site choochoos.
     To activate the new configuration, you need to run:
       service apache2 reload
-    root@debian10:/var/www/choochoos# service apache2 restart
+    root@linux:/var/www/choochoos# service apache2 restart
     Restarting web server: apache2 ... waiting .
 
 Chances are your browser will warn you about the self signed

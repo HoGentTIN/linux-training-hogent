@@ -20,7 +20,7 @@ allows altering packets after they exit the OUTPUT chain.
 Use `iptables -t nat -nvL` to look at the NAT table. The screenshot
 below shows an empty NAT table.
 
-    [root@RHEL5 ~]# iptables -t nat -nL
+    [root@linux ~]# iptables -t nat -nL
     Chain PREROUTING (policy ACCEPT)
     target     prot opt source               destination         
 
@@ -29,7 +29,7 @@ below shows an empty NAT table.
 
     Chain OUTPUT (policy ACCEPT)
     target     prot opt source               destination         
-    [root@RHEL5 ~]#
+    [root@linux ~]#
 
 ### SNAT (Source NAT)
 

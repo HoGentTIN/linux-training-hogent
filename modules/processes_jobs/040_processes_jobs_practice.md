@@ -24,12 +24,12 @@ in background before it finishes.
 where the numbers come from in the next screenshot. When are the
 variables replaced by their value ? By which shell ?
 
-    [paul@RHEL8b ~]$ echo $$ $PPID
+    [student@linux ~]$ echo $$ $PPID
     4224 4223
-    [paul@RHEL8b ~]$ bash -c "echo $$ $PPID"
+    [student@linux ~]$ bash -c "echo $$ $PPID"
     4224 4223
-    [paul@RHEL8b ~]$ bash -c 'echo $$ $PPID'
+    [student@linux ~]$ bash -c 'echo $$ $PPID'
     5059 4224
-    [paul@RHEL8b ~]$ bash -c `echo $$ $PPID`
+    [student@linux ~]$ bash -c `echo $$ $PPID`
     4223: 4224: command not found
 

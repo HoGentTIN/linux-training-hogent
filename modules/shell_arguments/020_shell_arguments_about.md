@@ -14,8 +14,8 @@ This chapter frequently uses the `echo` command to
 demonstrate shell features. The `echo` command is very simple: it echoes
 the input that it receives.
 
-    paul@laika:~$ echo Burtonville
+    student@linux:~$ echo Burtonville
     Burtonville
-    paul@laika:~$ echo Smurfs are blue
+    student@linux:~$ echo Smurfs are blue
     Smurfs are blue
 

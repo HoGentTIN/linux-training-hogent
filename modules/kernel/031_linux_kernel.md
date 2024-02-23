@@ -24,13 +24,13 @@ This first example shows Linux major version `2.6` and minor version
 `24`. The rest `-22-generic` is specific to the distribution (Ubuntu in
 this case).
 
-    paul@laika:~$ uname -r
+    student@linux:~$ uname -r
     2.6.24-22-generic
 
 The same command on Red Hat Enterprise Linux shows an older kernel
 (2.6.18) with `-92.1.17.el5` being specific to the distribution.
 
-    [paul@RHEL52 ~]$ uname -r
+    [student@linux ~]$ uname -r
     2.6.18-92.1.17.el5
 
 ## /proc/cmdline
@@ -38,7 +38,7 @@ The same command on Red Hat Enterprise Linux shows an older kernel
 The parameters that were passed to the kernel at boot time are in
 `/proc/cmdline`.
 
-    paul@RHELv8u4:~$ cat /proc/cmdline 
+    student@linux:~$ cat /proc/cmdline 
     ro root=/dev/VolGroup00/LogVol00 rhgb quiet
 
 ## single user mode
@@ -63,7 +63,7 @@ lot of kernel actions in `/var/log/messages`. Looking at
 this file reveals when the kernel was started, including all the devices
 that were detected at boot time.
 
-    [root@RHEL53 ~]# grep -A16 "syslogd 1.4.1:" /var/log/messages|cut -b24-
+    [root@linux ~]# grep -A16 "syslogd 1.4.1:" /var/log/messages|cut -b24-
     syslogd 1.4.1: restart.
     kernel: klogd 1.4.1, log source = /proc/kmsg started.
     kernel: Linux version 2.6.18-128.el5 (mockbuild@hs20-bc1-5.build.red...
@@ -85,7 +85,7 @@ that were detected at boot time.
 This example shows how to use `/var/log/messages` to see kernel
 information about `/dev/sda`.
 
-    [root@RHEL53 ~]# grep sda /var/log/messages | cut -b24-
+    [root@linux ~]# grep sda /var/log/messages | cut -b24-
     kernel: SCSI device sda: 41943040 512-byte hdwr sectors (21475 MB)
     kernel: sda: Write Protect is off
     kernel: sda: cache data unavailable
@@ -103,7 +103,7 @@ information about `/dev/sda`.
 The `dmesg` command prints out all the kernel bootup messages (from the
 last boot).
 
-    [root@RHEL53 ~]# dmesg | head
+    [root@linux ~]# dmesg | head
     Linux version 2.6.18-128.el5 (mockbuild@hs20-bc1-5.build.redhat.com)
     BIOS-provided physical RAM map:
      BIOS-e820: 0000000000000000 - 000000000009f800 (usable)
@@ -118,7 +118,7 @@ last boot).
 Thus to find information about /dev/sda, using `dmesg`
 will yield only kernel messages from the last boot.
 
-    [root@RHEL53 ~]# dmesg | grep sda
+    [root@linux ~]# dmesg | grep sda
     SCSI device sda: 41943040 512-byte hdwr sectors (21475 MB)
     sda: Write Protect is off
     sda: Mode Sense: 5d 00 00 00

@@ -5,7 +5,7 @@
 This example shows how to install `wireshark` on `.deb` based
 distributions (including Debian, Mint, Xubuntu, and others).
 
-    root@debian8:~# apt-get install wireshark
+    root@linux:~# apt-get install wireshark
     Reading package lists... Done
     Building dependency tree
     Reading state information... Done
@@ -14,7 +14,7 @@ distributions (including Debian, Mint, Xubuntu, and others).
 On `.rpm` based distributions like CentOS, RHEL and Fedora you can use
 `yum` to install `wireshark`.
 
-    [root@centos7 ~]# yum install wireshark
+    [root@linux ~]# yum install wireshark
     Loaded plugins: fastestmirror
     Loading mirror speeds from cached hostfile
     ... (output truncated)
@@ -53,7 +53,7 @@ discussed in this chapter.
 I started the sniffer and captured all packets while doing these three
 `ping` commands (there is no need for root to do this):
 
-    root@debian10:~# ping -c2 ns1.paul.local
+    root@linux:~# ping -c2 ns1.paul.local
     PING ns1.paul.local (10.104.33.30) 56(84) bytes of data.
     64 bytes from 10.104.33.30: icmp_req=1 ttl=64 time=0.010 ms
     64 bytes from 10.104.33.30: icmp_req=2 ttl=64 time=0.023 ms
@@ -61,7 +61,7 @@ I started the sniffer and captured all packets while doing these three
     --- ns1.paul.local ping statistics ---
     2 packets transmitted, 2 received, 0% packet loss, time 1001ms
     rtt min/avg/max/mdev = 0.010/0.016/0.023/0.007 ms
-    root@debian10:~# ping -c3 linux-training.be
+    root@linux:~# ping -c3 linux-training.be
     PING linux-training.be (188.93.155.87) 56(84) bytes of data.
     64 bytes from antares.ginsys.net (188.93.155.87): icmp_req=1 ttl=56 time=15.6 ms
     64 bytes from antares.ginsys.net (188.93.155.87): icmp_req=2 ttl=56 time=17.8 ms
@@ -70,7 +70,7 @@ I started the sniffer and captured all packets while doing these three
     --- linux-training.be ping statistics ---
     3 packets transmitted, 3 received, 0% packet loss, time 2003ms
     rtt min/avg/max/mdev = 14.756/16.110/17.881/1.309 ms
-    root@debian10:~# ping -c1 centos7.paul.local
+    root@linux:~# ping -c1 centos7.paul.local
     PING centos7.paul.local (10.104.33.31) 56(84) bytes of data.
     64 bytes from 10.104.33.31: icmp_req=1 ttl=64 time=0.590 ms
 
@@ -163,7 +163,7 @@ Here are some examples.
 Using the `tcpdump host $ip` command displays all traffic with one host
 (192.168.1.38 in this example).
 
-    root@ubuntu910:~# tcpdump host 192.168.1.38
+    root@linux:~# tcpdump host 192.168.1.38
     tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
     listening on eth0, link-type EN10MB (Ethernet), capture size 96 bytes
 
@@ -171,7 +171,7 @@ Capturing only ssh (tcp port 22) traffic can be done with
 `tcpdump tcp port $port`. This screenshot is cropped to 76 characters
 for readability in the pdf.
 
-    root@deb106:~# tcpdump tcp port 22
+    root@linux:~# tcpdump tcp port 22
     tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
     listening on eth1, link-type EN10MB (Ethernet), capture size 96 bytes
     14:22:20.716313 IP deb106.local.37973 > rhel53.local.ssh: P 666050963:66605
@@ -192,7 +192,7 @@ for readability in the pdf.
 Same as above, but write the output to a file with the
 `tcpdump -w $filename` command.
 
-    root@ubuntu910:~# tcpdump -w sshdump.tcpdump tcp port 22
+    root@linux:~# tcpdump -w sshdump.tcpdump tcp port 22
     tcpdump: listening on eth0, link-type EN10MB (Ethernet), capture size 96 bytes
     ^C
     17 packets captured
@@ -202,7 +202,7 @@ Same as above, but write the output to a file with the
 With `tcpdump -r $filename` the file created above can be
 displayed.
 
-    root@ubuntu910:~# tcpdump -r sshdump.tcpdump
+    root@linux:~# tcpdump -r sshdump.tcpdump
 
 Many more examples can be found in the manual page of `tcpdump`.
 

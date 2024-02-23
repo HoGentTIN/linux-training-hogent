@@ -51,8 +51,8 @@ this work as expected ?
 aliases.
 
     shell should display the resolved aliases and then execute the command:
-    paul@deb106:~$ set -x
-    paul@deb106:~$ city
+    student@linux:~$ set -x
+    student@linux:~$ city
     + echo antwerp
     antwerp
 

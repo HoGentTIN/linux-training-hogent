@@ -33,7 +33,7 @@ use Windows or Mac OSX).
 
 I use Linux on the laptop already:
 
-    paul@debian8:~$ ls -lh CentOS-7.0-1406-x86_64-Minimal.iso
+    student@linux:~$ ls -lh CentOS-7.0-1406-x86_64-Minimal.iso
     -rw-r--r-- 1 paul paul 566M Nov  1 14:45 CentOS-7.0-1406-x86_64-Minimal.iso
 
 Do not worry if you do no understand the above command. Just try to make
@@ -378,7 +378,7 @@ installing and removing packages.
 You can now open a terminal on Linux or MacOSX and use `ssh` to log on
 to your virtual machine.
 
-    paul@debian8:~$ ssh root@192.168.1.110
+    student@linux:~$ ssh root@192.168.1.110
     root@192.168.1.110's password:
     Last login: Sun Nov  2 11:53:57 2014
     [root@server33 ~]# hostname

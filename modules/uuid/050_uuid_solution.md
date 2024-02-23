@@ -3,7 +3,7 @@
 1\. Find the `uuid` of one of your `ext3` partitions with `tune2fs` (
 and `vol_id` if you are on RHEL5).
 
-    root@rhel55:~# /lib/udev/vol_id -u /dev/hda1
+    root@linux:~# /lib/udev/vol_id -u /dev/hda1
     60926898-2c78-49b4-a71d-c1d6310c87cc
 
     root@ubu1004:~# tune2fs -l /dev/sda2 | grep UUID
@@ -22,7 +22,7 @@ disk.
 4\. Display the `root=` directive in `/boot/grub/menu.lst`. (We see
 later in the course how to maintain this file.)
 
-    paul@deb106:~$ grep ^[^#] /boot/grub/menu.lst | grep root=
+    student@linux:~$ grep ^[^#] /boot/grub/menu.lst | grep root=
     kernel          /boot/vmlinuz-2.6.26-2-686 root=/dev/hda1 ro selinux=1 quiet
     kernel          /boot/vmlinuz-2.6.26-2-686 root=/dev/hda1 ro selinux=1 single
 

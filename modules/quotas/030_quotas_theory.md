@@ -5,13 +5,13 @@ To limit the disk space used by user, you can set up
 `usrquota` and/or `grpquota` to one or more
 of the file systems in `/etc/fstab`.
 
-    root@RHELv8u4:~# cat /etc/fstab | grep usrquota
+    root@linux:~# cat /etc/fstab | grep usrquota
     /dev/VolGroup00/LogVol02     /home     ext3     usrquota,grpquota   0 0
             
 
 Next you need to remount the file system.
 
-    root@RHELv8u4:~# mount -o remount /home
+    root@linux:~# mount -o remount /home
             
 
 The next step is to build the `quota.user` and/or
@@ -19,8 +19,8 @@ The next step is to build the `quota.user` and/or
 `quota files`) contain the table of the disk usage on that file system.
 Use the `quotacheck` command to accomplish this.
 
-    root@RHELv8u4:~# quotacheck -cug /home
-    root@RHELv8u4:~# quotacheck -avug
+    root@linux:~# quotacheck -cug /home
+    root@linux:~# quotacheck -avug
             
 
 The `-c` is for create, `u` for user quota, `g` for group, `a` for
@@ -35,11 +35,11 @@ user is set. You can have a nice overview with `repquota`.
 The final step (before your users start complaining about lack of disk
 space) is to enable quotas with `quotaon(1)`.
 
-    root@RHELv8u4:~# quotaon -vaug
+    root@linux:~# quotaon -vaug
 
 Issue the `quotaoff` command to stop all complaints.
 
-    root@RHELv8u4:~# quotaoff -vaug
+    root@linux:~# quotaoff -vaug
 
 ## Practice Disk quotas
 

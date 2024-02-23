@@ -186,28 +186,28 @@ access their own sports share.
 To be able to use users and groups in the samba domain controller, we
 can first set up some groups on the Linux computer.
 
-    [root@RHEL52 samba]# groupadd ntadmins
-    [root@RHEL52 samba]# groupadd ntsports
-    [root@RHEL52 samba]# groupadd ntfootball
-    [root@RHEL52 samba]# groupadd nttennis
+    [root@linux samba]# groupadd ntadmins
+    [root@linux samba]# groupadd ntsports
+    [root@linux samba]# groupadd ntfootball
+    [root@linux samba]# groupadd nttennis
         
 
 This enables us to add group membership info to some new users for our
 samba domain. Don\'t forget to give them a password.
 
-    [root@RHEL52 samba]# useradd -m -G ntadmins Administrator
-    [root@RHEL52 samba]# useradd -m -G ntsports,nttennis venus
-    [root@RHEL52 samba]# useradd -m -G ntsports,nttennis kim
-    [root@RHEL52 samba]# useradd -m -G ntsports,nttennis jelena
-    [root@RHEL52 samba]# useradd -m -G ntsports,ntfootball figo
-    [root@RHEL52 samba]# useradd -m -G ntsports,ntfootball ronaldo
-    [root@RHEL52 samba]# useradd -m -G ntsports,ntfootball pfaff
+    [root@linux samba]# useradd -m -G ntadmins Administrator
+    [root@linux samba]# useradd -m -G ntsports,nttennis venus
+    [root@linux samba]# useradd -m -G ntsports,nttennis kim
+    [root@linux samba]# useradd -m -G ntsports,nttennis jelena
+    [root@linux samba]# useradd -m -G ntsports,ntfootball figo
+    [root@linux samba]# useradd -m -G ntsports,ntfootball ronaldo
+    [root@linux samba]# useradd -m -G ntsports,ntfootball pfaff
         
 
 It is always safe to verify creation of users, groups and passwords in
 /etc/passwd, /etc/shadow and /etc/group.
 
-    [root@RHEL52 samba]# tail -11 /etc/group
+    [root@linux samba]# tail -11 /etc/group
     ntadmins:x:507:Administrator
     ntsports:x:508:venus,kim,jelena,figo,ronaldo,pfaff
     ntfootball:x:509:figo,ronaldo,pfaff
@@ -227,7 +227,7 @@ Next we must make these users known to samba with the smbpasswd tool.
 When you add the first user to `tdbsam`, the file
 `/etc/samba/passdb.tdb` will be created.
 
-    [root@RHEL52 samba]# smbpasswd -a root
+    [root@linux samba]# smbpasswd -a root
     New SMB password:
     Retype new SMB password:
     tdbsam_open: Converting version 0 database to version 3.
@@ -237,7 +237,7 @@ When you add the first user to `tdbsam`, the file
 Adding all the other users generates less output, because tdbsam is
 already created.
 
-    [root@RHEL8b samba]# smbpasswd -a root
+    [root@linux samba]# smbpasswd -a root
     New SMB password:
     Retype new SMB password:
     Added user root.
@@ -255,7 +255,7 @@ computer account created by Samba is visible in the
 normal user account, but end their name with a dollar sign. Below a
 screenshot of the windows 2003 computer account, created by Samba 3.
 
-    [root@RHEL52 samba]# tail -5 /etc/passwd
+    [root@linux samba]# tail -5 /etc/passwd
     jelena:x:510:514::/home/jelena:/bin/bash
     figo:x:511:515::/home/figo:/bin/bash
     ronaldo:x:512:516::/home/ronaldo:/bin/bash
@@ -316,7 +316,7 @@ The `%L` variable is the name of this Samba server, the `%U` variable
 translates to the username. After adding a user to smbpasswd and letting
 the user log on and off, the profile of the user will look like this.
 
-    [root@RHEL8b samba]# ll /srv/samba/profiles/Venus/
+    [root@linux samba]# ll /srv/samba/profiles/Venus/
     total 568
     drwxr-xr-x  4 Venus Venus   4096 Jul  5 10:03 Application Data
     drwxr-xr-x  2 Venus Venus   4096 Jul  5 10:03 Cookies
@@ -338,13 +338,13 @@ the user log on and off, the profile of the user will look like this.
 
 We have users on Unix, we have groups on Unix that contain those users.
 
-    [root@RHEL8b samba]# grep nt /etc/group
+    [root@linux samba]# grep nt /etc/group
     ...
     ntadmins:x:506:Administrator
     ntsports:x:507:Venus,Serena,Kim,Figo,Pfaff
     nttennis:x:508:Venus,Serena,Kim
     ntfootball:x:509:Figo,Pfaff
-    [root@RHEL8b samba]# 
+    [root@linux samba]# 
         
 
 We already added Venus to the `tdbsam` with `smbpasswd`.
@@ -358,16 +358,16 @@ on windows (like in the ntfs security tab of files and folders), we have
 to map unix groups to windows groups. To do this, we use the
 `net groupmap` command.
 
-    [root@RHEL8b samba]# net groupmap add ntgroup="tennis" unixgroup=nttennis type=d
+    [root@linux samba]# net groupmap add ntgroup="tennis" unixgroup=nttennis type=d
     No rid or sid specified, choosing algorithmic mapping
     Successully added group tennis to the mapping db
-    [root@RHEL8b samba]# net groupmap add ntgroup="football" unixgroup=ntfootball type=d
+    [root@linux samba]# net groupmap add ntgroup="football" unixgroup=ntfootball type=d
     No rid or sid specified, choosing algorithmic mapping
     Successully added group football to the mapping db
-    [root@RHEL8b samba]# net groupmap add ntgroup="sports" unixgroup=ntsports type=d
+    [root@linux samba]# net groupmap add ntgroup="sports" unixgroup=ntsports type=d
     No rid or sid specified, choosing algorithmic mapping
     Successully added group sports to the mapping db
-    [root@RHEL8b samba]# 
+    [root@linux samba]# 
         
 
 Now you can use the Samba groups on all NTFS volumes on members of the
@@ -378,11 +378,11 @@ domain.
 Before testing a logon script, make sure it has the proper carriage
 returns that DOS files have.
 
-    [root@RHEL8b netlogon]# cat start.bat 
+    [root@linux netlogon]# cat start.bat 
     net use Z: \\DCSPORTS0\SPORTS
-    [root@RHEL8b netlogon]# unix2dos start.bat 
+    [root@linux netlogon]# unix2dos start.bat 
     unix2dos: converting file start.bat to DOS format ...
-    [root@RHEL8b netlogon]# 
+    [root@linux netlogon]# 
         
 
 Then copy the scripts to the netlogon share, and add the following

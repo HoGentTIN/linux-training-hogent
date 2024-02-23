@@ -375,11 +375,11 @@ Some options that you can set in vim.
 You can set these options (and much more) in `~/.vimrc`
 for vim or in `~/.exrc` for standard vi.
 
-    paul@barry:~$ cat ~/.vimrc
+    student@linux:~$ cat ~/.vimrc
     set number
     set tabstop=8
     set textwidth=78
     map <F6> :set number!<bar>set number?<CR>
-    paul@barry:~$
+    student@linux:~$
         
 

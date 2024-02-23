@@ -4,9 +4,9 @@
 resulting commands are executed). This allows using the value of a
 variable as a variable.
 
-    paul@deb106:~/test42$ answer=42
-    paul@deb106:~/test42$ word=answer
-    paul@deb106:~/test42$ eval x=\$$word ; echo $x
+    student@linux:~/test42$ answer=42
+    student@linux:~/test42$ word=answer
+    student@linux:~/test42$ eval x=\$$word ; echo $x
     42
 
 Both in `bash` and `Korn` the arguments can be quoted.
@@ -20,17 +20,17 @@ Sometimes the `eval` is needed to have correct parsing of arguments.
 Consider this example where the `date` command receives one parameter
 `1 week ago`.
 
-    paul@debian6~$ date --date="1 week ago"
+    student@linux~$ date --date="1 week ago"
     Thu Mar  8 21:36:25 CET 2012
 
 When we set this command in a variable, then executing that variable
 fails unless we use `eval`.
 
-    paul@debian6~$ lastweek='date --date="1 week ago"'
-    paul@debian6~$ $lastweek
+    student@linux~$ lastweek='date --date="1 week ago"'
+    student@linux~$ $lastweek
     date: extra operand `ago"'
     Try `date --help' for more information.
-    paul@debian6~$ eval $lastweek
+    student@linux~$ eval $lastweek
     Thu Mar  8 21:36:39 CET 2012
 
 ## (( ))
@@ -38,17 +38,17 @@ fails unless we use `eval`.
 The `(( ))` allows for evaluation of numerical
 expressions.
 
-    paul@deb106:~/test42$ (( 42 > 33 )) && echo true || echo false
+    student@linux:~/test42$ (( 42 > 33 )) && echo true || echo false
     true
-    paul@deb106:~/test42$ (( 42 > 1201 )) && echo true || echo false
+    student@linux:~/test42$ (( 42 > 1201 )) && echo true || echo false
     false
-    paul@deb106:~/test42$ var42=42
-    paul@deb106:~/test42$ (( 42 == var42 )) && echo true || echo false
+    student@linux:~/test42$ var42=42
+    student@linux:~/test42$ (( 42 == var42 )) && echo true || echo false
     true
-    paul@deb106:~/test42$ (( 42 == $var42 )) && echo true || echo false
+    student@linux:~/test42$ (( 42 == $var42 )) && echo true || echo false
     true
-    paul@deb106:~/test42$ var42=33
-    paul@deb106:~/test42$ (( 42 == var42 )) && echo true || echo false
+    student@linux:~/test42$ var42=33
+    student@linux:~/test42$ (( 42 == var42 )) && echo true || echo false
     false
 
 ## let
@@ -57,29 +57,29 @@ The `let` built-in shell function instructs the shell to
 perform an evaluation of arithmetic expressions. It will return 0 unless
 the last arithmetic expression evaluates to 0.
 
-    [paul@RHEL8b ~]$ let x="3 + 4" ; echo $x
+    [student@linux ~]$ let x="3 + 4" ; echo $x
     7
-    [paul@RHEL8b ~]$ let x="10 + 100/10" ; echo $x
+    [student@linux ~]$ let x="10 + 100/10" ; echo $x
     20
-    [paul@RHEL8b ~]$ let x="10-2+100/10" ; echo $x
+    [student@linux ~]$ let x="10-2+100/10" ; echo $x
     18
-    [paul@RHEL8b ~]$ let x="10*2+100/10" ; echo $x
+    [student@linux ~]$ let x="10*2+100/10" ; echo $x
     30
             
 
 The `shell` can also convert between different bases.
 
-    [paul@RHEL8b ~]$ let x="0xFF" ; echo $x
+    [student@linux ~]$ let x="0xFF" ; echo $x
     255
-    [paul@RHEL8b ~]$ let x="0xC0" ; echo $x
+    [student@linux ~]$ let x="0xC0" ; echo $x
     192
-    [paul@RHEL8b ~]$ let x="0xA8" ; echo $x
+    [student@linux ~]$ let x="0xA8" ; echo $x
     168
-    [paul@RHEL8b ~]$ let x="8#70" ; echo $x
+    [student@linux ~]$ let x="8#70" ; echo $x
     56
-    [paul@RHEL8b ~]$ let x="8#77" ; echo $x
+    [student@linux ~]$ let x="8#77" ; echo $x
     63
-    [paul@RHEL8b ~]$ let x="16#c0" ; echo $x
+    [student@linux ~]$ let x="16#c0" ; echo $x
     192
             
 
@@ -99,13 +99,13 @@ assigning a value).
 You can sometimes simplify nested if statements with a
 `case` construct.
 
-    [paul@RHEL8b ~]$ ./help
+    [student@linux ~]$ ./help
     What animal did you see ? lion
     You better start running fast!
-    [paul@RHEL8b ~]$ ./help
+    [student@linux ~]$ ./help
     What animal did you see ? dog
     Don't worry, give it a cookie.
-    [paul@RHEL8b ~]$ cat help
+    [student@linux ~]$ cat help
     #!/bin/bash
     #
     # Wild Animals Helpdesk Advice
@@ -135,7 +135,7 @@ You can sometimes simplify nested if statements with a
                     echo "You discovered an unknown animal, name it!"
             ;;
     esac
-    [paul@RHEL8b ~]$            
+    [student@linux ~]$            
             
 
 ## shell functions

@@ -17,15 +17,15 @@ can be managed by the `portmap` daemon). Look at
 `rpcinfo` to verify that `nfs` and its related services
 are running.
 
-    root@RHELv8u2:~# /etc/init.d/portmap status
+    root@linux:~# /etc/init.d/portmap status
     portmap (pid 1920) is running...
-    root@RHELv8u2:~# rpcinfo -p
+    root@linux:~# rpcinfo -p
     program vers proto   port
     100000    2   tcp    111  portmapper
     100000    2   udp    111  portmapper
     100024    1   udp  32768  status
     100024    1   tcp  32769  status
-    root@RHELv8u2:~# service nfs start
+    root@linux:~# service nfs start
     Starting NFS services:                                     [  OK  ]
     Starting NFS quotas:                                       [  OK  ]
     Starting NFS daemon:                                       [  OK  ]
@@ -33,7 +33,7 @@ are running.
 
 The same `rpcinfo` command when `nfs` is started.
 
-    root@RHELv8u2:~# rpcinfo -p
+    root@linux:~# rpcinfo -p
     program vers proto   port
     100000    2   tcp    111  portmapper
     100000    2   udp    111  portmapper
@@ -76,7 +76,7 @@ to disk before completing the client request.
 
 Here is a sample `/etc/exports` to explain the syntax:
 
-    paul@laika:~$ cat /etc/exports 
+    student@linux:~$ cat /etc/exports 
     # Everyone can read this share
     /mnt/data/iso  *(ro)
                     
@@ -97,7 +97,7 @@ More recent incarnations of `nfs` require the
 `no_subtree_check)`. The `/etc/exports` file then looks
 like this:
 
-    root@debian6 ~# cat /etc/exports
+    root@linux ~# cat /etc/exports
     # Everyone can read this share
     /srv/iso  *(ro,no_subtree_check)
 
@@ -114,7 +114,7 @@ created exports. You can use the `exportfs -va` command to
 do this. It will write the exported directories to
 `/var/lib/nfs/etab`, where they are immediately applied.
 
-    root@debian6 ~# exportfs -va
+    root@linux ~# exportfs -va
     exporting pasha:/var/ftp
     exporting barry:/var/ftp
     exporting pasha:/var/www
@@ -126,24 +126,24 @@ do this. It will write the exported directories to
 We have seen the `mount` command and the
 `/etc/fstab` file before.
 
-    root@RHELv8u2:~# mount -t nfs barry:/mnt/data/iso /home/project55/
-    root@RHELv8u2:~# cat /etc/fstab | grep nfs
+    root@linux:~# mount -t nfs barry:/mnt/data/iso /home/project55/
+    root@linux:~# cat /etc/fstab | grep nfs
     barry:/mnt/data/iso   /home/iso               nfs     defaults    0 0
-    root@RHELv8u2:~#
+    root@linux:~#
 
 Here is another simple example. Suppose the project55 people tell you
 they only need a couple of CD-ROM images, and you already have them
 available on an `nfs` server. You could issue the following command to
 mount this storage on their `/home/project55` mount point.
 
-    root@RHELv8u2:~# mount -t nfs 192.168.1.40:/mnt/data/iso /home/project55/
-    root@RHELv8u2:~# ls -lh /home/project55/
+    root@linux:~# mount -t nfs 192.168.1.40:/mnt/data/iso /home/project55/
+    root@linux:~# ls -lh /home/project55/
     total 3.6G
     drwxr-xr-x  2 1000 1000 4.0K Jan 16 17:55 RHELv8u1
     drwxr-xr-x  2 1000 1000 4.0K Jan 16 14:14 RHELv8u2
     drwxr-xr-x  2 1000 1000 4.0K Jan 16 14:54 RHELv8u3
     drwxr-xr-x  2 1000 1000 4.0K Jan 16 11:09 RHELv8u4
     -rw-r--r--  1 root root 1.6G Oct 13 15:22 sled10-vmwarews5-vm.zip
-    root@RHELv8u2:~# 
+    root@linux:~# 
             
 

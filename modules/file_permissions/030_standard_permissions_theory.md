@@ -8,13 +8,13 @@ be in a NIS, LDAP, or Samba domain. These users and groups can `own`
 files. Actually, every file has a `user owner` and a
 `group owner`, as can be seen in the following screenshot.
 
-    paul@rhel65:~/owners$ ls -lh
+    student@linux:~/owners$ ls -lh
     total 636K
     -rw-r--r--. 1 paul snooker 1.1K Apr  8 18:47 data.odt
     -rw-r--r--. 1 paul paul    626K Apr  8 18:46 file1
     -rw-r--r--. 1 root tennis   185 Apr  8 18:46 file2
     -rw-rw-r--. 1 root root       0 Apr  8 18:47 stuff.txt
-    paul@rhel65:~/owners$
+    student@linux:~/owners$
 
 User paul owns three files; file1 has paul as `user owner` and has the
 group paul as `group owner`, data.odt is `group owned` by the group
@@ -27,7 +27,7 @@ root group.
 
 You can use the following command to list all local user accounts.
 
-    paul@debian10~$ cut -d: -f1 /etc/passwd | column 
+    student@linux~$ cut -d: -f1 /etc/passwd | column 
     root            ntp             sam             bert            naomi
     daemon          mysql           tom             rino            matthias2
     bin             paul            wouter          antonio         bram
@@ -56,31 +56,31 @@ You can use the following command to list all local user accounts.
 You can change the group owner of a file using the `chgrp`
 command.
 
-    root@rhel65:/home/paul/owners# ls -l file2
+    root@linux:/home/paul/owners# ls -l file2
     -rw-r--r--. 1 root tennis 185 Apr  8 18:46 file2
-    root@rhel65:/home/paul/owners# chgrp snooker file2
-    root@rhel65:/home/paul/owners# ls -l file2
+    root@linux:/home/paul/owners# chgrp snooker file2
+    root@linux:/home/paul/owners# ls -l file2
     -rw-r--r--. 1 root snooker 185 Apr  8 18:46 file2
-    root@rhel65:/home/paul/owners#
+    root@linux:/home/paul/owners#
 
 ### chown
 
 The user owner of a file can be changed with `chown`
 command.
 
-    root@laika:/home/paul# ls -l FileForPaul 
+    root@linux:/home/paul# ls -l FileForPaul 
     -rw-r--r-- 1 root paul 0 2008-08-06 14:11 FileForPaul
-    root@laika:/home/paul# chown paul FileForPaul 
-    root@laika:/home/paul# ls -l FileForPaul 
+    root@linux:/home/paul# chown paul FileForPaul 
+    root@linux:/home/paul# ls -l FileForPaul 
     -rw-r--r-- 1 paul paul 0 2008-08-06 14:11 FileForPaul
 
 You can also use `chown` to change both the user owner and the group
 owner.
 
-    root@laika:/home/paul# ls -l FileForPaul 
+    root@linux:/home/paul# ls -l FileForPaul 
     -rw-r--r-- 1 paul paul 0 2008-08-06 14:11 FileForPaul
-    root@laika:/home/paul# chown root:project42 FileForPaul 
-    root@laika:/home/paul# ls -l FileForPaul 
+    root@linux:/home/paul# chown root:project42 FileForPaul 
+    root@linux:/home/paul# ls -l FileForPaul 
     -rw-r--r-- 1 root project42 0 2008-08-06 14:11 FileForPaul
 
 ## list of special files
@@ -115,13 +115,13 @@ a `c`, block devices a `b`, and sockets an `s`.
 Below a screenshot of a character device (the console) and a block
 device (the hard disk).
 
-    paul@debian6lt~$ ls -ld /dev/console /dev/sda
+    student@linux~$ ls -ld /dev/console /dev/sda
     crw-------   1 root root  5, 1 Mar 15 12:45 /dev/console
     brw-rw----   1 root disk  8, 0 Mar 15 12:45 /dev/sda
 
 And here you can see a directory, a regular file and a symbolic link.
 
-    paul@debian6lt~$ ls -ld /etc /etc/hosts /etc/motd
+    student@linux~$ ls -ld /etc /etc/hosts /etc/motd
     drwxr-xr-x 128 root root 12288 Mar 15 18:34 /etc
     -rw-r--r--   1 root root   372 Dec 10 17:36 /etc/hosts
     lrwxrwxrwx   1 root root    13 Dec  5 10:36 /etc/motd -> /var/run/motd
@@ -156,7 +156,7 @@ We already know that the output of `ls -l` starts with ten
 characters for each file. This screenshot shows a regular file (because
 the first character is a - ).
 
-    paul@RHELv8u4:~/test$ ls -l proc42.bash
+    student@linux:~/test$ ls -l proc42.bash
     -rwxr-xr--  1 paul proj 984 Feb  6 12:01 proc42.bash
 
 Below is a table describing the function of all ten characters.
@@ -192,7 +192,7 @@ the permissions have no influence on your access to the file.
 Some example combinations on files and directories are seen in this
 screenshot. The name of the file explains the permissions.
 
-    paul@laika:~/perms$ ls -lh
+    student@linux:~/perms$ ls -lh
     total 12K
     drwxr-xr-x 2 paul paul 4.0K 2007-02-07 22:26 AllEnter_UserCreateDelete
     -rwxrwxrwx 1 paul paul    0 2007-02-07 22:21 EveryoneFullControl.txt
@@ -200,7 +200,7 @@ screenshot. The name of the file explains the permissions.
     -rwxrwx--- 1 paul paul    0 2007-02-07 22:21 OwnersAll_RestNothing.txt
     dr-xr-x--- 2 paul paul 4.0K 2007-02-07 22:25 UserAndGroupEnter
     dr-x------ 2 paul paul 4.0K 2007-02-07 22:25 OnlyUserEnter
-    paul@laika:~/perms$
+    student@linux:~/perms$
 
 To summarise, the first `rwx` triplet represents the permissions for the
 `user owner`. The second triplet corresponds to the `group owner`; it
@@ -213,52 +213,52 @@ and are not a member of the group owner.
 Permissions can be changed with `chmod`. The first example
 gives the user owner execute permissions.
 
-    paul@laika:~/perms$ ls -l permissions.txt 
+    student@linux:~/perms$ ls -l permissions.txt 
     -rw-r--r-- 1 paul paul 0 2007-02-07 22:34 permissions.txt
-    paul@laika:~/perms$ chmod u+x permissions.txt 
-    paul@laika:~/perms$ ls -l permissions.txt 
+    student@linux:~/perms$ chmod u+x permissions.txt 
+    student@linux:~/perms$ ls -l permissions.txt 
     -rwxr--r-- 1 paul paul 0 2007-02-07 22:34 permissions.txt
 
 This example removes the group owners read permission.
 
-    paul@laika:~/perms$ chmod g-r permissions.txt 
-    paul@laika:~/perms$ ls -l permissions.txt 
+    student@linux:~/perms$ chmod g-r permissions.txt 
+    student@linux:~/perms$ ls -l permissions.txt 
     -rwx---r-- 1 paul paul 0 2007-02-07 22:34 permissions.txt
 
 This example removes the others read permission.
 
-    paul@laika:~/perms$ chmod o-r permissions.txt 
-    paul@laika:~/perms$ ls -l permissions.txt 
+    student@linux:~/perms$ chmod o-r permissions.txt 
+    student@linux:~/perms$ ls -l permissions.txt 
     -rwx------ 1 paul paul 0 2007-02-07 22:34 permissions.txt
 
 This example gives all of them the write permission.
 
-    paul@laika:~/perms$ chmod a+w permissions.txt 
-    paul@laika:~/perms$ ls -l permissions.txt 
+    student@linux:~/perms$ chmod a+w permissions.txt 
+    student@linux:~/perms$ ls -l permissions.txt 
     -rwx-w--w- 1 paul paul 0 2007-02-07 22:34 permissions.txt
 
 You don\'t even have to type the a.
 
-    paul@laika:~/perms$ chmod +x permissions.txt 
-    paul@laika:~/perms$ ls -l permissions.txt 
+    student@linux:~/perms$ chmod +x permissions.txt 
+    student@linux:~/perms$ ls -l permissions.txt 
     -rwx-wx-wx 1 paul paul 0 2007-02-07 22:34 permissions.txt
 
 You can also set explicit permissions.
 
-    paul@laika:~/perms$ chmod u=rw permissions.txt 
-    paul@laika:~/perms$ ls -l permissions.txt 
+    student@linux:~/perms$ chmod u=rw permissions.txt 
+    student@linux:~/perms$ ls -l permissions.txt 
     -rw--wx-wx 1 paul paul 0 2007-02-07 22:34 permissions.txt
 
 Feel free to make any kind of combination.
 
-    paul@laika:~/perms$ chmod u=rw,g=rw,o=r permissions.txt 
-    paul@laika:~/perms$ ls -l permissions.txt 
+    student@linux:~/perms$ chmod u=rw,g=rw,o=r permissions.txt 
+    student@linux:~/perms$ ls -l permissions.txt 
     -rw-rw-r-- 1 paul paul 0 2007-02-07 22:34 permissions.txt
 
 Even fishy combinations are accepted by chmod.
 
-    paul@laika:~/perms$ chmod u=rwx,ug+rw,o=r permissions.txt 
-    paul@laika:~/perms$ ls -l permissions.txt 
+    student@linux:~/perms$ chmod u=rwx,ug+rw,o=r permissions.txt 
+    student@linux:~/perms$ ls -l permissions.txt 
     -rwxrw-r-- 1 paul paul 0 2007-02-07 22:34 permissions.txt
 
 ### setting octal permissions
@@ -293,14 +293,14 @@ This makes `777` equal to rwxrwxrwx and by the same logic,
 654 mean rw-r-xr\-- . The `chmod` command will accept
 these numbers.
 
-    paul@laika:~/perms$ chmod 777 permissions.txt 
-    paul@laika:~/perms$ ls -l permissions.txt 
+    student@linux:~/perms$ chmod 777 permissions.txt 
+    student@linux:~/perms$ ls -l permissions.txt 
     -rwxrwxrwx 1 paul paul 0 2007-02-07 22:34 permissions.txt
-    paul@laika:~/perms$ chmod 664 permissions.txt 
-    paul@laika:~/perms$ ls -l permissions.txt 
+    student@linux:~/perms$ chmod 664 permissions.txt 
+    student@linux:~/perms$ ls -l permissions.txt 
     -rw-rw-r-- 1 paul paul 0 2007-02-07 22:34 permissions.txt
-    paul@laika:~/perms$ chmod 750 permissions.txt 
-    paul@laika:~/perms$ ls -l permissions.txt 
+    student@linux:~/perms$ chmod 750 permissions.txt 
+    student@linux:~/perms$ ls -l permissions.txt 
     -rwxr-x--- 1 paul paul 0 2007-02-07 22:34 permissions.txt
 
 ### umask
@@ -311,12 +311,12 @@ applied. These default permissions are determined by the
 want set on by default. You can display the `umask` with the `umask`
 command.
 
-    [Harry@RHEL8b ~]$ umask
+    [Harry@linux ~]$ umask
     0002
-    [Harry@RHEL8b ~]$ touch test
-    [Harry@RHEL8b ~]$ ls -l test
+    [Harry@linux ~]$ touch test
+    [Harry@linux ~]$ ls -l test
     -rw-rw-r--  1 Harry Harry 0 Jul 24 06:03 test
-    [Harry@RHEL8b ~]$
+    [Harry@linux ~]$
 
 As you can also see, the file is also not executable by default. This is
 a general security feature among Unixes; newly created files are never
@@ -330,9 +330,9 @@ as 0033.
 When creating directories with `mkdir` you can use the
 `-m` option to set the `mode`. This screenshot explains.
 
-    paul@debian10~$ mkdir -m 700 MyDir
-    paul@debian10~$ mkdir -m 777 Public
-    paul@debian10~$ ls -dl MyDir/ Public/
+    student@linux~$ mkdir -m 700 MyDir
+    student@linux~$ mkdir -m 777 Public
+    student@linux~$ ls -dl MyDir/ Public/
     drwx------ 2 paul paul 4096 2011-10-16 19:16 MyDir/
     drwxrwxrwx 2 paul paul 4096 2011-10-16 19:16 Public/
 
@@ -340,9 +340,9 @@ When creating directories with `mkdir` you can use the
 
 To preserve permissions and time stamps from source files, use `cp -p`.
 
-    paul@laika:~/perms$ cp file* cp
-    paul@laika:~/perms$ cp -p file* cpp
-    paul@laika:~/perms$ ll *
+    student@linux:~/perms$ cp file* cp
+    student@linux:~/perms$ cp -p file* cpp
+    student@linux:~/perms$ ll *
     -rwx------ 1 paul paul    0 2008-08-25 13:26 file33
     -rwxr-x--- 1 paul paul    0 2008-08-25 13:26 file42
 

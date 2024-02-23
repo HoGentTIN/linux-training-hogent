@@ -18,7 +18,7 @@ code. The man page of `bash` has a full list.
 
 Below is the output of the script above in action.
 
-    [paul@RHEL8a scripts]$ ./pars one two three
+    [student@linux scripts]$ ./pars one two three
     The first argument is one
     The second argument is two
     The third argument is three
@@ -29,7 +29,7 @@ Below is the output of the script above in action.
 
 Once more the same script, but with only two parameters.
 
-    [paul@RHEL8a scripts]$ ./pars 1 2
+    [student@linux scripts]$ ./pars 1 2
     The first argument is 1
     The second argument is 2
     The third argument is
@@ -37,17 +37,17 @@ Once more the same script, but with only two parameters.
     # 2 count arguments
     ? 0 last return code
     * 1 2 all the arguments
-    [paul@RHEL8a scripts]$
+    [student@linux scripts]$
 
 Here is another example, where we use `$0`. The `$0` parameter contains
 the name of the script.
 
-    paul@debian6~$ cat myname 
+    student@linux~$ cat myname 
     echo this script is called $0
-    paul@debian6~$ ./myname 
+    student@linux~$ ./myname 
     this script is called ./myname
-    paul@debian6~$ mv myname test42
-    paul@debian6~$ ./test42 
+    student@linux~$ mv myname test42
+    student@linux~$ ./test42 
     this script is called ./test42
 
 ## shift through parameters
@@ -100,7 +100,7 @@ to source a configuration file.
 
 Below a sample configuration file for an application.
 
-    [paul@RHEL8a scripts]$ cat myApp.conf 
+    [student@linux scripts]$ cat myApp.conf 
     # The config file of myApp
 
     # Enter the path here
@@ -111,7 +111,7 @@ Below a sample configuration file for an application.
 
 And here an application that uses this file.
 
-    [paul@RHEL8a scripts]$ cat myApp.bash 
+    [student@linux scripts]$ cat myApp.bash 
     #!/bin/bash
     #
     # Welcome to the myApp application
@@ -124,9 +124,9 @@ And here an application that uses this file.
 The running application can use the values inside the sourced
 configuration file.
 
-    [paul@RHEL8a scripts]$ ./myApp.bash 
+    [student@linux scripts]$ ./myApp.bash 
     There are 5 quines
-    [paul@RHEL8a scripts]$
+    [student@linux scripts]$
 
 ## get script options with getopts
 
@@ -222,11 +222,11 @@ verifies that the option really is set. You can now use minor spelling
 mistakes in the cd command. The man page of bash has a complete list of
 options.
 
-    paul@laika:~$ shopt -q cdspell ; echo $?
+    student@linux:~$ shopt -q cdspell ; echo $?
     1
-    paul@laika:~$ shopt -s cdspell
-    paul@laika:~$ shopt -q cdspell ; echo $?
+    student@linux:~$ shopt -s cdspell
+    student@linux:~$ shopt -q cdspell ; echo $?
     0
-    paul@laika:~$ cd /Etc
+    student@linux:~$ cd /Etc
     /etc
 

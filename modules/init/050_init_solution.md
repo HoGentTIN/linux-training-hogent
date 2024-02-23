@@ -7,7 +7,7 @@ Killing the mingetty\'s will result in init respawning them. You can
 edit `/etc/inittab` so it looks like the screenshot below. Don\'t forget
 to also run `kill -1 1`.
 
-    [root@RHEL5 ~]# grep tty /etc/inittab 
+    [root@linux ~]# grep tty /etc/inittab 
     # Run gettys in standard runlevels
     1:2345:respawn:/sbin/mingetty tty1
     2:2345:respawn:/sbin/mingetty tty2
@@ -15,7 +15,7 @@ to also run `kill -1 1`.
     4:2:respawn:/sbin/mingetty tty4
     5:2:respawn:/sbin/mingetty tty5
     6:2:respawn:/sbin/mingetty tty6
-    [root@RHEL5 ~]# 
+    [root@linux ~]# 
         
 
 2\. Use the Red Hat Enterprise Linux virtual machine. Go to runlevel 5,
@@ -33,12 +33,12 @@ On Red Hat, grep for PATH in `/etc/rc.sysinit`, on Debian/Ubuntu check
 `/etc/rc.local` and `/etc/ini.t/rc.local`. The answer is probably no,
 but on RHEL5 the `rc.sysinit` script does set the HOSTNAME variable.
 
-    [root@RHEL5 etc]# grep HOSTNAME rc.sysinit
+    [root@linux etc]# grep HOSTNAME rc.sysinit
         
 
 4\. List all init.d scripts that are started in runlevel 2.
 
-    root@RHEL5 ~# chkconfig --list | grep '2:on'
+    root@linux ~# chkconfig --list | grep '2:on'
         
 
 5\. Write a script that acts like a daemon script in `/etc/init.d/`. It

@@ -12,21 +12,21 @@ and execute even more scripts like `/etc/inputrc`
 This screenshot uses grep to show PATH manipulation in `/etc/profile` on
 Debian.
 
-    root@debian10:~# grep PATH /etc/profile
+    root@linux:~# grep PATH /etc/profile
       PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
       PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games"
     export PATH
-    root@debian10:~#
+    root@linux:~#
 
 This screenshot uses grep to show PATH manipulation in `/etc/profile` on
 RHEL7/CentOS7.
 
-    [root@centos7 ~]# grep PATH /etc/profile
+    [root@linux ~]# grep PATH /etc/profile
         case ":${PATH}:" in
                     PATH=$PATH:$1
                     PATH=$1:$PATH
     export PATH USER LOGNAME MAIL HOSTNAME HISTSIZE HISTCONTROL
-    [root@centos7 ~]#
+    [root@linux ~]#
 
 The `root user` can use this script to set aliases, functions, and
 variables for every user on the system.
@@ -40,7 +40,7 @@ RHEL7/CentOS7 uses a small `~/.bash_profile` where it
 checks for the existence of `~/.bashrc` and then sources
 it. It also adds \$HOME/bin to the \$PATH variable.
 
-    [root@rhel7 ~]# cat /home/paul/.bash_profile
+    [root@linux ~]# cat /home/paul/.bash_profile
     # .bash_profile
 
     # Get the aliases and functions
@@ -53,7 +53,7 @@ it. It also adds \$HOME/bin to the \$PATH variable.
     PATH=$PATH:$HOME/.local/bin:$HOME/bin
 
     export PATH
-    [root@rhel7 ~]#
+    [root@linux ~]#
 
 ## \~/.bash_login
 
@@ -71,7 +71,7 @@ exist by default on Red Hat.
 On Debian this script can execute `~/.bashrc` and will add
 \$HOME/bin to the \$PATH variable.
 
-    root@debian10:~# tail -11 /home/paul/.profile
+    root@linux:~# tail -11 /home/paul/.profile
     if [ -n "$BASH_VERSION" ]; then
         # include .bashrc if it exists
         if [ -f "$HOME/.bashrc" ]; then
@@ -95,7 +95,7 @@ Red Hat uses a very simple `~/.bashrc`, checking for
 `/etc/bashrc` and sourcing it. It also leaves room for
 custom aliases and functions.
 
-    [root@rhel7 ~]# cat /home/paul/.bashrc
+    [root@linux ~]# cat /home/paul/.bashrc
     # .bashrc
 
     # Source global definitions
@@ -111,7 +111,7 @@ custom aliases and functions.
 On Debian this script is quite a bit longer and configures \$PS1, some
 history variables and a number af active and inactive aliases.
 
-    root@debian10:~# wc -l /home/paul/.bashrc
+    root@linux:~# wc -l /home/paul/.bashrc
     110 /home/paul/.bashrc
 
 ## \~/.bash_logout
@@ -120,7 +120,7 @@ When exiting `bash`, it can execute `~/.bash_logout`.
 
 Debian use this opportunity to clear the console screen.
 
-    serena@deb106:~$ cat .bash_logout
+    serena@linux:~$ cat .bash_logout
     # ~/.bash_logout: executed by bash(1) when login shell exits.
 
     # when leaving the console clear the screen to increase privacy
@@ -132,7 +132,7 @@ Debian use this opportunity to clear the console screen.
 Red Hat Enterprise Linux 5 will simple call the `/usr/bin/clear` command
 in this script.
 
-    [serena@rhel53 ~]$ cat .bash_logout 
+    [serena@linux ~]$ cat .bash_logout 
     # ~/.bash_logout
 
     /usr/bin/clear
@@ -140,7 +140,7 @@ in this script.
 Red Hat Enterprise Linux 6 and 7 create this file, but leave it empty
 (except for a comment).
 
-    paul@rhel65:~$ cat .bash_logout
+    student@linux:~$ cat .bash_logout
     # ~/.bash_logout
 
 ## Debian overview

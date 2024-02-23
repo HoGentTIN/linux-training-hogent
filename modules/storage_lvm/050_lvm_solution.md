@@ -5,7 +5,7 @@ on another disk.
 
 step 1: select disks:
 
-    root@rhel65:~# fdisk -l | grep Disk
+    root@linux:~# fdisk -l | grep Disk
     Disk /dev/sda: 8589 MB, 8589934592 bytes
     Disk identifier: 0x00055ca0
     Disk /dev/sdb: 1073 MB, 1073741824 bytes
@@ -18,7 +18,7 @@ I choose /dev/sdb and /dev/sdc for now.
 
 step 2: partition /dev/sdc
 
-    root@rhel65:~# fdisk /dev/sdc
+    root@linux:~# fdisk /dev/sdc
     Device contains neither a valid DOS partition table, nor Sun, SGI or OSF disk\
     label
     Building a new DOS disklabel with disk identifier 0x94c0e5d5.
@@ -50,28 +50,28 @@ step 2: partition /dev/sdc
 
 step 3: pvcreate and vgcreate
 
-    root@rhel65:~# pvcreate /dev/sdb /dev/sdc1
+    root@linux:~# pvcreate /dev/sdb /dev/sdc1
       Physical volume "/dev/sdb" successfully created
       Physical volume "/dev/sdc1" successfully created
-    root@rhel65:~# vgcreate VG42 /dev/sdb /dev/sdc1
+    root@linux:~# vgcreate VG42 /dev/sdb /dev/sdc1
       Volume group "VG42" successfully created
 
 2\. Create two logical volumes (a small one and a bigger one) in this
 volumegroup. Format them wih ext3, mount them and copy some files to
 them.
 
-    root@rhel65:~# lvcreate --size 200m --name LVsmall VG42
+    root@linux:~# lvcreate --size 200m --name LVsmall VG42
       Logical volume "LVsmall" created
-    root@rhel65:~# lvcreate --size 600m --name LVbig VG42
+    root@linux:~# lvcreate --size 600m --name LVbig VG42
       Logical volume "LVbig" created
-    root@rhel65:~# ls -l /dev/mapper/VG42-LVsmall
+    root@linux:~# ls -l /dev/mapper/VG42-LVsmall
     lrwxrwxrwx. 1 root root 7 Apr 20 20:41 /dev/mapper/VG42-LVsmall -> ../dm-2
-    root@rhel65:~# ls -l /dev/VG42/LVsmall
+    root@linux:~# ls -l /dev/VG42/LVsmall
     lrwxrwxrwx. 1 root root 7 Apr 20 20:41 /dev/VG42/LVsmall -> ../dm-2
-    root@rhel65:~# ls -l /dev/dm-2
+    root@linux:~# ls -l /dev/dm-2
     brw-rw----. 1 root disk 253, 2 Apr 20 20:41 /dev/dm-2
 
-    root@rhel65:~# mkfs.ext3 /dev/mapper/VG42-LVsmall
+    root@linux:~# mkfs.ext3 /dev/mapper/VG42-LVsmall
     mke2fs 1.41.12 (17-May-2010)
     Filesystem label=
     OS type: Linux
@@ -95,7 +95,7 @@ them.
     This filesystem will be automatically checked every 39 mounts or
     180 days, whichever comes first.  Use tune2fs -c or -i to override.
 
-    root@rhel65:~# mkfs.ext3 /dev/VG42/LVbig 
+    root@linux:~# mkfs.ext3 /dev/VG42/LVbig 
     mke2fs 1.41.12 (17-May-2010)
     Filesystem label=
     OS type: Linux
@@ -121,19 +121,19 @@ them.
 
 The mounting and copying of files.
 
-    root@rhel65:~# mkdir /srv/LVsmall
-    root@rhel65:~# mkdir /srv/LVbig
-    root@rhel65:~# mount /dev/mapper/VG42-LVsmall /srv/LVsmall
-    root@rhel65:~# mount /dev/VG42/LVbig /srv/LVbig
-    root@rhel65:~# cp -r /etc /srv/LVsmall/
-    root@rhel65:~# cp -r /var/log /srv/LVbig/
+    root@linux:~# mkdir /srv/LVsmall
+    root@linux:~# mkdir /srv/LVbig
+    root@linux:~# mount /dev/mapper/VG42-LVsmall /srv/LVsmall
+    root@linux:~# mount /dev/VG42/LVbig /srv/LVbig
+    root@linux:~# cp -r /etc /srv/LVsmall/
+    root@linux:~# cp -r /var/log /srv/LVbig/
 
 3\. Verify usage with fdisk, mount, pvs, vgs, lvs, pvdisplay, vgdisplay,
 lvdisplay and df. Does fdisk give you any information about lvm?
 
 Run all those commands (only two are shown below), then answer \'no\'.
 
-    root@rhel65:~# df -h 
+    root@linux:~# df -h 
     Filesystem            Size  Used Avail Use% Mounted on
     /dev/mapper/VolGroup-lv_root
                           6.7G  1.4G  5.0G  21% /
@@ -143,17 +143,17 @@ Run all those commands (only two are shown below), then answer \'no\'.
                           194M   30M  154M  17% /srv/LVsmall
     /dev/mapper/VG42-LVbig
                           591M   20M  541M   4% /srv/LVbig
-    root@rhel65:~# mount | grep VG42
+    root@linux:~# mount | grep VG42
     /dev/mapper/VG42-LVsmall on /srv/LVsmall type ext3 (rw)
     /dev/mapper/VG42-LVbig on /srv/LVbig type ext3 (rw)
 
 4\. Enlarge the small logical volume by 50 percent, and verify your
 work!
 
-    root@rhel65:~# lvextend VG42/LVsmall -l+50%LV
+    root@linux:~# lvextend VG42/LVsmall -l+50%LV
       Extending logical volume LVsmall to 300.00 MiB
       Logical volume LVsmall successfully resized
-    root@rhel65:~# resize2fs /dev/mapper/VG42-LVsmall
+    root@linux:~# resize2fs /dev/mapper/VG42-LVsmall
     resize2fs 1.41.12 (17-May-2010)
     Filesystem at /dev/mapper/VG42-LVsmall is mounted on /srv/LVsmall; on-line res\
     izing required
@@ -161,10 +161,10 @@ work!
     Performing an on-line resize of /dev/mapper/VG42-LVsmall to 307200 (1k) blocks.
     The filesystem on /dev/mapper/VG42-LVsmall is now 307200 blocks long.
 
-    root@rhel65:~# df -h | grep small
+    root@linux:~# df -h | grep small
     /dev/mapper/VG42-LVsmall
                           291M   31M  246M  12% /srv/LVsmall
-    root@rhel65:~#
+    root@linux:~#
 
 5\. Take a look at other commands that start with vg\* , pv\* or lv\*.
 

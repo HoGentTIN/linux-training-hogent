@@ -12,12 +12,12 @@ The low level tool to work with `.deb` packages is `dpkg`.
 Here you see how to obtain a list of all installed packages on a Debian
 server.
 
-    root@debian6:~# dpkg -l | wc -l
+    root@linux:~# dpkg -l | wc -l
     265
 
 Compare this to the same list on a Ubuntu Desktop computer.
 
-    root@ubu1204~# dpkg -l | wc -l
+    root@linux~# dpkg -l | wc -l
     2527
 
 ## dpkg -l \$package
@@ -25,7 +25,7 @@ Compare this to the same list on a Ubuntu Desktop computer.
 Here is an example on how to get information on an individual package.
 The ii at the beginning means the package is installed.
 
-    root@debian6:~# dpkg -l rsync | tail -1 | tr -s  ' ' 
+    root@linux:~# dpkg -l rsync | tail -1 | tr -s  ' ' 
     ii rsync 3.0.7-2 fast remote file copy program (like rcp)
 
 ## dpkg -S
@@ -34,7 +34,7 @@ You can find the package that installed a certain file on your computer
 with `dpkg -S`. This example shows how to find the package for three
 files on a typical Debian server.
 
-    root@debian6:~# dpkg -S /usr/share/doc/tmux/ /etc/ssh/ssh_config /sbin/ifconfig 
+    root@linux:~# dpkg -S /usr/share/doc/tmux/ /etc/ssh/ssh_config /sbin/ifconfig 
     tmux: /usr/share/doc/tmux/
     openssh-client: /etc/ssh/ssh_config
     net-tools: /sbin/ifconfig
@@ -44,7 +44,7 @@ files on a typical Debian server.
 You can also get a list of all files that are installed by a certain
 program. Below is the list for the `tmux` package.
 
-    root@debian6:~# dpkg -L tmux
+    root@linux:~# dpkg -L tmux
     /.
     /etc
     /etc/init.d
@@ -105,7 +105,7 @@ In the example below you can see some repositories at the url
 `be.archive.ubuntu.com` because this computer was installed in Belgium.
 This url can be different for you.
 
-    root@ubu1204~# apt-get update
+    root@linux~# apt-get update
     Ign http://be.archive.ubuntu.com precise InRelease
     Ign http://extras.ubuntu.com precise InRelease
     Ign http://security.ubuntu.com precise-security InRelease            
@@ -118,7 +118,7 @@ This url can be different for you.
     Hit http://be.archive.ubuntu.com precise-backports/universe Translation-en                                                         
     Fetched 13.7 MB in 8s (1682 kB/s)                                                                                                  
     Reading package lists... Done
-    root@mac~#
+    root@linux~#
 
 Run `apt-get update` every time before performing other package
 operations.
@@ -129,12 +129,12 @@ One of the nicest features of `apt-get` is that it allows for a secure
 update of `all software currently installed` on your computer with just
 `one` command.
 
-    root@debian6:~# apt-get upgrade
+    root@linux:~# apt-get upgrade
     Reading package lists... Done
     Building dependency tree       
     Reading state information... Done
     0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
-    root@debian6:~# 
+    root@linux:~# 
 
 The above screenshot shows that all software is updated to the latest
 version available for my distribution.
@@ -144,7 +144,7 @@ version available for my distribution.
 `apt-get` keeps a copy of downloaded packages in
 `/var/cache/apt/archives`, as can be seen in this screenshot.
 
-    root@ubu1204~# ls /var/cache/apt/archives/ | head
+    root@linux~# ls /var/cache/apt/archives/ | head
     accountsservice_0.6.15-2ubuntu9.4_i386.deb
     apport_2.0.1-0ubuntu14_all.deb
     apport-gtk_2.0.1-0ubuntu14_all.deb
@@ -158,8 +158,8 @@ version available for my distribution.
 
 Running `apt-get clean` removes all .deb files from that directory.
 
-    root@ubu1204~# apt-get clean
-    root@ubu1204~# ls /var/cache/apt/archives/*.deb
+    root@linux~# apt-get clean
+    root@linux~# ls /var/cache/apt/archives/*.deb
     ls: cannot access /var/cache/apt/archives/*.deb: No such file or directory
 
 ## apt-cache search
@@ -167,7 +167,7 @@ Running `apt-get clean` removes all .deb files from that directory.
 Use `apt-cache search` to search for availability of a package. Here we
 look for `rsync`.
 
-    root@ubu1204~# apt-cache search rsync | grep ^rsync
+    root@linux~# apt-cache search rsync | grep ^rsync
     rsync - fast, versatile, remote (and local) file-copying tool
     rsyncrypto - rsync friendly encryption
 
@@ -177,7 +177,7 @@ You can install one or more applications by appending their name behind
 `apt-get install`. The screenshot shows how to install the `rsync`
 package.
 
-    root@ubu1204~# apt-get install rsync
+    root@linux~# apt-get install rsync
     Reading package lists... Done
     Building dependency tree       
     Reading state information... Done
@@ -195,7 +195,7 @@ package.
     Processing triggers for ureadahead ...
     Setting up rsync (3.0.9-1ubuntu1) ...
      Removing any system startup links for /etc/init.d/rsync ...
-    root@ubu1204~#
+    root@linux~#
 
 ## apt-get remove
 
@@ -203,7 +203,7 @@ You can remove one or more applications by appending their name behind
 `apt-get remove`. The screenshot shows how to remove the `rsync`
 package.
 
-    root@ubu1204~# apt-get remove rsync
+    root@linux~# apt-get remove rsync
     Reading package lists... Done
     Building dependency tree       
     Reading state information... Done
@@ -218,11 +218,11 @@ package.
      * Stopping rsync daemon rsync                                                                                                                                                                 [ OK ] 
     Processing triggers for ureadahead ...
     Processing triggers for man-db ...
-    root@ubu1204~#
+    root@linux~#
 
 Note however that some configuration information is not removed.
 
-    root@ubu1204~# dpkg -l rsync | tail -1 | tr -s ' ' 
+    root@linux~# dpkg -l rsync | tail -1 | tr -s ' ' 
     rc rsync 3.0.9-1ubuntu1 fast, versatile, remote (and local) file-copying tool
 
 ## apt-get purge
@@ -232,7 +232,7 @@ You can purge one or more applications by appending their name behind
 files related to that application. The screenshot shows how to purge the
 `rsync` package.
 
-    root@ubu1204~# apt-get purge rsync
+    root@linux~# apt-get purge rsync
     Reading package lists... Done
     Building dependency tree       
     Reading state information... Done
@@ -245,12 +245,12 @@ files related to that application. The screenshot shows how to purge the
     Removing rsync ...
     Purging configuration files for rsync ...
     Processing triggers for ureadahead ...
-    root@ubu1204~#
+    root@linux~#
 
 Note that `dpkg` has no information about a purged package, except that
 it is uninstalled and no configuration is left on the system.
 
-    root@ubu1204~# dpkg -l rsync | tail -1 | tr -s ' ' 
+    root@linux~# dpkg -l rsync | tail -1 | tr -s ' ' 
     un rsync <none> (no description available)
 
 # aptitude
@@ -302,7 +302,7 @@ or ftp sources where packages for the distribution can be downloaded.
 
 This is what that list looks like on my Debian server.
 
-    root@debian6:~# cat /etc/apt/sources.list
+    root@linux:~# cat /etc/apt/sources.list
     deb http://ftp.be.debian.org/debian/ squeeze main
     deb-src http://ftp.be.debian.org/debian/ squeeze main
 
@@ -315,7 +315,7 @@ This is what that list looks like on my Debian server.
 
 On my Ubuntu there are four times as many online repositories in use.
 
-    root@ubu1204~# wc -l /etc/apt/sources.list
+    root@linux~# wc -l /etc/apt/sources.list
     63 /etc/apt/sources.list
 
 There is much more to learn about `apt`, explore commands like

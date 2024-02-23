@@ -4,7 +4,7 @@ Passwords of users can be set with the `passwd` command.
 Users will have to provide their old password before twice entering the
 new one.
 
-    [tania@centos7 ~]$ passwd
+    [tania@linux ~]$ passwd
     Changing password for user tania.
     Changing password for tania.
     (current) UNIX password:
@@ -22,7 +22,7 @@ have to follow these rules (there will be a warning though). The `root`
 user also does not have to provide the old password before entering the
 new password twice.
 
-    root@debian10:~# passwd tania
+    root@linux:~# passwd tania
     Enter new UNIX password:
     Retype new UNIX password:
     passwd: password updated successfully
@@ -35,7 +35,7 @@ see in the file permissions section how it is possible for users to
 change their password. For now, you will have to know that users can
 change their password with the `/usr/bin/passwd` command.
 
-    [root@centos7 ~]# tail -4 /etc/shadow
+    [root@linux ~]# tail -4 /etc/shadow
     paul:$6$ikp2Xta5BT.Tml.p$2TZjNnOYNNQKpwLJqoGJbVsZG5/Fti8ovBRd.VzRbiDSl7TEq\
     IaSMH.TeBKnTS/SjlMruW8qffC0JNORW.BTW1:16338:0:99999:7:::
     tania:$6$8Z/zovxj$9qvoqT8i9KIrmN.k4EQwAF5ryz5yzNwEvYjAa9L5XVXQu.z4DlpvMREH\
@@ -44,7 +44,7 @@ change their password with the `/usr/bin/passwd` command.
     SyYh1WCv6763Wq54.w24Yr3uAZBOm/:16356:0:99999:7:::
     valentina:$6$jrZa6PVI$1uQgqR6En9mZB6mKJ3LXRB4CnFko6LRhbh.v4iqUk9MVreui1lv7\
     GxHOUDSKA0N55ZRNhGHa6T2ouFnVno/0o1:16356:0:99999:7:::
-    [root@centos7 ~]#
+    [root@linux ~]#
 
 The `/etc/shadow` file contains nine colon separated columns. The nine
 fields contain (from left to right) the user name, the encrypted
@@ -83,28 +83,28 @@ command.
 The `openssl passwd` command will generate several distinct hashes for
 the same password, for this it uses a `salt`.
 
-    paul@rhel65:~$ openssl passwd hunter2
+    student@linux:~$ openssl passwd hunter2
     86jcUNlnGDFpY
-    paul@rhel65:~$ openssl passwd hunter2
+    student@linux:~$ openssl passwd hunter2
     Yj7mDO9OAnvq6
-    paul@rhel65:~$ openssl passwd hunter2
+    student@linux:~$ openssl passwd hunter2
     YqDcJeGoDbzKA
-    paul@rhel65:~$
+    student@linux:~$
 
 This `salt` can be chosen and is visible as the first two characters of
 the hash.
 
-    paul@rhel65:~$ openssl passwd -salt 42 hunter2
+    student@linux:~$ openssl passwd -salt 42 hunter2
     42ZrbtP1Ze8G.
-    paul@rhel65:~$ openssl passwd -salt 42 hunter2
+    student@linux:~$ openssl passwd -salt 42 hunter2
     42ZrbtP1Ze8G.
-    paul@rhel65:~$ openssl passwd -salt 42 hunter2
+    student@linux:~$ openssl passwd -salt 42 hunter2
     42ZrbtP1Ze8G.
-    paul@rhel65:~$
+    student@linux:~$
 
 This example shows how to create a user with password.
 
-    root@rhel65:~# useradd -m -p $(openssl passwd hunter2) mohamed
+    root@linux:~# useradd -m -p $(openssl passwd hunter2) mohamed
 
 *Note that this command puts the password in your command history!*
 
@@ -113,7 +113,7 @@ This example shows how to create a user with password.
 A third option is to create your own C program using the crypt function,
 and compile this into a command.
 
-    paul@rhel65:~$ cat MyCrypt.c
+    student@linux:~$ cat MyCrypt.c
     #include <stdio.h>
     #define __USE_XOPEN
     #include <unistd.h>
@@ -133,7 +133,7 @@ and compile this into a command.
 
 This little program can be compiled with `gcc` like this.
 
-    paul@rhel65:~$ gcc MyCrypt.c -o MyCrypt -lcrypt
+    student@linux:~$ gcc MyCrypt.c -o MyCrypt -lcrypt
 
 To use it, we need to give two parameters to MyCrypt. The first is the
 unencrypted password, the second is the salt. The salt is used to
@@ -141,9 +141,9 @@ perturb the encryption algorithm in one of 4096 different ways. This
 variation prevents two users with the same password from having the same
 entry in `/etc/shadow`.
 
-    paul@rhel65:~$ ./MyCrypt hunter2 42
+    student@linux:~$ ./MyCrypt hunter2 42
     42ZrbtP1Ze8G.
-    paul@rhel65:~$ ./MyCrypt hunter2 33
+    student@linux:~$ ./MyCrypt hunter2 33
     33d6taYSiEUXI
 
 Did you notice that the first two characters of the password are the
@@ -154,16 +154,16 @@ which is old and can be cracked in minutes. A better method is to use
 `md5` passwords which can be recognized by a salt starting
 with \$1\$.
 
-    paul@rhel65:~$ ./MyCrypt hunter2 '$1$42'
+    student@linux:~$ ./MyCrypt hunter2 '$1$42'
     $1$42$7l6Y3xT5282XmZrtDOF9f0
-    paul@rhel65:~$ ./MyCrypt hunter2 '$6$42'
+    student@linux:~$ ./MyCrypt hunter2 '$6$42'
     $6$42$OqFFAVnI3gTSYG0yI9TZWX9cpyQzwIop7HwpG1LLEsNBiMr4w6OvLX1KDa./UpwXfrFk1i...
 
 The `md5` salt can be up to eight characters long. The salt is displayed
 in `/etc/shadow` between the second and third \$, so never
 use the password as the salt!
 
-    paul@rhel65:~$ ./MyCrypt hunter2 '$1$hunter2'
+    student@linux:~$ ./MyCrypt hunter2 '$1$hunter2'
     $1$hunter2$YVxrxDmidq7Xf8Gdt6qM2.
 
 ## /etc/login.defs
@@ -173,7 +173,7 @@ for user passwords like password aging and length settings. (You will
 also find the numerical limits of user ids and group ids and whether or
 not a home directory should be created by default).
 
-    root@rhel65:~# grep ^PASS /etc/login.defs
+    root@linux:~# grep ^PASS /etc/login.defs
     PASS_MAX_DAYS   99999
     PASS_MIN_DAYS   0
     PASS_MIN_LEN    5
@@ -181,7 +181,7 @@ not a home directory should be created by default).
 
 Debian also has this file.
 
-    root@debian10:~# grep PASS /etc/login.defs
+    root@linux:~# grep PASS /etc/login.defs
     #  PASS_MAX_DAYS   Maximum number of days a password may be used.
     #  PASS_MIN_DAYS   Minimum number of days allowed between password changes.
     #  PASS_WARN_AGE   Number of days warning given before a password expires.
@@ -193,7 +193,7 @@ Debian also has this file.
     #PASS_MIN_LEN
     #PASS_MAX_LEN
     # NO_PASSWORD_CONSOLE
-    root@debian10:~#
+    root@linux:~#
 
 ## chage
 
@@ -204,7 +204,7 @@ before the password expiration date. Much of this functionality is also
 available from the `passwd` command. The `-l` option of
 chage will list these settings for a user.
 
-    root@rhel65:~# chage -l paul
+    root@linux:~# chage -l paul
     Last password change                                    : Mar 27, 2014
     Password expires                                        : never
     Password inactive                                       : never
@@ -212,7 +212,7 @@ chage will list these settings for a user.
     Minimum number of days between password change          : 0
     Maximum number of days between password change          : 99999
     Number of days of warning before password expires       : 7
-    root@rhel65:~#
+    root@linux:~#
 
 ## disabling a password
 
@@ -229,29 +229,29 @@ of `laura` in `/etc/shadow`. The next command disables the password of
 `laura`, making it impossible for Laura to authenticate using this
 password.
 
-    root@debian10:~# grep laura /etc/shadow | cut -c1-70
+    root@linux:~# grep laura /etc/shadow | cut -c1-70
     laura:$6$JYj4JZqp$stwwWACp3OtE1R2aZuE87j.nbW.puDkNUYVk7mCHfCVMa3CoDUJV
-    root@debian10:~# usermod -L laura
+    root@linux:~# usermod -L laura
 
 As you can see below, the password hash is simply preceded with an
 exclamation mark.
 
-    root@debian10:~# grep laura /etc/shadow | cut -c1-70
+    root@linux:~# grep laura /etc/shadow | cut -c1-70
     laura:!$6$JYj4JZqp$stwwWACp3OtE1R2aZuE87j.nbW.puDkNUYVk7mCHfCVMa3CoDUJ
-    root@debian10:~#
+    root@linux:~#
 
 The root user (and users with `sudo` rights on `su`) still
 will be able to `su` into the `laura` account (because the
 password is not needed here). Also note that `laura` will still be able
 to login if she has set up passwordless ssh!
 
-    root@debian10:~# su - laura
-    laura@debian10:~$ 
+    root@linux:~# su - laura
+    laura@linux:~$ 
 
 You can unlock the account again with `usermod -U`.
 
-    root@debian10:~# usermod -U laura
-    root@debian10:~# grep laura /etc/shadow | cut -c1-70
+    root@linux:~# usermod -U laura
+    root@linux:~# grep laura /etc/shadow | cut -c1-70
     laura:$6$JYj4JZqp$stwwWACp3OtE1R2aZuE87j.nbW.puDkNUYVk7mCHfCVMa3CoDUJV
 
 Watch out for tiny differences in the command line options of `passwd`,
@@ -267,6 +267,6 @@ If you still want to manually edit the `/etc/passwd` or
 management, then use `vipw` instead of vi(m) directly. The
 `vipw` tool will do proper locking of the file.
 
-    [root@RHEL5 ~]# vipw /etc/passwd
+    [root@linux ~]# vipw /etc/passwd
     vipw: the password file is busy (/etc/ptmp present)
 

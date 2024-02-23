@@ -6,20 +6,20 @@ their password before access to this share is granted. We will first
 create three randomly named users, each with their own password. First
 we add these users to Linux.
 
-    [root@RHEL52 ~]# useradd -c "Serena Williams" serena
-    [root@RHEL52 ~]# useradd -c "Justine Henin" justine
-    [root@RHEL52 ~]# useradd -c "Martina Hingis" martina
-    [root@RHEL52 ~]# passwd serena
+    [root@linux ~]# useradd -c "Serena Williams" serena
+    [root@linux ~]# useradd -c "Justine Henin" justine
+    [root@linux ~]# useradd -c "Martina Hingis" martina
+    [root@linux ~]# passwd serena
     Changing password for user serena.
     New UNIX password: 
     Retype new UNIX password: 
     passwd: all authentication tokens updated successfully.
-    [root@RHEL52 ~]# passwd justine
+    [root@linux ~]# passwd justine
     Changing password for user justine.
     New UNIX password: 
     Retype new UNIX password: 
     passwd: all authentication tokens updated successfully.
-    [root@RHEL52 ~]# passwd martina
+    [root@linux ~]# passwd martina
     Changing password for user martina.
     New UNIX password: 
     Retype new UNIX password: 
@@ -31,15 +31,15 @@ we add these users to Linux.
 Then we add them to the `smbpasswd` file, with the same
 password.
 
-    [root@RHEL52 ~]# smbpasswd -a serena
+    [root@linux ~]# smbpasswd -a serena
     New SMB password:
     Retype new SMB password:
     Added user serena.
-    [root@RHEL52 ~]# smbpasswd -a justine
+    [root@linux ~]# smbpasswd -a justine
     New SMB password:
     Retype new SMB password:
     Added user justine.
-    [root@RHEL52 ~]# smbpasswd -a martina
+    [root@linux ~]# smbpasswd -a martina
     New SMB password:
     Retype new SMB password:
     Added user martina.
@@ -108,14 +108,14 @@ in writing her files, but fails to overwrite the file from serena.
 You can also test connecting with authentication with
 `smbclient`. First we test with a wrong password.
 
-    [root@RHEL52 samba]# smbclient //teacher0/authwrite -U martina wrongpass
+    [root@linux samba]# smbclient //teacher0/authwrite -U martina wrongpass
     session setup failed: NT_STATUS_LOGON_FAILURE
         
 
 Then we test with the correct password, and verify that we can access a
 file on the share.
 
-    [root@RHEL52 samba]# smbclient //teacher0/authwrite -U martina stargate
+    [root@linux samba]# smbclient //teacher0/authwrite -U martina stargate
     Domain=[TEACHER0] OS=[Unix] Server=[Samba 3.0.33-3.7.el5]
     smb: \> more serena.txt 
     getting file \serena.txt of size 14 as /tmp/smbmore.QQfmSN (6.8 kb/s)
@@ -130,7 +130,7 @@ file on the share.
 We now have a simple standalone samba file server with authenticated
 access. And the files in the shares belong to their proper owners.
 
-    [root@RHEL52 samba]# ls -l /srv/samba/authwrite/
+    [root@linux samba]# ls -l /srv/samba/authwrite/
     total 8
     -rwxr--r-- 1 martina martina  0 Jan 21 20:06 martina.txt
     -rwxr--r-- 1 serena  serena  14 Jan 21 20:06 serena.txt
@@ -144,8 +144,8 @@ access. And the files in the shares belong to their proper owners.
 You can get `NT_STATUS_BAD_NETWORK_NAME` when you forget
 to create the target directory.
 
-    [root@RHEL52 samba]# rm -rf /srv/samba/authwrite/
-    [root@RHEL52 samba]# smbclient //teacher0/authwrite -U martina stargate
+    [root@linux samba]# rm -rf /srv/samba/authwrite/
+    [root@linux samba]# smbclient //teacher0/authwrite -U martina stargate
     Domain=[TEACHER0] OS=[Unix] Server=[Samba 3.0.33-3.7.el5]
     tree connect failed: NT_STATUS_BAD_NETWORK_NAME
             
@@ -155,7 +155,7 @@ to create the target directory.
 You can get `NT_STATUS_LOGON_FAILURE` when you type the
 wrong password or when you type an unexisting username.
 
-    [root@RHEL52 samba]# smbclient //teacher0/authwrite -U martina STARGATE
+    [root@linux samba]# smbclient //teacher0/authwrite -U martina STARGATE
     session setup failed: NT_STATUS_LOGON_FAILURE
             
 
@@ -163,18 +163,18 @@ wrong password or when you type an unexisting username.
 
 Remember that usernames om Linux are case sensitive.
 
-    [root@RHEL52 samba]# su - MARTINA
+    [root@linux samba]# su - MARTINA
     su: user MARTINA does not exist
-    [root@RHEL52 samba]# su - martina
-    [martina@RHEL52 ~]$ 
+    [root@linux samba]# su - martina
+    [martina@linux ~]$ 
             
 
 But usernames on Microsoft computers are not case sensitive.
 
-    [root@RHEL52 samba]# smbclient //teacher0/authwrite -U martina stargate
+    [root@linux samba]# smbclient //teacher0/authwrite -U martina stargate
     Domain=[TEACHER0] OS=[Unix] Server=[Samba 3.0.33-3.7.el5]
     smb: \> q
-    [root@RHEL52 samba]# smbclient //teacher0/authwrite -U MARTINA stargate
+    [root@linux samba]# smbclient //teacher0/authwrite -U MARTINA stargate
     Domain=[TEACHER0] OS=[Unix] Server=[Samba 3.0.33-3.7.el5]
     smb: \> q
             

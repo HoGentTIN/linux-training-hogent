@@ -83,7 +83,7 @@ First, you have to attach some disks to your computer. In this scenario,
 three brand new disks of eight gigabyte each are added. Check with
 `fdisk -l` that they are connected.
 
-    [root@rhel6c ~]# fdisk -l 2> /dev/null | grep MB
+    [root@linux ~]# fdisk -l 2> /dev/null | grep MB
     Disk /dev/sdb: 8589 MB, 8589934592 bytes
     Disk /dev/sdc: 8589 MB, 8589934592 bytes
     Disk /dev/sdd: 8589 MB, 8589934592 bytes
@@ -94,7 +94,7 @@ The next step is to create a partition of type `fd` on
 every disk. The `fd` type is to set the partition as
 `Linux RAID autodetect`. See this (truncated) screenshot:
 
-    [root@rhel6c ~]# fdisk /dev/sdd
+    [root@linux ~]# fdisk /dev/sdd
     ...
     Command (m for help): n
     Command action
@@ -123,7 +123,7 @@ every disk. The `fd` type is to set the partition as
 Now all three disks are ready for `raid 5`, so we have to tell the
 system what to do with these disks.
 
-    [root@rhel6c ~]# fdisk -l 2> /dev/null | grep raid
+    [root@linux ~]# fdisk -l 2> /dev/null | grep raid
     /dev/sdb1       1        1044     8385898+  fd  Linux raid autodetect
     /dev/sdc1       1        1044     8385898+  fd  Linux raid autodetect
     /dev/sdd1       1        1044     8385898+  fd  Linux raid autodetect
@@ -137,14 +137,14 @@ The next step used to be *create the `raid table` in
 The command below is split on two lines to fit this print, but you
 should type it on one line, without the backslash (\\).
 
-    [root@rhel6c ~]# mdadm --create /dev/md0 --chunk=64 --level=5 --raid-\
+    [root@linux ~]# mdadm --create /dev/md0 --chunk=64 --level=5 --raid-\
     devices=3 /dev/sdb1 /dev/sdc1 /dev/sdd1
     mdadm: Defaulting to version 1.2 metadata
     mdadm: array /dev/md0 started.
 
 Below a partial screenshot how fdisk -l sees the `raid 5`.
 
-    [root@rhel6c ~]# fdisk -l /dev/md0
+    [root@linux ~]# fdisk -l /dev/md0
 
     Disk /dev/md0: 17.2 GB, 17172135936 bytes
     2 heads, 4 sectors/track, 4192416 cylinders
@@ -163,7 +163,7 @@ The status of the raid devices can be seen in
 `/proc/mdstat`. This example shows a `raid 5` in the
 process of rebuilding.
 
-    [root@rhel6c ~]# cat /proc/mdstat 
+    [root@linux ~]# cat /proc/mdstat 
     Personalities : [raid6] [raid5] [raid4] 
     md0 : active raid5 sdd1[3] sdc1[1] sdb1[0]
           16769664 blocks super 1.2 level 5, 64k chunk, algorithm 2 [3/2] [UU_]
@@ -172,7 +172,7 @@ process of rebuilding.
 
 This example shows an active software `raid 5`.
 
-    [root@rhel6c ~]# cat /proc/mdstat 
+    [root@linux ~]# cat /proc/mdstat 
     Personalities : [raid6] [raid5] [raid4] 
     md0 : active raid5 sdd1[3] sdc1[1] sdb1[0]
         16769664 blocks super 1.2 level 5, 64k chunk, algorithm 2 [3/3] [UUU]
@@ -181,7 +181,7 @@ This example shows an active software `raid 5`.
 
 Use `mdadm --detail` to get information on a raid device.
 
-    [root@rhel6c ~]# mdadm --detail /dev/md0
+    [root@linux ~]# mdadm --detail /dev/md0
     /dev/md0:
             Version : 1.2
       Creation Time : Sun Jul 17 13:48:41 2011
@@ -217,7 +217,7 @@ The software raid is visible in `/proc/mdstat` when active. To remove
 the raid completely so you can use the disks for other purposes, you
 stop (de-activate) it with `mdadm`.
 
-    [root@rhel6c ~]# mdadm --stop /dev/md0
+    [root@linux ~]# mdadm --stop /dev/md0
     mdadm: stopped /dev/md0
 
 The disks can now be repartitioned.

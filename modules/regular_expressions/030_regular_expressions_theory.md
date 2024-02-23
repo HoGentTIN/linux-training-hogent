@@ -29,7 +29,7 @@ match a certain pattern. Below are some examples of the simplest
 This is the contents of the test file. This file contains three lines
 (or three `newline` characters).
 
-    paul@rhel65:~$ cat names
+    student@linux:~$ cat names
     Tania
     Laura
     Valentina
@@ -37,11 +37,11 @@ This is the contents of the test file. This file contains three lines
 When `grepping` for a single character, only the lines containing that
 character are returned.
 
-    paul@rhel65:~$ grep u names
+    student@linux:~$ grep u names
     Laura
-    paul@rhel65:~$ grep e names
+    student@linux:~$ grep e names
     Valentina
-    paul@rhel65:~$ grep i names
+    student@linux:~$ grep i names
     Tania
     Valentina
 
@@ -56,25 +56,25 @@ to have a match.
 This example demonstrates that `ia` will match Tan`ia` but not
 V`a`lent`i`na and `in` will match Valent`in`a but not Ta`ni`a.
 
-    paul@rhel65:~$ grep a names
+    student@linux:~$ grep a names
     Tania
     Laura
     Valentina
-    paul@rhel65:~$ grep ia names
+    student@linux:~$ grep ia names
     Tania
-    paul@rhel65:~$ grep in names
+    student@linux:~$ grep in names
     Valentina
-    paul@rhel65:~$
+    student@linux:~$
 
 ### one or the other
 
 PRCE and ERE both use the pipe symbol to signify OR. In this example we
 `grep` for lines containing the letter i or the letter a.
 
-    paul@debian10:~$ cat list 
+    student@linux:~$ cat list 
     Tania
     Laura
-    paul@debian10:~$ grep -E 'i|a' list 
+    student@linux:~$ grep -E 'i|a' list 
     Tania
     Laura
 
@@ -83,8 +83,8 @@ string as an ERE.
 
 We need to `escape` the pipe symbol in a BRE to get the same logical OR.
 
-    paul@debian10:~$ grep -G 'i|a' list 
-    paul@debian10:~$ grep -G 'i\|a' list 
+    student@linux:~$ grep -G 'i|a' list 
+    student@linux:~$ grep -G 'i\|a' list 
     Tania
     Laura
 
@@ -93,27 +93,27 @@ We need to `escape` the pipe symbol in a BRE to get the same logical OR.
 The `*` signifies zero, one or more occurences of the previous and the
 `+` signifies one or more of the previous.
 
-    paul@debian10:~$ cat list2
+    student@linux:~$ cat list2
     ll
     lol
     lool
     loool
-    paul@debian10:~$ grep -E 'o*' list2
+    student@linux:~$ grep -E 'o*' list2
     ll
     lol
     lool
     loool
-    paul@debian10:~$ grep -E 'o+' list2
+    student@linux:~$ grep -E 'o+' list2
     lol
     lool
     loool
-    paul@debian10:~$
+    student@linux:~$
 
 ### match the end of a string
 
 For the following examples, we will use this file.
 
-    paul@debian10:~$ cat names 
+    student@linux:~$ cat names 
     Tania
     Laura
     Valentina
@@ -123,11 +123,11 @@ For the following examples, we will use this file.
 The two examples below show how to use the `dollar character` to match
 the end of a string.
 
-    paul@debian10:~$ grep a$ names 
+    student@linux:~$ grep a$ names 
     Tania
     Laura
     Valentina
-    paul@debian10:~$ grep r$ names 
+    student@linux:~$ grep r$ names 
     Fleur
     Floor
 
@@ -138,9 +138,9 @@ beginning) of a line.
 
 Given the same file as above, here are two examples.
 
-    paul@debian10:~$ grep ^Val names 
+    student@linux:~$ grep ^Val names 
     Valentina
-    paul@debian10:~$ grep ^F names 
+    student@linux:~$ grep ^F names 
     Fleur
     Floor
 
@@ -151,14 +151,14 @@ Both the dollar sign and the little hat are called `anchors` in a regex.
 Regular expressions use a `\b` sequence to reference a word separator.
 Take for example this file:
 
-    paul@debian10:~$ cat text
+    student@linux:~$ cat text
     The governer is governing.
     The winter is over.
     Can you get over there?
 
 Simply grepping for `over` will give too many results.
 
-    paul@debian10:~$ grep over text
+    student@linux:~$ grep over text
     The governer is governing.
     The winter is over.
     Can you get over there?
@@ -167,21 +167,21 @@ Surrounding the searched word with spaces is not a good solution
 (because other characters can be word separators). This screenshot below
 show how to use `\b` to find only the searched word:
 
-    paul@debian10:~$ grep '\bover\b' text
+    student@linux:~$ grep '\bover\b' text
     The winter is over.
     Can you get over there?
-    paul@debian10:~$
+    student@linux:~$
 
 Note that `grep` also has a `-w` option to grep for words.
 
-    paul@debian10:~$ cat text 
+    student@linux:~$ cat text 
     The governer is governing.
     The winter is over.
     Can you get over there?
-    paul@debian10:~$ grep -w over text
+    student@linux:~$ grep -w over text
     The winter is over.
     Can you get over there?
-    paul@debian10:~$ 
+    student@linux:~$ 
 
 ### grep features
 
@@ -202,7 +202,7 @@ The dollar sign is a special character, both for the regex and also for
 the shell (remember variables and embedded shells). Therefore it is
 advised to always quote the regex, this prevents shell expansion.
 
-    paul@debian10:~$ grep 'r$' names 
+    student@linux:~$ grep 'r$' names 
     Fleur
     Floor
 
@@ -214,7 +214,7 @@ On Debian Linux the `/usr/bin/rename` command is a link to
 `/usr/bin/prename` installed by the `perl`
 package.
 
-    paul@pi ~ $ dpkg -S $(readlink -f $(which rename))
+    student@linux ~ $ dpkg -S $(readlink -f $(which rename))
     perl: /usr/bin/prename
 
 Red Hat derived systems do not install the same `rename` command, so
@@ -230,7 +230,7 @@ The `rename` command is actually a perl script that uses
 by typing `perldoc perlrequick` (after installing
 `perldoc`).
 
-    root@pi:~# aptitude install perl-doc
+    root@linux:~# aptitude install perl-doc
     The following NEW packages will be installed:
       perl-doc
     0 packages upgraded, 1 newly installed, 0 to remove and 0 not upgraded.
@@ -244,7 +244,7 @@ by typing `perldoc perlrequick` (after installing
     Processing triggers for man-db ...
     Setting up perl-doc (5.14.2-21+rpi2) ...
 
-    root@pi:~# perldoc perlrequick
+    root@linux:~# perldoc perlrequick
 
 ### well known syntax
 
@@ -255,25 +255,25 @@ filenames matching a certain `string` and replacing this string with an
 This is often presented as `s/string/other string/` as seen in this
 example:
 
-    paul@pi ~ $ ls
+    student@linux ~ $ ls
     abc       allfiles.TXT  bllfiles.TXT  Scratch   tennis2.TXT
     abc.conf  backup        cllfiles.TXT  temp.TXT  tennis.TXT
-    paul@pi ~ $ rename 's/TXT/text/' *
-    paul@pi ~ $ ls
+    student@linux ~ $ rename 's/TXT/text/' *
+    student@linux ~ $ ls
     abc       allfiles.text  bllfiles.text  Scratch    tennis2.text
     abc.conf  backup         cllfiles.text  temp.text  tennis.text
 
 And here is another example that uses `rename` with the well know syntax
 to change the extensions of the same files once more:
 
-    paul@pi ~ $ ls
+    student@linux ~ $ ls
     abc       allfiles.text  bllfiles.text  Scratch    tennis2.text
     abc.conf  backup         cllfiles.text  temp.text  tennis.text
-    paul@pi ~ $ rename 's/text/txt/' *.text
-    paul@pi ~ $ ls
+    student@linux ~ $ rename 's/text/txt/' *.text
+    student@linux ~ $ ls
     abc       allfiles.txt  bllfiles.txt  Scratch   tennis2.txt
     abc.conf  backup        cllfiles.txt  temp.txt  tennis.txt
-    paul@pi ~ $
+    student@linux ~ $
 
 These two examples appear to work because the strings we used only exist
 at the end of the filename. Remember that file extensions have no
@@ -281,12 +281,12 @@ meaning in the bash shell.
 
 The next example shows what can go wrong with this syntax.
 
-    paul@pi ~ $ touch atxt.txt
-    paul@pi ~ $ rename 's/txt/problem/' atxt.txt
-    paul@pi ~ $ ls
+    student@linux ~ $ touch atxt.txt
+    student@linux ~ $ rename 's/txt/problem/' atxt.txt
+    student@linux ~ $ ls
     abc       allfiles.txt  backup        cllfiles.txt  temp.txt     tennis.txt
     abc.conf  aproblem.txt  bllfiles.txt  Scratch       tennis2.txt
-    paul@pi ~ $
+    student@linux ~ $
 
 Only the first occurrence of the searched string is replaced.
 
@@ -299,9 +299,9 @@ the last two.
 
 This example expands this syntax only a little, by adding a `modifier`.
 
-    paul@pi ~ $ rename -n 's/TXT/txt/g' aTXT.TXT
+    student@linux ~ $ rename -n 's/TXT/txt/g' aTXT.TXT
     aTXT.TXT renamed as atxt.txt
-    paul@pi ~ $
+    student@linux ~ $
 
 The syntax we use now can be described as `s/regex/replacement/g` where
 s signifies `switch` and g stands for `global`.
@@ -314,12 +314,12 @@ Note that this example used the `-n` switch to show what is being done
 Another `modifier` that can be useful is `i`. this example shows how to
 replace a case insensitive string with another string.
 
-    paul@debian10:~/files$ ls
+    student@linux:~/files$ ls
     file1.text  file2.TEXT  file3.txt
-    paul@debian10:~/files$ rename 's/.text/.txt/i' *
-    paul@debian10:~/files$ ls
+    student@linux:~/files$ rename 's/.text/.txt/i' *
+    student@linux:~/files$ ls
     file1.txt  file2.txt  file3.txt
-    paul@debian10:~/files$ 
+    student@linux:~/files$ 
 
 ### renaming extensions
 
@@ -330,13 +330,13 @@ Here is an example on how to use `rename` to only rename
 the file extension. It uses the dollar sign to mark the ending of the
 filename.
 
-    paul@pi ~ $ ls *.txt
+    student@linux ~ $ ls *.txt
     allfiles.txt  bllfiles.txt  cllfiles.txt  really.txt.txt  temp.txt  tennis.txt
-    paul@pi ~ $ rename 's/.txt$/.TXT/' *.txt
-    paul@pi ~ $ ls *.TXT
+    student@linux ~ $ rename 's/.txt$/.TXT/' *.txt
+    student@linux ~ $ ls *.TXT
     allfiles.TXT  bllfiles.TXT    cllfiles.TXT    really.txt.TXT
     temp.TXT      tennis.TXT
-    paul@pi ~ $
+    student@linux ~ $
 
 Note that the `dollar sign` in the regex means `at the end`. Without the
 dollar sign this command would fail on the really.txt.txt file.
@@ -368,11 +368,11 @@ be handy in some cases to improve readability.
 While `sed` is meant to be used in a stream, it can also be used
 interactively on a file.
 
-    paul@debian10:~/files$ echo Sunday > today
-    paul@debian10:~/files$ cat today 
+    student@linux:~/files$ echo Sunday > today
+    student@linux:~/files$ cat today 
     Sunday
-    paul@debian10:~/files$ sed -i 's/Sun/Mon/' today
-    paul@debian10:~/files$ cat today 
+    student@linux:~/files$ sed -i 's/Sun/Mon/' today
+    student@linux:~/files$ cat today 
     Monday
 
 ### simple back referencing
@@ -395,18 +395,18 @@ the regex so they can leter be referenced.
 
 Consider this simple example:
 
-    paul@debian10:~$ echo Sunday | sed 's_\(Sun\)_\1ny_'
+    student@linux:~$ echo Sunday | sed 's_\(Sun\)_\1ny_'
     Sunnyday
-    paul@debian10:~$ echo Sunday | sed 's_\(Sun\)_\1ny \1_'
+    student@linux:~$ echo Sunday | sed 's_\(Sun\)_\1ny \1_'
     Sunny Sunday
 
 ### a dot for any character
 
 In a `regex` a simple dot can signify any character.
 
-    paul@debian10:~$ echo 2014-04-01 | sed 's/....-..-../YYYY-MM-DD/'
+    student@linux:~$ echo 2014-04-01 | sed 's/....-..-../YYYY-MM-DD/'
     YYYY-MM-DD
-    paul@debian10:~$ echo abcd-ef-gh | sed 's/....-..-../YYYY-MM-DD/'
+    student@linux:~$ echo abcd-ef-gh | sed 's/....-..-../YYYY-MM-DD/'
     YYYY-MM-DD
 
 ### multiple back referencing
@@ -414,9 +414,9 @@ In a `regex` a simple dot can signify any character.
 When more than one pair of `parentheses` is used, each of them can be
 referenced separately by consecutive numbers.
 
-    paul@debian10:~$ echo 2014-04-01 | sed 's/\(....\)-\(..\)-\(..\)/\1+\2+\3/'
+    student@linux:~$ echo 2014-04-01 | sed 's/\(....\)-\(..\)-\(..\)/\1+\2+\3/'
     2014+04+01
-    paul@debian10:~$ echo 2014-04-01 | sed 's/\(....\)-\(..\)-\(..\)/\3:\2:\1/'
+    student@linux:~$ echo 2014-04-01 | sed 's/\(....\)-\(..\)-\(..\)/\3:\2:\1/'
     01:04:2014
 
 This feature is called `grouping`.
@@ -428,9 +428,9 @@ The `\s` can refer to white space such as a space or a tab.
 This example looks for white spaces (\\s) globally and replaces them
 with 1 space.
 
-    paul@debian10:~$ echo -e 'today\tis\twarm'
+    student@linux:~$ echo -e 'today\tis\twarm'
     today   is      warm
-    paul@debian10:~$ echo -e 'today\tis\twarm' | sed 's_\s_ _g'
+    student@linux:~$ echo -e 'today\tis\twarm' | sed 's_\s_ _g'
     today is warm
 
 ### optional occurrence
@@ -440,15 +440,15 @@ A question mark signifies that the previous is `optional`.
 The example below searches for three consecutive letter o, but the third
 o is optional.
 
-    paul@debian10:~$ cat list2
+    student@linux:~$ cat list2
     ll
     lol
     lool
     loool
-    paul@debian10:~$ grep -E 'ooo?' list2
+    student@linux:~$ grep -E 'ooo?' list2
     lool
     loool
-    paul@debian10:~$ cat list2 | sed 's/ooo\?/A/'
+    student@linux:~$ cat list2 | sed 's/ooo\?/A/'
     ll
     lol
     lAl
@@ -460,41 +460,41 @@ You can demand an exact number of times the oprevious has to occur.
 
 This example wants exactly three o\'s.
 
-    paul@debian10:~$ cat list2
+    student@linux:~$ cat list2
     ll
     lol
     lool
     loool
-    paul@debian10:~$ grep -E 'o{3}' list2
+    student@linux:~$ grep -E 'o{3}' list2
     loool
-    paul@debian10:~$ cat list2 | sed 's/o\{3\}/A/'
+    student@linux:~$ cat list2 | sed 's/o\{3\}/A/'
     ll
     lol
     lool
     lAl
-    paul@debian10:~$
+    student@linux:~$
 
 ### between n and m times
 
 And here we demand exactly from minimum 2 to maximum 3 times.
 
-    paul@debian10:~$ cat list2
+    student@linux:~$ cat list2
     ll
     lol
     lool
     loool
-    paul@debian10:~$ grep -E 'o{2,3}' list2
+    student@linux:~$ grep -E 'o{2,3}' list2
     lool
     loool
-    paul@debian10:~$ grep 'o\{2,3\}' list2
+    student@linux:~$ grep 'o\{2,3\}' list2
     lool
     loool
-    paul@debian10:~$ cat list2 | sed 's/o\{2,3\}/A/'
+    student@linux:~$ cat list2 | sed 's/o\{2,3\}/A/'
     ll
     lol
     lAl
     lAl
-    paul@debian10:~$
+    student@linux:~$
 
 ## bash history
 
@@ -504,33 +504,33 @@ expressions.
 This example shows how to manipulate the exclamation mask history
 feature of the bash shell.
 
-    paul@debian10:~$ mkdir hist
-    paul@debian10:~$ cd hist/
-    paul@debian10:~/hist$ touch file1 file2 file3
-    paul@debian10:~/hist$ ls -l file1
+    student@linux:~$ mkdir hist
+    student@linux:~$ cd hist/
+    student@linux:~/hist$ touch file1 file2 file3
+    student@linux:~/hist$ ls -l file1
     -rw-r--r-- 1 paul paul 0 Apr 15 22:07 file1
-    paul@debian10:~/hist$ !l
+    student@linux:~/hist$ !l
     ls -l file1
     -rw-r--r-- 1 paul paul 0 Apr 15 22:07 file1
-    paul@debian10:~/hist$ !l:s/1/3
+    student@linux:~/hist$ !l:s/1/3
     ls -l file3
     -rw-r--r-- 1 paul paul 0 Apr 15 22:07 file3
-    paul@debian10:~/hist$
+    student@linux:~/hist$
 
 This also works with the history numbers in bash.
 
-    paul@debian10:~/hist$ history 6
+    student@linux:~/hist$ history 6
      2089  mkdir hist
      2090  cd hist/
      2091  touch file1 file2 file3
      2092  ls -l file1
      2093  ls -l file3
      2094  history 6
-    paul@debian10:~/hist$ !2092
+    student@linux:~/hist$ !2092
     ls -l file1
     -rw-r--r-- 1 paul paul 0 Apr 15 22:07 file1
-    paul@debian10:~/hist$ !2092:s/1/2
+    student@linux:~/hist$ !2092:s/1/2
     ls -l file2
     -rw-r--r-- 1 paul paul 0 Apr 15 22:07 file2
-    paul@debian10:~/hist$
+    student@linux:~/hist$
 

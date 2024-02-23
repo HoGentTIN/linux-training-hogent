@@ -5,7 +5,7 @@ command (Print Working Directory). Go ahead, try it: Open a command line
 interface (also called a terminal, console or xterm) and type `pwd`. The
 tool displays your `current directory`.
 
-    paul@debian8:~$ pwd
+    student@linux:~$ pwd
     /home/paul
 
 ## cd
@@ -13,14 +13,14 @@ tool displays your `current directory`.
 You can change your current directory with the `cd`
 command (Change Directory).
 
-    paul@debian8$ cd /etc
-    paul@debian8$ pwd
+    student@linux$ cd /etc
+    student@linux$ pwd
     /etc
-    paul@debian8$ cd /bin
-    paul@debian8$ pwd
+    student@linux$ cd /bin
+    student@linux$ pwd
     /bin
-    paul@debian8$ cd /home/paul/
-    paul@debian8$ pwd
+    student@linux$ cd /home/paul/
+    student@linux$ pwd
     /home/paul
 
 ### cd \~
@@ -29,14 +29,14 @@ The `cd` is also a shortcut to get back into your home directory. Just
 typing `cd` without a target directory, will put you in your home
 directory. Typing `cd ~` has the same effect.
 
-    paul@debian8$ cd /etc
-    paul@debian8$ pwd
+    student@linux$ cd /etc
+    student@linux$ pwd
     /etc
-    paul@debian8$ cd
-    paul@debian8$ pwd
+    student@linux$ cd
+    student@linux$ pwd
     /home/paul
-    paul@debian8$ cd ~
-    paul@debian8$ pwd
+    student@linux$ cd ~
+    student@linux$ pwd
     /home/paul
 
 ### cd ..
@@ -44,10 +44,10 @@ directory. Typing `cd ~` has the same effect.
 To go to the `parent directory` (the one just above your
 current directory in the directory tree), type `cd ..` .
 
-    paul@debian8$ pwd
+    student@linux$ pwd
     /usr/share/games
-    paul@debian8$ cd ..
-    paul@debian8$ pwd
+    student@linux$ cd ..
+    student@linux$ pwd
     /usr/share
 
 *To stay in the current directory, type `cd .` ;-)* We
@@ -59,14 +59,14 @@ directory later.
 Another useful shortcut with `cd` is to just type `cd -`
 to go to the previous directory.
 
-    paul@debian8$ pwd
+    student@linux$ pwd
     /home/paul
-    paul@debian8$ cd /etc
-    paul@debian8$ pwd
+    student@linux$ cd /etc
+    student@linux$ pwd
     /etc
-    paul@debian8$ cd -
+    student@linux$ cd -
     /home/paul
-    paul@debian8$ cd -
+    student@linux$ cd -
     /etc
 
 ## absolute and relative paths
@@ -81,36 +81,36 @@ The screenshot below first shows the current directory `/home/paul`.
 From within this directory, you have to type `cd /home` instead of
 `cd home` to go to the `/home` directory.
 
-    paul@debian8$ pwd
+    student@linux$ pwd
     /home/paul
-    paul@debian8$ cd home
+    student@linux$ cd home
     bash: cd: home: No such file or directory
-    paul@debian8$ cd /home
-    paul@debian8$ pwd
+    student@linux$ cd /home
+    student@linux$ pwd
     /home
 
 When inside `/home`, you have to type `cd paul` instead of `cd /paul` to
 enter the subdirectory `paul` of the current directory `/home`.
 
-    paul@debian8$ pwd
+    student@linux$ pwd
     /home
-    paul@debian8$ cd /paul
+    student@linux$ cd /paul
     bash: cd: /paul: No such file or directory
-    paul@debian8$ cd paul
-    paul@debian8$ pwd
+    student@linux$ cd paul
+    student@linux$ pwd
     /home/paul
 
 In case your current directory is the `root directory /`, then both
 `cd /home` and `cd home` will get you in the `/home` directory.
 
-    paul@debian8$ pwd
+    student@linux$ pwd
     /
-    paul@debian8$ cd home
-    paul@debian8$ pwd
+    student@linux$ cd home
+    student@linux$ pwd
     /home
-    paul@debian8$ cd /
-    paul@debian8$ cd /home 
-    paul@debian8$ pwd
+    student@linux$ cd /
+    student@linux$ cd /home 
+    student@linux$ pwd
     /home
 
 This was the last screenshot with `pwd` statements. From
@@ -133,9 +133,9 @@ be sure your typed `path` is correct!
 
 You can list the contents of a directory with `ls`.
 
-    paul@debian8:~$ ls
+    student@linux:~$ ls
     allfiles.txt  dmesg.txt  services   stuff  summer.txt
-    paul@debian8:~$
+    student@linux:~$
 
 ### ls -a
 
@@ -144,12 +144,12 @@ files means including the `hidden files`. When a file name
 on a Linux file system starts with a dot, it is considered a
 `hidden file` and it doesn\'t show up in regular file listings.
 
-    paul@debian8:~$ ls
+    student@linux:~$ ls
     allfiles.txt  dmesg.txt  services  stuff  summer.txt
-    paul@debian8:~$ ls -a
+    student@linux:~$ ls -a
     .   allfiles.txt   .bash_profile  dmesg.txt   .lesshst  stuff
     ..  .bash_history  .bashrc        services    .ssh      summer.txt 
-    paul@debian8:~$
+    student@linux:~$
 
 ### ls -l
 
@@ -159,7 +159,7 @@ the directory. Typing just `ls` gives you a list of files in the
 directory. Typing `ls -l` (that is a letter L, not the
 number 1) gives you a long listing.
 
-    paul@debian8:~$ ls -l
+    student@linux:~$ ls -l
     total 17296
     -rw-r--r-- 1 paul paul 17584442 Sep 17 00:03 allfiles.txt
     -rw-r--r-- 1 paul paul    96650 Sep 17 00:03 dmesg.txt
@@ -177,35 +177,35 @@ the details of the output later in this book.
 *Note that we use the letter L as an option in this screenshot, not the
 number 1.*
 
-    paul@debian8:~$ ls -l -h
+    student@linux:~$ ls -l -h
     total 17M
     -rw-r--r-- 1 paul paul  17M Sep 17 00:03 allfiles.txt
     -rw-r--r-- 1 paul paul  95K Sep 17 00:03 dmesg.txt
     -rw-r--r-- 1 paul paul  20K Sep 17 00:04 services
     drwxr-xr-x 2 paul paul 4.0K Sep 17 00:04 stuff
     -rw-r--r-- 1 paul paul    0 Sep 17 00:04 summer.txt
-    paul@debian8:~$ ls -lh
+    student@linux:~$ ls -lh
     total 17M
     -rw-r--r-- 1 paul paul  17M Sep 17 00:03 allfiles.txt
     -rw-r--r-- 1 paul paul  95K Sep 17 00:03 dmesg.txt
     -rw-r--r-- 1 paul paul  20K Sep 17 00:04 services
     drwxr-xr-x 2 paul paul 4.0K Sep 17 00:04 stuff
     -rw-r--r-- 1 paul paul    0 Sep 17 00:04 summer.txt
-    paul@debian8:~$ ls -hl
+    student@linux:~$ ls -hl
     total 17M
     -rw-r--r-- 1 paul paul  17M Sep 17 00:03 allfiles.txt
     -rw-r--r-- 1 paul paul  95K Sep 17 00:03 dmesg.txt
     -rw-r--r-- 1 paul paul  20K Sep 17 00:04 services
     drwxr-xr-x 2 paul paul 4.0K Sep 17 00:04 stuff
     -rw-r--r-- 1 paul paul    0 Sep 17 00:04 summer.txt
-    paul@debian8:~$ ls -h -l
+    student@linux:~$ ls -h -l
     total 17M
     -rw-r--r-- 1 paul paul  17M Sep 17 00:03 allfiles.txt
     -rw-r--r-- 1 paul paul  95K Sep 17 00:03 dmesg.txt
     -rw-r--r-- 1 paul paul  20K Sep 17 00:04 services
     drwxr-xr-x 2 paul paul 4.0K Sep 17 00:04 stuff
     -rw-r--r-- 1 paul paul    0 Sep 17 00:04 summer.txt
-    paul@debian8:~$
+    student@linux:~$
 
 ## mkdir
 
@@ -214,43 +214,43 @@ create your own directories with `mkdir`. You have to give
 at least one parameter to `mkdir`, the name of the new directory to be
 created. Think before you type a leading `/` .
 
-    paul@debian8:~$ mkdir mydir
-    paul@debian8:~$ cd mydir
-    paul@debian8:~/mydir$ ls -al
+    student@linux:~$ mkdir mydir
+    student@linux:~$ cd mydir
+    student@linux:~/mydir$ ls -al
     total 8
     drwxr-xr-x  2 paul paul 4096 Sep 17 00:07 .
     drwxr-xr-x 48 paul paul 4096 Sep 17 00:07 ..
-    paul@debian8:~/mydir$ mkdir stuff
-    paul@debian8:~/mydir$ mkdir otherstuff
-    paul@debian8:~/mydir$ ls -l
+    student@linux:~/mydir$ mkdir stuff
+    student@linux:~/mydir$ mkdir otherstuff
+    student@linux:~/mydir$ ls -l
     total 8
     drwxr-xr-x 2 paul paul 4096 Sep 17 00:08 otherstuff
     drwxr-xr-x 2 paul paul 4096 Sep 17 00:08 stuff
-    paul@debian8:~/mydir$
+    student@linux:~/mydir$
 
 ### mkdir -p
 
 The following command will fail, because the `parent directory` of
 `threedirsdeep` does not exist.
 
-    paul@debian8:~$ mkdir mydir2/mysubdir2/threedirsdeep
+    student@linux:~$ mkdir mydir2/mysubdir2/threedirsdeep
     mkdir: cannot create directory ‘mydir2/mysubdir2/threedirsdeep’: No such fi\
     le or directory
 
 When given the option `-p`, then `mkdir` will create
 `parent directories` as needed.
 
-    paul@debian8:~$ mkdir -p mydir2/mysubdir2/threedirsdeep
-    paul@debian8:~$ cd mydir2
-    paul@debian8:~/mydir2$ ls -l
+    student@linux:~$ mkdir -p mydir2/mysubdir2/threedirsdeep
+    student@linux:~$ cd mydir2
+    student@linux:~/mydir2$ ls -l
     total 4
     drwxr-xr-x 3 paul paul 4096 Sep 17 00:11 mysubdir2
-    paul@debian8:~/mydir2$ cd mysubdir2
-    paul@debian8:~/mydir2/mysubdir2$ ls -l
+    student@linux:~/mydir2$ cd mysubdir2
+    student@linux:~/mydir2/mysubdir2$ ls -l
     total 4
     drwxr-xr-x 2 paul paul 4096 Sep 17 00:11 threedirsdeep
-    paul@debian8:~/mydir2/mysubdir2$ cd threedirsdeep/
-    paul@debian8:~/mydir2/mysubdir2/threedirsdeep$ pwd
+    student@linux:~/mydir2/mysubdir2$ cd threedirsdeep/
+    student@linux:~/mydir2/mysubdir2/threedirsdeep$ pwd
     /home/paul/mydir2/mysubdir2/threedirsdeep
 
 ## rmdir
@@ -258,24 +258,24 @@ When given the option `-p`, then `mkdir` will create
 When a directory is empty, you can use `rmdir` to remove
 the directory.
 
-    paul@debian8:~/mydir$ ls -l
+    student@linux:~/mydir$ ls -l
     total 8
     drwxr-xr-x 2 paul paul 4096 Sep 17 00:08 otherstuff
     drwxr-xr-x 2 paul paul 4096 Sep 17 00:08 stuff
-    paul@debian8:~/mydir$ rmdir otherstuff
-    paul@debian8:~/mydir$ cd ..
-    paul@debian8:~$ rmdir mydir
+    student@linux:~/mydir$ rmdir otherstuff
+    student@linux:~/mydir$ cd ..
+    student@linux:~$ rmdir mydir
     rmdir: failed to remove ‘mydir’: Directory not empty
-    paul@debian8:~$ rmdir mydir/stuff
-    paul@debian8:~$ rmdir mydir
-    paul@debian8:~$
+    student@linux:~$ rmdir mydir/stuff
+    student@linux:~$ rmdir mydir
+    student@linux:~$
 
 ### rmdir -p
 
 And similar to the `mkdir -p` option, you can also use
 `rmdir` to recursively remove directories.
 
-    paul@debian8:~$ mkdir -p test42/subdir
-    paul@debian8:~$ rmdir -p test42/subdir
-    paul@debian8:~$
+    student@linux:~$ mkdir -p test42/subdir
+    student@linux:~$ rmdir -p test42/subdir
+    student@linux:~$
 

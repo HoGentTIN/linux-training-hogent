@@ -6,11 +6,11 @@ package formats (and others).
 Below an example of how to use `alien` to convert an `rpm` package to a
 `deb` package.
 
-    paul@barry:~$ ls -l netcat*
+    student@linux:~$ ls -l netcat*
     -rw-r--r-- 1 paul paul 123912 2009-06-04 14:58 netcat-0.7.1-1.i386.rpm
-    paul@barry:~$ alien --to-deb netcat-0.7.1-1.i386.rpm 
+    student@linux:~$ alien --to-deb netcat-0.7.1-1.i386.rpm 
     netcat_0.7.1-2_i386.deb generated
-    paul@barry:~$ ls -l netcat*
+    student@linux:~$ ls -l netcat*
     -rw-r--r-- 1 paul paul 123912 2009-06-04 14:58 netcat-0.7.1-1.i386.rpm
     -rw-r--r-- 1 root root 125236 2009-06-04 14:59 netcat_0.7.1-2_i386.deb
 

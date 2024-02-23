@@ -80,7 +80,7 @@ with the following information:
 
 On the iSCSI Target server:
 
-    [root@centos7 ~]# targetcli
+    [root@linux ~]# targetcli
     targetcli shell version 2.1.fb37
     Copyright 2011-2013 by Datera, Inc and others.
     For help on commands, type 'help'.
@@ -167,21 +167,21 @@ On the iSCSI Target server:
     Global pref auto_save_on_exit=true
     Last 10 configs saved in /etc/target/backup.
     Configuration saved to /etc/target/saveconfig.json
-    [root@centos7 ~]# systemctl enable target
+    [root@linux ~]# systemctl enable target
     ln -s '/usr/lib/systemd/system/target.service' '/etc/systemd/system/multi-user.target.wants/target.service'
-    [root@centos7 ~]# systemctl start target
-    [root@centos7 ~]# setenforce 0
+    [root@linux ~]# systemctl start target
+    [root@linux ~]# setenforce 0
 
 On the Initiator:
 
-    [root@centos7 ~]# cat /etc/iscsi/initiatorname.iscsi
+    [root@linux ~]# cat /etc/iscsi/initiatorname.iscsi
     InitiatorName=iqn.2015-04.be.linux:initiator
-    [root@centos7 ~]# vi /etc/iscsi/iscsid.conf
-    [root@centos7 ~]# grep ^node.session.au /etc/iscsi/iscsid.conf
+    [root@linux ~]# vi /etc/iscsi/iscsid.conf
+    [root@linux ~]# grep ^node.session.au /etc/iscsi/iscsid.conf
     node.session.auth.authmethod = CHAP
     node.session.auth.username = paul
     node.session.auth.password = hunter2
-    [root@centos7 ~]# fdisk -l 2>/dev/null | grep sd
+    [root@linux ~]# fdisk -l 2>/dev/null | grep sd
     Disk /dev/sda: 22.0 GB, 22038806528 bytes, 43044544 sectors
     /dev/sda1   *        2048     1026047      512000   83  Linux
     /dev/sda2         1026048    43042815    21008384   8e  Linux LVM
@@ -193,13 +193,13 @@ On the Initiator:
     Disk /dev/sdd: 8589 MB, 8589934592 bytes, 16777216 sectors
     Disk /dev/sde: 2147 MB, 2147483648 bytes, 4194304 sectors
     Disk /dev/sdf: 2147 MB, 2147483648 bytes, 4194304 sectors
-    [root@centos7 ~]# systemctl enable iscsid
+    [root@linux ~]# systemctl enable iscsid
     ln -s '/usr/lib/systemd/system/iscsid.service' '/etc/systemd/system/multi-user.target.wants/iscsid.service'
-    [root@centos7 ~]# iscsiadm -m node -T iqn.2015-04.be.linux:target -p 192.168.1.143 -l
+    [root@linux ~]# iscsiadm -m node -T iqn.2015-04.be.linux:target -p 192.168.1.143 -l
     Logging in to [iface: default, target: iqn.2015-04.be.linux:target, portal: 192.168.1.143,3260] (multiple)
     Login to [iface: default, target: iqn.2015-04.be.linux:target, portal: 192.168.1.143,3260] successful.
 
-    [root@centos7 ~]# fdisk -l 2>/dev/null | grep sd
+    [root@linux ~]# fdisk -l 2>/dev/null | grep sd
     Disk /dev/sda: 22.0 GB, 22038806528 bytes, 43044544 sectors
     /dev/sda1   *        2048     1026047      512000   83  Linux
     /dev/sda2         1026048    43042815    21008384   8e  Linux LVM
@@ -214,5 +214,5 @@ On the Initiator:
     Disk /dev/sdg: 8589 MB, 8589934592 bytes, 16777216 sectors
     Disk /dev/sdh: 8589 MB, 8589934592 bytes, 16777216 sectors
     Disk /dev/sdi: 8589 MB, 8589934592 bytes, 16777216 sectors
-    [root@centos7 ~]# 
+    [root@linux ~]# 
 

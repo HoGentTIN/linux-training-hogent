@@ -11,7 +11,7 @@ Use the `who` command to see the /var/run/utmp file. This
 command is showing you all the `currently` logged in users. Notice that
 the utmp file is in /var/run and not in /var/log .
 
-    [root@rhel4 ~]# who
+    [root@linux ~]# who
     paul     pts/1        Feb 14 18:21 (192.168.1.45)
     sandra   pts/2        Feb 14 18:11 (192.168.1.42)
     inge     pts/3        Feb 14 12:01 (192.168.1.33)
@@ -22,7 +22,7 @@ the utmp file is in /var/run and not in /var/log .
 The /var/log/wtmp file is updated by the `login program`.
 Use `last` to see the /var/run/wtmp file.
 
-    [root@RHEL8a ~]# last | head
+    [root@linux ~]# last | head
     paul     pts/1       192.168.1.45     Wed Feb 14 18:39   still logged in
     reboot   system boot 2.6.9-42.0.8.ELs Wed Feb 14 18:21          (01:15) 
     nicolas  pts/5       pc-dss.telematic Wed Feb 14 12:32 - 13:06  (00:33) 
@@ -33,21 +33,21 @@ Use `last` to see the /var/run/wtmp file.
     nicolas  pts/3       pc-nae.telematic Wed Feb 14 09:45 - 11:34  (01:48) 
     dimitri  pts/5       rhel4            Wed Feb 14 07:57 - 08:38  (00:40) 
     stefaan  pts/4       pc-sde.telematic Wed Feb 14 07:16 - down   (05:50) 
-    [root@RHEL8a ~]#
+    [root@linux ~]#
 
 The last command can also be used to get a list of last reboots.
 
-    [paul@rekkie ~]$ last reboot 
+    [student@linux ~]$ last reboot 
     reboot   system boot  2.6.16-rekkie   Mon Jul 30 05:13     (370+08:42)  
 
     wtmp begins Tue May 30 23:11:45 2006
-    [paul@rekkie ~]
+    [student@linux ~]
 
 ### /var/log/lastlog (lastlog)
 
 Use `lastlog` to see the /var/log/lastlog file.
 
-     [root@RHEL8a ~]# lastlog | tail
+     [root@linux ~]# lastlog | tail
     tim              pts/5  10.170.1.122     Tue Feb 13 09:36:54 +0100 2007
     rm               pts/6  rhel4            Tue Feb 13 10:06:56 +0100 2007
     henk                                     **Never logged in**
@@ -58,7 +58,7 @@ Use `lastlog` to see the /var/log/lastlog file.
     dimitri          pts/5  rhel4            Wed Feb 14 07:57:19 +0100 2007
     bashuserrm       pts/7  rhel4            Tue Feb 13 10:35:40 +0100 2007
     kornuserrm       pts/5  rhel4            Tue Feb 13 10:06:17 +0100 2007
-    [root@RHEL8a ~]#
+    [root@linux ~]#
 
 ### /var/log/btmp (lastb)
 
@@ -68,36 +68,36 @@ program when entering the wrong password, so it contains failed login
 attempts. Many computers will not have this file, resulting in no
 logging of failed login attempts.
 
-    [root@RHEL8b ~]# lastb
+    [root@linux ~]# lastb
     lastb: /var/log/btmp: No such file or directory
     Perhaps this file was removed by the operator to prevent logging lastb\
      info.
-    [root@RHEL8b ~]#
+    [root@linux ~]#
 
 The reason given for this is that users sometimes type their password by
 mistake instead of their login, so this world readable file poses a
 security risk. You can enable bad login logging by simply creating the
 file. Doing a chmod o-r /var/log/btmp improves security.
 
-    [root@RHEL8b ~]# touch /var/log/btmp
-    [root@RHEL8b ~]# ll /var/log/btmp
+    [root@linux ~]# touch /var/log/btmp
+    [root@linux ~]# ll /var/log/btmp
     -rw-r--r--  1 root root 0 Jul 30 06:12 /var/log/btmp
-    [root@RHEL8b ~]# chmod o-r /var/log/btmp 
-    [root@RHEL8b ~]# lastb
+    [root@linux ~]# chmod o-r /var/log/btmp 
+    [root@linux ~]# lastb
 
     btmp begins Mon Jul 30 06:12:19 2007
-    [root@RHEL8b ~]#
+    [root@linux ~]#
 
 Failed logins via ssh, rlogin or su are not registered in /var/log/btmp.
 Failed logins via tty are.
 
-    [root@RHEL8b ~]# lastb
+    [root@linux ~]# lastb
     HalvarFl tty3                  Mon Jul 30 07:10 - 07:10  (00:00)    
     Maria    tty1                  Mon Jul 30 07:09 - 07:09  (00:00)    
     Roberto  tty1                  Mon Jul 30 07:09 - 07:09  (00:00)    
 
     btmp begins Mon Jul 30 07:09:32 2007
-    [root@RHEL8b ~]#
+    [root@linux ~]#
 
 ### su and ssh logins
 
@@ -107,7 +107,7 @@ auth and/or authpriv syslog facilities. This log will include su and/or
 ssh failed login attempts. Some distributions put this in
 `/var/log/auth.log`, verify the syslog configuration.
 
-    [root@RHEL8b ~]# cat /var/log/secure
+    [root@linux ~]# cat /var/log/secure
     Jul 30 07:09:03 sshd[4387]: Accepted publickey for paul from ::ffff:19\
     2.168.1.52 port 33188 ssh2
     Jul 30 05:09:03 sshd[4388]: Accepted publickey for paul from ::ffff:19\
@@ -136,7 +136,7 @@ ssh failed login attempts. Some distributions put this in
     rom ::ffff:192.168.1.52 port 41064 ssh2
     Jul 30 06:27:36 sshd[5019]: Failed password for invalid user roberto f\
     rom ::ffff:192.168.1.52 port 41064 ssh2
-    [root@RHEL8b ~]#
+    [root@linux ~]#
 
 You can enable this yourself, with a custom log file by adding the
 following line tot syslog.conf.
@@ -177,9 +177,9 @@ database.
 Se the manuals for more information (when you are done with this
 chapter).
 
-    root@rhel65:/etc# man rsyslog.conf
-    root@rhel65:/etc# man rsyslogd
-    root@rhel65:/etc#
+    root@linux:/etc# man rsyslog.conf
+    root@linux:/etc# man rsyslogd
+    root@linux:/etc#
 
 ### facilities
 
@@ -256,10 +256,10 @@ Below a sample configuration of custom local4 messages in
 
 Don\'t forget to restart the server after changing its configuration.
 
-    root@rhel65:/etc# service rsyslog restart
+    root@linux:/etc# service rsyslog restart
     Shutting down system logger:                               [  OK  ]
     Starting system logger:                                    [  OK  ]
-    root@rhel65:/etc#
+    root@linux:/etc#
 
 ## logger
 
@@ -267,23 +267,23 @@ The logger command can be used to generate syslog test messages. You can
 also use it in scripts. An example of testing syslogd with the
 `logger` tool.
 
-    [root@RHEL8a ~]# logger -p local4.debug "l4 debug"
-    [root@RHEL8a ~]# logger -p local4.crit "l4 crit"
-    [root@RHEL8a ~]# logger -p local4.emerg "l4 emerg"
-    [root@RHEL8a ~]#
+    [root@linux ~]# logger -p local4.debug "l4 debug"
+    [root@linux ~]# logger -p local4.crit "l4 crit"
+    [root@linux ~]# logger -p local4.emerg "l4 emerg"
+    [root@linux ~]#
 
 The results of the tests with logger.
 
-    [root@RHEL8a ~]# cat /var/log/critandabove 
+    [root@linux ~]# cat /var/log/critandabove 
     Feb 14 19:55:19 RHEL8a paul: l4 crit
     Feb 14 19:55:28 RHEL8a paul: l4 emerg
-    [root@RHEL8a ~]# cat /var/log/onlycrit 
+    [root@linux ~]# cat /var/log/onlycrit 
     Feb 14 19:55:19 RHEL8a paul: l4 crit
-    [root@RHEL8a ~]# cat /var/log/alllocal4 
+    [root@linux ~]# cat /var/log/alllocal4 
     Feb 14 19:55:11 RHEL8a paul: l4 debug
     Feb 14 19:55:19 RHEL8a paul: l4 crit
     Feb 14 19:55:28 RHEL8a paul: l4 emerg
-    [root@RHEL8a ~]#
+    [root@linux ~]#
 
 ## watching logs
 
@@ -291,7 +291,7 @@ You might want to use the `tail -f` command to look at the
 last lines of a log file. The `-f` option will dynamically display lines
 that are appended to the log.
 
-    paul@ubu1010:~$ tail -f /var/log/udev 
+    student@linux:~$ tail -f /var/log/udev 
     SEQNUM=1741
     SOUND_INITIALIZED=1
     ID_VENDOR_FROM_DATABASE=nVidia Corporation
@@ -305,7 +305,7 @@ that are appended to the log.
 You can automatically repeat commands by preceding them with the
 `watch` command. When executing the following:
 
-    [root@rhel6 ~]# watch who
+    [root@linux ~]# watch who
 
 Something similar to this, repeating the output of the `who` command
 every two seconds, will appear on the screen.
@@ -326,7 +326,7 @@ in `/etc/logrotate.conf.`. Individual configurations can be found in the
 
 Below a screenshot of the default Red Hat logrotate.conf file.
 
-    root@rhel65:/etc# cat logrotate.conf
+    root@linux:/etc# cat logrotate.conf
     # see "man logrotate" for details
     # rotate log files weekly
     weekly
@@ -362,5 +362,5 @@ Below a screenshot of the default Red Hat logrotate.conf file.
     }
 
     # system-specific logs may be also be configured here.
-    root@rhel65:/etc#
+    root@linux:/etc#
 

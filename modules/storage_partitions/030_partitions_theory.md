@@ -64,7 +64,7 @@ partitions exist on `/dev/sdb`. The first partition spans 31 cylinders
 and contains a Linux swap partition. The second partition is much
 bigger.
 
-    root@laika:~# fdisk -l /dev/sdb
+    root@linux:~# fdisk -l /dev/sdb
 
     Disk /dev/sdb: 100.0 GB, 100030242816 bytes
     255 heads, 63 sectors/track, 12161 cylinders
@@ -73,7 +73,7 @@ bigger.
        Device Boot    Start      End     Blocks   Id  System
     /dev/sdb1             1       31     248976   82  Linux swap / Solaris
     /dev/sdb2            32    12161   97434225   83  Linux
-    root@laika:~#       
+    root@linux:~#       
             
 
 ### /proc/partitions
@@ -84,7 +84,7 @@ device name in `/dev`. Verify with
 `/proc/devices` to link the major number to the proper
 device.
 
-    paul@RHELv8u4:~$ cat /proc/partitions 
+    student@linux:~$ cat /proc/partitions 
     major minor  #blocks  name
 
        3     0     524288 hda
@@ -120,9 +120,9 @@ with `gpt` instead of `mbr`.
 
 Below a screenshot of `parted` on CentOS.
 
-    [root@centos65 ~]# rpm -q parted
+    [root@linux ~]# rpm -q parted
     parted-2.1-21.el6.x86_64
-    [root@centos65 ~]# parted /dev/sda
+    [root@linux ~]# parted /dev/sda
     GNU Parted 2.1
     Using /dev/sda
     Welcome to GNU Parted! Type 'help' to view a list of commands.
@@ -151,7 +151,7 @@ First, we check with `fdisk -l` whether Linux can see the new disk. Yes
 it does, the new disk is seen as /dev/sdb, but it does not have any
 partitions yet.
 
-    root@RHELv8u2:~# fdisk -l
+    root@linux:~# fdisk -l
             
     Disk /dev/sda: 12.8 GB, 12884901888 bytes
     255 heads, 63 sectors/track, 1566 cylinders
@@ -174,7 +174,7 @@ Then we create a partition with fdisk on /dev/sdb. First we start the
 fdisk tool with /dev/sdb as argument. Be very very careful not to
 partition the wrong disk!!
 
-    root@RHELv8u2:~# fdisk /dev/sdb
+    root@linux:~# fdisk /dev/sdb
     Device contains neither a valid DOS partition table, nor Sun, SGI...
     Building a new DOS disklabel. Changes will remain in memory only,
     until you decide to write them. After that, of course, the previous
@@ -231,7 +231,7 @@ the fdisk tool.
             
     Calling ioctl() to re-read partition table.
     Syncing disks.
-    root@RHELv8u2:~#
+    root@linux:~#
 
 ### display the new partition
 
@@ -239,7 +239,7 @@ Let\'s verify again with `fdisk -l` to make sure reality
 fits our dreams. Indeed, the screenshot below now shows a partition on
 /dev/sdb.
 
-    root@RHELv8u2:~# fdisk -l
+    root@linux:~# fdisk -l
             
     Disk /dev/sda: 12.8 GB, 12884901888 bytes
     255 heads, 63 sectors/track, 1566 cylinders
@@ -255,7 +255,7 @@ fits our dreams. Indeed, the screenshot below now shows a partition on
             
     Device Boot      Start         End      Blocks   Id  System
     /dev/sdb1               1          14      112423+  83  Linux
-    root@RHELv8u2:~#
+    root@linux:~#
 
 ## about the partition table
 
@@ -288,8 +288,8 @@ that you need to force the kernel to reread the partition table with
 `partprobe`. After running `partprobe`, the partitions can
 be used again.
 
-    [root@RHEL5 ~]# partprobe 
-    [root@RHEL5 ~]#
+    [root@linux ~]# partprobe 
+    [root@linux ~]#
 
 ### logical drives
 
@@ -330,7 +330,7 @@ servers today (mid 2015) still have an older `fdisk.`. You can use
 This screenshot shows how to start `parted` to manage
 partitions on `/dev/sdb`.
 
-    [root@rhel71 ~]# parted /dev/sdb
+    [root@linux ~]# parted /dev/sdb
     GNU Parted 3.1
     Using /dev/sdb
     Welcome to GNU Parted! Type 'help' to view a list of commands.
@@ -400,5 +400,5 @@ on the disk, there is no need to `w(rite)` like in `fdisk`.
     (parted) quit
     Information: You may need to update /etc/fstab.
 
-    [root@rhel71 ~]#
+    [root@linux ~]#
 

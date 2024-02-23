@@ -5,7 +5,7 @@
 Displaying `/proc/meminfo` will tell you a lot about the
 memory on your Linux computer.
 
-    paul@ubu1010:~$ cat /proc/meminfo 
+    student@linux:~$ cat /proc/meminfo 
     MemTotal:        3830176 kB
     MemFree:          244060 kB
     Buffers:           41020 kB
@@ -25,7 +25,7 @@ The `free` tool can display the information provided by
 `/proc/meminfo` in a more readable format. The example below displays
 brief memory information in megabytes.
 
-    paul@ubu1010:~$ free -om
+    student@linux:~$ free -om
                total       used       free     shared    buffers     cached
     Mem:        3740       3519        221          0         42       1994
     Swap:       6234         82       6152
@@ -58,10 +58,10 @@ The swap space can be a file, a partition, or a combination of files and
 partitions. You can see the swap space with the `free` command, or with
 `cat /proc/swaps`.
 
-    paul@ubu1010:~$ free -o | grep -v Mem
+    student@linux:~$ free -o | grep -v Mem
                total       used       free     shared    buffers     cached
     Swap:    6384636      84988    6299648
-    paul@ubu1010:~$ cat /proc/swaps
+    student@linux:~$ cat /proc/swaps
     Filename                Type            Size     Used   Priority
     /dev/sda3               partition       6384636  84988  -1
 
@@ -75,21 +75,21 @@ You can activate or deactivate swap space with the
 space can be created with the `mkswap` command. The
 screenshot below shows the creation and activation of a swap partition.
 
-    root@RHELv8u4:~# fdisk -l 2> /dev/null | grep hda
+    root@linux:~# fdisk -l 2> /dev/null | grep hda
     Disk /dev/hda: 536 MB, 536870912 bytes
     /dev/hda1               1        1040      524128+  83  Linux
-    root@RHELv8u4:~# mkswap /dev/hda1
+    root@linux:~# mkswap /dev/hda1
     Setting up swapspace version 1, size = 536702 kB
-    root@RHELv8u4:~# swapon /dev/hda1
+    root@linux:~# swapon /dev/hda1
 
 Now you can see that `/proc/swaps` displays all swap spaces separately,
 whereas the `free -om` command only makes a human readable summary.
 
-    root@RHELv8u4:~# cat /proc/swaps
+    root@linux:~# cat /proc/swaps
     Filename                          Type         Size    Used    Priority
     /dev/mapper/VolGroup00-LogVol01   partition    1048568 0       -1
     /dev/hda1                         partition    524120  0       -2
-    root@RHELv8u4:~# free -om
+    root@linux:~# free -om
               total     used    free   shared    buffers    cached
     Mem:        249      245       4        0        125        54
     Swap:      1535        0    1535
@@ -100,13 +100,13 @@ Here is one more example showing you how to create a `swap file`. On
 Solaris you can use `mkfile` instead of
 `dd`.
 
-    root@RHELv8u4:~# dd if=/dev/zero of=/smallswapfile bs=1024 count=4096
+    root@linux:~# dd if=/dev/zero of=/smallswapfile bs=1024 count=4096
     4096+0 records in
     4096+0 records out
-    root@RHELv8u4:~# mkswap /smallswapfile 
+    root@linux:~# mkswap /smallswapfile 
     Setting up swapspace version 1, size = 4190 kB
-    root@RHELv8u4:~# swapon /smallswapfile 
-    root@RHELv8u4:~# cat /proc/swaps 
+    root@linux:~# swapon /smallswapfile 
+    root@linux:~# cat /proc/swaps 
     Filename                          Type        Size    Used   Priority
     /dev/mapper/VolGroup00-LogVol01   partition   1048568 0      -1
     /dev/hda1                         partition   524120  0      -2
@@ -128,7 +128,7 @@ You can find information about `swap usage` using
 
 Below a simple `vmstat` displaying information in megabytes.
 
-    paul@ubu1010:~$ vmstat -S m
+    student@linux:~$ vmstat -S m
     procs ---------memory-------- ---swap-- -----io---- -system- ----cpu----
      r  b  swpd  free  buff cache  si   so   bi    bo    in   cs us sy id wa
      0  0    87   225    46  2097   0    0    2     5    14    8  6  5 89  1
@@ -137,7 +137,7 @@ Below a sample `vmstat` when (in another terminal) root launches a
 `find /`. It generates a lot of disk i/o (bi and bo are disk blocks in
 and out). There is no need for swapping here.
 
-    paul@ubu1010:~$ vmstat 2 100
+    student@linux:~$ vmstat 2 100
     procs ----------memory---------- ---swap-- -----io---- -system-- ----cpu----
      r  b   swpd   free  buff  cache   si   so    bi    bo   in   cs us sy id wa
      0  0  84984 1999436 53416 269536   0    0     2     5    2   10  6  5 89  1
@@ -155,7 +155,7 @@ Below a sample `vmstat` when executing (on RHEL6) a simple memory
 leaking program. Now you see a lot of memory being swapped (si is
 \'swapped in\').
 
-    [paul@rhel6c ~]$ vmstat 2 100
+    [student@linux ~]$ vmstat 2 100
 
     procs ----------memory-------- ---swap-- ----io---- --system-- -----cpu-----
      r  b   swpd  free  buff cache   si   so   bi    bo   in   cs us sy id wa st
@@ -169,7 +169,7 @@ leaking program. Now you see a lot of memory being swapped (si is
 The code below was used to simulate a memory leak (and force swapping).
 This code was found on wikipedia without author.
 
-    paul@mac:~$ cat memleak.c 
+    student@linux:~$ cat memleak.c 
     #include <stdlib.h>
      
     int main(void)

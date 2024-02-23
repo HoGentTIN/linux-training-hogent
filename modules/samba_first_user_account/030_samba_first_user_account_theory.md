@@ -4,9 +4,9 @@ We will create a user for our samba file server and make this user the
 owner of the directory and all of its files. This anonymous user gets a
 clear description, but does not get a login shell.
 
-    [root@RHEL52 samba]# useradd -s /bin/false sambanobody
-    [root@RHEL52 samba]# usermod -c "Anonymous Samba Access" sambanobody
-    [root@RHEL52 samba]# passwd sambanobody
+    [root@linux samba]# useradd -s /bin/false sambanobody
+    [root@linux samba]# usermod -c "Anonymous Samba Access" sambanobody
+    [root@linux samba]# passwd sambanobody
     Changing password for user sambanobody.
     New UNIX password: 
     Retype new UNIX password: 
@@ -17,8 +17,8 @@ clear description, but does not get a login shell.
 We can use this user as owner of files and directories, instead of using
 the root account. This approach is clear and more secure.
 
-    [root@RHEL52 samba]# chown -R sambanobody:sambanobody /srv/samba/
-    [root@RHEL52 samba]# ls -al /srv/samba/writable/
+    [root@linux samba]# chown -R sambanobody:sambanobody /srv/samba/
+    [root@linux samba]# ls -al /srv/samba/writable/
     total 12
     drwxrwxrwx 2 sambanobody sambanobody 4096 Jan 21 06:11 .
     drwxr-xr-x 6 sambanobody sambanobody 4096 Jan 21 06:11 ..
@@ -37,7 +37,7 @@ server.
 To accomplish this, we first have to tell Samba about this user. We can
 do this by adding the account to `smbpasswd`.
 
-    [root@RHEL52 samba]# smbpasswd -a sambanobody
+    [root@linux samba]# smbpasswd -a sambanobody
     New SMB password:
     Retype new SMB password:
     Added user sambanobody.
@@ -48,16 +48,16 @@ To find out where Samba keeps this information (for now), use
 `smbd -b`. The PRIVATE_DIR variable will show you where
 the smbpasswd database is located.
 
-    [root@RHEL52 samba]# smbd -b | grep PRIVATE
+    [root@linux samba]# smbd -b | grep PRIVATE
        PRIVATE_DIR: /etc/samba
-    [root@RHEL52 samba]# ls -l smbpasswd 
+    [root@linux samba]# ls -l smbpasswd 
     -rw------- 1 root root 110 Jan 21 06:19 smbpasswd
 
 You can use a simple cat to see the contents of the
 `smbpasswd` database. The sambanobody user does have a
 password (it is secret).
 
-    [root@RHEL52 samba]# cat smbpasswd 
+    [root@linux samba]# cat smbpasswd 
     sambanobody:503:AE9 ... 9DB309C528E540978:[U          ]:LCT-4976B05B:
 
 ## passdb backend
@@ -65,7 +65,7 @@ password (it is secret).
 Note that recent versions of Samba have `tdbsam` as
 default for the `passdb backend` paramater.
 
-    root@ubu1110:~# testparm -v 2>/dev/null| grep 'passdb backend'
+    root@linux:~# testparm -v 2>/dev/null| grep 'passdb backend'
 
         passdb backend = tdbsam
 

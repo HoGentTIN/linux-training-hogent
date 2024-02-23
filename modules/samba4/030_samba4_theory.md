@@ -71,7 +71,7 @@ I followed these steps in the howto4.txt
 restart bind (named!), then tested dns with dig, this works (stripped
 screenshot!)
 
-    [root@RHEL52 private]# dig _ldap._tcp.dc._msdcs.booi.schot SRV @localhost
+    [root@linux private]# dig _ldap._tcp.dc._msdcs.booi.schot SRV @localhost
 
     ; (1 server found)
     ;; global options:  printcmd
@@ -90,12 +90,12 @@ screenshot!)
     ;; WHEN: Tue Jan 27 20:57:05 2009
     ;; MSG SIZE  rcvd: 124
 
-    [root@RHEL52 private]# 
+    [root@linux private]# 
         
 
 made sure /etc/resolv.conf points to himself
 
-    [root@RHEL52 private]# cat /etc/resolv.conf
+    [root@linux private]# cat /etc/resolv.conf
     search booi.schot
     nameserver 127.0.0.1
         

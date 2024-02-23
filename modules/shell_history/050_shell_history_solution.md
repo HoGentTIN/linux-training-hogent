@@ -14,7 +14,7 @@ solutions!)
 
 3\. Display the last 5 commands you typed.
 
-    paul@ubu1010:~$ history 5
+    student@linux:~$ history 5
      52  ls -l
      53  ls
      54  df -h | grep sda
@@ -26,7 +26,7 @@ You will receive different line numbers.
 4\. Issue the long `echo` from question 1 again, using the line numbers
 you received from the command in question 3.
 
-    paul@ubu1010:~$ !55
+    student@linux:~$ !55
     echo The answer to the meaning of life, the universe and everything is 42
     The answer to the meaning of life, the universe and everything is 42
 
