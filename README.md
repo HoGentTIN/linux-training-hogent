@@ -21,7 +21,7 @@ To read about the methodology of converting the original Docbook XML to Markdown
     - [ ] Linux Security, Linux Storage, and Linux Networking are remixes of content already present in the other books, so we won't be adding those for the time being.
 - [x] Adding remixes for the benefit of the Linux courses given at HOGENT
     - [x] Linux for Operations
-    - [x] Linux for Data Scientists<!--  -->
+    - [x] Linux for Data Scientists
 - [ ] Updating existing and adding new content
 
 ## Contributing
