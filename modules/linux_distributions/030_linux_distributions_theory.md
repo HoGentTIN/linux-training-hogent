@@ -75,14 +75,14 @@ Below are some very personal opinions (albeit informed by experience) on some of
 
 | Distribution name | Reason(s) for using                                                            |
 | :---------------- | :----------------------------------------------------------------------------- |
-| AlmaLinux         | You want a stable Red Hat-like server OS without commercial support contract   |
+| AlmaLinux         | You want a stable Red Hat-like server OS without commercial support contract.  |
 | Arch              | You want to know how Linux *really* works and want to take your time to learn. |
 | Debian            | An excellent choice for servers, laptops, and any other device.                |
-| Fedora            | You want a Red Hat-like OS on your laptop/desktop                              |
+| Fedora            | You want a Red Hat-like OS on your laptop/desktop.                             |
 | Kali              | You want a pointy-clicky hacking interface.                                    |
 | Linux Mint        | You want a personal graphical desktop to play movies, music and games.         |
-| RHEL              | You are a manager and need good commercial support                             |
-| RockyLinux        | You want a stable Red Hat-like server OS without commercial support contract   |
+| RHEL              | You are a manager and need good commercial support.                            |
+| RockyLinux        | You want a stable Red Hat-like server OS without commercial support contract.  |
 | Ubuntu Desktop    | Very popular, suited for beginners and based on Debian.                        |
 | Ubuntu Server     | (LTS particulary) You want a Debian-like OS with commercial support.           |
 
