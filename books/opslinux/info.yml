@@ -45,10 +45,10 @@ content:
   - title: "Webserver hardening"
     chapters:
       - selinux
-  # - title: "Scripting 103"
-  #   chapters:
+  - title: "Scripting 103"
+    chapters:
   #     - scripting_test # TODO Bestaat dit al niet in linuxfun?
-  #     - vagrant # TODO
+      - vagrant
   - title: "Scripting 201; job scheduling"
     chapters:
       - scripting_adv
