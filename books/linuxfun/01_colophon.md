@@ -15,7 +15,7 @@ Contributors to the Linux Training project are:
 We'd also like to thank our reviewers:
 
 - Wouter Verhelst: <w@uter.be>, <http://grep.be>
-- Geert Goossens: <mail.goossens.geert@gmail.com>, <<http://www.linkedin.com/in/geertgoossens>
+- Geert Goossens: <mail.goossens.geert@gmail.com>, <http://www.linkedin.com/in/geertgoossens>
 - Elie De Brauwer: <elie@de-brauwer.be>, <http://www.de-brauwer.be>
 - Christophe Vandeplas: <christophe@vandeplas.com>, <http://christophe.vandeplas.com>
 - Bert Desmet: <bert@devnox.be>, <http://blog.bdesmet.be>
