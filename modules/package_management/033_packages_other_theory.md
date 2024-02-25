@@ -1,5 +1,7 @@
 # alien
 
+TODO: Update these chapters with more up to date information, e.g. about pip, npm, flatpak/snap, etc.
+
 `alien` is experimental software that converts between `rpm` and `deb`
 package formats (and others).
 
