@@ -4,7 +4,7 @@
 
 Feel free to contact the author:
 
-- Paul Cobbaut: <paul.cobbaut@gmail.com>, <http://www.linkedin.com/in/cobbaut>
+- Paul Cobbaut: <paul.cobbaut@gmail.com>, <https://cobbaut.be/>
 
 Contributors to the Linux Training project are:
 
@@ -14,8 +14,8 @@ Contributors to the Linux Training project are:
 
 We'd also like to thank our reviewers:
 
-- Wouter Verhelst: <wo@uter.be>, <http://grep.be>
-- Geert Goossens: <mail.goossens.geert@gmail.com>, <<http://www.linkedin.com/in/> geertgoossens>
+- Wouter Verhelst: <w@uter.be>, <http://grep.be>
+- Geert Goossens: <mail.goossens.geert@gmail.com>, <<http://www.linkedin.com/in/geertgoossens>
 - Elie De Brauwer: <elie@de-brauwer.be>, <http://www.de-brauwer.be>
 - Christophe Vandeplas: <christophe@vandeplas.com>, <http://christophe.vandeplas.com>
 - Bert Desmet: <bert@devnox.be>, <http://blog.bdesmet.be>
