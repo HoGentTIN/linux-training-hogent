@@ -1,4 +1,6 @@
-# Linux Training @HOGENT
+---
+title: Linux Training @HOGENT
+---
 
 This site is a continuation of Paul Cobbaut's [Linux Training](https://linux-training.be) course material. For more information on the project, on how to submit issues or contribute, see our [Github repository](https://github.com/HoGentTIN/linux-training-hogent).
 
@@ -16,3 +18,5 @@ This site is a continuation of Paul Cobbaut's [Linux Training](https://linux-tra
 | :------------------------ | :------------------- | :------------------- |
 | Linux for Operations      | [PDF](opslinux.pdf)  | [mkdocs](opslinux/)  |
 | Linux for Data Scientists | [PDF](datalinux.pdf) | [mkdocs](datalinux/) |
+
+Latest revision: TIMESTAMP

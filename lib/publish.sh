@@ -30,18 +30,18 @@ source "${script_dir}/utils.sh"
 #---------- Main function -----------------------------------------------------
 
 main() {
-  for book_id in "${book_ids[@]}"; do
-    bash "${script_dir}/make-book.sh" "books/${book_id}"
-    bash "${script_dir}/make-site.sh" "books/${book_id}"
-  done
+  # for book_id in "${book_ids[@]}"; do
+  #   bash "${script_dir}/make-book.sh" "books/${book_id}"
+  #   bash "${script_dir}/make-site.sh" "books/${book_id}"
+  # done
 
-  # Copy generated PDFs to the publish directory
+  log "Copy generated PDFs to the publish directory"
 
   # shellcheck disable=SC2086
   find "${OUTPUT_DIR}" -type f -name '*.pdf' -exec \
     cp ${_VERBOSE} --target-directory "${PUBLISH_DIR}" {} +
 
-  # Generate the index page
+  log "Generating index page"
 
   # shellcheck disable=SC2086
   cp ${_VERBOSE} "${SITE_TEMPLATE}/hogent.css" "${PUBLISH_DIR}"
@@ -50,6 +50,8 @@ main() {
     --css hogent.css \
     --output "${PUBLISH_DIR}/index.html" \
     "${SITE_TEMPLATE}/index.md"
+
+  sed -i "s|TIMESTAMP|$(date)|" "${PUBLISH_DIR}/index.html"
 }
 
 #---------- Helper functions ---------------------------------------------------
