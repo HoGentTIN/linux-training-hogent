@@ -30,10 +30,10 @@ source "${script_dir}/utils.sh"
 #---------- Main function -----------------------------------------------------
 
 main() {
-  # for book_id in "${book_ids[@]}"; do
-  #   bash "${script_dir}/make-book.sh" "books/${book_id}"
-  #   bash "${script_dir}/make-site.sh" "books/${book_id}"
-  # done
+  for book_id in "${book_ids[@]}"; do
+    bash "${script_dir}/make-book.sh" "books/${book_id}"
+    bash "${script_dir}/make-site.sh" "books/${book_id}"
+  done
 
   log "Copy generated PDFs to the publish directory"
 
