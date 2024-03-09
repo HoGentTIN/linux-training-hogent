@@ -49,7 +49,7 @@ student@linux:~$
 
 Let's expand our example a little further by putting `#!/bin/bash` on the first line of the script. The `#!` is called a `she-bang` (sometimes called `sha-bang`), where the `she-bang` is the first two characters of the script.
 
-Open the file with `nano hello_world` of `vi hello_world` and add the following line at the top of the file.
+Open the file with `nano hello_world` or `vi hello_world` and add the following line at the top of the file.
 
 ```bash
 #!/bin/bash
