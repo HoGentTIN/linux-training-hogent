@@ -35,7 +35,7 @@ content:
     chapters:
       - package_management
       - general_networking
-      - network_ifconfig
+      - network_config
       - dhcp
   - title: "Webserver; scripting 102"
     chapters:
