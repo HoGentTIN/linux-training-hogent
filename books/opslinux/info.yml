@@ -14,6 +14,7 @@ frontmatter:
 content:
   - title: "First Linux VM"
     chapters:
+      - linux_distributions
       - linux_vm
   - title: "Organising users"
     chapters:
@@ -29,6 +30,7 @@ content:
       - ioredirection
       - filters
       - regular_expressions
+      - shell_globbing
       - shell_variables
       - scripting_intro
   - title: "Software management; DHCP"
@@ -45,9 +47,10 @@ content:
   - title: "Webserver hardening"
     chapters:
       - selinux
+      # TODO: new module on firewalld
   - title: "Scripting 103"
     chapters:
-  #     - scripting_test # TODO Bestaat dit al niet in linuxfun?
+  #     - scripting_test # TODO test command already in scripting_loops
       - vagrant
   - title: "Scripting 201; job scheduling"
     chapters:
