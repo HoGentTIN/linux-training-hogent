@@ -19,7 +19,7 @@ graph LR
 
     classDef host fill:#A5CA72,stroke:#A5CA72,stroke-width:2px
     classDef switch fill:#4CA2D5,stroke:#000,stroke-width:1px
-    classDef cloud fill:#eee,stroke:#000,stroke-width:2px,stroke-dasharray:10,5
+    classDef cloud fill:#eee,strqoke:#000,stroke-width:2px,stroke-dasharray:10,5
 ```
 
 - Hosts are the nodes with a green background (the Fedora and Ubuntu VMs).

@@ -564,16 +564,16 @@ There's a lot of output, so you may want to use the `--fields` or `-f` option to
 
 ```console
 [student@el ~]$ nmcli -f IP4 device show eth0
-IP4.ADDRESS[1]:                         10.0.2.15/24
-IP4.GATEWAY:                            10.0.2.2
-IP4.ROUTE[1]:                           dst = 0.0.0.0/0, nh = 10.0.2.2, mt = 102
-IP4.ROUTE[2]:                           dst = 10.0.2.0/24, nh = 0.0.0.0, mt = 102
-IP4.DNS[1]:                             10.0.2.3
-IP4.DOMAIN[1]:                          home
+IP4.ADDRESS[1]:        10.0.2.15/24
+IP4.GATEWAY:           10.0.2.2
+IP4.ROUTE[1]:          dst = 0.0.0.0/0, nh = 10.0.2.2, mt = 102
+IP4.ROUTE[2]:          dst = 10.0.2.0/24, nh = 0.0.0.0, mt = 102
+IP4.DNS[1]:            10.0.2.3
+IP4.DOMAIN[1]:         home
 [student@el ~]$ nmcli -f IP6 dev sh eth1
-IP6.ADDRESS[1]:                         fe80::a00:27ff:fec8:fbc4/64
-IP6.GATEWAY:                            --
-IP6.ROUTE[1]:                           dst = fe80::/64, nh = ::, mt = 256
+IP6.ADDRESS[1]:        fe80::a00:27ff:fec8:fbc4/64
+IP6.GATEWAY:           --
+IP6.ROUTE[1]:          dst = fe80::/64, nh = ::, mt = 256
 ```
 
 In this example, the names of the connection profiles are `eth0`, `lo` and `System eth1`. The name of the last one is not consistent with the other two, but that can be changed!
