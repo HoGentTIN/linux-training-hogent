@@ -7,11 +7,12 @@ The best way to learn this material is by setting up a multi-VM lab environment 
 To set up the lab environment, follow these steps:
 
 1. Ensure Vagrant and VirtualBox (and, optionally, Git) are installed on your system.
+
 2. Download the code of Github repository [bertvv/vagrant-shell-skeleton](https://github.com/bertvv/vagrant-shell-skeleton) (as a .zip or by cloning the repository). Give the directory a name that reflects the purpose of the lab environment, e.g. `network-config-lab`.
+
 3. Edit the file `vagrant-hosts.yml` and add the following content:
 
     ```yaml
-    ---
     - name: ubuntu
       box: bento/ubuntu-22.04 # Or a more recent LTS version if available
       intnet: true
@@ -64,3 +65,4 @@ To set up the lab environment, follow these steps:
 4. Check if the VMs can ping each other. If not, troubleshoot the issue and fix it.
 
 5. Check the ARP cache on each VM. Is there a difference with the previous time you did this?
+
