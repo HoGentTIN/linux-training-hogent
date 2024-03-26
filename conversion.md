@@ -26,3 +26,8 @@ The scripts perform the following tasks:
     ```
 
     This step revealed that there are dozens of images that are never referenced in the content. For now, these are kept in the general images directory, but they may be removed at a later date.
+
+## Modules from the 2021 version
+
+In 2021, Paul Cobbaut published a new version that consolidated the contents of Linux Fundamentals, Linux System Administration, etc. This version was written in [AsciiDoc](https://asciidoc.org). We converted the source to Markdown and added the content in subdirectory `modules_2021/`. The conversion was done with the `adoc2md.sh` script in the `lib/` directory. This script uses the `asciidoc` command to convert AsciiDoc to DocBook XML and then uses `pandoc` to convert the DocBook XML to Markdown. Index entries were deleted with the `sed` command.
+
