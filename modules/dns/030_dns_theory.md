@@ -102,7 +102,6 @@ One level below the *top level domains* are the *domains*. Domains can have subd
 
 DNS domains are registered at the *TLD* servers, the *TLD* servers are registered at the *dot servers*.
 
-
 #### fully qualified domain name
 
 The *fully qualified domain name* or *fqdn* is the combination of the *hostname* of a machine appended with its *domain name*.
@@ -145,6 +144,34 @@ A *dns zone* consists of *records*, also called *resource records* (RRs). This s
 - A **CNAME record** maps a hostname to a hostname, creating effectively an alias for an existing hostname. The name of the mail server is often aliased to *mail* or *smtp*, and the name of a web server to *www*.
 
 - The **MX record** points to an *smtp server*. When you send an email to another domain, then your mail server will need the MX record of the target domain's mail server in order to deliver email to the recepient's mailbox.
+
+## DNS queries
+
+The question a client asks a dns server is called a *query*. When a client queries for an ip address, this is called a *forward lookup query* (as seen in the previous drawing). The reverse, a query for the name of a host, is called a *reverse lookup query*.
+
+We'll show in the following sections how to perform DNS queries with several command line tools.
+
+![Simplified depiction of a reverse DNS lookup query.](assets/dns_02_reverse.jpg)
+
+This is what a reverse lookup looks like when sniffing with `tcpdump` (note the occurrecnes of PTR in the output):
+
+```console
+student@linux:~$ sudo tcpdump udp port 53
+tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
+listening on eth0, link-type EN10MB (Ethernet), capture size 65535 bytes
+11:01:29.357685 IP 192.168.1.103.42041 > 192.168.1.42.domain: 14763+ PT\
+R? 87.155.93.188.in-addr.arpa. (44)
+11:01:29.640093 IP 192.168.1.42.domain > 192.168.1.103.42041: 14763 1/0\
+/0 PTR antares.ginsys.net. (76)
+```
+
+And here is what it looks like in `wireshark` (note this is an older screenshot).
+
+![Reverse lookup in Wireshark.](assets/dns_02_reverse.ws.jpg)
+
+### iterative or recursive query
+
+A *recursive query* is a DNS query where the client that is submitting the query expects a complete answer (Like the fat red arrow above going from the Macbook to the DNS server). An *iterative query* is a DNS query where the client does not expect a complete answer. Iterative queries usually take place between name servers. The root name servers do not respond to recursive queries.
 
 ## interacting with DNS
 
@@ -250,7 +277,7 @@ The host command is quite limited in its functionality, `nslookup` and especiall
 
 Windows users are probably familiar with the `nslookup` command and will be happy to know that it is also available on Linux systems.
 
-Below are two examples of a forward lookup. In the first example, the default DNS server (mentioned in `/etc/resolv.conf`) is used, and in the second example, the Google public DNS server is queried.
+In the first example below, the default DNS server (mentioned in `/etc/resolv.conf` or by `resolvectl dns`) is queried.
 
 ```console
 student@linux:~$ nslookup linux-training.be
@@ -262,7 +289,11 @@ Name:   linux-training.be
 Address: 188.40.26.208
 Name:   linux-training.be
 Address: 2a01:4f8:d0a:1044::2
+```
 
+In the following example, we query a specific DNS server, in this case Google's public DNS server at 8.8.8.8. You will need this version of the command when you are troubleshooting issues with a DNS server you're configuring yourself (of course using its IP address instead of 8.8.8.8).
+
+```console
 student@linux:~$ nslookup linux-training.be 8.8.8.8
 Server:         8.8.8.8
 Address:        8.8.8.8#53

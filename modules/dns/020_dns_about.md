@@ -12,3 +12,8 @@ Even at home, most home modems and routers have builtin *DNS* functionality.
 
 This module will explain what *DNS* actually is and how to interact with a DNS server on a Linux system.
 
+Further reading:
+
+- Wood, Robin. (n.d.) *ZoneTransfer.me*. Retrieved 2014-06-15 from <https://digi.ninja/projects/zonetransferme.php>
+- Nadh, Kalaish. (2022) *DNS Toys*. Retrieved 2022-02-02 from <https://www.dns.toys>
+
