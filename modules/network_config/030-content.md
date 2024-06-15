@@ -685,7 +685,7 @@ Without any arguments, `hostnamectl` will show the current settings, e.g.:
 [student@el ~]$ hostnamectl
  Static hostname: el
        Icon name: computer-vm
-         Chassis: vm 🖴
+         Chassis: vm
       Machine ID: 8616fe49eae5443aac94b55664267068
          Boot ID: 47762feaf5614f33a6bd7576374e186e
   Virtualization: oracle
