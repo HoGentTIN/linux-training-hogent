@@ -20,6 +20,7 @@ content:
   - title: "dns server"
     chapters:
       - dns
+      - dns_bind
       - dns_advanced
   - title: "dhcp server"
     chapters:

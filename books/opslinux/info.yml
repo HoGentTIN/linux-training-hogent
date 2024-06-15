@@ -70,6 +70,7 @@ content:
   - title: "DNS server"
     chapters:
       - dns
+      - dns_bind
       - dns_advanced
   - title: "RAID; expert installation"
     chapters:

@@ -1,99 +1,5 @@
 ## about dns
 
-### forward and reverse lookup queries
-
-The question a client asks a dns server is called a *query*. When a client queries for an ip address, this is called a *forward lookup query* (as seen in the previous drawing).
-
-The reverse, a query for the name of a host, is called a *reverse lookup query*.
-
-![Simplified depiction of a reverse DNS lookup query.](assets/dns_02_reverse.jpg)
-
-Here is an example of a *reverse lookup query* with `nslookup`.
-
-```console
-student@linux:~$ nslookup
-> set type=PTR
-> 188.93.155.87
-Server:         192.168.1.42
-Address:        192.168.1.42#53
-
-Non-authoritative answer:
-87.155.93.188.in-addr.arpa      name = antares.ginsys.net.
-```
-
-This is what a reverse lookup looks like when sniffing with `tcpdump`.
-
-```console
-student@linux:~$ sudo tcpdump udp port 53
-tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
-listening on eth0, link-type EN10MB (Ethernet), capture size 65535 bytes
-11:01:29.357685 IP 192.168.1.103.42041 > 192.168.1.42.domain: 14763+ PT\
-R? 87.155.93.188.in-addr.arpa. (44)
-11:01:29.640093 IP 192.168.1.42.domain > 192.168.1.103.42041: 14763 1/0\
-/0 PTR antares.ginsys.net. (76)
-```
-
-And here is what it looks like in `wireshark` (note this is an older screenshot).
-
-![Reverse lookup in Wireshark.](assets/dns_02_reverse.ws.jpg)
-
-## caching only servers
-
-A *dns server* that is set up without *authority* over a *zone*, but that is connected to other name servers and caches the queries is called a *caching only name server*. Caching only name servers do not have a *zone database* with resource records. Instead they connect to other name servers and cache that information.
-
-There are two kinds of caching only name servers. Those with a *forwarder*, and those that use the *root servers*.
-
-### caching only server without forwarder
-
-A caching only server without forwarder will have to get information elsewhere. When it receives a query from a client, then it will consult one of the *root servers*. The *root server* will refer it to a *TLD* server, which will refer it to another *DNS* server. That last server might know the answer to the query, or may refer to yet another server. In the end, our hard working *DNS* server will find an answer and report this back to the client.
-
-In the picture below, the clients asks for the ip address of *linux-training.be*. Our caching only server will contact the root server, and be refered to the *.be* server. It will then contact the *.be* server and be refered to one of the name servers of Openminds. One of these name servers (in this cas *ns1.openminds.be*) will answer the query with the ip address of *linux-training.be*. When our caching only server reports this to the client, then the client can connect to this website.
-
-![](assets/dns_06_caching_only.jpg)
-
-Sniffing with `tcpdump` will give you this (the first 20 characters of
-each line are cut).
-
-```console
-192.168.1.103.41251 > M.ROOT-SERVERS.NET.domain: 37279% [1au] A? linux-tr\
-aining.be. (46)
-M.ROOT-SERVERS.NET.domain > 192.168.1.103.41251: 37279- 0/11/13 (740)
-192.168.1.103.65268 > d.ns.dns.be.domain: 38555% [1au] A? linux-training.\
-be. (46)
-d.ns.dns.be.domain > 192.168.1.103.65268: 38555- 0/7/5 (737)
-192.168.1.103.7514 > ns2.openminds.be.domain: 60888% [1au] A? linux-train\
-ing.be. (46)
-ns2.openminds.be.domain > 192.168.1.103.7514: 60888*- 1/0/1 A 188.93.155.\
-87 (62)
-```
-
-### caching only server with forwarder
-
-A *caching only server* with a *forwarder* is a DNS server that will get all its information from the *forwarder*. The *forwarder* must be a *dns server* for example the *dns server* of an *internet service provider*.
-
-![](assets/dns_05_forwarder.jpg)
-
-This picture shows a *dns server* on the company LAN that has set the *dns server* from their *isp* as a *forwarder*. If the ip address of the *isp dns server* is 212.71.8.10, then the following lines would occur in the `named.conf` file of the company *dns server*:
-
-```nginx
-forwarders {
-    212.71.8.10;
-};
-```
-
-You can also configure your *dns server* to work with *conditional forwarder(s)*. The definition of a conditional forwarder looks like this.
-
-```nginx
-zone "someotherdomain.local" {
-        type forward;
-        forward only;
-        forwarders { 10.104.42.1; };
-};
-```
-
-### iterative or recursive query
-
-A *recursive query* is a DNS query where the client that is submitting the query expects a complete answer (Like the fat red arrow above going from the Macbook to the DNS server). An *iterative query* is a DNS query where the client does not expect a complete answer (the three black arrows originating from the DNS server in the picture above). Iterative queries usually take place between name servers. The root name servers do not respond to recursive queries.
 
 ## authoritative dns servers
 
@@ -299,28 +205,6 @@ You should see traffic to a *root name server* whenever you try a new
 which means that repeating a query will generate a lot less traffic
 since your *dns server* will still have the answer in its memory.
 
-## root hints
-
-Every *dns server software* will come with a list of *root hints* to locate the *root servers*.
-
-This screenshot shows a small portion of the root hints file that comes with *BIND 9.8.4*.
-
-```console
-student@linux:~$ sudo grep -w 'A ' /etc/bind/db.root
-A.ROOT-SERVERS.NET.      3600000      A     198.41.0.4
-B.ROOT-SERVERS.NET.      3600000      A     192.228.79.201
-C.ROOT-SERVERS.NET.      3600000      A     192.33.4.12
-D.ROOT-SERVERS.NET.      3600000      A     199.7.91.13
-E.ROOT-SERVERS.NET.      3600000      A     192.203.230.10
-F.ROOT-SERVERS.NET.      3600000      A     192.5.5.241
-G.ROOT-SERVERS.NET.      3600000      A     192.112.36.4
-H.ROOT-SERVERS.NET.      3600000      A     128.63.2.53
-I.ROOT-SERVERS.NET.      3600000      A     192.36.148.17
-J.ROOT-SERVERS.NET.      3600000      A     192.58.128.30
-K.ROOT-SERVERS.NET.      3600000      A     193.0.14.129
-L.ROOT-SERVERS.NET.      3600000      A     199.7.83.42
-M.ROOT-SERVERS.NET.      3600000      A     202.12.27.33
-```
 
 
 ## example: caching only with forwarder
