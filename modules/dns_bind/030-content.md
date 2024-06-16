@@ -735,3 +735,4 @@ You can also force a refresh from a zone with `rndc`. The example below forces a
 ```
 
 There also exists an *incremental zone transfer* (IXFR), which only transfers the changes since the last transfer. The decision on which of the two (AXFR/IXFR) depends on the size of the transfer that is needed to completely update the zone on the secondary server. An incremental zone transfer is prefered when the total size of changes is smaller than the size of the zone database.
+
