@@ -1,3 +1,3 @@
-*(Written by Alex M. Schapelle, <https://github.com/zero-pytagoras/>)*
+> *(Written by Alex M. Schapelle, <https://github.com/zero-pytagoras/>)*
 
 
