@@ -129,7 +129,7 @@ A *dns server* can be *authoritative* over zero, one or more *dns zones*, which 
 
 ### dns records
 
-A *dns zone* consists of *records*, also called *resource records* (RRs). This section lists some of those *resource records*.
+A *dns zone* is a collection of *records*, also called *resource records* (RRs). This section lists some of those *resource records*.
 
 - The **A record**, which is also called a *host record* contains the ipv4-address of a computer. When a DNS client queries a DNS server for an A record, then the DNS server will resolve the hostname in the query to the specified ip address. An **AAAA record** is similar but contains an ipv6 address instead of ipv4.
 
@@ -171,7 +171,9 @@ And here is what it looks like in `wireshark` (note this is an older screenshot)
 
 ### iterative or recursive query
 
-A *recursive query* is a DNS query where the client that is submitting the query expects a complete answer (Like the fat red arrow above going from the Macbook to the DNS server). An *iterative query* is a DNS query where the client does not expect a complete answer. Iterative queries usually take place between name servers. The root name servers do not respond to recursive queries.
+A **recursive query** is a DNS query where the client that is submitting the query expects a complete answer (Like the fat red arrow above going from the Macbook to the DNS server).
+
+An **iterative query** is a DNS query where the client does not expect a complete answer. Iterative queries usually take place between name servers, e.g. asking a root server for the authoritative name server of a top level domain. The root name servers do not respond to recursive queries.
 
 ## interacting with DNS
 
