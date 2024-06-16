@@ -60,7 +60,7 @@ content:
   - title: "SSH; troubleshooting"
     chapters:
       - ssh
-      # - troubleshooting # TODO
+      - troubleshooting
   - title: "Storage management"
     chapters:
       - storage_devices
