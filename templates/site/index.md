@@ -16,6 +16,7 @@ This site is a continuation of Paul Cobbaut's [Linux Training](https://linux-tra
 
 | Book                      | PDF                  | Read online          |
 | :------------------------ | :------------------- | :------------------- |
+| Introduction to Linux     | [PDF](introlinux.pdf) | [mkdocs](introlinux/) |
 | Linux for Operations      | [PDF](opslinux.pdf)  | [mkdocs](opslinux/)  |
 | Linux for Data Scientists | [PDF](datalinux.pdf) | [mkdocs](datalinux/) |
 

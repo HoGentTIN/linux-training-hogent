@@ -1,0 +1,66 @@
+---
+title: "Linux Introduction"
+authors: 
+  - name: "Paul Cobbaut"
+  - name: "Bert Van Vreckem"
+date: "\\today"
+
+frontmatter:
+  - 01_colophon.md
+  - 02_abstract.md
+
+content:
+  - title: "introduction to Linux"
+    chapters:
+      - linux_history
+      - linux_distributions
+      - licensing
+  - title: "command structure"
+    chapters:
+      - shell_arguments
+      - shell_history
+  - title: "variables"
+    chapters:
+      - shell_variables
+  - title: "the semicolon"
+    chapters:
+      - shell_control_operators
+  - title: "getting help"
+    chapters:
+      - man_pages
+  - title: "the file system"
+    chapters:
+      - file_system_tree
+  - title: "directory contents"
+    chapters:
+      - working_with_directories
+  - title: "globbing"
+    chapters:
+      - shell_globbing
+  - title: "file and directory management"
+    chapters:
+      - working_with_files
+      - basic_tools
+  - title: "links"
+    chapters:
+      - links
+  - title: "working with text"
+    chapters:
+      - working_with_file_contents
+      - ioredirection
+      - regular_expressions
+  - title: "user group management"
+    chapters:
+      - groups
+  - title: "user management"
+    chapters:
+      - users
+      - user_management
+      - user_passwords
+  - title: "file permissions"
+    chapters:
+      - file_permissions
+
+
+backmatter:
+  - license
