@@ -4,7 +4,7 @@
 
 Feel free to contact the author(s):
 
-- Paul Cobbaut (Netsec BVBA): <paul.cobbaut@gmail.com>, <http://www.linkedin.com/in/cobbaut>
+- Paul Cobbaut (Netsec BVBA): <paul.cobbaut@gmail.com>, <https://cobbaut.be/>
 - Bert Van Vreckem (HOGENT): <http://github.com/bertvv>
 
 Copyright 2007-2024 Netsec BVBA, Paul Cobbaut

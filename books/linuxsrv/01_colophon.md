@@ -4,7 +4,7 @@
 
 Feel free to contact the author:
 
-- Paul Cobbaut: <paul.cobbaut@gmail.com>, <http://www.linkedin.com/in/cobbaut>
+- Paul Cobbaut: <paul.cobbaut@gmail.com>, <https://cobbaut.be/>
 
 Contributors to the Linux Training project are:
 
