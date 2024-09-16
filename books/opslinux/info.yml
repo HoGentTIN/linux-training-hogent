@@ -71,7 +71,6 @@ content:
     chapters:
       - dns
       - dns_bind
-      - dns_advanced
   - title: "RAID; expert installation"
     chapters:
       - storage_raid
