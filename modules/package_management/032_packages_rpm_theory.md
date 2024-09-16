@@ -1,4 +1,4 @@
-# the Red Hat package manager (rpm)
+## the Red Hat package manager (rpm)
 
 On Red Hat and other distro's of that family, the *Red Hat package manager* (RPM) is used to install, upgrade and remove software. There's a basic command,  `rpm`, and a more advanced tool, `dnf` (comparable with the situation on Debian-based systems, where `dpkg` is the basic tool and `apt` the more advanced one). When you install a graphical desktop, there's also a GUI tool for package management, but we won't be discussing that here.
 
@@ -11,13 +11,13 @@ Software distributed in the `rpm` format will have a file name be named `package
 
 We will start with discussing the `dnf` command, since that's the one that is most commonly used nowadays. After that, we'll show how to use the `rpm` command.
 
-## dnf
+### dnf
 
 The name of the `dnf` command has a bit of a convoluted history. It stands for "Dandified Yum", and is a fork/improvement of the `yum` package manager command. Yum stands for *Yellowdog Updater, Modified*, and was originally developed for the now defunct Yellow Dog Linux distribution (for the IBM POWER7 processor). Red Hat started using it in RHEL 5, and it was the default package manager for Red Hat and its derivatives for many years. However, more recently, they developed `dnf` to replace `yum` and that is now the default package manager for Fedora,  Red Hat Enterprise Linux and its derivatives.
 
 The `dnf` command works quite similarly to the `apt` command on Debian-based systems. It has similar subcommands, which we will discuss in the next sections. However, an equivalent for `apt update` does *not* exist. The `dnf` command will automatically update its package database whenever you execute it.
 
-## dnf list
+### dnf list
 
 Issue `dnf list` to see a list of all packages that DNF knows about.
 
@@ -49,7 +49,7 @@ Available Packages
 kernel.x86_64              5.14.0-362.18.1.el9_3       baseos   
 ```
 
-## dnf search
+### dnf search
 
 To search for a package containing a certain string in the description or name use `dnf search $string`.
 
@@ -70,7 +70,7 @@ Last metadata expiration check: 0:18:51 ago on Sun 25 Feb 2024 07:16:59 PM UTC.
 epel-release.noarch : Extra Packages for Enterprise Linux repository configuration
 ```
 
-## dnf info
+### dnf info
 
 Information about a specific package can be obtained with `dnf info $package`.
 
@@ -115,7 +115,7 @@ Description  : Public Domain source code to the original DUNGEON game (Zork I).
 [...]
 ```
 
-## dnf install
+### dnf install
 
 To install an application, use `dnf install $package`. Naturally `dnf` will install all the necessary dependencies.
 
@@ -206,7 +206,7 @@ You can add more than one parameter here.
 [student@el ~]$ sudo dnf install httpd mod_ssl mariadb-server php php-mysqlnd
 ```
 
-## dnf upgrade
+### dnf upgrade
 
 To bring all applications up to date, by downloading and installing them, issue `dnf upgrade`. All software that was installed via `dnf` will be updated to the latest version that is available in the repository.
 
@@ -240,7 +240,7 @@ Complete!
 
 If you only want to update one package, use `dnf upgrade $package`. It behaves the same as `dnf install $package`.
 
-## dnf provides
+### dnf provides
 
 To search for a package containing a certain file use `dnf provides $filename` (or globbing pattern). This is especially useful if you want to install a specific command that has a different name than the package name. For example, say that you've heard about the [`ag` command](https://github.com/ggreer/the_silver_searcher) that is a faster alternative to `grep`. The command `dnf search ag` spews out too much output, so no useful results:
 
@@ -280,7 +280,7 @@ Other       : *bin/ag
 
 So, the name of the package is `the_silver_searcher` (`ag` being the chemical symbol for silver), and it is provided by the [EPEL repository](https://docs.fedoraproject.org/en-US/epel/) (Extra Packages for Enterprise Linux). We can install it with `dnf install the_silver_searcher`.
 
-## dnf remove
+### dnf remove
 
 Removing a package is done with `dnf remove $package`. This will remove the package and all its dependencies that are not needed by other packages.
 
@@ -316,7 +316,7 @@ Complete!
 
 By the way, this package, `net-tools`, contains commands that are considered to be obsolete and have been replaced by other, newer implementations. You don't really need it, so it's a good example for this section. If you removed it, feel free to reinstall it if you want!
 
-## dnf software groups
+### dnf software groups
 
 Issue `dnf grouplist` to see a list of all available software groups.
 
@@ -385,7 +385,7 @@ Is this ok [y/N]:
 
 Read the manual page of `dnf` for more information about managing groups in `dnf`. In practice, chances are that you won't need this feature very often.
 
-## rpm -qa
+### rpm -qa
 
 In the following sections, we'll show what you can do with the `rpm` command.
 
@@ -400,7 +400,7 @@ openssh-clients-8.7p1-34.el9.x86_64
 openssh-server-8.7p1-34.el9.x86_64
 ```
 
-## rpm -q
+### rpm -q
 
 To verify whether one package is installed, use `rpm -q`.
 
@@ -415,7 +415,7 @@ kernel-5.14.0-362.13.1.el9_3.x86_64
 kernel-5.14.0-362.18.1.el9_3.x86_64
 ```
 
-## rpm -ql
+### rpm -ql
 
 To see which files are installed by a package, use `rpm -ql`.
 
@@ -439,7 +439,7 @@ To see which files are installed by a package, use `rpm -ql`.
 /usr/share/man/man5/virc.5.gz
 ```
 
-## rpm -Uvh
+### rpm -Uvh
 
 To install or upgrade a package, use the -Uvh switches. The -U switch is the same as -i for install, except that older versions of the software are removed. The -vh switches are for nicer output.
 
@@ -452,7 +452,7 @@ error: Failed dependencies:
         libhwloc.so.15()(64bit) is needed by htop-3.3.0-1.el9.x86_64
 ```
 
-## rpm -e
+### rpm -e
 
 To remove a package, use the -e switch.
 
@@ -473,7 +473,7 @@ error: Failed dependencies:
         libslang.so.2(SLANG2)(64bit) is needed by (installed) newt-0.52.21-11.el9.x86_64
 ```
 
-## Package cache
+### Package cache
 
 When `dnf` installs or upgrades a package, it will download the package from the repository and store it temporarily in the cache. The cache also contains repository metadata. The default location of the cache is `/var/cache/dnf`. You can clean the cache with `dnf clean all`.
 
@@ -484,7 +484,7 @@ When `dnf` installs or upgrades a package, it will download the package from the
 
 Remark that .rpm files will normally be removed automatically after they were installed successfully. You can change this behavior in `/etc/dnf/dnf.conf` by setting `keepcache=1`.
 
-## Configuration
+### Configuration
 
 The main configuration file for `dnf` is `/etc/dnf/dnf.conf`. This file contains a few basic settings. The location of package repositories that are available to the system are kept in the directory `/etc/yum.repos.d/`. Each repository has its own file, with a `.repo` extension.
 
@@ -504,8 +504,8 @@ A repo file is a text file in the [INI format](https://en.wikipedia.org/wiki/INI
 ```ini
 [epel]
 name=Extra Packages for Enterprise Linux $releasever - $basearch
-# It is much more secure to use the metalink, but if you wish to use a local mirror
-# place its address here.
+## It is much more secure to use the metalink, but if you wish to use a local mirror
+## place its address here.
 #baseurl=https://download.example/pub/epel/$releasever/Everything/$basearch/    
 metalink=https://mirrors.fedoraproject.org/metalink?repo=epel-$releasever&arch=$basearch&infra=$infra&content=$contentdir
 enabled=1
@@ -514,7 +514,7 @@ countme=1
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-$releasever
 ```
 
-## Working with multiple repositories
+### Working with multiple repositories
 
 You can get a list of the currently enabled repositories with `dnf repolist`.
 

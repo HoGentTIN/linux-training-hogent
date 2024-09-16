@@ -1,10 +1,10 @@
-# deb package management
+## deb package management
 
-## about deb
+### about deb
 
 Most people use `apt` or `apt-get` (APT = Advanced Package Tool) to manage their Debian/Ubuntu family of Linux distributions. Both are a front end for `dpkg` and are themselves a back end for *synaptic* and other graphical tools.
 
-## dpkg -l
+### dpkg -l
 
 The low level tool to work with `.deb` packages is `dpkg`. Here you see how to obtain a list of all installed packages on a Debian server.
 
@@ -20,7 +20,7 @@ student@mint:~$ dpkg -l | wc -l
 2118
 ```
 
-## dpkg -l \$package
+### dpkg -l \$package
 
 Here is an example on how to get information on an individual package.
 The ii at the beginning means the package is installed.
@@ -30,7 +30,7 @@ root@debian:~# dpkg -l rsync | tail -1 | tr -s  ' '
 ii rsync 3.2.7-1 amd64 fast, versatile, remote (and local) file-copying tool
 ```
 
-## dpkg -S
+### dpkg -S
 
 You can find the package that installed a certain file on your computer with `dpkg -S`. This example shows how to find the package for three files on a typical Debian server.
 
@@ -41,7 +41,7 @@ openssh-client: /etc/ssh/ssh_config
 net-tools: /sbin/ifconfig
 ```
 
-## dpkg -L
+### dpkg -L
 
 You can also get a list of all files that are installed by a certain
 program. Below is the list for the `curl` package.
@@ -66,11 +66,11 @@ student@debian:~$ dpkg -L curl
 /usr/share/zsh/vendor-completions/_curl
 ```
 
-## dpkg
+### dpkg
 
 You could use `dpkg -i` to install a package and `dpkg -r` to remove a package, but you\'d have to manually keep track of dependencies. Using `apt-get` or `apt` is much easier.
 
-## apt-get
+### apt-get
 
 `Debian` has been using `apt-get` to manage packages since 1998. Today Debian and many Debian-based distributions still actively support `apt-get`, though some experts claim `apt`, released in 2014, is better at handling dependencies than `apt-get`.
 
@@ -78,7 +78,7 @@ Both commands use the same configuration files and can be used alternately; when
 
 We will start with `apt-get` and discuss `apt` in the next section.
 
-## apt-get update
+### apt-get update
 
 When typing `apt-get update` you are downloading the names, versions and short description of all packages available on all configured repositories for your system. Remark that you need to be root to run this command.
 
@@ -118,7 +118,7 @@ student@ubuntu:~$
 - Run `apt-get update` every time before performing other package operations.
 - Since the package repositories are hosted on web servers, you can open the URL in your browser to see how the repository is structured.
 
-## apt-get upgrade
+### apt-get upgrade
 
 One of the nicest features of `apt-get` is that it allows for a secure update of *all software currently installed* on your computer with just
 *one* command.
@@ -173,7 +173,7 @@ Processing triggers for mailcap (3.70+nmu1) ...
 
 **Tip:** Have you noticed that almost every time that you update software on Windows, you are asked to reboot your computer? This is **not** the case with Linux! The only time you need to reboot is when you update the kernel.
 
-## apt-get clean
+### apt-get clean
 
 `apt-get` keeps a copy of downloaded packages in `/var/cache/apt/archives`, as can be seen in this screenshot.
 
@@ -199,7 +199,7 @@ student@debian:~$ ls /var/cache/apt/archives/*.deb
 ls: cannot access /var/cache/apt/archives/*.deb: No such file or directory
 ```
 
-## apt-cache search
+### apt-cache search
 
 Use `apt-cache search` to search for availability of a package. Here we look for `rsync`.
 
@@ -209,7 +209,7 @@ rsync - fast, versatile, remote (and local) file-copying tool
 rsyncrypto - rsync friendly encryption
 ```
 
-## apt-get install
+### apt-get install
 
 You can install one or more applications by appending their name behind `apt-get install`. The following example shows how to install the `tftp-hpa` package (a TFTP server).
 
@@ -264,7 +264,7 @@ Processing triggers for man-db (2.11.2-2) ...
 Processing triggers for libc-bin (2.36-9+deb12u4) ...
 ```
 
-## apt-get remove
+### apt-get remove
 
 You can remove one or more applications by appending their name behind `apt-get remove`.
 
@@ -328,7 +328,7 @@ Processing triggers for man-db (2.11.2-2) ...
 Processing triggers for libc-bin (2.36-9+deb12u4) ...
 ```
 
-## apt-get purge
+### apt-get purge
 
 You can purge one or more applications by appending their name behind
 `apt-get purge`. Purging will also remove all existing configuration
@@ -360,7 +360,7 @@ student@debian:~$ dpkg -l tftpd-hpa | tail -1 | tr -s ' '
 dpkg-query: no packages found matching tftpd-hpa
 ```
 
-## apt
+### apt
 
 Nowadays, most people use `apt` for package management on Debian, Mint and Ubuntu systems. That does not mean that `apt-get` is no longer useful. In scripts, it is actually recommended to use `apt-get` because its options and behaviour is more stable and predictable than `apt`. For interactive use, `apt` is more user-friendly.
 
@@ -408,7 +408,7 @@ To remove an application and all configuration files.
 sudo apt purge $package
 ```
 
-## /etc/apt/sources.list
+### /etc/apt/sources.list
 
 Both `apt-get` and `apt` use the same configuration information in `/etc/apt/`. The main configuration file is `/etc/apt/sources.list` and the directory `/etc/apt/sources.list.d/` contains additional files. These contain a list of http or ftp sources where packages for the distribution can be downloaded. Third party software vendors may provide their own package repositories for Debian or Ubuntu. These repositories are typically added through a new file in `/etc/apt/sources.list.d/`.
 

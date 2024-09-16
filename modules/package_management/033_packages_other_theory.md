@@ -1,4 +1,4 @@
-# pip, the Python package manager
+## pip, the Python package manager
 
 Some programming languages, a.o. [Python](https://www.python.org), have their own package management system that allows you to install applications and/or libraries. In the case of Python, the package manager is called `pip`. It is used to install Python packages from the [Python Package Index](https://pypi.org) (PyPI). In fact, there are multiple package managers for Python (a.o. easy_install, conda, etc.), but `pip` is the most widely used.
 
@@ -18,7 +18,7 @@ As general guidelines, we suggest the following:
 - Avoid installing Python libraries or applications system-wide as root using `pip`.
 - Normal users may use `pip` to install Python libraries or applications in their home directory.
 
-## installing pip
+### installing pip
 
 `pip` may not be installed by default on your system. You can install it using your distribution's package manager. For example, on Debian-based systems, you can install it using `apt`:
 
@@ -32,7 +32,7 @@ On Red Hat-based systems, you can install it using `dnf`:
 student@el ~$ sudo dnf install python3-pip
 ```
 
-## listing packages
+### listing packages
 
 You can list the packages installed with `pip` using the `list` command:
 
@@ -58,7 +58,7 @@ six             1.15.0
 systemd-python  234
 ```
 
-## searching for packages
+### searching for packages
 
 Searching for packages can **NOT** be done on the command line. To search for packages, you can use the [Python Package Index](https://pypi.org) website instead. If you try `pip search`, you will get an error message:
 
@@ -68,7 +68,7 @@ ERROR: XMLRPC request failed [code: -32500]
 RuntimeError: PyPI no longer supports 'pip search' (or XML-RPC search). Please use https://pypi.org/search (via a browser) instead. See https://warehouse.pypa.io/api-reference/xml-rpc.html#deprecated-methods for more information.
 ```
 
-## installing packages
+### installing packages
 
 You can install a package using the `install` command:
 
@@ -78,7 +78,7 @@ student@linux:~$ pip install ansible
 
 Just like `apt` and `dnf`, `pip` will install the package and its dependencies.
 
-## removing packages
+### removing packages
 
 Uninstalling a package is done with the `uninstall` command:
 
@@ -88,7 +88,7 @@ student@linux:~$ pip uninstall ansible
 
 Unfortunately, dependencies are not removed when you uninstall a package with `pip`.
 
-# container-based package managers
+## container-based package managers
 
 With the release of Docker, container-based virtualization has become very popular as a method of distributing and deploying applications on servers. One of the advantages of containers is that they offer a sandbox environment for applications, which means that the application and its dependencies are isolated from the rest of the system. This makes it possible to run applications with different dependencies on the same server, without the risk of conflicts. Containers are also very lightweight, so don't impose much overhead on the host system.
 
@@ -96,7 +96,7 @@ Now, there is no reason why containers can't be used to deploy applications on d
 
 As with many Linux-based technologies, there are multiple tools to choose from. The most popular ones are [Flatpak](https://flatpak.org) and [Snap](https://snapcraft.io).
 
-## flatpak
+### flatpak
 
 [Flatpak](https://flatpak.org) is a container-based package manager developed by an independent community of contributors, volunteers and supporting organizations. It is available for most Linux distributions, and is supported by a large number of third party software vendors. Red Hat was one of the first to endorse Flatpak, and many others followed. Fedora Silverblue is a variant of Fedora that uses Flatpak as its primary package manager. Linux Mint also has Flatpak support enabled by default: in the Software Manager, some applications like Bitwarden, Slack, VS Code, etc. are available as Flatpaks.
 
@@ -150,7 +150,7 @@ Found installed ref ‘app/com.bitwarden.desktop/x86_64/stable’ (system). Is t
 Uninstall complete.
 ```
 
-## snap
+### snap
 
 [Snap](https://snapcraft.io) was developed by Canonical and is installed by default on Ubuntu. It is also available for other distributions (like the official Ubuntu derivatives, Solus and Zorin OS), but it is not as widely supported as Flatpak. Snap was also designed to work for cloud applications and Internet of Things devices.
 
@@ -173,13 +173,13 @@ student@ubuntu:~$ sudo snap remove grafana
 grafana removed
 ```
 
-# downloading software outside the repository
+## downloading software outside the repository
 
 These days, the case where you need software that is not available as a binary packate has become exceedingly rare. However, *if* you want to install some experimental tool that has'nt been package yet, or you want to test the very latest experimental version of an application, you may have to download the source code and compile it yourself. Usually, the source code is available on the project's website, or on a code hosting platform like [GitHub](https://github.com), [GitLab](https://gitlab.com) or [Bitbucket](https://bitbucket.org). You then either download the source code as a `tgz`, `.tar.gz`, `.tar.bz2`, `tar.xz` file (also called a *tarball*), or you can clone the repository using `git`.
 
 In the example below, we assume that you have downloaded the source code of an application written in C or C++, as is common for many Linux applications. Remark that in order to be able to compile the source code, you need to have the C compiler `gcc` and the build tool `make` installed on your system. You can install these using your distribution's package manager. Also, many applications depend on other libraries, which also have to be installed as source.
 
-## example: compiling zork
+### example: compiling zork
 
 As an example, we will download the source code for Zork, an ancient text based adventure game, and compile it on a Fedora system. The source code is available on [GitHub](https://github.com/devshane/zork). We have installed `git`, `gcc` and `make` beforehand.
 
@@ -258,7 +258,7 @@ cp dungeon.6 /usr/share/man/man6/
 
 Remark that the "official" location where manually installed applications belong in a Linux directory structure is `/usr/local` (for applications that follow the Filesystem Hierarchy Standard) or `/opt` (for applications that want to keep all files in a single directory).
 
-## installing from a tarball
+### installing from a tarball
 
 Before unpacking a tarball, it's useful to check its contents:
 
