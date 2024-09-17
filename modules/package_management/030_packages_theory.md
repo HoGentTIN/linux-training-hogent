@@ -2,12 +2,11 @@
 
 ### repository
 
-A lot of software and documentation for your Linux distribution is available as **packages** in one or more centrally distributed **repositories**. These packages in such a repository are tested and very easy to install (or remove) with a graphical or command line installer.
+A lot of software and documentation for your Linux distribution is available as **packages** in one or more centrally distributed **repositories**. The packages in such a repository are tested and very easy to install (or remove) with a graphical or command line installer.
 
 ### .deb packages
 
-Debian, Ubuntu, Mint and all derivatives from Debian and Ubuntu use `.deb` packages. To manage software on these systems, you can use `apt` or `apt-get`, both these
-tools are a front end for `dpkg`.
+Debian, Ubuntu, Mint and all derivatives of Debian and Ubuntu use `.deb` packages. To manage software on these systems, you can use `apt` or `apt-get`, both these tools are a front end for `dpkg`.
 
 ### .rpm packages
 
@@ -21,7 +20,7 @@ Some packages need other packages to function. Tools like `apt-get`, `apt` and `
 
 These repositories contain a lot of independent **open source software**. Often the source code is customized to integrate better with your distribution. Most distributions also offer this modified source code as a **package** in one or more **source repositories**.
 
-You are free to go to the project website itself (samba.org, apache.org, github.com, ...) an download the *vanilla* (= without the custom distribution changes) source code.
+You are free to go to the project website itself (samba.org, apache.org, github.com ...) and download the *vanilla* (= without the custom distribution changes) source code.
 
 ### GUI software management
 

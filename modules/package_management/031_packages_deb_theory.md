@@ -6,7 +6,7 @@ Most people use `apt` or `apt-get` (APT = Advanced Package Tool) to manage their
 
 ### dpkg -l
 
-The low level tool to work with `.deb` packages is `dpkg`. Here you see how to obtain a list of all installed packages on a Debian server.
+The low level tool to work with `.deb` packages is `dpkg`. Among other things, you can use `dpkg` to list all installed packages on a Debian server.              
 
 ```console
 student@debian:~$ dpkg -l | wc -l
@@ -23,7 +23,7 @@ student@mint:~$ dpkg -l | wc -l
 ### dpkg -l \$package
 
 Here is an example on how to get information on an individual package.
-The ii at the beginning means the package is installed.
+The   ii at the beginning means the package is installed.
 
 ```console
 root@debian:~# dpkg -l rsync | tail -1 | tr -s  ' '
@@ -32,7 +32,7 @@ ii rsync 3.2.7-1 amd64 fast, versatile, remote (and local) file-copying tool
 
 ### dpkg -S
 
-You can find the package that installed a certain file on your computer with `dpkg -S`. This example shows how to find the package for three files on a typical Debian server.
+You can find the package responsible for installing a certain file on your computer using `dpkg -S`. This example shows how to find the package for three files on a typical Debian server.
 
 ```console
 student@debian:~$ dpkg -S /usr/share/doc/tmux/ /etc/ssh/ssh_config /sbin/ifconfig
@@ -43,7 +43,7 @@ net-tools: /sbin/ifconfig
 
 ### dpkg -L
 
-You can also get a list of all files that are installed by a certain
+In reverse, you can also get a list of all files that have been installed by a certain
 program. Below is the list for the `curl` package.
 
 ```console
@@ -68,7 +68,7 @@ student@debian:~$ dpkg -L curl
 
 ### dpkg
 
-You could use `dpkg -i` to install a package and `dpkg -r` to remove a package, but you\'d have to manually keep track of dependencies. Using `apt-get` or `apt` is much easier.
+You could use `dpkg -i` to install a package and `dpkg -r` to remove a package, but you\'d have to manually download the packge and keep track of dependencies. Using `apt-get` or `apt` is much easier.
 
 ### apt-get
 
@@ -94,7 +94,7 @@ Hit:3 http://httpredir.debian.org/debian bookworm-updates InRelease
 Reading package lists... Done
 ```
 
-In the example below you can see an interaction with an Ubuntu system. Some repositories are at the url `be.archive.ubuntu.com` because this computer was installed in Belgium. This url can be different for you.
+In the example below you can see an interaction with an Ubuntu system. Some repositories are at the url `be.archive.ubuntu.com` because this computer was installed in Belgium. This mirror URL can be different for you.
 
 ```console
 student@ubuntu:~$ sudo apt-get update
@@ -115,8 +115,8 @@ student@ubuntu:~$
 
 **Tips:**
 
-- Run `apt-get update` every time before performing other package operations.
-- Since the package repositories are hosted on web servers, you can open the URL in your browser to see how the repository is structured.
+- Run `apt-get update` every time before performing other package operations to ensure your metadata is up-to-date.
+- Since the package repositories are hosted on web servers, you can open any repository URL in your browser to see how the repository is structured.
 
 ### apt-get upgrade
 
@@ -131,7 +131,7 @@ Reading state information... Done
 0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
 ```
 
-The above transcript shows that all software is updated to the latest version available for my distribution. Below is an example of a system that has software that can be updated. Some lines were ommitted for brevity.
+The above transcript shows that all software is updated to the latest version available for my distribution. Below is an example of a system with software that can be updated. Some lines were ommitted for brevity.
 
 ```console
 student@debian:~$ sudo apt-get upgrade
@@ -283,7 +283,7 @@ Removing tftpd-hpa (5.2+20150808-1.4) ...
 Processing triggers for man-db (2.11.2-2) ...
 ```
 
-If we use `dpkg -l` to check the status of the `tftpd-hpa` package, we see that it is removed, some configuration (rc) files are left on the system. Indeed, the configuration file `/etc/init/tftpd-hpa.conf` is not removed! We'll give a solution for that in the next section.
+If we use `dpkg -l` to check the status of the `tftpd-hpa` package, we see that it is removed, some configuration (rc) files are left on the system. Indeed, the configuration file `/etc/init/tftpd-hpa.conf` is not removed! We'll solve this in the next section.
 
 ```console
 student@debian:~$ dpkg -l tftpd-hpa | tail -1
@@ -292,7 +292,7 @@ student@debian:~$ ls -l /etc/init/tftpd-hpa.conf
 -rw-r--r-- 1 root root 980 Oct 25  2022 /etc/init/tftpd-hpa.conf
 ```
 
-The example below shows how to remove the `vim` package again. Remark that the dependencies are **not** removed! You can execute `sudo apt autoremove` afterwards (as is suggested by the output of the command!) to remove those as well.
+The example below shows how to remove the `vim` package. Note that dependencies are **not** removed! You can execute `sudo apt autoremove` afterwards (as is suggested by the output of the command!) to remove those as well.
 
 ```console
 student@debian:~$ sudo apt-get remove vim
@@ -362,7 +362,7 @@ dpkg-query: no packages found matching tftpd-hpa
 
 ### apt
 
-Nowadays, most people use `apt` for package management on Debian, Mint and Ubuntu systems. That does not mean that `apt-get` is no longer useful. In scripts, it is actually recommended to use `apt-get` because its options and behaviour is more stable and predictable than `apt`. For interactive use, `apt` is more user-friendly.
+Nowadays, most people use `apt` for package management on Debian, Mint and Ubuntu systems. That does not mean that `apt-get` is no longer useful. In scripts, it is actually recommended to use `apt-get` because its options and behaviour are more stable and predictable than `apt`. For interactive use, `apt` is more user-friendly.
 
 To synchronize with the repositories.
 
@@ -427,7 +427,7 @@ deb http://httpredir.debian.org/debian/ bookworm-updates main non-free-firmware
 deb-src http://httpredir.debian.org/debian/ bookworm-updates main non-free-firmware
 ```
 
-If you use Linux as a dalily driver, you may end up with a repository list with many more entries, like on this Ubuntu system:
+If you use Linux as a daily driver, you may end up with a repository list with many more entries, like on this Ubuntu system:
 
 ```console
 student@ubuntu:~$ wc -l /etc/apt/sources.list

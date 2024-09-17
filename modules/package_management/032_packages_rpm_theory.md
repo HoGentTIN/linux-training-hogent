@@ -1,19 +1,19 @@
 ## the Red Hat package manager (rpm)
 
-On Red Hat and other distro's of that family, the *Red Hat package manager* (RPM) is used to install, upgrade and remove software. There's a basic command,  `rpm`, and a more advanced tool, `dnf` (comparable with the situation on Debian-based systems, where `dpkg` is the basic tool and `apt` the more advanced one). When you install a graphical desktop, there's also a GUI tool for package management, but we won't be discussing that here.
+On Red Hat and other distros of that family, the *Red Hat package manager* (RPM) is used to install, upgrade and remove software. There's a basic command,  `rpm`, and a more advanced tool, `dnf` (comparable with the situation on Debian-based systems, where `dpkg` is the basic tool and `apt` the more advanced one). When you install a graphical desktop, there's also a GUI tool for package management, but we won't be discussing that here.
 
-Software distributed in the `rpm` format will have a file name be named `package-version-release.architecture.rpm`. For example, the package name `openssh-server-8.7p1-34.el9.x86_64.rpm` has the following components:
+Software distributed in the `rpm` format will have a file name following this format: `package-version-release.architecture.rpm`. For example, the package name `openssh-server-8.7p1-34.el9.x86_64.rpm` has the following components:
 
 - package name: `openssh-server`
 - version: `8.7p1`
 - release: `34.el9` (el9 stands for Enterprise Linux 9, indicating it is compatible with RHEL 9)
 - architecture: `x86_64` (suitable for a 64-bit Intel/AMD processor)
 
-We will start with discussing the `dnf` command, since that's the one that is most commonly used nowadays. After that, we'll show how to use the `rpm` command.
+We will start with discussing the `dnf` command, since that one is most commonly used. After that, we'll show how to use the `rpm` command.
 
 ### dnf
 
-The name of the `dnf` command has a bit of a convoluted history. It stands for "Dandified Yum", and is a fork/improvement of the `yum` package manager command. Yum stands for *Yellowdog Updater, Modified*, and was originally developed for the now defunct Yellow Dog Linux distribution (for the IBM POWER7 processor). Red Hat started using it in RHEL 5, and it was the default package manager for Red Hat and its derivatives for many years. However, more recently, they developed `dnf` to replace `yum` and that is now the default package manager for Fedora,  Red Hat Enterprise Linux and its derivatives.
+The name of the `dnf` command has a bit of a convoluted history. It stands for "Dandified Yum", and is a fork/improvement of the `yum` package manager command. Yum stands for *Yellowdog Updater, Modified*, and was originally developed for the now defunct Yellow Dog Linux distribution (for the IBM POWER7 processor). Red Hat started using it in RHEL 5 and it was the default package manager for Red Hat and its derivatives for many years. However, more recently, they developed `dnf` to replace `yum` with the former now being the default package manager for Fedora, Red Hat Enterprise Linux and its derivatives.
 
 The `dnf` command works quite similarly to the `apt` command on Debian-based systems. It has similar subcommands, which we will discuss in the next sections. However, an equivalent for `apt update` does *not* exist. The `dnf` command will automatically update its package database whenever you execute it.
 
@@ -117,7 +117,7 @@ Description  : Public Domain source code to the original DUNGEON game (Zork I).
 
 ### dnf install
 
-To install an application, use `dnf install $package`. Naturally `dnf` will install all the necessary dependencies.
+To install an application, use `dnf install $package`. Naturally, `dnf` will install all the necessary dependencies.
 
 ```console
 [student@el ~]$ sudo dnf install epel-release
@@ -159,7 +159,7 @@ Installed:
 Complete!
 ```
 
-Add the option `-y` to skip the confirmation question. If the package is already installed, `install` will upgrade the package to the latest version.
+Add the option `-y` to skip confirmation. If the package is already installed, `install` will upgrade the package to the latest version.
 
 ```console
 [student@el ~]$ sudo dnf install -y sudo
@@ -208,7 +208,7 @@ You can add more than one parameter here.
 
 ### dnf upgrade
 
-To bring all applications up to date, by downloading and installing them, issue `dnf upgrade`. All software that was installed via `dnf` will be updated to the latest version that is available in the repository.
+To bring all applications up to date by downloading and installing them, issue `dnf upgrade`. All software that was installed via `dnf` will be updated to the latest version that is available in the repository.
 
 ```console
 [student@el ~]$ sudo dnf upgrade
@@ -278,7 +278,7 @@ Other       : *bin/ag
 [student@el ~]$ sudo dnf install -y the_silver_searcher
 ```
 
-So, the name of the package is `the_silver_searcher` (`ag` being the chemical symbol for silver), and it is provided by the [EPEL repository](https://docs.fedoraproject.org/en-US/epel/) (Extra Packages for Enterprise Linux). We can install it with `dnf install the_silver_searcher`.
+So the name of the package is `the_silver_searcher` (`ag` being the chemical symbol for silver) and it is provided by the [EPEL repository](https://docs.fedoraproject.org/en-US/epel/) (Extra Packages for Enterprise Linux). We can install it with `dnf install the_silver_searcher`.
 
 ### dnf remove
 

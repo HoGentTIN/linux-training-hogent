@@ -1,6 +1,6 @@
 ## practice: package management
 
-1. Verify whether gcc, sudo and zork are installed.
+1. Verify whether `gcc`, `sudo` and `zork` are installed.
 
 2. Use dnf or apt to search for and install the `scp`, `tmux`, and `man`-pages packages. Did you find them all?
 
