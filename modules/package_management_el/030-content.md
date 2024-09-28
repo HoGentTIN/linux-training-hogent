@@ -1,4 +1,4 @@
-## the Red Hat package manager (rpm)
+## the red hat package manager (rpm)
 
 On Red Hat and other distros of that family, the *Red Hat package manager* (RPM) is used to install, upgrade and remove software. There's a basic command,  `rpm`, and a more advanced tool, `dnf` (comparable with the situation on Debian-based systems, where `dpkg` is the basic tool and `apt` the more advanced one). When you install a graphical desktop, there's also a GUI tool for package management, but we won't be discussing that here.
 
@@ -11,7 +11,7 @@ Software distributed in the `rpm` format will have a file name following this fo
 
 We will start with discussing the `dnf` command, since that one is most commonly used. After that, we'll show how to use the `rpm` command.
 
-### dnf
+## dnf
 
 The name of the `dnf` command has a bit of a convoluted history. It stands for "Dandified Yum", and is a fork/improvement of the `yum` package manager command. Yum stands for *Yellowdog Updater, Modified*, and was originally developed for the now defunct Yellow Dog Linux distribution (for the IBM POWER7 processor). Red Hat started using it in RHEL 5 and it was the default package manager for Red Hat and its derivatives for many years. However, more recently, they developed `dnf` to replace `yum` with the former now being the default package manager for Fedora, Red Hat Enterprise Linux and its derivatives.
 
@@ -385,9 +385,11 @@ Is this ok [y/N]:
 
 Read the manual page of `dnf` for more information about managing groups in `dnf`. In practice, chances are that you won't need this feature very often.
 
-### rpm -qa
+## rpm
 
 In the following sections, we'll show what you can do with the `rpm` command.
+
+### rpm -qa
 
 To obtain a list of all installed software, use the `rpm -qa` command.
 
@@ -473,7 +475,7 @@ error: Failed dependencies:
         libslang.so.2(SLANG2)(64bit) is needed by (installed) newt-0.52.21-11.el9.x86_64
 ```
 
-### Package cache
+## package cache
 
 When `dnf` installs or upgrades a package, it will download the package from the repository and store it temporarily in the cache. The cache also contains repository metadata. The default location of the cache is `/var/cache/dnf`. You can clean the cache with `dnf clean all`.
 
@@ -484,7 +486,7 @@ When `dnf` installs or upgrades a package, it will download the package from the
 
 Remark that .rpm files will normally be removed automatically after they were installed successfully. You can change this behavior in `/etc/dnf/dnf.conf` by setting `keepcache=1`.
 
-### Configuration
+## configuration
 
 The main configuration file for `dnf` is `/etc/dnf/dnf.conf`. This file contains a few basic settings. The location of package repositories that are available to the system are kept in the directory `/etc/yum.repos.d/`. Each repository has its own file, with a `.repo` extension.
 
@@ -514,7 +516,7 @@ countme=1
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-$releasever
 ```
 
-### Working with multiple repositories
+## working with multiple repositories
 
 You can get a list of the currently enabled repositories with `dnf repolist`.
 

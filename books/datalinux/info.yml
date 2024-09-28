@@ -2,8 +2,8 @@
 title: "Linux for Data Scientists"
 authors: 
   - name: "Paul Cobbaut"
-  - name: "Andy Van Maele"
   - name: "Thomas Parmentier"
+  - name: "Andy Van Maele"
   - name: "Bert Van Vreckem"
 date: "\\today"
 
@@ -18,6 +18,7 @@ content:
   - title: "Software management; curl"
     chapters:
       - package_management
+      - package_management_debian
       #- curl # TODO
   - title: "Scripting 101"
     chapters:

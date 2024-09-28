@@ -181,7 +181,7 @@ In the example below, we assume that you have downloaded the source code of an a
 
 ### example: compiling zork
 
-As an example, we will download the source code for Zork, an ancient text based adventure game, and compile it on a Fedora system. The source code is available on [GitHub](https://github.com/devshane/zork). We have installed `git`, `gcc` and `make` beforehand.
+As an example, we will download the source code for Zork, an ancient text based adventure game, and compile it on a Fedora system. The source code is available on [GitHub](https://github.com/devshane/zork). Remark that you should check wheter `git`, `gcc` and `make` are installed beforehand. See the modules on RPM and DEB package management for more information.
 
 ```console
 [student@fedora ~]$ git clone https://github.com/devshane/zork.git
@@ -235,7 +235,7 @@ The command seems to have succeeded. The current directory now contains a new fi
 
 ```console
 [student@fedora zork]$ ls -l zork
--rwxr-xr-x. 1 vagrant vagrant 400968 Feb 26 19:45 zork
+-rwxr-xr-x. 1 student student 400968 Feb 26 19:45 zork
 [student@fedora zork]$ file zork
 zork: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=3089e3cb1c1a7fc1cc1db41c3aa578c0b52f83f3, for GNU/Linux 3.2.0, with debug_info, not stripped
 [student@fedora zork]$ ./zork

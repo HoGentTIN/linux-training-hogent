@@ -1,11 +1,10 @@
 ## practice: package management
 
-1. Verify whether `gcc`, `sudo` and `zork` are installed.
+1. Look up where your Linux distribution has published their package repositories. What is the URL? Can you find and download individual packages from there?
 
-2. Use dnf or apt to search for and install the `scp`, `tmux`, and `man`-pages packages. Did you find them all?
+2. Open the graphical package manager tool on your system. What kind of software is available? Can you find the software you need? Or games that you would like to play?
 
-3. Search the internet for \'webmin\' and figure out how to install it.
+3. Why would it be a bad idea to install Python packages with `pip` as root? When would you install a package (e.g. `pandas`) with `pip` instead of the package mnanager (e.g. `python3-pandas`)?
 
-4. If time permits, search for and install samba including the samba
-docs pdf files (thousands of pages in two pdf\'s).
+4. Check whether Snap or Flatpak is installed or available on your system. How can you search online for applications in these repositories?
 

@@ -2,8 +2,8 @@
 title: "Linux for Operations"
 authors: 
   - name: "Paul Cobbaut"
-  - name: "Andy Van Maele"
   - name: "Thomas Parmentier"
+  - name: "Andy Van Maele"
   - name: "Bert Van Vreckem"
 date: "\\today"
 
@@ -36,6 +36,8 @@ content:
   - title: "Software management; DHCP"
     chapters:
       - package_management
+      - package_management_el
+      - package_management_debian
       - general_networking
       - network_config
       - dhcp

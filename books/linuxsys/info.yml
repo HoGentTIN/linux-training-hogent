@@ -38,6 +38,8 @@ content:
       - memory
       - monitoring
       - package_management
+      - package_management_debian
+      - package_management_el
   - title: "network management"
     chapters:
       - general_networking

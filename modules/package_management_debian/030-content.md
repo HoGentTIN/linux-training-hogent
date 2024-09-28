@@ -1,12 +1,14 @@
-## deb package management
-
-### about deb
+## about deb
 
 Most people use `apt` or `apt-get` (APT = Advanced Package Tool) to manage their Debian/Ubuntu family of Linux distributions. Both are a front end for `dpkg` and are themselves a back end for *synaptic* and other graphical tools.
 
+## dpkg
+
+You could use `dpkg -i` to install a package and `dpkg -r` to remove a package, but you\'d have to manually download the packge and keep track of dependencies. Using `apt-get` or `apt` is much easier (see below).
+
 ### dpkg -l
 
-The low level tool to work with `.deb` packages is `dpkg`. Among other things, you can use `dpkg` to list all installed packages on a Debian server.              
+The low level tool to work with `.deb` packages is `dpkg`. Among other things, you can use `dpkg` to list all installed packages on a Debian server.
 
 ```console
 student@debian:~$ dpkg -l | wc -l
@@ -23,11 +25,16 @@ student@mint:~$ dpkg -l | wc -l
 ### dpkg -l \$package
 
 Here is an example on how to get information on an individual package.
-The   ii at the beginning means the package is installed.
+The `ii` at the beginning means the package is installed.
 
 ```console
-root@debian:~# dpkg -l rsync | tail -1 | tr -s  ' '
-ii rsync 3.2.7-1 amd64 fast, versatile, remote (and local) file-copying tool
+student@debian:~$ dpkg -l rsync
+Desired=Unknown/Install/Remove/Purge/Hold
+| Status=Not/Inst/Conf-files/Unpacked/halF-conf/Half-inst/trig-aWait/Trig-pend
+|/ Err?=(none)/Reinst-required (Status,Err: uppercase=bad)
+||/ Name           Version        Architecture Description
++++-==============-==============-============-=====================================================
+ii  rsync          3.2.7-1ubuntu1 amd64        fast, versatile, remote (and local) file-copying tool
 ```
 
 ### dpkg -S
@@ -35,7 +42,7 @@ ii rsync 3.2.7-1 amd64 fast, versatile, remote (and local) file-copying tool
 You can find the package responsible for installing a certain file on your computer using `dpkg -S`. This example shows how to find the package for three files on a typical Debian server.
 
 ```console
-student@debian:~$ dpkg -S /usr/share/doc/tmux/ /etc/ssh/ssh_config /sbin/ifconfig
+student@debian:~$ dpkg  -S /usr/share/doc/tmux/ /etc/ssh/ssh_config /sbin/ifconfig
 dpkg-query: no path found matching pattern /usr/share/doc/tmux/
 openssh-client: /etc/ssh/ssh_config
 net-tools: /sbin/ifconfig
@@ -43,8 +50,7 @@ net-tools: /sbin/ifconfig
 
 ### dpkg -L
 
-In reverse, you can also get a list of all files that have been installed by a certain
-program. Below is the list for the `curl` package.
+In reverse, you can also get a list of all files and directories that have been installed by a certain program. Below is the list for the `curl` package.
 
 ```console
 student@debian:~$ dpkg -L curl
@@ -66,17 +72,13 @@ student@debian:~$ dpkg -L curl
 /usr/share/zsh/vendor-completions/_curl
 ```
 
-### dpkg
-
-You could use `dpkg -i` to install a package and `dpkg -r` to remove a package, but you\'d have to manually download the packge and keep track of dependencies. Using `apt-get` or `apt` is much easier.
-
-### apt-get
+## apt-get
 
 `Debian` has been using `apt-get` to manage packages since 1998. Today Debian and many Debian-based distributions still actively support `apt-get`, though some experts claim `apt`, released in 2014, is better at handling dependencies than `apt-get`.
 
-Both commands use the same configuration files and can be used alternately; whenever you see `apt-get` in documentation, feel free to type `apt`.
+Both commands use the same configuration files and can be used interchangeably, at least on an interactive terminal. However, using `apt` in a script is not recommended, since the options and behaviour of `apt` are not considered to be stable.
 
-We will start with `apt-get` and discuss `apt` in the next section.
+We will start with `apt-get` and discuss `apt` in the next section. Whenever you see `apt-get` in documentation, feel free to type `apt` instead.
 
 ### apt-get update
 
@@ -360,7 +362,7 @@ student@debian:~$ dpkg -l tftpd-hpa | tail -1 | tr -s ' '
 dpkg-query: no packages found matching tftpd-hpa
 ```
 
-### apt
+## apt
 
 Nowadays, most people use `apt` for package management on Debian, Mint and Ubuntu systems. That does not mean that `apt-get` is no longer useful. In scripts, it is actually recommended to use `apt-get` because its options and behaviour are more stable and predictable than `apt`. For interactive use, `apt` is more user-friendly.
 
@@ -408,7 +410,7 @@ To remove an application and all configuration files.
 sudo apt purge $package
 ```
 
-### /etc/apt/sources.list
+## /etc/apt/sources.list
 
 Both `apt-get` and `apt` use the same configuration information in `/etc/apt/`. The main configuration file is `/etc/apt/sources.list` and the directory `/etc/apt/sources.list.d/` contains additional files. These contain a list of http or ftp sources where packages for the distribution can be downloaded. Third party software vendors may provide their own package repositories for Debian or Ubuntu. These repositories are typically added through a new file in `/etc/apt/sources.list.d/`.
 
