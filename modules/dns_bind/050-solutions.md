@@ -18,8 +18,6 @@ The setup is similar on a Debian-based system.
         ```
 
         > By saving the `tcpdump` output to a file in `/vagrant`, you can open it with Wireshark on your physical system.
-        >
-        > The logs show that the query log was indeed turned on and also has a line for the query we just made.
 
     - Without changing the configuration, send a simple forward A query for any domain name from the VM itself. Do you expect this to work?
 
@@ -33,6 +31,8 @@ The setup is similar on a Debian-based system.
         ```
 
         > on `localhost`, this should work. From a different host, it will not work, because the DNS server is only configured to listen on the loopback interface.
+        >
+        > The logs show that the query log was indeed turned on and also has a line for the query we just made.
 
     - Try to determine from the logs or the `tcpdump` output whether the DNS server is configured as a *caching name server* with or without a *forwarder*.
 
