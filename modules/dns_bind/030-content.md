@@ -400,38 +400,38 @@ Additionally, we want that `https://example.com/` will also point to the web ser
 A zone file for this domain could look like this:
 
 ```text
-;; Zone file for example.com
-$ORIGIN example.com.
-$TTL 1W
+        ;; Zone file for example.com
+        $ORIGIN example.com.
+        $TTL 1W
 
-@ IN SOA ns1.example.com. hostmaster.example.com. (
-         24061601  ; Serial
-         1D        ; Refresh time
-         1H        ; Retry time
-         1W        ; Expiry time
-         1D )      ; Negative cache TTL
+        @ IN SOA ns1.example.com. hostmaster.example.com. (
+                24061601  ; Serial
+                1D        ; Refresh time
+                1H        ; Retry time
+                1W        ; Expiry time
+                1D )      ; Negative cache TTL
 
-; Name servers
+        ; Name servers
 
-       IN  NS     ns1
-       IN  NS     ns2
+            IN  NS     ns1
+            IN  NS     ns2
 
-; Mail server
+        ; Mail server
 
-       IN  MX     10 srv002
+            IN  MX     10 srv002
 
-; Hosts
+        ; Hosts
 
-ns1    IN  A      192.0.2.1
-ns2    IN  A      192.0.2.2
+        ns1    IN  A      192.0.2.1
+        ns2    IN  A      192.0.2.2
 
-srv001 IN  A      192.0.2.10
-@      IN  A      192.0.2.10
-www    IN  CNAME  srv001
+        srv001 IN  A      192.0.2.10
+        @      IN  A      192.0.2.10
+        www    IN  CNAME  srv001
 
-srv002 IN  A      192.0.2.20
-smtp   IN  CNAME  srv002
-imap   IN  CNAME  srv002
+        srv002 IN  A      192.0.2.20
+        smtp   IN  CNAME  srv002
+        imap   IN  CNAME  srv002
 ```
 
 The `$ORIGIN` directive on line 1 sets the default domain name for the zone. Fully qualified domain names *must always* end with a dot. Names names *that do not end with a dot* are considered to be relative to this domain, and the value of `$ORIGIN` will be added. E.g. `ns1` will be interpreted as `ns1.example.com.` in this zone file. This is actually a common source of errors in zone files!
