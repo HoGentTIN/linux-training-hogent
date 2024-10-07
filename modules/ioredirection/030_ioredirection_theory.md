@@ -22,7 +22,7 @@ The next sections will explain how to redirect these streams.
 
 ### \> stdout
 
-`stdout` can be redirected with a `greater than` sign. While scanning
+`stdout` can be redirected to a file with a `greater than` sign. While scanning
 the line, the shell will see the `>` sign and will clear
 the file.
 
@@ -182,9 +182,9 @@ The `&>` construction will put both `stdout` and `stderr` in one stream
 
 ## input redirection
 
-### \< stdin
+### < stdin
 
-Redirecting `stdin` is done with \< (short for 0\<).
+Redirecting `stdin` is done with < (short for 0<).
 
     [student@linux ~]$ cat < text.txt
     one
@@ -194,7 +194,7 @@ Redirecting `stdin` is done with \< (short for 0\<).
     ZZO
     [student@linux ~]$
 
-### \<\< here document
+### << here document
 
 The `here document` (sometimes called here-is-document) is
 a way to append input until a certain sequence (usually EOF) is
@@ -216,7 +216,7 @@ can be called with Ctrl-D.
     [student@linux ~]$
             
 
-### \<\<\< here string
+### <<< here string
 
 The `here string` can be used to directly pass strings to
 a command. The result is the same as using `echo string | command` (but
