@@ -108,6 +108,7 @@ An implementation of the solution for the `dhcp` exercise can be found at <https
 
     ```console
     vagrant@debian:~$ sudo tcpdump -w dhcp-server.pcap -i eth1 -n port 67 or port 68
+    ```
 
 7. Attach a client VM (e.g. a Kali Linux VM) to the host-only network and start it. Check if the client gets an IP address from the DHCP server, and that the gateway and DNS server are set correctly.
 
