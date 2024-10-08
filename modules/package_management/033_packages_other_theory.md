@@ -15,22 +15,54 @@ A virtual environment is a way to create an isolated environment for a Python pr
 As general guidelines, we suggest the following:
 
 - If the library or application is available in the distribution's repositories, use the distribution's package manager to install it.
-- Avoid installing Python libraries or applications system-wide as root using `pip`.
+- Do not install Python libraries or applications system-wide as root using `pip`.
 - Normal users may use `pip` to install Python libraries or applications in their home directory.
+- Use virtual environments per project to manage Python libraries and applications.
 
 ### installing pip
 
-`pip` may not be installed by default on your system. You can install it using your distribution's package manager. For example, on Debian-based systems, you can install it using `apt`:
+By default, `pip` is probably not installed on your system. You can install it using your distribution's package manager.
+
+For example, on Red Hat-based systems, you can install it using `dnf`:
+
+```bash
+student@el ~$ sudo dnf install python3-pip
+```
+
+On Debian-based systems, you can install it using `apt`:
 
 ```bash
 student@debian:~$ sudo apt install python3-pip
 ```
 
-On Red Hat-based systems, you can install it using `dnf`:
+However, some Linux distributions like Linux Mint 22 enforce the guidelines mentioned above. When you try to install a Python package using `pip`, you will get an error message:
 
-```bash
-student@el ~$ sudo dnf install python3-pip
+```console
+student@linuxmint:~$ sudo apt install python3-pip
+student@linuxmint:~$ pip install pandas
+error: externally-managed-environment
+
+× This environment is externally managed
+╰─> To install Python packages system-wide, try apt install
+    python3-xyz, where xyz is the package you are trying to
+    install.
+    
+    If you wish to install a non-Debian-packaged Python package,
+    create a virtual environment using python3 -m venv path/to/venv.
+    Then use path/to/venv/bin/python and path/to/venv/bin/pip. Make
+    sure you have python3-full installed.
+    
+    If you wish to install a non-Debian packaged Python application,
+    it may be easiest to use pipx install xyz, which will manage a
+    virtual environment for you. Make sure you have pipx installed.
+    
+    See /usr/share/doc/python3.12/README.venv for more information.
+
+note: If you believe this is a mistake, please contact your Python installation or OS distribution provider. You can override this, at the risk of breaking your Python installation or OS, by passing --break-system-packages.
+hint: See PEP 668 for the detailed specification.
 ```
+
+In this case, you can't use `pip` at all to install Python packages, not even as a user. So, you should use the distribution's package manager to install Python packages system-wide and virtual environments to install Python packages on a project-by-project basis.
 
 ### listing packages
 
@@ -87,6 +119,70 @@ student@linux:~$ pip uninstall ansible
 ```
 
 Unfortunately, dependencies are not removed when you uninstall a package with `pip`.
+
+### using a virtual environment
+
+A virtual environment allows you to install Python packages in an isolated environment, so they don't interfere with the system's Python installation. You can create a virtual environment using the `venv` module:
+
+```console
+student@linuxmint:~$ sudo apt install python3-venv
+[...output omitted...]
+student@linuxmint:~$ mkdir pyproject
+student@linuxmint:~$ cd pyproject
+student@linuxmint:~/pyproject$ python3 -m venv .venv
+```
+
+This will create a new directory called `.venv` in the current directory, which contains scripts and tools to set up the virtual environment. You can choose the name of the directory, but `.venv` is a common convention. By adding the dot at the beginning of the directory name, it is hidden from the output of the `ls` command.
+
+```console
+student@linuxmint:~/pyproject$ ls .venv/
+bin  include  lib  lib64  pyvenv.cfg
+student@linuxmint:~/pyproject$ ls .venv/bin/
+activate  activate.csh  activate.fish  Activate.ps1  f2py  numpy-config  pip  pip3  pip3.12  python  python3  python3.12
+```
+
+You can activate the virtual environment using the `source` command:
+
+```console
+student@linuxmint:~/pyproject$ source .venv/bin/activate
+(.venv) student@linuxmint:~/pyproject$
+```
+
+The `source` command will execute the script *in the current environment* (i.e. without creating a subshell). When the virtual environment is activated, the prompt will change to indicate that you are now working in the virtual environment. You can now use `pip` to install Python packages, and they will be installed in the virtual environment, not in the system.
+
+```console
+(.venv) student@linuxmint:~/pyproject$ pip install pandas
+Collecting pandas
+  Downloading pandas-2.2.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (89 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 89.9/89.9 kB 2.1 MB/s eta 0:00:00
+[...some output omitted...]
+Installing collected packages: pytz, tzdata, six, numpy, python-dateutil, pandas
+Successfully installed numpy-2.1.2 pandas-2.2.3 python-dateutil-2.9.0.post0 pytz-2024.2 six-1.16.0 tzdata-2024.2
+```
+
+Packages will be installed in the directory `.venv/lib/python<version>/site-packages`.
+
+It is good practice to explicitly list the packages you have installed in the virtual environment in a `requirements.txt` file. This file can be used to recreate the virtual environment on another system. You can create the file using the `freeze` command, or edit it manually.
+
+```console
+(.venv) student@linuxmint:~/pyproject$ pip freeze > requirements.txt
+(.venv) student@linuxmint:~/pyproject$ cat requirements.txt 
+numpy==2.1.2
+pandas==2.2.3
+python-dateutil==2.9.0.post0
+pytz==2024.2
+six==1.16.0
+tzdata==2024.2
+```
+
+When you are done working in the virtual environment, you can deactivate it using the `deactivate` command:
+
+```console
+(.venv) student@linuxmint:~/pyproject$ deactivate
+student@linuxmint:~/pyproject$
+```
+
+If you keep the code in this directory in a Git repository, it's best to add the `.venv` directory to the `.gitignore` file, so it is not included in the repository.
 
 ## container-based package managers
 
