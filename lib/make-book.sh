@@ -39,6 +39,13 @@ script_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 # shellcheck disable=SC2034
 readonly script_name script_dir
 
+# Workaround for shyaml not being installed globally inside the container
+if command -v shyaml > /dev/null; then
+  shyaml_cmd=$(command -v shyaml)
+else
+  shyaml_cmd="/root/.local/bin/shyaml"
+fi
+
 #---------- Load settings and utility functions --------------------------------
 
 # shellcheck disable=SC1091
@@ -85,7 +92,7 @@ check_dependencies() {
   debug "¤ check_dependencies"
 
   check_command_exists pandoc
-  check_pip_package_exists shyaml
+  #check_command_exists shyaml
 }
 
 # Usage: create_book BOOK_DIR
@@ -115,7 +122,7 @@ create_book() {
 
   printf '\n' > "${book_dir}/frontmatter.md"
 
-  files=$(shyaml get-values frontmatter < "${source_dir}/info.yml")
+  files=$(${shyaml_cmd} get-values frontmatter < "${source_dir}/info.yml")
   for file in ${files}; do
     log "  - Adding '${file}'"
     cat "${source_dir}/${file}" >>  "${book_dir}"/frontmatter.md
@@ -125,14 +132,14 @@ create_book() {
 
   printf '\n' > "${book_dir}/content.md"
 
-  num_parts=$(shyaml get-length content < "${source_dir}/info.yml")
+  num_parts=$(${shyaml_cmd} get-length content < "${source_dir}/info.yml")
 
   for (( i=0; i<"${num_parts}"; i++ )); do
-    part=$(shyaml get-value "content.${i}.title" < "${source_dir}/info.yml")
+    part=$(${shyaml_cmd} get-value "content.${i}.title" < "${source_dir}/info.yml")
     log "  - Adding part ${i}. ${part}"
     printf '\part{%s}\n' "${part}" >> "${book_dir}/content.md"
 
-    chapters=$(shyaml get-values "content.${i}.chapters" < "${source_dir}/info.yml")
+    chapters=$(${shyaml_cmd} get-values "content.${i}.chapters" < "${source_dir}/info.yml")
     for chapter in ${chapters}; do
       log "    - Adding chapter '${chapter}'"
       cat "${MODULE_ROOT}/${chapter}/"[0-9][0-9][0-9]*.md >> "${book_dir}/content.md"
@@ -147,7 +154,7 @@ create_book() {
   printf '\\appendix\n\n' \
     > "${book_dir}/backmatter.md"
 
-  chapters=$(shyaml get-values backmatter < "${source_dir}/info.yml")
+  chapters=$(${shyaml_cmd} get-values backmatter < "${source_dir}/info.yml")
   for chapter in ${chapters}; do
     log "  - Adding appendix '${chapter}'"
     cat "${MODULE_ROOT}/${chapter}"/[0-9][0-9][0-9]*.md >> "${book_dir}/backmatter.md"

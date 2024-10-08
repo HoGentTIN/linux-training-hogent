@@ -40,6 +40,13 @@ script_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 # shellcheck disable=SC2034
 readonly script_name script_dir
 
+# Workaround for shyaml not being installed globally inside the container
+if command -v shyaml > /dev/null; then
+  shyaml_cmd=$(command -v shyaml)
+else
+  shyaml_cmd="/root/.local/bin/shyaml"
+fi
+
 #---------- Load settings and utility functions --------------------------------
 
 # shellcheck disable=SC1091
@@ -85,10 +92,10 @@ main() {
 check_dependencies() {
   debug "¤ check_dependencies"
 
-  check_pip_package_exists mkdocs
-  check_pip_package_exists mkdocs-material
-  check_pip_package_exists pymdown-extensions
-  check_pip_package_exists shyaml
+  # check_pip_package_exists mkdocs
+  # check_pip_package_exists mkdocs-material
+  # check_pip_package_exists pymdown-extensions
+  # check_pip_package_exists shyaml
 }
 
 # Usage: create_mkdocs course-dir
@@ -100,7 +107,7 @@ create_mkdocs() {
   local site_name site_title num_parts mkdocs_dir chapters chapter_title
 
   site_name="$(basename "${source_dir}")"
-  site_title=$(shyaml get-value title < "${source_dir}/info.yml")
+  site_title=$(${shyaml_cmd} get-value title < "${source_dir}/info.yml")
   mkdocs_dir="${SITE_DIR}/${site_name}/docs"
 
   log "Creating mkdocs for course '${site_name}'"
@@ -118,7 +125,7 @@ create_mkdocs() {
 
   printf '# %s\n\n' "${site_title}" > "${mkdocs_dir}/index.md"
 
-  files=$(shyaml get-values frontmatter < "${source_dir}/info.yml")
+  files=$(${shyaml_cmd} get-values frontmatter < "${source_dir}/info.yml")
   for file in ${files}; do
     log "  - Adding '${file}'"
     # add contents to index.md, skipping lines starting with a LaTeX command (\)
@@ -129,11 +136,11 @@ create_mkdocs() {
 
   log "Copying content"
 
-  num_parts=$(shyaml get-length content < "${source_dir}/info.yml")
+  num_parts=$(${shyaml_cmd} get-length content < "${source_dir}/info.yml")
   for (( i=0; i<"${num_parts}"; i++ )); do
     log "  - Adding part ${i}"
 
-    chapters=$(shyaml get-values "content.${i}.chapters" < "${source_dir}/info.yml")
+    chapters=$(${shyaml_cmd} get-values "content.${i}.chapters" < "${source_dir}/info.yml")
     for chapter in ${chapters}; do
       log "    - Adding chapter ${chapter}"
       # Copy the chapter content to the mkdocs directory
@@ -152,7 +159,7 @@ create_mkdocs() {
   done
 
   log "Adding Appendix"
-  chapters=$(shyaml get-values backmatter < "${source_dir}/info.yml")
+  chapters=$(${shyaml_cmd} get-values backmatter < "${source_dir}/info.yml")
 
   for chapter in ${chapters}; do
     log "  - Adding appendix '${chapter}'"
