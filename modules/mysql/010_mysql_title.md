@@ -1,4 +1,4 @@
 
-# introduction to sql using mysql
+# introduction to sql using mysql or mariadb
 
 
