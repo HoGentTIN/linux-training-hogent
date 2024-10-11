@@ -281,7 +281,7 @@ The argument `@10.0.2.3` tells `dig` to send the request to that specific DNS se
 Windows users will probably be more familiar with the `nslookup` command, but it is much more limited than `dig`.
 
 ```console
-vagrant@debian:~$ nslookup www.linux-training.be 10.0.2.3
+student@debian:~$ nslookup www.linux-training.be 10.0.2.3
 Server:         10.0.2.3
 Address:        10.0.2.3#53
 
@@ -401,16 +401,16 @@ On both Debian and Enterprise Linux, and many other Linux distribution, you can 
 To change the IP address of an interface, you can use the `ip address add` or `replace` command. For example, to change the IP address of `eth1` to 192.168.56.99:
 
 ```console
-[vagrant@el ~]$ ip a replace 192.168.56.99 dev eth1
-[vagrant@el ~]$ ip -4 -br a show dev eth1
+[student@el ~]$ ip a replace 192.168.56.99 dev eth1
+[student@el ~]$ ip -4 -br a show dev eth1
 eth1       UP             192.168.56.9/24 192.168.56.99/32
 ```
 
 There's also a `del` option to remove an IP address from an interface:
 
 ```console
-[vagrant@el ~]$ ip a del 192.168.56.99 dev eth1
-[vagrant@el ~]$ ip -4 -br a show dev eth1
+[student@el ~]$ ip a del 192.168.56.99 dev eth1
+[student@el ~]$ ip -4 -br a show dev eth1
 eth1       UP             192.168.56.9/24
 ```
 
