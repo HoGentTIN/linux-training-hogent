@@ -17,6 +17,6 @@ then try changing your password as a normal user. Reset the permissions
 back and try again.
 
 3\. If time permits (or if you are waiting for other students to finish
-this practice), read about file attributes in the man page of chattr and
-lsattr. Try setting the i attribute on a file and test that it works.
+this practice), read about file attributes in the man page of `chattr` and
+`lsattr`. Try setting the `i` attribute on a file and test that it works.
 

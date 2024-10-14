@@ -77,7 +77,7 @@ Take the example of passwords; they are stored in
             
 
 Changing your password requires an update of this file, so how can
-normal non-root users do this? Let\'s take a look at the permissions on
+normal non-root users do this? Let's take a look at the permissions on
 the `/usr/bin/passwd`.
 
     root@linux:~# ls -l /usr/bin/passwd 
