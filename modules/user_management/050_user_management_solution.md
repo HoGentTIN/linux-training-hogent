@@ -1,78 +1,108 @@
 ## solution: user management
 
-1\. Create a user account named `serena`, including a home directory and
-a description (or comment) that reads `Serena Williams`. Do all this in
-one single command.
+1. Create a user account named `serena`, including a home directory and a description (or comment) that reads `Serena Williams`. Do all this in one single command.
 
-    root@linux:~# useradd -m -c 'Serena Williams' serena
+    ```console
+    student@debian:~$ sudo useradd -m -c 'Serena Williams' serena
+    ```
 
-2\. Create a user named `venus`, including home directory, bash shell, a
-description that reads `Venus Williams` all in one single command.
+2. Create a second user named `venus`, including home directory, Bash as login shell, a description that reads `Venus Williams` all in one single command.
 
-    root@linux:~# useradd -m -c "Venus Williams" -s /bin/bash venus
+    ```console
+    student@debian:~$ sudo useradd -m -s /bin/bash -c 'Venus Williams' venus
+    ```
 
-3\. Verify that both users have correct entries in `/etc/passwd`,
+3. Verify that both users have correct entries in `/etc/passwd`,
 `/etc/shadow` and `/etc/group`.
 
-    root@linux:~# tail -2 /etc/passwd
-    serena:x:1008:1010:Serena Williams:/home/serena:/bin/sh
-    venus:x:1009:1011:Venus Williams:/home/venus:/bin/bash
-    root@linux:~# tail -2 /etc/shadow
-    serena:!:16358:0:99999:7:::
-    venus:!:16358:0:99999:7:::
-    root@linux:~# tail -2 /etc/group
-    serena:x:1010:
-    venus:x:1011:
+    ```console
+    student@debian:~$ getent passwd serena
+    serena:x:1002:1002:Serena Williams:/home/serena:/bin/sh
+    student@debian:~$ sudo getent shadow serena
+    serena:!:20011:0:99999:7:::
+    student@debian:~$ getent passwd venus
+    venus:x:1003:1003:Venus Williams:/home/venus:/bin/bash
+    student@debian:~$ sudo getent shadow venus
+    venus:!:20011:0:99999:7:::
+    ```
 
-4\. Verify that their home directory was created.
+    > At this time, their password isn't set yet, so the shadow file will show `!` as the password hash, which also denotes that the account is locked.
 
-    root@linux:~# ls -lrt /home | tail -2
-    drwxr-xr-x 2 serena    serena    4096 Oct 15 10:50 serena
-    drwxr-xr-x 2 venus     venus     4096 Oct 15 10:59 venus
-    root@linux:~#
+    ```console
+    student@debian:~$ sudo passwd serena
+    New password: 
+    Retype new password: 
+    passwd: password updated successfully
+    student@debian:~$ sudo getent shadow serena
+    serena:$y$j9T$7VErSS/8GYyeALTc7nC0Y.$PeNsJlxzG3tfZ9yEk1rKgDRc4KJVZvHiWjwfdIeKSi0:20011:0:99999:7:::
+    ```
 
-5\. Create a user named `einstime` with `/bin/date` as his default logon
-shell.
+    > Setting the password for `venus` is equivalent.
 
-    root@linux:~# useradd -s /bin/date einstime
+4. Verify that their home directory was created.
 
-Or even better:
+    ```console
+    student@debian:~$ ls -l /home
+    total 16
+    drwxr-xr-x 2 serena  serena  4096 Oct 15 14:38 serena
+    drwxr-xr-x 2 student student 4096 Oct 15 15:04 student
+    drwxr-xr-x 2 venus   venus   4096 Oct 15 14:38 venus
+    ```
 
-    root@linux:~# useradd -s $(which date) einstime
+5. Create a user named `einstime` with the `date` command as their default logon shell, `/tmp` as their home directory and an empty string as password.
 
-6\. What happens when you log on with the `einstime` user ? Can you
-think of a useful real world example for changing a user\'s login shell
-to an application ?
+    ```console
+    student@debian:~$ sudo useradd -s $(which date) -d /tmp -p '' einstime
+    student@debian:~$ getent passwd einstime
+    einstime:x:1004:1004::/tmp:/bin/date
+    student@debian:~$ sudo getent shadow einstime
+    einstime::20011:0:99999:7:::
+    ```
 
-    root@linux:~# su - einstime
-    Wed Oct 15 11:05:56 UTC 2014    # You get the output of the date command
-    root@linux:~#
+6. What happens when you log on with the `einstime` user? Can you
+think of a useful real world example for changing a user's login shell to an application?
 
-It can be useful when users need to access only one application on the
-server. Just logging in opens the application for them, and closing the
-application automatically logs them out.
+    ```console
+    student@debian:~$ su - einstime
+    Tue Oct 15 04:33:59 PM UTC 2024
+    ```
 
-7\. Create a file named `welcome.txt` and make sure every new user will
-see this file in their home directory.
+    > You get to see the current time. This trick can also be useful when you want to restrict a user to a specific application only. Just logging in opens the application for them, and closing the application automatically logs them out.
 
-    root@linux:~# echo Hello > /etc/skel/welcome.txt
+7. Create a file named `welcome.txt` and make sure every new user will see this file in their home directory.
 
-8\. Verify this setup by creating (and deleting) a test user account.
+    ```console
+    student@debian:~$ sudo nano /etc/skel/welcome.txt
+    student@debian:~$ cat /etc/skel/welcome.txt 
+    Welcome to Debian 12! Have fun while learning!
+    ```
 
-    root@linux:~# useradd -m test
-    root@linux:~# ls -l /home/test
+8. Verify this setup by creating (and deleting) a test user account.
+
+    ```console
+    student@debian:~$ sudo useradd -m -s /bin/bash testuser
+    student@debian:~$ sudo su - testuser
+    testuser@debian:~$ ls -l
     total 4
-    -rw-r--r-- 1 test test 6 Oct 15 11:16 welcome.txt
-    root@linux:~# userdel -r test
-    root@linux:~#
+    -rw-r--r-- 1 testuser testuser 47 Oct 15 16:36 welcome.txt
+    testuser@debian:~$ cat welcome.txt 
+    Welcome to Debian 12! Have fun while learning!
+    testuser@debian:~$ ^D
+    logout
+    student@debian:~$ sudo userdel -r testuser
+    ```
 
-9\. Change the default login shell for the `serena` user to `/bin/bash`.
-Verify before and after you make this change.
+9. Change the default login shell for the `serena` user to `/bin/zsh`. Verify before and after you make this change.
 
-    root@linux:~# grep serena /etc/passwd
-    serena:x:1008:1010:Serena Williams:/home/serena:/bin/sh
-    root@linux:~# usermod -s /bin/bash serena
-    root@linux:~# grep serena /etc/passwd
-    serena:x:1008:1010:Serena Williams:/home/serena:/bin/bash
-    root@linux:~#
+    ```console
+    student@debian:~$ getent passwd serena
+    serena:x:1002:1002:Serena Williams:/home/serena:/bin/sh
+    student@debian:~$ sudo usermod -s /bin/zsh serena
+    student@debian:~$ getent passwd serena
+    serena:x:1002:1002:Serena Williams:/home/serena:/bin/zsh
+    student@debian:~$ su - serena
+    Password:
+    serena@debian ~ % echo $SHELL
+    /bin/zsh
+    ```
 
