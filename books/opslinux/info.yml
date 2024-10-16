@@ -49,8 +49,8 @@ content:
       - scripting_params
   - title: "Webserver hardening"
     chapters:
+      - firewall
       - selinux
-      # TODO: new module on firewalld
   - title: "Scripting 103"
     chapters:
   #     - scripting_test # TODO test command already in scripting_loops
