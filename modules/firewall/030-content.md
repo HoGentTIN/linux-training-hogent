@@ -219,3 +219,109 @@ Hmmm, we don't get our prompt back. We were logged in to this system over SSH, b
 
 After this, the SSH connection becomes available again. So be careful with this option or you may lose access to a remote machine!
 
+## router with nat
+
+It is possible to use `firewalld` to set up a router with NAT (Network Address Translation). This is useful if you want to share an internet connection with multiple devices on a local network.
+
+Be aware that `firewalld` is not really suited as a production router management tool, but it suffices for a small home network or lab setup.
+
+Let's say we have a machine with two network interfaces, `eth0` and `eth1`. `eth0` is connected to the internet, and `eth1` is connected to a local network. We want to share the internet connection with the local network.
+
+First, we have to enable IP forwarding in the kernel. This can be done by editing `/etc/sysctl.conf` and adding the following line:
+
+```console
+net.ipv4.ip_forward = 1
+```
+
+Then, reload the configuration:
+
+```console
+[vagrant@el ~]$ sudo sysctl -p
+net.ipv4.ip_forward = 1
+```
+
+If you want to check if IP forwarding is enabled later, you can use one of the following commands:
+
+```console
+[vagrant@el ~]$ sysctl net.ipv4.ip_forward
+net.ipv4.ip_forward = 1
+[vagrant@el ~]$ cat /proc/sys/net/ipv4/ip_forward
+1
+```
+
+Next, we set up the firewall. There are two pre-defined zones that can be used to set up a router: `internal` and `external`. Let's take a look at their default ruleset:
+
+```console
+[vagrant@el ~]$ sudo firewall-cmd --list-all --zone=internal
+internal
+  target: default
+  icmp-block-inversion: no
+  interfaces: 
+  sources: 
+  services: cockpit dhcpv6-client mdns samba-client ssh
+  ports: 
+  protocols: 
+  forward: yes
+  masquerade: no
+  forward-ports: 
+  source-ports: 
+  icmp-blocks: 
+  rich rules: 
+[vagrant@el ~]$ sudo firewall-cmd --list-all --zone=external
+external
+  target: default
+  icmp-block-inversion: no
+  interfaces: 
+  sources: 
+  services: ssh
+  ports: 
+  protocols: 
+  forward: yes
+  masquerade: yes
+  forward-ports: 
+  source-ports: 
+  icmp-blocks: 
+  rich rules: 
+```
+
+The `internal` zone is used for the local network, and the `external` zone is used for the internet connection. The `external` zone has masquerading enabled, which is necessary for NAT.
+
+We will change the assignment of the network interfaces from `public` to the `external` zone (`eth0`) and to the `internal` zone (`eth1`).
+
+```console
+[vagrant@el ~]$ sudo firewall-cmd --zone=external --change-interface=eth0 --permanent
+The interface is under control of NetworkManager, setting zone to 'external'.
+success
+[vagrant@el ~]$ sudo firewall-cmd --zone=internal --change-interface=eth1 --permanent
+The interface is under control of NetworkManager, setting zone to 'internal'.
+success
+[vagrant@el ~]$ sudo firewall-cmd --reload 
+success
+[vagrant@el ~]$ sudo firewall-cmd --get-active-zones 
+external
+  interfaces: eth0
+internal
+  interfaces: eth1
+```
+
+Finally, we also need to define a policy for forwarding packets between the two zones.
+
+```console
+[vagrant@el ~]$ sudo firewall-cmd --permanent --new-policy=internal-external
+success
+[vagrant@el ~]$ sudo firewall-cmd --permanent --policy=internal-external --set-target=ACCEPT
+success
+[vagrant@el ~]$ sudo firewall-cmd --permanent --policy=internal-external --add-masquerade
+success
+[vagrant@el ~]$ sudo firewall-cmd --permanent --policy=internal-external --add-ingress-zone=internal
+success
+[vagrant@el ~]$ sudo firewall-cmd --permanent --policy=internal-external --add-egress-zone=external
+success
+[vagrant@el ~]$ sudo firewall-cmd --reload
+success
+```
+
+After these steps, hosts on the internal network should be able to access the internet through the machine acting as a router.
+
+You may want to remove some services from the `internal` zone, unless you have these services running on the machine acting as a router. On the `external` zone, `ssh` is still active, which is not necessarily needed. You can remove it too if you want to.
+

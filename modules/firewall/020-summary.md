@@ -1,2 +1,4 @@
 In this chapter, we discuss how to manage firewall rules on modern Linux distributions. We will focus on `firewalld`, which is the default firewall management tool on *Enterprise Linux* and is also available on *Debian* systems.
 
+Before we begin, a short remark on terminology. When **allowing traffic through a firewall**, people sometimes call this **opening the port**. This is not technically correct. In TCP/IP, an open port means that there is a process that is bound to a network socket, either as a server or as a client, identified by a port number. For example, if you have a web server listening on port 443, that port is said to be open. However, if the server is not running, but you configure the firewall to allow traffic on port 443, this does not result in the port being open. The port is still closed because there is no process listening on it.
+
