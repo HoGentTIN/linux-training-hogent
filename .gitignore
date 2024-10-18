@@ -138,3 +138,8 @@ sympy-plots-for-*.tex/
 
 # Vim-LaTeX
 *.latexmain
+
+# Ignore script with a test book and script to generate site and pdf
+# for chapter in progress
+books/testbook/
+lib/test-book.sh
