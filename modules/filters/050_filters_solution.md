@@ -61,7 +61,7 @@
     > We will use the Python 3 copyright notice as example input. The dictionary is `/usr/share/dict/words`. We will use `comm` to compare the two lists. To make the search case insensitive, we will convert both lists to lowercase.
 
     ```console
-    student@linux:~/pipes$ tr 'A-Z' 'a-z' < /usr/share/dict/words | sort | uniq > lcase-words.txt
+    student@linux:~/pipes$ tr 'A-Z' 'a-z' < /usr/share/dict/words | sort | uniq > lcase-dict.txt
     ```
 
     > Next, we make a list of all words in the input file, removing all punctuation and digits.
@@ -73,7 +73,7 @@
     > Finally, we compare the two lists.
 
     ```console
-    student@debian:~/pipes$ comm -23 words.txt /usr/share/dict/words
+    student@debian:~/pipes$ comm -23 words.txt lcase-dict.txt
     andor
     beopen
     beopencom

@@ -308,7 +308,40 @@ student@linux:~/pipes$ sort music.txt |uniq -c
 
 ## fmt
 
+Reformats text files to a specified width, preserving paragraphs and ensuring words are not split.
+
+```console
+student@debian:~/pipes$ cat lorem.txt 
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+student@debian:~/pipes$ fmt -w 35 lorem.txt 
+Lorem ipsum dolor sit amet,
+consectetur adipiscing elit, sed
+do eiusmod tempor incididunt ut
+labore et dolore magna aliqua. Ut
+enim ad minim veniam, quis nostrud
+exercitation ullamco laboris
+nisi ut aliquip ex ea commodo
+consequat. Duis aute irure dolor
+in reprehenderit in voluptate
+velit esse cillum dolore eu fugiat
+nulla pariatur. Excepteur sint
+occaecat cupidatat non proident,
+sunt in culpa qui officia deserunt
+mollit anim id est laborum.
+```
+
 ## nl
+
+Add line numbers to input text.
+
+```console
+student@debian:~/pipes$ nl count.txt 
+     1  one
+     2  two
+     3  three
+     4  four
+     5  five
+```
 
 ## wc
 
@@ -327,6 +360,59 @@ Counting words, lines and characters is easy with `wc`.
 ```
 
 ## column
+
+Arrange the input in columns. Option `-t` will create a nicely formatted table. Option `-s` specifies the delimiter of the input text (default is whitespace).
+
+```console
+[student@linux pipes]$  column -t -s: < /etc/passwd | head -4
+root      x    0    0    Super User    /root       /bin/bash
+bin       x    1    1    bin           /bin        /usr/sbin/nologin
+daemon    x    2    2    daemon        /sbin       /usr/sbin/nologin
+adm       x    3    4    adm           /var/adm    /usr/sbin/nologin
+```
+
+It also allows you to emit JSON with option `-J`. Option `-N` specifies the column/key names.
+
+```console
+[vagrant@fedora pipes]$ head -4 /etc/passwd | column -J -N user,passwd,uid,gid,name,home,shell -s:
+{
+   "table": [
+      {
+         "user": "root",
+         "passwd": "x",
+         "uid": "0",
+         "gid": "0",
+         "name": "Super User",
+         "home": "/root",
+         "shell": "/bin/bash"
+      },{
+         "user": "bin",
+         "passwd": "x",
+         "uid": "1",
+         "gid": "1",
+         "name": "bin",
+         "home": "/bin",
+         "shell": "/usr/sbin/nologin"
+      },{
+         "user": "daemon",
+         "passwd": "x",
+         "uid": "2",
+         "gid": "2",
+         "name": "daemon",
+         "home": "/sbin",
+         "shell": "/usr/sbin/nologin"
+      },{
+         "user": "adm",
+         "passwd": "x",
+         "uid": "3",
+         "gid": "4",
+         "name": "adm",
+         "home": "/var/adm",
+         "shell": "/usr/sbin/nologin"
+      }
+   ]
+}
+```
 
 ## comm
 
