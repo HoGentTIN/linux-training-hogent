@@ -1,0 +1,29 @@
+@startuml vbox-nat
+
+' set higher resolution for print
+skinparam dpi 300
+
+' set legend options
+skinparam legendBackgroundColor #FFFFFF
+skinparam legendBorderColor #FFFFFF
+skinparam legendEntrySeparator #FFFFFF
+
+nwdiag {
+    inet [shape = cloud, description = "internet" ];
+    inet -- GW;
+  
+    network nat {
+        address = "10.0.2.0/24";
+        
+        GW  [ address = "10.0.2.2",  color = "#FABC32" , shape = storage, description = "Router" ];
+        DNS [ address = "10.0.2.3",  color = "#FABC32" ];
+        VM  [ address = "10.0.2.15", color = "#A5CA72" ];
+    }
+    
+    legend right
+        |<#FABC32>        | Simulated by VBox |
+        |<#4CA2D5>        | Physical system   |
+        |<#A5CA72>        | Virtual Machine   |
+    endlegend
+}
+@enduml

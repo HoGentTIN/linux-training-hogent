@@ -1,0 +1,39 @@
+@startuml vbox-nat-host-only
+
+' set higher resolution for print
+skinparam dpi 300
+
+' set legend options
+skinparam legendBackgroundColor #FFFFFF
+skinparam legendBorderColor #FFFFFF
+skinparam legendEntrySeparator #FFFFFF
+
+nwdiag {
+    inet [shape = cloud, description = "internet" ];
+    inet -- GW;
+
+    network nat {
+        address = "10.0.2.0/24";
+        
+        GW  [ address = "10.0.2.2",  color = "#FABC32" , shape = storage, description = "Router" ];
+        DNS [ address = "10.0.2.3",  color = "#FABC32" ];
+        VM1 [ address = "eth0\n10.0.2.15", color = "#A5CA72" ];
+    }
+
+    network host_only {
+        address = "192.168.56.0/24";
+        
+        DHCP [ address = "192.168.56.100" , color = "#FABC32"];
+        Host [ address = "192.168.56.1" , color = "#4CA2D5" ];
+        
+        VM1 [ address = "eth1\n192.168.56.10", color = "#A5CA72" ];
+        VM2 [ address = "eth0\n192.168.56.101", color = "#A5CA72" ];
+    }
+    
+    legend bottom
+        |<#FABC32>        | Simulated by VBox |
+        |<#4CA2D5>        | Physical system   |
+        |<#A5CA72>        | Virtual Machine   |
+    endlegend
+}
+@enduml

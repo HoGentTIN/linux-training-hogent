@@ -1,0 +1,28 @@
+@startuml vbox-host-only
+
+' set higher resolution for print
+skinparam dpi 300
+
+' set legend options
+skinparam legendBackgroundColor #FFFFFF
+skinparam legendBorderColor #FFFFFF
+skinparam legendEntrySeparator #FFFFFF
+
+nwdiag {
+    network host-only {
+        address = "192.168.56.0/24";
+        
+        DHCP [ address = "192.168.56.100" , color = "#FABC32"];
+        Host [ address = "192.168.56.1" , color = "#4CA2D5" ];
+        
+        VM1 [ address = "192.168.56.10", color = "#A5CA72" ];
+        VM2 [ address = "192.168.56.101", color = "#A5CA72" ];
+    }
+    
+    legend bottom
+        |<#FABC32>        | Simulated by VBox |
+        |<#4CA2D5>        | Physical system   |
+        |<#A5CA72>        | Virtual Machine   |
+    endlegend
+}
+@enduml

@@ -1,0 +1,28 @@
+@startuml vbox-bridged
+' set higher resolution for print
+skinparam dpi 300
+
+' set legend options
+skinparam legendBackgroundColor #FFFFFF
+skinparam legendBorderColor #FFFFFF
+skinparam legendEntrySeparator #FFFFFF
+
+nwdiag {
+    inet [shape = cloud, description = "internet" ];
+    inet -- GW;
+  
+    network bridged {
+        address = "192.168.0.0/24";
+        
+        GW   [ address = "192.168.0.1",   color = "#4CA2D5" , shape = storage, description = "Router" ];
+        Host [ address = "192.168.1.123", color = "#4CA2D5" ];
+        VM   [ address = "192.168.1.124", color = "#A5CA72" ];
+    }
+    
+    legend right
+        |<#FABC32>        | Simulated by VBox |
+        |<#4CA2D5>        | Physical system   |
+        |<#A5CA72>        | Virtual Machine   |
+    endlegend
+}
+@enduml
