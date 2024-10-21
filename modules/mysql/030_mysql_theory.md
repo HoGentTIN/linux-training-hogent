@@ -1,8 +1,8 @@
-## installing mysql
+## Installing MySQL
 
-On Ubuntu, or Enterprise Linux you can install the package `mysql-server` with the package manager. This will install the MySQL server and client applications.
+On Ubuntu or Enterprise Linux you can install the package `mysql-server` with a package manager. This will install both the MySQL server and client application.
 
-On recent versions of Debian (e.g. 12), the package `mysql-server` is *not* available in the default repositories. You can download a .deb package from the MySQL website, or use the MariaDB package instead, e.g. by installing the package `default-mysql-server`.
+On recent versions of Debian (e.g. 12), the package `mysql-server` is *not* available in the default repositories. You can download a .deb package from the MySQL website, or use the MariaDB package instead by installing the package `default-mysql-server`.
 
 On recent versions of Fedora (e.g. 39), installing the package `mysql-server` will in fact install MariaDB instead of MySQL. You can install MySQL from the package `community-mysql-server` or download a package from the MySQL website.
 
@@ -99,9 +99,9 @@ LISTEN  0       128             [::]:22            [::]:*      users:(("sshd",pi
 LISTEN  0       4096            [::]:111           [::]:*      users:(("rpcbind",pid=517,fd=6),("systemd",pid=1,fd=34)) 
 ```
 
-MySQL listens on port 3306 by default. Some systems may have a default configuration where it only listens on the loopback interface. We'll discuss below how to change this. In this example, we see that MySQL listens on all interfaces (`*:3306`). It also listens on port 33060, which is used for the X Protocol, a new protocol that is used by MySQL Shell.
+MySQL listens on port 3306 by default. Some systems may have a default configuration causing the service to only listen on the loopback interface. We'll discuss below how to change this. In this example, we see that MySQL listens on all interfaces (`*:3306`). It also listens on port 33060, which is used for the X Protocol, a new protocol used by MySQL Shell.
 
-## installing mariadb
+## Installing MariaDB
 
 On Debian, the package `mysql-server` is *not* available. You can install the package `default-mysql-server` or `mariadb-server` instead, which has the same result.
 
@@ -167,11 +167,11 @@ Created symlink /etc/systemd/system/multi-user.target.wants/mariadb.service → 
              └─4699 /usr/libexec/mariadbd --basedir=/usr
 ```
 
-## securing mysql/mariadb
+## Securing MySQL/MariaDB
 
 After installation, some default settings are in place that are not very secure. For example, MySQL has its own user management system, which is separate from the Linux users. It also has a root/admin user and initially, the password is empty.
 
-You can (and should) run the `mysql_secure_installation` script to improve security. This script will ask you to set a root password, remove anonymous users, disallow root login remotely, and remove a test database.
+You can (and should) run the `mysql_secure_installation` script to improve security. This script will ask you to set a root password, remove anonymous users, disallow root login remotely and remove the test database.
 
 Remark that for MariaDB, the script is also called `mysql_secure_installation` (although it may be a symbolic link to a script called `mariadb-secure-installation`)!
 
@@ -250,11 +250,11 @@ The script performs the following tasks:
     - Switch to `unix_socket` authentication: this means that the root user does not get a password, but you can only log in as the database root user if you have superuser privileges on the system (i.e. with the command `sudo mysql`). This is a more recent method and may not be available on older distributions or MySQL/MariaDB versions.
     - Set a root password: you enter a password that you later can use to authenticate with the command `mysql -uroot -pPASSWORD` (see below). In this case, you don't need superuser privileges on the system, so it can be more convenient (but arguably less secure).
     - In the example above, we chose for `unix_socket` authentication, so we did *not* set a root password.
-- Remove anonymous users: these are users with a blank user name and are used to define default access permissions. However, this can pose a security risk, so it's better to remove them.
+- Remove anonymous users: these are users with a blank user name and are used to define default access permissions. However, this can pose a security risk so it's better to remove them.
 - Disallow root login remotely: the root user should only be allowed to connect from the local machine. This is a security measure to prevent unauthorized access.
-- Remove a default test database that is present in new installations. There is no reason to keep it, especially in a production system.
+- Remove the default test database that is present in new installations. There is no reason to keep it, especially in a production system.
 
-## accessing mysql
+## Accessing MySQL
 
 ### Linux users
 
@@ -283,7 +283,7 @@ student@debian:~$ ps -eo uid,user,gid,group,comm | grep maria
   104 mysql      109 mysql    mariadbd
 ```
 
-### mysql client application
+### MySQL Client Application
 
 You can now access the MySQL or MariaDB server from the commandline using the `mysql` client application. If you chose `unix_socket` authentication, you can log in with `sudo mysql` (see the example below).
 
@@ -333,11 +333,11 @@ Welcome to the MySQL monitor.  Commands end with ; or \g.
 
 On the prompt, you can issue SQL statements (ending with a semicolon) to interact with the database. For example, to see which databases are available, use the command `show databases;`. More examples are given below.
 
-Remark that the prompt has full history, even over previous sessions. You can use the up and down arrow keys to navigate through the history, or search in the history with `Ctrl-R`.
+Remark that the prompt has full history, even over previous sessions. You can use the up and down arrow keys to navigate through the history or search it using `Ctrl-R`.
 
 ### ~/.my.cnf
 
-You can save configuration in your home directory in the hidden file
+You can save the MySQL configuration in your home directory in the hidden file
 `.my.cnf`. In the screenshot below we put the root user
 and password in .my.cnf.
 
@@ -360,12 +360,12 @@ Your MySQL connection id is 56
 Server version: 5.5.24-0ubuntu0.12.04.1 (Ubuntu)
 ```
 
-## interacting with mysql/mariadb databases
+## Interacting with MySQL/MariaDB databases
 
-### listing all databases
+### Listing all databases
 
-You can use the `mysql` command to take a look at the databases, and to execute SQL queries on them. The screenshots below show you how. First, we log on to our MySQL server and execute the
-command `show databases` to see which databases exist on our mysql server.
+You can use the `mysql` command to take a look at the databases and to execute SQL queries on them. The screenshots below show you how. First, we log on to our MySQL server and execute the
+command `show databases` to see which databases exist on our MySQL server.
 
 ```console
 MariaDB [(none)]> show databases;
@@ -380,7 +380,7 @@ MariaDB [(none)]> show databases;
 4 rows in set (0.004 sec)
 ```
 
-### creating a database
+### Creating a database
 
 You can create a new database with the `create database` command.
 
@@ -416,9 +416,9 @@ MariaDB [(none)]> show warnings;
 1 row in set (0.000 sec)
 ```
 
-### using a database
+### Using a database
 
-Next we tell `mysql` to use one particular database with the `use $database` command. This screenshot shows how to make famouspeople the current database (in use).
+Next we tell `mysql` to use one particular database with the `use $database` command. This screenshot shows how to make `famouspeople` the current database (in use).
 
 ```console
 MariaDB [(none)]> use famouspeople;
@@ -440,9 +440,9 @@ mysql> select database();
 1 row in set (0.00 sec)
 ```
 
-### access to a database
+### Database access
 
-To create a database user and give them access to a mysql database, use the `grant` command.
+To create a database user and give them access to a MySQL database, use the `grant` command.
 
 ```console
 MariaDB [famouspeople]> grant all on famouspeople.* to kevin@localhost IDENTIFIED BY "hunter2";
@@ -519,7 +519,7 @@ MariaDB [mysql]> select User,Host,Password from user;
 5 rows in set (0.001 sec)
 ```
 
-### deleting a database
+### Deleting a database
 
 When a database is no longer needed, you can permanently remove it with the `drop database` command.
 
@@ -546,9 +546,9 @@ MariaDB [(none)]> show databases;
 4 rows in set (0.000 sec)
 ```
 
-### backup and restore a database
+### Backup and restore a database
 
-You can take a backup of a database, or move it to another computer using the `mysql` and `mysqldump` commands. In the screenshot below, we take a backup of the famouspeople database.
+You can take a backup of a database, or move it to another computer using the `mysql` and `mysqldump` commands. In the screenshot below, we take a backup of the `famouspeople` database.
 
 ```console
 student@debian:~$ sudo mysqldump famouspeople > famouspeople-backup-$(date -I).sql
@@ -564,16 +564,16 @@ To restore the database, you can use the `mysql` command.
 student@debian:~$ sudo mysql famouspeople < famouspeople-backup-2024-10-09.sql
 ```
 
-### using mysql non-interactively
+### Using MySQL non-interactively
 
 When you are automating the process of initialising a database on a new system, you may want to execute SQL queries non-interactively. The `mysql` command provides two ways of doing this:
 
 - The `-e "$sql_query"` option
 - The `stdin` stream of the command
 
-The latter is useful when you need to execute multiple queries. In this case, you can use a here document to pass the queries to the `mysql` command.
+The latter is useful when you need to execute multiple queries. In this case, you can use a *here document* to pass the queries to the `mysql` command.
 
-This example shows the `-e` option, used by the root user.
+This example shows the `-e` option, used by the root user:
 
 ```console
 student@debian:~$ sudo mysql -e 'select user,host,password from mysql.user;'
@@ -588,7 +588,7 @@ student@debian:~$ sudo mysql -e 'select user,host,password from mysql.user;'
 +-------------+-----------+-------------------------------------------+
 ```
 
-And here is an example for a "normal" database user executing multiple queries in a here document (the database tables in the output will be created in the next section).
+And here is an example for a "normal" database user executing multiple queries in a *here document* (the database tables in the output will be created in the next section).
 
 ```console
 student@debian:~$ mysql -ukevin -phunter2 famouspeople << _EOF_
@@ -606,7 +606,7 @@ birthyear	int(5)	YES		NULL
 countrycode	char(3)	YES		NULL	
 ```
 
-### accessing a mysql database over the network
+### Accessing a MySQL database over the network
 
 In order to allow users to access the database server over the network, you may need to reconfigure it to listen on external network interfaces. On some installations, the default install only listens on the loopback interface `lo`. You can check this with `ss`:
 
@@ -630,7 +630,7 @@ grep: /etc/mysql/debian.cnf: Permission denied
 /etc/mysql/mariadb.conf.d/50-server.cnf:27:bind-address            = 127.0.0.1
 ```
 
-In this case, the setting is in the file `/etc/mysql/mariadb.conf.d/50-server.cnf`. We can change the setting to `0.0.0.0` to make the server listen on all interfaces. Alternatively, you could specify the IP address of a specific network interface to only listen on that interface.
+In this case, the setting we need is in the file `/etc/mysql/mariadb.conf.d/50-server.cnf`. We can change the setting to `0.0.0.0` to make the server listen on all interfaces. Alternatively, you could specify the IP address of a specific network interface to only listen on that interface.
 
 ```console
 student@debian:~$ sudo nano /etc/mysql/mariadb.conf.d/50-server.cnf 
@@ -667,11 +667,11 @@ Remark that you may need to adjust the firewall settings on the server to allow 
 ERROR 1045 (28000): Access denied for user 'kevin'@'192.168.56.109' (using password: YES)
 ```
 
-## mysql tables
+## MySQL tables
 
-In a database, you can create tables to store data. A table is a collection of rows and columns. Each row represents a record, and each column represents a field in the record.
+In a relational database, you can create tables to store data. A table is a collection of rows and columns. Each row represents a record and each column represents a field in the record.
 
-### listing tables
+### Listing tables
 
 You can see a list of tables in the current database with the `show tables;` command. Our `famouspeople` database has no tables yet.
 
@@ -682,11 +682,11 @@ MariaDB [famouspeople]> show tables;
 Empty set (0.000 sec)
 ```
 
-### creating a table
+### Creating a table
 
 The `create table` command will create a new table.
 
-This screenshot shows the creation of a country table. We use the `countrycode` as a `primary key` (all country codes are uniquely defined). Most country codes are two or three letters, so a
+This screenshot shows the creation of a `country` table. We use the `countrycode` as a `primary key` (all country codes are uniquely defined). Most country codes are two or three letters, so a
 `char` of three uses less space than a `varchar` of three. The `country name` and the name of the capital are both defined as `varchar`. The population can be seen as an `integer`.
 
 ```console
@@ -715,7 +715,7 @@ MariaDB [famouspeople]> create table country ( countrycode char(3) NOT NULL, cou
 Query OK, 0 rows affected (0.18 sec)
 ```
 
-### describing a table
+### Describing a table
 
 To see a description of the structure of a table, issue the `describe $tablename` command as shown below.
 
@@ -732,7 +732,7 @@ MariaDB [famouspeople]> describe country;
 4 rows in set (0.002 sec)
 ```
 
-### removing a table
+### Removing a table
 
 To remove a table from a database, issue the `drop table $tablename` command as shown below.
 
@@ -741,9 +741,9 @@ MariaDB [famouspeople]> drop table country;
 Query OK, 0 rows affected (0.020 sec)
 ```
 
-## mysql records
+## MySQL records
 
-### creating records
+### Creating records
 
 Use `insert` to enter data into the table. The screenshot shows several insert statements that insert values depending on the position of the data in the statement.
 
@@ -758,7 +758,7 @@ MariaDB [famouspeople]> insert into country values ('JP','Japan','123201945','To
 Query OK, 1 row affected (0.001 sec)
 ```
 
-Some administrators prefer to use uppercase for SQL keywords. The mysql client accepts both.
+Some administrators prefer to use uppercase for SQL keywords. The MySQL client accepts both.
 
 ```console
 MariaDB [famouspeople]> INSERT INTO country VALUES ('FR','France','68374591','Paris');
@@ -772,7 +772,7 @@ MariaDB [famouspeople]> insert into country values ('DE','Germany','84119100','B
 ERROR 1062 (23000): Duplicate entry 'DE' for key 'PRIMARY'
 ```
 
-### viewing all records
+### Viewing all records
 
 Below an example of a simple `select` query to look at the contents of a table.
 
@@ -789,7 +789,7 @@ MariaDB [famouspeople]> select * from country;
 4 rows in set (0.001 sec)
 ```
 
-### updating records
+### Updating records
 
 Consider the following `insert` statement. The capital of Spain is not Barcelona, it is Madrid.
 
@@ -806,7 +806,7 @@ Query OK, 1 row affected (0.003 sec)
 Rows matched: 1  Changed: 1  Warnings: 0
 ```
 
-### viewing selected records
+### Viewing selected records
 
 We can use a `select` statement to verify this change, using a `where` clause to only show the record(s) we want to see.
 
@@ -845,7 +845,7 @@ MariaDB [famouspeople]> select sum(population) from country where countrycode li
 1 row in set (0.000 sec)
 ```
 
-### ordering records
+### Ordering records
 
 We know that `select` allows us to see all records in a table. Using the `order by` clause, we can change the order in which the records are presented.
 
@@ -863,7 +863,7 @@ MariaDB [famouspeople]> select countryname,population from country order by popu
 5 rows in set (0.001 sec)
 ```
 
-### grouping records
+### Grouping records
 
 Consider this table of people. The screenshot shows how to use the `avg` function to calculate an average.
 
@@ -907,9 +907,9 @@ MariaDB [famouspeople]> select field,avg(birthyear) from people group by field;
 3 rows in set (0.000 sec)
 ```
 
-### deleting records
+### Deleting records
 
-You can use the `delete` to permanently remove a record
+You can use `delete` to permanently remove a record
 from a table.
 
 ```console
@@ -920,9 +920,9 @@ MariaDB [famouspeople]> select * from country where countryname='Spain';
 Empty set (0.00 sec)
 ```
 
-## joining two tables
+## Joining two tables
 
-### inner join
+### Inner join
 
 With an `inner join` you can take values from two tables and combine them in one result. Consider the country and the people tables from the previous section when looking at this screenshot of an `inner join`.
 
@@ -943,7 +943,7 @@ MariaDB [famouspeople]> select name,field,countryname from country inner join pe
 
 This `inner join` will show only records with a match on `countrycode` in both tables.
 
-### left join
+### Left join
 
 A `left join` is different from an `inner join` in that it will take all rows from the left table, regardless of a match in the right table.
 
@@ -968,9 +968,9 @@ MariaDB [famouspeople]> select Name,Field,countryname from country left join peo
 
 You can see that some countries are present, even when they have no matching records in the `people` table.
 
-## mysql triggers
+## MySQL triggers
 
-### using a before trigger
+### Using a *before* trigger
 
 Consider the following `create table` command. The last field (`amount`) is the multiplication of the two fields named `unitprice` and `unitcount`.
 
@@ -984,7 +984,7 @@ MariaDB [famouspeople]> create table invoices (
 Query OK, 0 rows affected (0.018 sec)
 ```
 
-We can let mysql do the calculation for that by using a `before trigger`. The screenshot below shows the creation of a trigger that calculates the amount by multiplying two fields that
+We can let MySQL do the calculation for that by using a `before trigger`. The screenshot below shows the creation of a trigger that calculates the amount by multiplying two fields that
 are about to be inserted.
 
 ```console
@@ -1014,7 +1014,7 @@ MariaDB [famouspeople]> select * from invoices;
 1 row in set (0.000 sec)
 ```
 
-### removing a trigger
+### Removing a trigger
 
 When a `trigger` is no longer needed, you can delete it with the `drop trigger` command.
 

@@ -22,7 +22,7 @@ the `/etc/group` file.
     salsa:x:1010:
     root@linux:~#
 
-The first field is the group\'s name. The second field is the group\'s
+The first field is the group's name. The second field is the group's
 (encrypted) password (can be empty). The third field is the group
 identification or `GID`. The fourth field is the list of
 members, these groups have no members.
