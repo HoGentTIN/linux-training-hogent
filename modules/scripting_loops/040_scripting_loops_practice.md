@@ -8,9 +8,7 @@
 
 4. Write a script that uses an `until` loop to count down from 8 to 4.
 
-5. Write a script that counts the number of files ending in `.txt` in
-the current directory.
+5. Write a script that uses a for loop to count the number of files ending in `.txt` in the current directory and displays a message "There are N files ending in .txt".
 
-6. Wrap an `if` statement around the script so it is also correct when
-there are zero files ending in `.txt`.
+6. Improve the script with conditional statements so the displayed message is also correct when there are zero files or one file ending in `.txt`.
 
