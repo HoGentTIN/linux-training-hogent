@@ -15,7 +15,7 @@
 
 2. What would happen if you remove the shebang and try to execute the script again?
 
-    The script will be executed by the default interpreter, in this case, the Bash shell, which will not understand the Python syntax.
+    > The script will be executed by the default interpreter, in this case, the Bash shell, which will not understand the Python syntax.
 
     ```console
     $ ./hello.py
@@ -86,7 +86,7 @@
 
 6. What if we change the value of the variable `user` in the script? Will this change affect the value of the variable in the interactive shell after the script is finished?
 
-    We change the script to:
+    > We change the script to:
 
     ```bash
     #!/bin/bash
@@ -96,7 +96,7 @@
     echo "Hello ${user}"
     ```
 
-    And execute it:
+    > And execute it:
 
     ```console
     student@linux:~$ export user=Tux
@@ -108,5 +108,5 @@
     Tux
     ```
 
-    The change in the script does not affect the value of the variable in the interactive shell after the script is finished!
+    > The change in the script does not affect the value of the variable in the interactive shell after the script is finished!
 

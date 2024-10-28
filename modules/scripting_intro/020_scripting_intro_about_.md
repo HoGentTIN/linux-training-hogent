@@ -1,6 +1,4 @@
-The goal of this chapter is to give you all the information in order to
-read, write and understand small, long and complex shell scripts.
+The goal of this chapter is to give you all the information in order to read, write and understand small, long and complex shell scripts.
 
-You should have read and understood `part III shell expansion` and
-`part IV pipes and commands` before starting this chapter.
+You should have basic understanding on how the shell works, shell variables, globbing, I/O redirection and filters to understand all content in this chapter.
 

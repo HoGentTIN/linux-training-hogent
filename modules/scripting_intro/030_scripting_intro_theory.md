@@ -298,11 +298,92 @@ total 4
 -rw-r--r-- 1 student student      0 Mar  6 16:20 'my file.txt'
 ```
 
+## backticks and command substitution
+
+In Bash, backquotes (`` ` ``), also called *backticks*, also have a specific use. However, they are considered deprecated and should be avoided. The reason is that they are hard to read, especially when combined with single or double quotes. Instead, you should use the `$()` syntax, which is easier to read and nest.
+
+This syntax is called *command substitution*. The shell will execute the command inside the parentheses and replace the command with the output of the command.
+
+```console
+[vagrant@el scripts]$ current_date=$(date)
+[vagrant@el scripts]$ echo $current_date
+Sun Oct 27 02:40:44 PM UTC 2024
+```
+
+In this example, the `date` command is executed and the output is stored in the variable `current_date`.
+
 ## troubleshooting a script
+
+In this section, we discuss a few techniques that can help you to troubleshoot a script. Some general guidelines are:
+
+- **Start with a simple script** and execute it as often as possible.
+- Make **small changes** and test them immediately.
+- Have your script **print out debugging information**. The output can help identify where the script is failing.
+- Open your text editor and a terminal **side by side**. It's easier to interpret how the script works if you see the output and the code at the same time.
+
+### bash -n
+
+You can **check the syntax** of a shell script by using the `bash` command with the `-n` option. This option causes the shell to parse the script and check for syntax errors, but it does not execute the script.
+
+Take a look at the following script (that doesn't do anything useful):
+
+```bash
+#! /bin/bash
+
+file_name='my file.txt'
+
+if[ $# -ne 1 ]; then
+    echo "One argument expected, got $#"
+fi
+
+touch $file_name
+```
+
+It has several problematic mistakes. The `if` command and square bracket `[` are not separated by a space, and the variable `$file_name` is not enclosed in double quotes (which will cause word splitting).
+
+When we check the syntax of the script, we get the following output:
+
+```console
+[vagrant@el scripts]$ bash -n syntax.sh 
+syntax.sh: line 5: syntax error near unexpected token `then'
+syntax.sh: line 5: `if[ $# -ne 1 ]; then'
+```
+
+Remark that the first problem is reported (albeit with an unhelpful error message), but the other is not. In the following sections, we will give additional tips to also catch these kinds of errors.
+
+### shellcheck
+
+[ShellCheck](https://www.shellcheck.net) is a static analyzer for shell scripts. It shows common errors and mistakes in your scripts that can't be caught by a syntax check with `bash -n`. You can use it online on the tool's website, install it as a command-line tool, and it is available as a plugin for many text editors (including Vim, VS Code, etc.). If we try it on the `syntax.sh` script, we get the following output:
+
+```console
+[vagrant@el scripts]$ shellcheck syntax.sh 
+
+In syntax.sh line 5:
+if[ $# -ne 1 ]; then
+  ^-- SC1069 (error): You need a space before the [.
+
+
+In syntax.sh line 9:
+touch $file_name
+      ^--------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+touch "$file_name"
+
+For more information:
+  https://www.shellcheck.net/wiki/SC1069 -- You need a space before the [.
+  https://www.shellcheck.net/wiki/SC2086 -- Double quote to prevent globbing ...
+```
+
+The error message for the first problem is much more helpful than the one given by `bash -n`. The second problem is also reported, and a suggestion is given to fix it. The links on the last lines of output point to a Wiki with more information about the errors and tips on how to write better code.
+
+Using `shellcheck` in your workflow immediately helps you to improve your scripting skills, so you should always use it!
+
+### show expanded commands
 
 Another way to run a script in a separate shell is by typing `bash` with the name of the script as a parameter. Expanding this to `bash -x` allows you to see the commands that the shell is executing (after shell expansion).
 
-Try this with the `create-file.sh` script! The incorrect version without the quotes:
+Try this with the `create-file.sh` script introduced earlier. The incorrect version without the quotes:
 
 ```console
 $ bash -x create-file.sh 
@@ -310,8 +391,7 @@ $ bash -x create-file.sh
 + touch my file.txt
 ```
 
-Notice the absence of the commented (#) line, and the replacement of the
-variable in the argument `touch`.
+Notice the absence of the commented (#) line, and the replacement of the variable in the argument `touch`.
 
 After the fix, you get:
 
@@ -323,7 +403,7 @@ $ bash -x create-file.sh
 
 Do you notice the difference?
 
-In longer scripts, this setting produces a lot of output, which may be hard to read. You can limit the output to a specific problematic part of your script by using `set -x` and `set +x` to turn the debugging on and off.
+In longer scripts, this setting produces a lot of output, which may be hard to read. You can limit the output to a specific problematic part of your script by using `set -x` and `set +x` to turn the debugging on and off, respectively.
 
 ```bash
 #!/bin/bash
@@ -335,7 +415,7 @@ touch "${file}"
 set +x
 ```
 
-## Bash's "strict mode"
+### bash's "strict mode"
 
 Apart from the `nounset` shell option, there are two other options that are very useful for debugging scripts: `set -o errexit` (or `set -e`) and `set -o pipefail`. The first option causes the script to exit with an error if any command fails. The second option gives better error messages when a command in a pipeline fails.
 
