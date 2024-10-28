@@ -114,6 +114,6 @@
     file( file1 file10 file11 file 2 file2 File2 File3 file33 filea fileA fileá fileà fileå fileAAA fileAB
     ```
 
-    > A disadvantage is that you can't see properties of the files, like permissions, owner, group, size, and date. For this, you can use `stat`.
+    > A disadvantage is that you can't see properties of the files, like permissions, owner, group, size, and date. For this, you can use `stat`, e.g. `stat -c '%A %h %U %G %s %y %n' *`.
 
 
