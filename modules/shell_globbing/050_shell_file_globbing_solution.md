@@ -1,97 +1,119 @@
 ## solution: shell globbing
 
-1\. Create a test directory and enter it.
+1. Create a test directory `glob` and enter it.
 
-    mkdir testdir; cd testdir
+    ```bash
+    mkdir glob; cd glob
+    ```
 
-2\. Create the following files :
+2. Create the files:
 
-    file1
-    file10
-    file11
-    file2
+    ```console
+    student@ubuntu:~$ touch file1 file10 file11 file2 File2 File3 file33 fileAB
+    student@ubuntu:~$ touch filea fileá fileà fileå fileA fileAAA 'file(' 'file 2'
+    ```
+
+3. List all files starting with `file`
+
+    ```console
+    student@ubuntu:~/glob$ ls file*
+    'file('   file10  'file 2'   file33   fileA   fileà   fileAAA
+     file1    file11   file2     filea    fileá   fileå   fileAB
+    ```
+
+4. List all files starting with `File`
+
+    ```console
+    student@ubuntu:~/glob$ ls File*
+    File2  File3
+    ```
+
+5. List all files starting with `file` and ending in *a number*.
+
+    ```console
+    student@ubuntu:~/glob$ ls file*[0-9]
+    file1   file10   file11  'file 2'   file2   file33
+    ```
+
+6. List all files starting with `file` and ending with *a letter*
+
+    ```console
+    student@ubuntu:~/glob$ ls file*[A-Za-z]
+    filea  fileA  fileAAA  fileAB
+    student@ubuntu:~/glob$ ls file*[[:alpha:]]
+    filea  fileA  fileá  fileà  fileå  fileAAA  fileAB
+    ```
+
+    > Remark that the first solution is not complete, as it does not list the files with special characters in the name! In this case, it's better to use the named class `[:alpha:]`.
+
+7. List all files starting with `File` and having a *digit* as *fifth* character.
+
+    ```console
+    student@ubuntu:~/glob$ ls File[0-9]*
+    File2  File3
+    ```
+
+8. List all files starting with `File` and having a *digit* as *fifth* and last character (i.e. the name consists of five characters).
+
+    ```console
+    student@ubuntu:~/glob$ ls File[0-9]
     File2
-    File3
-    file33
-    fileAB
-    filea
-    fileA
-    fileAAA
-    file(
-    file 2
+    ```
 
-(the last one has 6 characters including a space)
+9. List all files starting with *a letter* and ending in *a number*.
 
-    touch file1 file10 file11 file2 File2 File3
-    touch file33 fileAB filea fileA fileAAA
-    touch "file("
-    touch "file 2"
+    ```console
+    student@ubuntu:~/glob$ ls [[:alpha:]]*[[:digit:]]
+    file1   file10   file11  'file 2'   file2   File2   File3   file33
+    ```
 
-3\. List (with ls) all files starting with file
+10. List all files that have *exactly five characters*.
 
-    ls file*
+    ```console
+    student@ubuntu:~/glob$ ls ?????
+    'file('   file1   file2   File2   File3   filea   fileA   fileá   fileà   fileå
+    ```
 
-4\. List (with ls) all files starting with File
+11. List all files that start with `f` or `F` and end with `3` or `A`.
 
-    ls File*
+    ```console
+    student@ubuntu:~/glob$ ls [fF]*[3A]
+    File3  file33  fileA  fileAAA
+    ```
 
-5\. List (with ls) all files starting with file and ending in a number.
+12. List all files that start with `f` have `i` or `R` as second character and end in a number.
 
-    ls file*[0-9]
+    ```console
+    student@ubuntu:~/glob$ ls f[iR]*[0-9]
+    file1   file10   file11  'file 2'   file2   file33
+    ```
 
-6\. List (with ls) all files starting with file and ending with a letter
+13. List all files that do not start with the letter `F`.
 
-    ls file*[a-z]
+    ```console
+    student@ubuntu:~/glob$ ls [^F]*
+    'file('   file10  'file 2'   file33   fileA   fileà   fileAAA
+     file1    file11   file2     filea    fileá   fileå   fileAB
+    ```
 
-7\. List (with ls) all files starting with File and having a digit as
-fifth character.
+14. Show the influence of `$LANG` (the system locale) in listing `A-Z` or `a-z` ranges.
 
-    ls File[0-9]*
+    ```console
+    student@ubuntu:~/glob$ LANG=C ls file[[:alpha:]]*
+    fileA   fileAAA   fileAB   filea  'file'$'\303\240'  'file'$'\303\241'  'file'$'\303\245'
+    student@ubuntu:~/glob$ LANG=en_US.UTF-8 ls file[[:alpha:]]*
+    filea  fileA  fileá  fileà  fileå  fileAAA  fileAB
+    student@ubuntu:~/glob$ LANG=da_DK.UTF-8 ls file[[:alpha:]]*
+    fileA  filea  fileá  fileà  fileAB  fileå  fileAAA
+    ```
 
-8\. List (with ls) all files starting with File and having a digit as
-fifth character and nothing else.
+15. You receive information that one of your servers was cracked. The cracker probably replaced the `ls` command with a rootkit so it can no longer be used safely. You know that the `echo` command is safe to use. Can `echo` replace `ls`? How can you list the files in the current directory with `echo`?
 
-    ls File[0-9]
+    ```console
+    student@ubuntu:~/glob$ echo *
+    file( file1 file10 file11 file 2 file2 File2 File3 file33 filea fileA fileá fileà fileå fileAAA fileAB
+    ```
 
-9\. List (with ls) all files starting with a letter and ending in a
-number.
+    > A disadvantage is that you can't see properties of the files, like permissions, owner, group, size, and date. For this, you can use `stat`.
 
-    ls [a-z]*[0-9]
-
-10\. List (with ls) all files that have exactly five characters.
-
-    ls ?????
-
-11\. List (with ls) all files that start with f or F and end with 3 or
-A.
-
-    ls [fF]*[3A]
-
-12\. List (with ls) all files that start with f have i or R as second
-character and end in a number.
-
-    ls f[iR]*[0-9]
-
-13\. List all files that do not start with the letter F.
-
-    ls [!F]*
-
-14\. Copy the value of \$LANG to \$MyLANG.
-
-    MyLANG=$LANG
-
-15\. Show the influence of \$LANG in listing A-Z or a-z ranges.
-
-    see example in book
-
-16\. You receive information that one of your servers was cracked, the
-cracker probably replaced the `ls` command. You know that the `echo`
-command is safe to use. Can `echo` replace `ls` ? How can you list the
-files in the current directory with `echo` ?
-
-    echo *
-
-17\. Is there another command besides cd to change directories ?
-
-    pushd popd
 

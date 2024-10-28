@@ -1,60 +1,42 @@
 ## practice: shell globbing
 
-1\. Create a test directory and enter it.
+In the questions below, use the `ls` command with globbing patterns to list the specified files. Don't pipe the output to `grep` or another tool to filter on regular expressions!
 
-2\. Create the following files :
+1. Create a test directory `glob` and enter it.
 
-    file1
-    file10
-    file11
-    file2
-    File2
-    File3
-    file33
-    fileAB
-    filea
-    fileA
-    fileAAA
-    file(
-    file 2
+2. Create the following files :
 
-(the last one has 6 characters including a space)
+    ```text
+    vagrant@ubuntu:~/glob$ ls
+    'file('   file10  'file 2'   File2   file33   fileA   fileà   fileAAA
+     file1    file11   file2     File3   filea    fileá   fileå   fileAB
+    ```
 
-3\. List (with ls) all files starting with file
+    (remark that `file 2` has a space in the name!)
 
-4\. List (with ls) all files starting with File
+3. List all files starting with `file`
 
-5\. List (with ls) all files starting with file and ending in a number.
+4. List all files starting with `File`
 
-6\. List (with ls) all files starting with file and ending with a letter
+5. List all files starting with `file` and ending in *a number*.
 
-7\. List (with ls) all files starting with File and having a digit as
-fifth character.
+6. List all files starting with `file` and ending with *a letter*
 
-8\. List (with ls) all files starting with File and having a digit as
-fifth character and nothing else.
+7. List all files starting with `File` and having a *digit* as *fifth* character.
 
-9\. List (with ls) all files starting with a letter and ending in a
-number.
+8. List all files starting with `File` and having a *digit* as *fifth* and last character (i.e. the name consists of five characters).
 
-10\. List (with ls) all files that have exactly five characters.
+9. List all files starting with *a letter* and ending in *a number*.
 
-11\. List (with ls) all files that start with f or F and end with 3 or
-A.
+10. List all files that have *exactly five characters*.
 
-12\. List (with ls) all files that start with f have i or R as second
-character and end in a number.
+11. List all files that start with `f` or `F` and end with `3` or `A`.
 
-13\. List all files that do not start with the letter F.
+12. List all files that start with `f` have `i` or `R` as second character and end in a number.
 
-14\. Copy the value of \$LANG to \$MyLANG.
+13. List all files that do not start with the letter `F`.
 
-15\. Show the influence of \$LANG in listing A-Z or a-z ranges.
+14. Show the influence of `$LANG` (the system locale) in listing `A-Z` or `a-z` ranges.
 
-16\. You receive information that one of your servers was cracked, the
-cracker probably replaced the `ls` command. You know that the `echo`
-command is safe to use. Can `echo` replace `ls` ? How can you list the
-files in the current directory with `echo` ?
-
-17\. Is there another command besides cd to change directories ?
+15. You receive information that one of your servers was cracked. The cracker probably replaced the `ls` command with a rootkit so it can no longer be used safely. You know that the `echo` command is safe to use. Can `echo` replace `ls`? How can you list the files in the current directory with `echo`?
 
