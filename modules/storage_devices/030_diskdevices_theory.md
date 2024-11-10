@@ -770,3 +770,7 @@ Num  Test_Description    Status                  Remaining  LifeTime(hours)  LBA
 
 Remark that S.M.A.R.T. data is only available on *physical* disks. These days, all but a very few disks should be S.M.A.R.T. capable. If you encounter a disk that doesn't support S.M.A.R.T., it's probably a very old one (and maybe time to replace it).
 
+On systems with a graphical desktop, you can use the `gsmartcontrol` tool to get a nice graphical overview of the S.M.A.R.T. data, like in the screenshot below.
+
+![gsmartcontrol](assets/storage-devices-gsmartcontrol.png)
+
