@@ -26,7 +26,7 @@ The `sed` tool also has options to choose a regex syntax.
 match a certain pattern. Below are some examples of the simplest
 `regular expressions`.
 
-This is the contents of the test file. This file contains three lines
+This is the content of the test file. This file contains three lines
 (or three `newline` characters).
 
     student@linux:~$ cat names
