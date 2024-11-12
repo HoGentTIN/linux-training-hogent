@@ -73,12 +73,14 @@ When Alice wants to send an encrypted message to Bob, she uses the *public key* 
 
 A *digital signature* is based on the same principle. Alice signs a message with her *private key*, which usually means that a *hash* of the message (i.e. a unique number that represents the message) is encrypted with her *private key*. When Bob wants to verify that the message came from Alice, Bob uses the *public key* of Alice to decrypt the signature. If the decrypted hash matches the hash of the received message, Bob can be certain the message came from Alice and was not altered during transfer.
 
-### rsa and dsa algorithms
+### public-key cryptosystems
 
-This chapter does not explain the technical implementation of cryptographic algorithms, it only explains how to use the ssh tools with `rsa` and `dsa`. More information about these algorithms can be found here:
+This chapter does not explain the technical implementation of cryptographic algorithms, it only explains how to use the ssh tools some common key exchange types. More information about these algorithms can be found here:
 
 - <https://en.wikipedia.org/wiki/RSA_(cryptosystem)>
-- <http://en.wikipedia.org/wiki/Digital_Signature_Algorithm>
+- <https://en.wikipedia.org/wiki/Digital_Signature_Algorithm>
+- <https://en.wikipedia.org/wiki/EdDSA>
+- <https://en.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm>
 
 ## log on to a remote server
 
@@ -118,6 +120,25 @@ admin42@ubuserver:~$ exit
 logout
 Connection to 192.168.1.30 closed.
 student@linux:~$
+```
+
+If for any reason the fingerprint of the server does not match the one in the `known_hosts` file, the user will be warned and the connection will be refused.
+
+```console
+paul@linux:~$ ssh admin42@192.168.1.30
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!
+Someone could be eavesdropping on you right now (man-in-the-middle attack)!
+It is also possible that a host key has just been changed.
+The fingerprint for the RSA key sent by the remote host is
+6e:45:f9:a8:af:38:3d:a1:a5:c7:76:1d:02:f8:77:00.
+Please contact your system administrator.
+Add correct host key in /home/paul/.ssh/known_hosts to get rid of this message.
+Offending ECDSA key in /home/paul/.ssh/known_hosts:14
+Host key for 192.168.1.30 has changed and you have requested strict checking.
+Host key verification failed.
 ```
 
 ## executing a command in remote
@@ -162,7 +183,7 @@ Let's do this step by step. In the example that follows, we will set up ssh with
 
 ### ssh-keygen
 
-The example below shows how Alice uses `ssh-keygen` to generate a key pair. Alice does not enter a passphrase.
+The example below shows how Alice uses `ssh-keygen` to generate an RSA key pair. Alice does not enter a passphrase.
 
 ```console
 [alice@linux ~]$ ssh-keygen -t rsa
@@ -178,7 +199,18 @@ The key fingerprint is:
 [alice@linux ~]$
 ```
 
-You can use `ssh-keygen -t dsa` in the same way.
+With the `-t` option, you can specify the type of key to create. The default is `rsa-sha2-512` (i.e. RSA-key with SHA-2 as hash algorithm).
+
+Safe key types include:
+
+- `rsa` (default)
+- `ecdsa` (Elliptic Curve Digital Signature Algorithm)
+- `ed25519` (Edwards-curve Digital Signature Algorithm)
+
+Key types to avoid include:
+
+- `dsa` (Digital Signature Algorithm) is considered weak and should not be used.
+- `ssh-rsa` uses the SHA-1 hash algorithm, which is considered weak.
 
 ### ~/.ssh
 
@@ -267,27 +299,6 @@ Another popular feature of `ssh` is called *X11 forwarding*. *X11* is the founda
 Below an example of X forwarding between a Kali Linux VM (client) and a Linux Mint VM (server), both with a graphical desktop. The default user `kali` is logged in and verifies that the app `drawing` is not installed. Next, they log in to the Linux Mint VM as user `student` and start `drawing`. The application will run on the remote computer from `mint`, but will be displayed within the Kali VM, as shown in the screenshot.
 
 ![SSH X Forwarding.](assets/ssh-x-forwarding.png)
-
-## troubleshooting ssh
-
-Use `ssh -v` to get debug information about the ssh connection attempt.
-
-```console
-student@linux:~$ ssh -v paul@192.168.1.192
-OpenSSH_4.3p2 Debian-8ubuntu1, OpenSSL 0.9.8c 05 Sep 2006
-debug1: Reading configuration data /home/paul/.ssh/config
-debug1: Reading configuration data /etc/ssh/ssh_config
-debug1: Applying options for *
-debug1: Connecting to 192.168.1.192 [192.168.1.192] port 22.
-debug1: Connection established.
-debug1: identity file /home/paul/.ssh/identity type -1
-debug1: identity file /home/paul/.ssh/id_rsa type 1
-debug1: identity file /home/paul/.ssh/id_dsa type -1
-debug1: Remote protocol version 1.99, remote software version OpenSSH_3
-debug1: match: OpenSSH_3.9p1 pat OpenSSH_3.*
-debug1: Enabling compatibility mode for protocol 2.0
-...
-```
 
 ## sshd
 
@@ -393,4 +404,77 @@ ssh-rsa AAAAB3NzaC1yc2EAAAAD......MeoDHPqR5/yUsCO6MzVOCaZpf8Toc= student@debian
 ```
 
 All keys can be removed from the `ssh-agent` with `ssh-add -D`.
+
+## troubleshooting ssh
+
+Use `ssh -v` to get debug information about the ssh connection attempt.
+
+```console
+student@linux:~$ ssh -v paul@192.168.1.192
+OpenSSH_4.3p2 Debian-8ubuntu1, OpenSSL 0.9.8c 05 Sep 2006
+debug1: Reading configuration data /home/paul/.ssh/config
+debug1: Reading configuration data /etc/ssh/ssh_config
+debug1: Applying options for *
+debug1: Connecting to 192.168.1.192 [192.168.1.192] port 22.
+debug1: Connection established.
+debug1: identity file /home/paul/.ssh/identity type -1
+debug1: identity file /home/paul/.ssh/id_rsa type 1
+debug1: identity file /home/paul/.ssh/id_dsa type -1
+debug1: Remote protocol version 1.99, remote software version OpenSSH_3
+debug1: match: OpenSSH_3.9p1 pat OpenSSH_3.*
+debug1: Enabling compatibility mode for protocol 2.0
+...
+```
+
+### dealing with older devices
+
+Unfortunately, some older devices still use insecure key exchange or signing algorithms. For example, the example below is an attempt to connect to a Cisco device (with IOS version 16.09.08, released in 2021) from a Linux system with the OpenSSH client version 9.8:
+
+```console
+[student@linux ~]$ ssh cisco@172.16.255.254
+Unable to negotiate with 172.16.255.254 port 22: no matching key exchange method found. Their offer: diffie-hellman-group-exchange-sha1,diffie-hellman-group14-sha1
+```
+
+The Cisco device only uses the SHA-1 hash algorithm for signing messages. This is considered to be insecure, so is no longer supported by the OpenSSH client, at least not by default. Enabling SHA-1 can be done with the following command:
+
+```console
+[student@linux ~]$ sudo update-crypto-policies --set DEFAULT:SHA1
+Setting system policy to DEFAULT:SHA1
+Note: System-wide crypto policies are applied on application start-up.
+It is recommended to restart the system for the change of policies
+to fully take place.
+```
+
+Trying the connection again yields:
+
+```console
+[student@linux ~]$ ssh cisco@172.16.255.254
+Unable to negotiate with 172.16.255.254 port 22: no matching host key type found. Their offer: ssh-rsa
+```
+
+The Cisco device only supports the `ssh-rsa` host key type, which is also turned off on the client side. Turning it on can be done with the following command:
+
+```console
+[student@linux ~]$ ssh -o HostKeyAlgorithms=+ssh-rsa cisco@172.16.255.254
+The authenticity of host '172.16.255.254 (172.16.255.254)' can't be established.
+RSA key fingerprint is SHA256:oDUj7I3RQi0FSKSaVX7gz8JfM1wpsYVbyF3ADNJTcAw.
+This key is not known by any other names.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '172.16.255.254' (RSA) to the list of known hosts.
+(cisco@172.16.255.254) Password: 
+
+[... Some output omitted ...]
+
+Router#
+Router#exit
+Connection to 172.16.255.254 closed.
+[student@linux ~]$
+```
+
+Restoring the setting in order to no longer allow SHA-1 can be done with:
+
+```console
+[student@linux ~]$ sudo update-crypto-policies --set DEFAULT
+Setting system policy to DEFAULT
+```
 
