@@ -67,7 +67,7 @@ owns this file now ?
 
 8. With chmod, is 664 the same as `r-xr-xr--`?
 
-    no, `rw-rw-r--` is 664 and `r-xr-xr--` is 774
+    no, `rw-rw-r--` is 664 and `rwxrwxr--` is 774
 
 9. With chmod, is 400 the same as `r--------`?
 
