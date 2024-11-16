@@ -4,62 +4,18 @@
 
 Even some popular services, like Github, also use SSH for communication. Synchronizing code between a local source code repository and a remote repository on github.com is only allowed over SSH.
 
-### secure shell
+### secure shell in general
 
-Older protocols like `telnet`, `rlogin` and `rsh` can also be used to remotely connect to your servers. However, these protocols do not encrypt the login session, which means confidential information about the server, including your user id and password, can be sniffed by tools like `wireshark` or `tcpdump`. Consequently, they are no longer installed by default on most Linux distributions and you should **never** use them in a production environment.
+The **SSH protocol** is secure in two ways. Firstly the connection is *authenticated* both ways, and secondly the connection is *encrypted*.
 
-To securely connect to your servers, use `ssh`.
+An SSH connection always starts with a cryptographic *handshake*. The *authentication* takes place (using user id/password or public/private keys) and communication can begin over the encrypted connection. When both sides are accepted as trustworthy parties, it is followed by *encryption* of the transport layer using a symmetric cypher.  The latter is exchanged between the two parties directly after authenticating. In other words, the tunnel is already encrypted before you start typing anything.
 
-The **SSH protocol** is secure in two ways. Firstly the connection is *encrypted* and secondly the connection is *authenticated* both ways.
-
-An SSH connection always starts with a cryptographic *handshake*, followed by *encryption* of the transport layer using a symmetric cypher. In other words, the tunnel is encrypted before you start typing anything.
-
-Then *authentication* takes place (using user id/password or public/private keys) and communication can begin over the encrypted connection.
-
-The *SSH protocol* will remember the servers it connected to and warn you in case something suspicious happened, e.g. when the signature or *fingerprint* of the server changed.
+The *SSH protocol* will remember the servers it handshaked with, and warn you in case something suspicious happened, e.g. when the signature or *fingerprint* of the server changed. This is a *'mitm'*-attack prevention.
 
 The `openssh` package is maintained by the *OpenBSD* people and is distributed with a lot of operating systems, including Linux.
 
-### configuration in /etc/ssh/
-
-Configuration of *SSH* client and server is done in the `/etc/ssh` directory. In the next sections we will discuss most of the files found in `/etc/ssh/`.
-
-### ssh protocol versions
-
-The `ssh` protocol has two versions, 1 and 2, that are incompatible. Version 1 is considered insecure since it contains some known vulnerabilities. If you encounter an installation that still uses protocol version version 1, you should endeavour to update it as soon as possible. In current installations, version 1 should no longer be supported. It was removed in 2017 with the release of OpenSSH 7.6.
-
-Check the version of OpenSSH installed with `ssh -V` or with your package manager. For example, on Enterprise Linux:
-
-```console
-[student@el ssh]$ ssh -V
-OpenSSH_8.7p1, OpenSSL 3.0.7 1 Nov 2022
-[student@el ssh]$ dnf list installed openssh*
-Installed Packages
-openssh.x86_64            8.7p1-38.el9_4.4    @baseos
-openssh-clients.x86_64    8.7p1-38.el9_4.4    @baseos
-openssh-server.x86_64     8.7p1-38.el9_4.4    @baseos
-```
-
-and on Debian:
-
-```console
-student@debian:~$ ssh -V
-OpenSSH_9.2p1 Debian-2+deb12u2, OpenSSL 3.0.11 19 Sep 2023
-student@debian:~$ apt list --installed openssh*
-Listing... Done
-openssh-client/now 1:9.2p1-2+deb12u2 amd64 [installed,upgradable to: 1:9.2p1-2+deb12u3]
-openssh-server/now 1:9.2p1-2+deb12u2 amd64 [installed,upgradable to: 1:9.2p1-2+deb12u3]
-openssh-sftp-server/now 1:9.2p1-2+deb12u2 amd64 [installed,upgradable to: 1:9.2p1-2+deb12u3]
-```
-
-You can try to check the protocol version via `/etc/ssh/ssh_config` for the client side and `/etc/ssh/sshd_config` for the openssh-server daemon. However, on newer installations, the `Protocol` directive is not present in the configuration files. An example on an older installation:
-
-```console
-student@linux:/etc/ssh$ grep Protocol ssh_config 
-#   Protocol 2,1
-student@linux:/etc/ssh$ grep Protocol sshd_config 
-Protocol 2
-```
+Older protocols like `telnet`, `rlogin` and `rsh` can also be used to remotely connect to your servers. However, these protocols do not encrypt the login session, which means confidential information about the server, including your user id and password, can be sniffed by tools like `wireshark` or `tcpdump`. Consequently, they are no longer installed by default on most Linux distributions and you should **never** use them in a production environment.
+To securely connect to your servers, use `ssh`.
 
 ### public and private keys
 
@@ -67,7 +23,7 @@ The `ssh` protocol uses the well known system of *public and private keys*. The 
 
 Imagine Alice and Bob, two people that like to communicate with each other. Using *public and private keys* they can communicate with *confidentiality* and with *authentication*.
 
-Alice and Bob both need to generate a key pair consisting of two cryptographic keys. A key pair has as property that a message that is encrypted with one key can only be decrypted with the other key. This concept is also called *asymmetric encryption*. One key is kept *private* and the other is made *public*.
+Alice and Bob both need to generate a key pair, each consisting of two cryptographic keys. A key pair has as property that a message that is encrypted with one key can only be decrypted with the other key. This concept is also called *asymmetric encryption*. One key is kept *private* and the other is made *public*.
 
 When Alice wants to send an encrypted message to Bob, she uses the *public key* of Bob. Since Bob should be the only person to have his *private key*, Alice is certain that Bob is the only person that can read the encrypted message.
 
@@ -82,7 +38,7 @@ This chapter does not explain the technical implementation of cryptographic algo
 - <https://en.wikipedia.org/wiki/EdDSA>
 - <https://en.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm>
 
-## log on to a remote server
+### ssh remote login: autentication fingerprint
 
 The following screenshot shows how to use `ssh` to log on to a remote computer running Linux. The local user is named `paul` and he is logging on as user `admin42` on the remote system.
 
@@ -109,7 +65,7 @@ Welcome to Ubuntu 12.04 LTS (GNU/Linux 3.2.0-26-generic-pae i686)
 1 package can be updated.
 0 updates are security updates.
 
-Last login: Wed Jun  6 19:25:57 2012 from 172.28.0.131
+Last login: Wed Jun  6 19:25:57 2024 from 172.28.0.131
 admin42@ubuserver:~$
 ```
 
@@ -122,7 +78,9 @@ Connection to 192.168.1.30 closed.
 student@linux:~$
 ```
 
-If for any reason the fingerprint of the server does not match the one in the `known_hosts` file, the user will be warned and the connection will be refused.
+The fingerprint guarantees server-side authentication. 
+If the user would connect a second time to this server, the authentication question will no longer be asked (as the fingerprint is retained in the `known_hosts` file).
+If for any reason the fingerprint of the server does **not** match the one in the `known_hosts` file, the user will be warned and the connection will be refused.
 
 ```console
 paul@linux:~$ ssh admin42@192.168.1.30
@@ -141,7 +99,11 @@ Host key for 192.168.1.30 has changed and you have requested strict checking.
 Host key verification failed.
 ```
 
-## executing a command in remote
+### ssh beyond remote login
+
+Next to 'simply' allowing  to log in on a remote node, `ssh` also allows for remote exection of commands, and transferring files.
+
+#### executing a command in remote
 
 This screenshot shows how to execute the `pwd` command on the remote server. There is no need to `exit` the server manually.
 
@@ -152,7 +114,7 @@ admin42@192.168.1.30's password:
 paul@linux:~$
 ```
 
-## scp
+#### scp
 
 The `scp` command works just like `cp`, but allows the source and
 destination of the copy to be behind `ssh`. Here is an example where we
@@ -177,13 +139,15 @@ serverhosts                                  100%  809     0.8KB/s   00:00
 
 ## setting up passwordless ssh
 
-To set up passwordless ssh authentication through public/private keys, use `ssh-keygen` to generate a key pair without a passphrase, and then copy your public key to the destination server.
+Above, the server-side authentication based on a fingerprint was explained. Client-side authentication is by default based on a user/password combination. However: we could use a pub/priv keypair to take care of this authentication - avoiding to type your password every time you want to log in.
 
-Let's do this step by step. In the example that follows, we will set up ssh without password between Alice and Bob. Alice has an account on an Enterprise Linux server, Bob is using Ubuntu on his laptop. Bob wants to give Alice access using ssh and the public and private key system. This means that even if Bob changes his password on his laptop, Alice will still have access.
+To set up passwordless ssh (client-side) authentication through public/private keys, use `ssh-keygen` to generate a key pair without a passphrase, and then copy your public key to the destination server.
 
-### ssh-keygen
+Let's do this step by step. In the example that follows, we will set up ssh without password between Alice and Bob. Alice is using Ubuntu on her laptoph, and has as an account on an Enterprise Linux server named Bob. Server Bob wants to give Alice access using ssh and the public and private key system. This means that even if the password of Alice is changed on this server Bob, Alice will still have access.
 
-The example below shows how Alice uses `ssh-keygen` to generate an RSA key pair. Alice does not enter a passphrase.
+### generate with ssh-keygen
+
+The example below shows how Alice uses `ssh-keygen` to generate an RSA key pair. Alice does not enter a passphrase[^1].
 
 ```console
 [alice@linux ~]$ ssh-keygen -t rsa
@@ -199,6 +163,8 @@ The key fingerprint is:
 [alice@linux ~]$
 ```
 
+[^1]: It is possible to specify a passphrase when generating the keypair; that passphrase will be used to encrypt the private key part of this file using 128-bit AES.
+
 With the `-t` option, you can specify the type of key to create. The default is `rsa-sha2-512` (i.e. RSA-key with SHA-2 as hash algorithm).
 
 Safe key types include:
@@ -209,45 +175,66 @@ Safe key types include:
 
 Key types to avoid include:
 
-- `dsa` (Digital Signature Algorithm) is considered weak and should not be used.
-- `ssh-rsa` uses the SHA-1 hash algorithm, which is considered weak.
+- `dsa` (Digital Signature Algorithm) is considered weak and should not be used. In SSH, this keytype is called `ssh-dss` and has been deprecated as of August 2015 - see https://www.openssh.com/txt/release-7.0 .
+- `ssh-rsa` uses the SHA-1 hash algorithm, which is considered weak. The latter has been deprecated as af August 2021 - see https://www.openssh.com/txt/release-8.7 .
+
+It an older server is still using these keys, you should consider updating the keypairs. A workaround, e.g. to use the deprecated key one more time be able to log in to work on the updates, could be found on https://www.openssh.com/legacy.html . This is further elaborated in the 'Troubleshooting' section below.
+
+### id_rsa and id_rsa.pub
+
+The `ssh-keygen` command generate two keys in a hidden folder `.ssh`. The public key is named `~/.ssh/id_rsa.pub`. The private key is named `~/.ssh/id_rsa`.
+
+```console
+[alice@linux ~]$ ls -l .ssh/id*
+total 16
+-rw------- 1 alice alice 1671 May  1 07:38 id_rsa
+-rw-r--r-- 1 alice alice  393 May  1 07:38 id_rsa.pub
+```
+
+The files will be named `id_ecdsa` and `id_ecdsa.pub` when using `ecdsa` instead of `rsa`.
 
 ### ~/.ssh
 
-While `ssh-keygen` generates a public and a private key, it will also create a hidden `.ssh` directory with proper permissions. If you create the `.ssh` directory manually, then you need to chmod 700 it! Otherwise ssh will refuse to use the keys (world readable private keys are not secure!).
+In general, the `.ssh` directory is used to store the user's `ssh` related files.
+If it doesn't exist, the hidden `.ssh` directory will be created automatically when generating the keypair.
+If you create the `.ssh` directory manually, then you need to chmod 700 it! Otherwise ssh will refuse to use the keys (world readable private keys are not secure!).
 
-As you can see, the `.ssh` directory is secure in Alice's home directory.
+As you can see, the `.ssh` directory is secure in Alice's home directory on her laptop.
 
 ```console
 [alice@linux ~]$ ls -ld .ssh
 drwx------ 2 alice alice 4096 May  1 07:38 .ssh
 ```
 
-Bob is using Ubuntu at home. He decides to manually create the `.ssh` directory, so he needs to manually secure it.
+Server Bob decides to manually create the `.ssh` directory, so he needs to manually secure it.
 
 ```console
 bob@linux:~$ mkdir .ssh
 bob@linux:~$ ls -ld .ssh
-drwxr-xr-x 2 bob bob 4096 2008-05-14 16:53 .ssh
+drwxr-xr-x 2 bob bob 4096 2024-05-14 16:53 .ssh
 bob@linux:~$ chmod 700 .ssh/
 ```
 
-### id_rsa and id_rsa.pub
+Next to storing the keypair(s) generated by a user, it can also contain other files. Most notably is the file `known_hosts`, containing an entry for each fingerprint that has been accepted before when connecting to a new server. 
 
-The `ssh-keygen` command generate two keys in .ssh. The public key is named `~/.ssh/id_rsa.pub`. The private key is named `~/.ssh/id_rsa`.
+### .ssh/authorized_keys
+
+In your `~/.ssh` directory, you can create a file called `authorized_keys`. This file can contain one or more public keys from people you trust. Those trusted people can use their private keys to prove their identity and gain access to your account via ssh (without password). The example shows Bob's authorized_keys file containing the public key of Alice.
 
 ```console
-[alice@linux ~]$ ls -l .ssh/
-total 16
--rw------- 1 alice alice 1671 May  1 07:38 id_rsa
--rw-r--r-- 1 alice alice  393 May  1 07:38 id_rsa.pub
+bob@linux:~$ cat .ssh/authorized_keys 
+ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEApCQ9xzyLzJes1sR+hPyqW2vyzt1D4zTLqk\
+MDWBR4mMFuUZD/O583I3Lg/Q+JIq0RSksNzaL/BNLDou1jMpBe2Dmf/u22u4KmqlJBfDhe\
+yTmGSBzeNYCYRSMq78CT9l9a+y6x/shucwhaILsy8A2XfJ9VCggkVtu7XlWFDL2cum08/0\
+mRFwVrfc/uPsAn5XkkTscl4g21mQbnp9wJC40pGSJXXMuFOk8MgCb5ieSnpKFniAKM+tEo\
+/vjDGSi3F/bxu691jscrU0VUdIoOSo98HUfEf7jKBRikxGAC7I4HLa+/zX73OIvRFAb2hv\
+tUhn6RHrBtUJUjbSGiYeFTLDfcTQ== alice@linux
 ```
-
-The files will be named `id_dsa` and `id_dsa.pub` when using `dsa` instead of `rsa`.
 
 ### copy the public key to the other computer
 
-To copy the public key from Alice's server tot Bob's laptop, Alice decides to use `scp`.
+But wait a minute? How did this key get onto server Bob?
+To copy the public key from Alice's laptop tot server Bob, Alice decided to use `scp`.
 
 ```console
 [alice@linux .ssh]$ scp id_rsa.pub bob@192.168.48.92:~/.ssh/authorized_keys
@@ -267,30 +254,53 @@ Alice could also have used `ssh-copy-id` like in this example.
 ssh-copy-id -i .ssh/id_rsa.pub bob@192.168.48.92
 ```
 
-### authorized_keys
-
-In your `~/.ssh` directory, you can create a file called `authorized_keys`. This file can contain one or more public keys from people you trust. Those trusted people can use their private keys to prove their identity and gain access to your account via ssh (without password). The example shows Bob's authorized_keys file containing the public key of Alice.
-
-```console
-bob@linux:~$ cat .ssh/authorized_keys 
-ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEApCQ9xzyLzJes1sR+hPyqW2vyzt1D4zTLqk\
-MDWBR4mMFuUZD/O583I3Lg/Q+JIq0RSksNzaL/BNLDou1jMpBe2Dmf/u22u4KmqlJBfDhe\
-yTmGSBzeNYCYRSMq78CT9l9a+y6x/shucwhaILsy8A2XfJ9VCggkVtu7XlWFDL2cum08/0\
-mRFwVrfc/uPsAn5XkkTscl4g21mQbnp9wJC40pGSJXXMuFOk8MgCb5ieSnpKFniAKM+tEo\
-/vjDGSi3F/bxu691jscrU0VUdIoOSo98HUfEf7jKBRikxGAC7I4HLa+/zX73OIvRFAb2hv\
-tUhn6RHrBtUJUjbSGiYeFTLDfcTQ== alice@linux
-```
-
 ### passwordless ssh
 
-Alice can now use ssh to connect passwordless to Bob's laptop. In combination with `ssh`'s capability to execute commands on the remote host, this can be useful in pipes across different machines.
+Alice can now use ssh to connect passwordless to server Bob. In combination with `ssh`'s capability to execute commands on the remote host, this can be useful in pipes across different machines.
 
 ```console
 [alice@linux ~]$ ssh bob@192.168.48.92 "ls -l .ssh"
 total 4
--rw-r--r-- 1 bob bob 393 2008-05-14 17:03 authorized_keys
+-rw-r--r-- 1 bob bob 393 2024-05-14 17:03 authorized_keys
 [alice@linux ~]$
 ```
+
+## ssh-agent
+
+When generating keys with `ssh-keygen`, you have the option to enter a passphrase to protect access to the keys by encrypting them with a symmetric cipher. To avoid having to type this passphrase every time, you can add the key to `ssh-agent` using `ssh-add`.
+
+Most Linux distributions will start the `ssh-agent` automatically when you log on.
+
+```console
+paul@linux~$ ps -ef | grep ssh-agent
+paul     2405  2365  0 08:13 ?        00:00:00 /usr/bin/ssh-agent...
+```
+
+If the `ssh-agent` is not running, you can start it with `eval $(ssh-agent)`.
+
+```console
+student@debian:~$ ps -ef | grep ssh-agent
+student     1608    1393  0 14:52 pts/0    00:00:00 grep ssh-agent
+student@debian:~$ eval $(ssh-agent)
+Agent pid 1610
+student@debian:~$ ps -ef | grep ssh-agent
+student     1610       1  0 14:52 ?        00:00:00 ssh-agent
+student     1612    1393  0 14:52 pts/0    00:00:00 grep ssh-agent
+```
+
+This screenshot shows how to use `ssh-add` with option `-L` to list the keys that are currently added to the `ssh-agent`, and to add a key (without arguments):
+
+```console
+student@debian:~$ ssh-add -L
+The agent has no identities.
+student@debian:~$ ssh-add
+Identity added: /home/student/.ssh/id_rsa (student@debian)
+student@debian:~$ ssh-add -L
+ssh-rsa AAAAB3NzaC1yc2EAAAAD......MeoDHPqR5/yUsCO6MzVOCaZpf8Toc= student@debian
+```
+
+All keys can be removed from the `ssh-agent` with `ssh-add -D`.
+
 
 ## X forwarding via ssh
 
@@ -300,7 +310,12 @@ Below an example of X forwarding between a Kali Linux VM (client) and a Linux Mi
 
 ![SSH X Forwarding.](assets/ssh-x-forwarding.png)
 
-## sshd
+
+## configuration in /etc/ssh/
+
+Configuration of *SSH* client and server is done in the `/etc/ssh` directory. In the next sections we will discuss most of the files found in `/etc/ssh/`.
+
+### sshd
 
 The ssh server is provided by the `openssh-server` package.
 
@@ -357,55 +372,22 @@ LISTEN  0       4096             [::]:111           [::]:*      users:(("rpcbind
 LISTEN  0       128              [::]:22            [::]:*      users:(("sshd",pid=668,fd=4))
 ```
 
-## sshd keys
+### sshd keys
 
-The public keys used by the sshd server are located in `/etc/ssh` and are world readable. The private keys are only readable by root.
+The public keys used by the sshd server for fingerprints are located in `/etc/ssh` and are world readable. The private keys are only readable by root.
 
 ```console
 root@linux~# ls -l /etc/ssh/ssh_host_*
--rw------- 1 root root  668 Jun  7  2011 /etc/ssh/ssh_host_dsa_key
--rw-r--r-- 1 root root  598 Jun  7  2011 /etc/ssh/ssh_host_dsa_key.pub
--rw------- 1 root root 1679 Jun  7  2011 /etc/ssh/ssh_host_rsa_key
--rw-r--r-- 1 root root  390 Jun  7  2011 /etc/ssh/ssh_host_rsa_key.pub
+-rw------- 1 root root  668 Jun  7  2024 /etc/ssh/ssh_host_ecdsa_key
+-rw-r--r-- 1 root root  598 Jun  7  2024 /etc/ssh/ssh_host_ecdsa_key.pub
+-rw------- 1 root root 1679 Jun  7  2024 /etc/ssh/ssh_host_rsa_key
+-rw-r--r-- 1 root root  390 Jun  7  2024 /etc/ssh/ssh_host_rsa_key.pub
 ```
 
-## ssh-agent
-
-When generating keys with `ssh-keygen`, you have the option to enter a passphrase to protect access to the keys by encrypting them with a symmetric cipher. To avoid having to type this passphrase every time, you can add the key to `ssh-agent` using `ssh-add`.
-
-Most Linux distributions will start the `ssh-agent` automatically when you log on.
-
-```console
-paul@linux~$ ps -ef | grep ssh-agent
-paul     2405  2365  0 08:13 ?        00:00:00 /usr/bin/ssh-agent...
-```
-
-If the `ssh-agent` is not running, you can start it with `eval $(ssh-agent)`.
-
-```console
-student@debian:~$ ps -ef | grep ssh-agent
-student     1608    1393  0 14:52 pts/0    00:00:00 grep ssh-agent
-student@debian:~$ eval $(ssh-agent)
-Agent pid 1610
-student@debian:~$ ps -ef | grep ssh-agent
-student     1610       1  0 14:52 ?        00:00:00 ssh-agent
-student     1612    1393  0 14:52 pts/0    00:00:00 grep ssh-agent
-```
-
-This screenshot shows how to use `ssh-add` with option `-L` to list the keys that are currently added to the `ssh-agent`, and to add a key (without arguments):
-
-```console
-student@debian:~$ ssh-add -L
-The agent has no identities.
-student@debian:~$ ssh-add
-Identity added: /home/student/.ssh/id_rsa (student@debian)
-student@debian:~$ ssh-add -L
-ssh-rsa AAAAB3NzaC1yc2EAAAAD......MeoDHPqR5/yUsCO6MzVOCaZpf8Toc= student@debian
-```
-
-All keys can be removed from the `ssh-agent` with `ssh-add -D`.
 
 ## troubleshooting ssh
+
+Troubleshooting SSH can be a hard issue: as security standards have evolved through time, and even the SSH protocol has evolved from version 1 to 2, you might encounter compatibility issues between an SSH client and server. 
 
 Use `ssh -v` to get debug information about the ssh connection attempt.
 
@@ -425,6 +407,44 @@ debug1: match: OpenSSH_3.9p1 pat OpenSSH_3.*
 debug1: Enabling compatibility mode for protocol 2.0
 ...
 ```
+
+### ssh protocol versions
+
+The `ssh` protocol has two versions, 1 and 2, that are incompatible. Version 1 is considered insecure since it contains some known vulnerabilities. If you encounter an installation that still uses protocol version version 1, you should endeavour to update it as soon as possible. In current installations, version 1 should no longer be supported. It was removed in 2017 with the release of OpenSSH 7.6.
+
+Check the version of OpenSSH installed with `ssh -V` or with your package manager. For example, on Enterprise Linux:
+
+```console
+[student@el ssh]$ ssh -V
+OpenSSH_8.7p1, OpenSSL 3.0.7 1 Nov 2022
+[student@el ssh]$ dnf list installed openssh*
+Installed Packages
+openssh.x86_64            8.7p1-38.el9_4.4    @baseos
+openssh-clients.x86_64    8.7p1-38.el9_4.4    @baseos
+openssh-server.x86_64     8.7p1-38.el9_4.4    @baseos
+```
+
+and on Debian:
+
+```console
+student@debian:~$ ssh -V
+OpenSSH_9.2p1 Debian-2+deb12u2, OpenSSL 3.0.11 19 Sep 2023
+student@debian:~$ apt list --installed openssh*
+Listing... Done
+openssh-client/now 1:9.2p1-2+deb12u2 amd64 [installed,upgradable to: 1:9.2p1-2+deb12u3]
+openssh-server/now 1:9.2p1-2+deb12u2 amd64 [installed,upgradable to: 1:9.2p1-2+deb12u3]
+openssh-sftp-server/now 1:9.2p1-2+deb12u2 amd64 [installed,upgradable to: 1:9.2p1-2+deb12u3]
+```
+
+You can try to check the protocol version via `/etc/ssh/ssh_config` for the client side and `/etc/ssh/sshd_config` for the openssh-server daemon. However, on newer installations, the `Protocol` directive is not present in the configuration files. An example on an older installation:
+
+```console
+student@linux:/etc/ssh$ grep Protocol ssh_config 
+#   Protocol 2,1
+student@linux:/etc/ssh$ grep Protocol sshd_config 
+Protocol 2
+```
+
 
 ### dealing with older devices
 
@@ -477,4 +497,3 @@ Restoring the setting in order to no longer allow SHA-1 can be done with:
 [student@linux ~]$ sudo update-crypto-policies --set DEFAULT
 Setting system policy to DEFAULT
 ```
-
