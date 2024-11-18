@@ -3,6 +3,7 @@
 Docker was first shown as a public demo by Solomon Hykes on PyCon US 2013. He worked for a cloud-provider company using Linux Containers (LXC) to rapidly deploy application servers for its customers. At the time, LXC was a known technology (which is still being used today), although it never got widely adopted due to its rather complex nature.
 
 Docker became an almost universal development tool mainly because of the simplifications it provides (compared to LXC). Some more (recent) history:
+
 - This is a recording of the (noticeably short) [first live demonstration of Docker](https://youtu.be/wW9CAH9nSLs?si=u3emCPU2JhJ6qhnl).
 - In [this presentation](https://youtu.be/3N3n9FzebAA?si=yQeME3UlTj4BS4or) Solomon Hykes explains why he felt the need to develop Docker.
 
@@ -14,7 +15,7 @@ Vrtualization is achieved through a hypervisor running different parallel (guest
 
 ![Virtualization versus Containerization](assets/virtualization-vs-containers_transparent.png)
 
-Bear in mind that Docker is not the only containerization platform - you can also use LXC,CRI-O or Podman - but it is by far the most popular one.
+Bear in mind that Docker is not the only containerization platform - you can also use LXC, CRI-O or Podman - but it is by far the most popular one.
 
 ## concepts
 
@@ -32,7 +33,7 @@ Images can be regarded as templates with instructions on how to create container
 
 Images can specify a wide range of options for the container(s) to be created, ranging from the contained application and its files to the networking and storage options. Most of these options affect the file system within the container, each such a change is called an *image layer*.
 
-Container images are composed of these layers, starting from a base image and adding an additional layer to the image for each configuration change to the file system.Examples of base images are [the Python image](https://hub.docker.com/_/python) and [the MongoDB image](https://hub.docker.com/r/mongodb/mongodb-community-server). Possible layers that can be added to these base images to create a new image can be f.e. source code files of an application you want to run and configuration files for its settings. 
+Container images are composed of these layers, starting from a base image and adding an additional layer to the image for each configuration change to the file system.Examples of base images are [the Python image](https://hub.docker.com/_/python) and [the MongoDB image](https://hub.docker.com/r/mongodb/mongodb-community-server). Possible layers that can be added to these base images to create a new image can be f.e. source code files of an application you want to run and configuration files for its settings.
 
 Note that images are immutable: once layers have been added to an image they can not be changed or removed. You can still use the image as a base for a new image, with additional layers. This is generally done using Dockerfiles.
 
@@ -51,6 +52,7 @@ Some of the most common instructions in a Dockerfile include:
 - `CMD ["<command>", "<arg1>"]` - this instruction sets the default command a container using this image will run.
 
 Example of a Dockerfile:
+
 ```console
 FROM python:3.12
 WORKDIR /usr/local/app
@@ -67,7 +69,6 @@ CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080"]
 ```
 
 To read through all of the instructions or go into greater detail, check out the [Dockerfile reference](https://docs.docker.com/engine/reference/builder/).
-.
 
 ### volumes
 
@@ -76,6 +77,7 @@ Since containers are rather light-weight, they can be deployed and destroyed rel
 Volumes provide persistent storage to docker containers using a sort of link to storage outside the container. Docker can create and manage these volumes, allowing you to link them to containers when required. 
 
 Example of linking a persistent volume called `log-data` to the container directory `/logs`. The volume will effectively be mounted at this point in the container file system.
+
 ```console
 docker run -d -p 80:80 -v log-data:/logs docker/welcome-to-docker
 ```
@@ -83,3 +85,4 @@ docker run -d -p 80:80 -v log-data:/logs docker/welcome-to-docker
 ### Docker Compose
 
 Starting and managing multiple containers can become cumbersome if done manually. That's where Docker Compose comes in. Compose allows you to bundle all containers you want to manage as one within a YAML file, allowing you to start or destroy all of them with a single command (`docker compose up`). For example, this command can allow you to spin up a completely containerized LAMP-stack given the correct Docker Compose file.
+
