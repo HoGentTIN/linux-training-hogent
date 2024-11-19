@@ -58,7 +58,7 @@ content:
   - title: "SSH; Docker"
     chapters:
       - ssh
-      # - docker # TODO
+      - docker
   # - title: "Workflow automation"
   #   chapters:
   #     # - makefiles # TODO
