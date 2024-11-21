@@ -203,19 +203,19 @@ Option `-d` specifies a character to separate the columns. The default value is 
 The `join` command is used to join two files on a common field. The common field in both files should be in the same order.
 
 ```console
-student@debian:~/pipes$ cat country-code.txt 
+student@linux:~/pipes$ cat country-code.txt 
 Belgium,be
 France,fr
 Germany,de
 Iran,ir
 Italy,it
-student@debian:~/pipes$ cat country-sorted.txt 
+student@linux:~/pipes$ cat country-sorted.txt 
 Belgium,Brussels,10
 France,Paris,60
 Germany,Berlin,100
 Iran,Teheran,70
 Italy,Rome,50
-student@debian:~/pipes$ join -t, country-code.txt country-sorted.txt 
+student@linux:~/pipes$ join -t, country-code.txt country-sorted.txt 
 Belgium,be,Brussels,10
 France,fr,Paris,60
 Germany,de,Berlin,100
@@ -311,9 +311,9 @@ student@linux:~/pipes$ sort music.txt |uniq -c
 Reformats text files to a specified width, preserving paragraphs and ensuring words are not split.
 
 ```console
-student@debian:~/pipes$ cat lorem.txt 
+student@linux:~/pipes$ cat lorem.txt 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-student@debian:~/pipes$ fmt -w 35 lorem.txt 
+student@linux:~/pipes$ fmt -w 35 lorem.txt 
 Lorem ipsum dolor sit amet,
 consectetur adipiscing elit, sed
 do eiusmod tempor incididunt ut
@@ -335,7 +335,7 @@ mollit anim id est laborum.
 Add line numbers to input text.
 
 ```console
-student@debian:~/pipes$ nl count.txt 
+student@linux:~/pipes$ nl count.txt 
      1  one
      2  two
      3  three
@@ -374,7 +374,7 @@ adm       x    3    4    adm           /var/adm    /usr/sbin/nologin
 It also allows you to emit JSON with option `-J`. Option `-N` specifies the column/key names.
 
 ```console
-[vagrant@fedora pipes]$ head -4 /etc/passwd | column -J -N user,passwd,uid,gid,name,home,shell -s:
+[vagrant@linux pipes]$ head -4 /etc/passwd | column -J -N user,passwd,uid,gid,name,home,shell -s:
 {
    "table": [
       {
@@ -748,11 +748,11 @@ serena
 Display only IPv4 addresses of this computer.
 
 ```console
-student@debian:~/pipes$ ip -br a
+student@linux:~/pipes$ ip -br a
 lo      UNKNOWN    127.0.0.1/8 ::1/128 
 eth0    UP         10.0.2.15/24 fe80::a00:27ff:fee6:f5c9/64 
 eth1    UP         192.168.56.21/24 fe80::a00:27ff:fe0f:afa/64 
-student@debian:~/pipes$ ip -br a | awk '{print $3}'
+student@linux:~/pipes$ ip -br a | awk '{print $3}'
 127.0.0.1/8
 10.0.2.15/24
 192.168.56.21/24
