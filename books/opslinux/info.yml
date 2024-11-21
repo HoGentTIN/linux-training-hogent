@@ -70,7 +70,7 @@ content:
       - storage_partitions
       - storage_filesystems
       - storage_mounting
-      - uuid
+      - storage_uuid
   - title: "DNS server"
     chapters:
       - dns

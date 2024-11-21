@@ -48,60 +48,56 @@ c4212384-75ca-11ef-829a-080027c76768
 
 ## uuid in /etc/fstab
 
-You can use the `uuid` in `/etc/fstab` to make sure that a volume is universally uniquely identified. The device name can change depending on the disk devices that are present at boot time, but a `uuid` never changes.
+You can use the `uuid` in `/etc/fstab` to make sure that a volume is universally uniquely identified. The device name (`/dev/sdx`) can change depending on the disk devices that are present at boot time, but a `uuid` never changes.
 
 First we use `tune2fs` to find the `uuid`.
 
 ```console
-[root@linux ~]# tune2fs -l /dev/sdc1 | grep UUID
+[student@linux ~]$ sudo tune2fs -l /dev/sdc1 | grep UUID
 Filesystem UUID:          7626d73a-2bb6-4937-90ca-e451025d64e8
 ```
 
 Then we check that it is properly added to `/etc/fstab`, the `uuid` replaces the variable devicename /dev/sdc1.
 
 ```console
-[root@linux ~]# grep UUID /etc/fstab 
+[student@linux ~]$ grep UUID /etc/fstab 
 UUID=7626d73a-2bb6-4937-90ca-e451025d64e8 /home/pro42 ext3 defaults 0 0
 ```
 
 Now we can mount the volume using the mount point defined in `/etc/fstab`.
 
 ```console
-[root@linux ~]# mount /home/pro42
-[root@linux ~]# df -h | grep 42
+[student@linux ~]$ sudo mount /home/pro42
+[student@linux ~]$ df -h | grep 42
 /dev/sdc1             397M   11M  366M   3% /home/pro42
 ```
 
 The real test now, is to remove `/dev/sdb` from the system, reboot the machine and see what happens. After the reboot, the disk previously known as `/dev/sdc` is now `/dev/sdb`.
 
 ```console
-[root@linux ~]# tune2fs -l /dev/sdb1 | grep UUID
+[student@linux ~]$ sudo tune2fs -l /dev/sdb1 | grep UUID
 Filesystem UUID:          7626d73a-2bb6-4937-90ca-e451025d64e8
 ```
 
-And thanks to the `uuid` in `/etc/fstab`, the mountpoint is mounted on
-the same disk as before.
+And thanks to the `uuid` in `/etc/fstab`, the mountpoint is mounted on the same disk as before.
 
 ```console
-[root@linux ~]# df -h | grep sdb
+[student@linux ~]$ df -h | grep sdb
 /dev/sdb1             397M   11M  366M   3% /home/pro42
 ```
 
 ## uuid as a boot device
 
-Recent Linux distributions (Debian, Ubuntu, ...) use `grub` with a `uuid` to identify the root file system.
+Recent Linux distributions (Debian, Ubuntu, Fedora, ...) use `grub` with a `uuid` to identify the root file system.
 
 This example shows how a `root=/dev/sda1` is replaced with a `uuid`.
 
 ```text
-title           Ubuntu 9.10, kernel 2.6.31-19-generic
-uuid            f001ba5d-9077-422a-9634-8d23d57e782a
-kernel          /boot/vmlinuz-2.6.31-19-generic \
-root=UUID=f001ba5d-9077-422a-9634-8d23d57e782a ro quiet splash 
-initrd          /boot/initrd.img-2.6.31-19-generic
+title    Ubuntu 9.10, kernel 2.6.31-19-generic
+uuid     f001ba5d-9077-422a-9634-8d23d57e782a
+kernel   /boot/vmlinuz-2.6.31-19-generic root=UUID=f001ba5d-9077-422a-9634-8d23d57e782a ro quiet splash 
+initrd   /boot/initrd.img-2.6.31-19-generic
 ```
 
-The screenshot above contains only four lines. The line starting with `root=` is the continuation of the `kernel` line.
-
-RHEL and derived distributions boot from LVM after a default install.
+EL and derived distributions boot from LVM after a default install.
 

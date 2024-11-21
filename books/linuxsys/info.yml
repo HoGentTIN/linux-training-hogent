@@ -21,7 +21,7 @@ content:
       - storage_filesystems
       - storage_mounting
       - storage_tools
-      - uuid
+      - storage_uuid
       - storage_raid
       - storage_lvm
       - storage_iscsi
