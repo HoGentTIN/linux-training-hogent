@@ -248,6 +248,8 @@ tux
 [student@linux ~]$ exit
 ```
 
+**Remark** that is actually a convention to give **environment variables uppercase names** and "normal" (non-exported) variables lowercase names.
+
 When you execute a script, it will also run in a subshell, so only `export`ed variables will be available in the script.
 
 If you try this example, first `unset` the variable `$penguin`.
