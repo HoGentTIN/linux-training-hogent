@@ -11,9 +11,7 @@ Docker became an almost universal development tool mainly because of the simplif
 
 Essentially, the goal of containerization is the same as virtualization: isolating applications from each other and the hardware. Isolation can have multiple drivers: security, portability, uniform deployment, testing ...
 
-Vrtualization is achieved through a hypervisor running different parallel (guest) operating systems called *virtual machines*, while container platforms such as Docker run isolated applications bundled with all components required for them to operate properly: *containers*. These containers do *not* include a full-blown operating system, instead sharing the required features of the host kernel, much like LCX. This means containers are a more light-weight and flexible solution than virtual machines.
-
-![Virtualization versus Containerization](assets/virtualization-vs-containers_transparent.png)
+Virtualization is achieved through a hypervisor running different parallel (guest) operating systems called *virtual machines*, while container platforms such as Docker run isolated applications bundled with all components required for them to operate properly: *containers*. These containers do *not* include a full-blown operating system, instead sharing the required features of the host kernel, much like LCX. This means containers are a more light-weight and flexible solution than virtual machines.
 
 Bear in mind that Docker is not the only containerization platform - you can also use LXC, CRI-O or Podman - but it is by far the most popular one.
 
