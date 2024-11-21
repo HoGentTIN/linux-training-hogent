@@ -1,60 +1,92 @@
 ## solution: shell variables
 
-1\. Use echo to display Hello followed by your username. (use a bash
-variable!)
+1. Use `echo` to display `Hello` followed by your username (use an existing shell variable!)
 
-    echo Hello $USER
+    ```bash
+    echo "Hello ${USER}"
+    ```
 
-2\. Create a variable `answer` with a value of `42`.
+2. Create a variable `answer` with a value of `42`.
 
+    ```bash
     answer=42
+    ```
 
-3\. Copy the value of \$LANG to \$MyLANG.
+3. Copy the value of `$LANG` to `$my_lang`.
 
-    MyLANG=$LANG
+    ```bash
+    my_lang="${LANG}"
+    ```
 
-4\. List all current shell variables.
+4. List all current shell variables.
 
+    ```bash
     set
+    ```
 
-    set|more on Ubuntu/Debian
+5. List all exported shell variables (i.e. environment variables).
 
-5\. List all exported shell variables.
-
+    ```bash
     env
     export
     declare -x
+    ```
 
-6\. Do the `env` and `set` commands display your variable ?
+6. Do the `env` and `set` commands display your variable ?
 
-    env | more
-    set | more
+    ```console
+    student@linux:~$ set | grep my_lang
+    my_lang=en_US.UTF-8
+    student@linux:~$ set | grep answer
+    answer=42
+    student@linux:~$ env | grep my_lang
+    student@linux:~$ env | grep answer
+    ```
 
-6\. Destroy your `answer` variable.
+    > The `env` command does not display the `my_lang` and `answer` variables, because they are not exported.
 
+7. Destroy your `answer` variable.
+
+    ```bash
     unset answer
+    ```
 
-7\. Create two variables, and `export` one of them.
+8. Create two variables, and `export` one of them.
 
-    var1=1; export var2=2
+    ```bash
+    var1=one
+    export var2=two
+    ```
 
-8\. Display the exported variable in an interactive child shell.
+9. Display these variables in an interactive child shell and check which one is still available.
 
+    ```console
+    student@linux:~$ bash
     bash
-    echo $var2
+    student@linux:~$ echo "${var1} ${var2}"
+     two
+    student@linux:~$ exit
+    ```
 
-9\. Create a variable, give it the value \'Dumb\', create another
-variable with value \'do\'. Use `echo` and the two variables to echo
-Dumbledore.
+10. Create a variable, give it the value 'Dumb', create another variable with value 'do'. Use `echo` and the two variables to print 'Dumbledore'.
 
-    varx=Dumb; vary=do
+    ```bash
+    var_x=Dumb
+    var_y=do
 
-    echo ${varx}le${vary}re
-    solution by Yves from Dexia : echo $varx'le'$vary're'
-    solution by Erwin from Telenet : echo "$varx"le"$vary"re
+    echo "${var_x}le${var_y}re"
+    ```
 
-10\. Find the list of backslash escaped characters in the manual of
-bash. Add the time to your `PS1` prompt.
+    > solution by Yves from Dexia: `echo $varx'le'$vary're'`
+    > solution by Erwin from Telenet: `echo "$varx"le"$vary"re`
 
-    PS1='\t \u@\h \W$ '
+11. Find the list of backslash escaped characters in the manual of bash. Add the time to your `PS1` prompt.
+
+    ```console
+    student@linux:~$ PS1='\t \u@\h \W$ '
+    21:52:48 student@linux ~$ pwd
+    /home/student
+    21:52:52 student@linux ~$
+    ```
+
 
