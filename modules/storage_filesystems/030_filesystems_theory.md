@@ -96,6 +96,28 @@ Maybe you will see Sun's `zfs` that has some impressive features that position i
 
 More recently, the `btrfs` (pronounced *butter fs* or *better fs*) made `zfs`-like features more accessible to Linux. It is being developed under the GPL license by several companies, including Oracle, Red Hat, and SUSE. It is the default file system for SUSE Linux Enterprise Server since version 12 (released in 2015) and Fedora Desktop since version 33 (released in 2020). Features include automatic repair, automatic defragmentation, transparent compression, deduplication, resizing, volume management, subvolumes, etc.
 
+The following example comes from a Fedora system (with an NVMe SSD as hard drive) where the root directory `/` and `/home` are `btrfs` subvolumes on the same partition (`/dev/nvme1n1p4`):
+
+```console
+[student@fedora ~] mount | grep nvme
+/dev/nvme1n1p4 on / type btrfs (rw,relatime,seclabel,compress=zstd:1,ssd,discard=async,space_cache=v2,subvolid=257,subvol=/root)
+/dev/nvme1n1p4 on /home type btrfs (rw,relatime,seclabel,compress=zstd:1,ssd,discard=async,space_cache=v2,subvolid=256,subvol=/home)
+/dev/nvme1n1p3 on /boot type ext4 (rw,relatime,seclabel)
+/dev/nvme1n1p1 on /boot/efi type vfat (rw,relatime,fmask=0077,dmask=0077,codepage=437,iocharset=ascii,shortname=winnt,errors=remount-ro)
+```
+
+Remark that the options show a.o. that transparent file compression is enabled and that `btrfs` is aware that the hard disk is an SSD.
+
+What's cool about this setup is that you don't have to think about choosing how much space you allocate to `/` and `/home` when you install the system. Both subvolumes share the same space on the partition, and they will take the space they need.
+
+```console
+[student@fedora ~] df -h | grep nvme
+/dev/nvme1n1p4  748G  264G  479G  36% /
+/dev/nvme1n1p4  748G  264G  479G  36% /home
+/dev/nvme1n1p3  974M  476M  432M  53% /boot
+/dev/nvme1n1p1  511M   56M  456M  11% /boot/efi
+```
+
 ### /proc/filesystems
 
 The `/proc/filesystems` file displays a list of supported file systems. When you mount a file system without explicitly defining one, then mount will first try to probe `/etc/filesystems` and then probe `/proc/filesystems` for all the filesystems without the `nodev` label. If `/etc/filesystems` ends with a line containing only an asterisk (`*`) then both files are probed.
