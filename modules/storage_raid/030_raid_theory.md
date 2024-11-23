@@ -8,13 +8,19 @@ Deciding on which *raid level* to choose depends on the requirements of the spec
 
 **raid 0** uses two or more disks, and is often called *striping* (or *stripe set*, or *striped volume*). Data is divided in *chunks*, evenly spread across every disk in the array. The main advantage of *raid 0* is that the performance is higher than a single disk. *raid 0* is the only *raid* level without redundancy. When one disk fails, all data is lost.
 
+![raid 0](assets/raid-0-striping.png)
+
 ### jbod
 
 **jbod** (Just a Bunch Of Disks) uses two or more disks, and is often called *concatenating* (or *spanning*, *spanned set*, or *spanned volume*). Data is written to the first disk, until it is full. Then data is written to the second disk, etc. The main advantage of *jbod* is that you can create *larger drives* than the space available on a single disk. However, JBOD offers no redundancy and no performance gain.
 
+![jbod](assets/raid-jbod.png)
+
 ### raid 1
 
 **raid 1** uses exactly two disks, and is often called *mirroring* (or *mirror set*, or *mirrored volume*). All data written to the array is written on each disk. The main advantage of *raid 1* is *redundancy*. The main disadvantage is that you lose at least half of your available disk space (in other words, you at least double the cost).
+
+![raid 1](assets/raid-1-mirroring.png)
 
 ### raid 2, 3 and 4?
 
@@ -27,6 +33,8 @@ time chunks are written to the array, one of the disks will receive a
 *parity* chunk. Unlike *raid 4*, the parity chunk will
 alternate between all disks. The main advantage of this is that *raid 5*
 will allow for full data recovery in case of *one* hard disk failure.
+
+![raid 5](assets/raid-5-parity.png)
 
 *Parity* is a method to reconstruct data when one disk fails. When data is written to one of the disks of the array, e.g. a byte with binary representation `0100 1110`, it is combined with the data on the same position on one of the other disks, e.g. `1010 1011`, using the logical XOR operation:
 
@@ -66,6 +74,8 @@ This also works for arrays with more than 3 disks. For example in an array with 
 ### raid 1+0
 
 *raid 1+0* (also called *raid 10*) is a stripe(0) of mirrors(1). For example, when you have six 100GB disks, then you first create three mirrors of 100GB each. You then stripe them together into a 300GB drive. In this example, as long as not all disks in the same mirror fail, it can survive up to three hard disk failures.
+
+![raid 10](assets/raid-10.png)
 
 ### raid 50
 
