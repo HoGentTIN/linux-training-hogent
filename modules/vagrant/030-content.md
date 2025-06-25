@@ -17,7 +17,7 @@ Check that the installation was successful by running `vagrant --version` in you
 Vagrant 2.4.1
 ```
 
-The following step is to create some scaffolding code for a Vagrant project. You could create a new directory go to that directory and issue the command `vagrant init`. A `Vagrantfile` will be created that you can then edit to define the VMs. However, one of the authors of this course has prepared some starter code that you can download from the Github repository [bertvv/vagrant-shell-skeleton](https://github.com/bertvv/vagrant-shell-skeleton). You can download the code as a zip file and extract it to a directory of your choice. The directory will contain a `Vagrantfile`, a file called `vagrant-hosts.yml` that contains the list of VMs to be created, and a directory called `provisioning` that contains the provisioning scripts.
+The following step is to create some scaffolding code for a Vagrant project. You could create a new directory go to that directory and issue the command `vagrant init`. A `Vagrantfile` will be created that you can then edit to define the VMs. However, we set up some starter code that you can download from the Github repository [hogenttin/linux-training-labs](https://github.com/hogenttin/linux-training-labs). You can download the code as a zip file and extract it to a directory of your choice, or clone it locally. The subdirectory `vagrant/` will contain a `Vagrantfile`, a file called `vagrant-hosts.yml` that contains the list of VMs to be created, and a directory called `provisioning` that contains the provisioning scripts.
 
 ## Creating and booting a VM
 
