@@ -41,6 +41,7 @@ content:
       - general_networking
       - network_config
       - dhcp
+      - dhcp_kea
   - title: "Webserver; scripting 102"
     chapters:
       - apache
