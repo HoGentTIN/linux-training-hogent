@@ -28,9 +28,11 @@ The same story can be read in *rfc 2131*.
 
 ## installing isc dhcp on debian
 
-There are multiple implementations of the dhcp protocol available on Linux, but for a long time, the default has been the one from the `Internet Software Consortium` (ISC), [ISC DHCP](https://www.isc.org/dhcp/). Although the ISC no longer actively develops ISC DHCP, it is still widely used and supported. The replacement for ISC DHCP is [Kea](https://www.isc.org/kea/), also from the ISC. However, Kea is not yet as widely used as ISC DHCP and, indeed, is not available in the package repositories of all major Linux distros.
+There are multiple implementations of the dhcp protocol available on Linux, but for a long time, the default has been the one from the `Internet Software Consortium` (ISC), [ISC DHCP](https://www.isc.org/dhcp/). Although the ISC no longer actively develops ISC DHCP, it is still widely used and supported. The replacement for ISC DHCP is [Kea](https://www.isc.org/kea/), also from the ISC. However, Kea is not yet as widely used as ISC DHCP and, indeed, is not yet available in the package repositories of all major Linux distros.
 
-On recent Debian-based systems, install the package `isc-dhcp-server`. The example below is demonstrated on a Debian 12 system:
+On recent Debian-based systems, install the package `isc-dhcp-server`. Remark that on Debian 13 (codename *trixie*), `isc-dhcp-server` is marked as deprecated.
+
+The example below is demonstrated on a Debian 12 system:
 
 ```console
 student@debian:~$ sudo apt install isc-dhcp-server
@@ -85,7 +87,9 @@ The configuration file is located at `/etc/dhcp/dhcpd.conf`, and it already cont
 
 ## isc dhcp on enterprise linux
 
-On recent Enterprise Linux systems, the package is called `dhcp-server`. E.g. on AlmaLinux 9:
+On Enterprise Linux systems up to EL9, the package is called `dhcp-server`. Starting with EL10, ISC DHCP is no longer included in the default repositories, nor can it be installed from the EPEL Repository.
+
+The following example was executed on AlmaLinux 9:
 
 ```console
 [student@el ~]$ sudo dnf install dhcp-server

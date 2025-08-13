@@ -15,9 +15,7 @@ In this exercise, we are going to set up a **Debian** VM as a router and dhcp se
     vagrant@debian:~$ sudo nft add rule nat postrouting masquerade
     ```
 
-2. Install DHCP and browse the explanation in the default configuration file `/etc/dhcp/dhcpd.conf` or the example file `/usr/share/doc/isc-dhcp-server/dhcpd.conf.example`. Turn off IPv6 support, only listen for IPv4 dhcp requests on the host-only interface.
-
-
+2. Install ISC DHCP and browse the explanation in the default configuration file `/etc/dhcp/dhcpd.conf` or the example file `/usr/share/doc/isc-dhcp-server/dhcpd.conf.example`. Turn off IPv6 support, only listen for IPv4 dhcp requests on the host-only interface.
 
 3. Update the global options. Set 10.0.2.3 as the global DNS server, *linux-training.be* as the domain name, default lease time of 2 hours and maximum lease time of 4 hours.
 

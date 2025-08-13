@@ -28,9 +28,40 @@ The configuration files are located in `/etc/kea/`:
 
 The contents of the configuration files are in JSON format (with comments). Examples of configuration files for several different use cases can be found in `/usr/share/doc/kea/examples/`.
 
+## installing isc kea on debian based distributions
+
+On Debian 12 (bookworm) and 13 (trixie), KEA is available as the package `kea`.
+
+```bash
+sudo apt install kea
+```
+
+After installation, three systemd services are started and enabled, viz. `kea-dhcp4-server`, `kea-dhcp6-server`, and `kea-dhcp-ddns-server`. However, no subnet declarations are defined, so the servers will not listen or respond to any queries.
+
+```console
+vagrant@debian12:~$ systemctl list-units kea-dhcp*
+  UNIT                         LOAD   ACTIVE SUB     DESCRIPTION         
+  kea-dhcp-ddns-server.service loaded active running Kea DDNS Service
+  kea-dhcp4-server.service     loaded active running Kea IPv4 DHCP daemon
+  kea-dhcp6-server.service     loaded active running Kea IPv6 DHCP daemon
+```
+
+Configuration is stored in the `/etc/kea` directory:
+
+```console
+vagrant@debian12:~$ tree /etc/kea/
+/etc/kea/
+├── kea-ctrl-agent.conf
+├── kea-dhcp4.conf
+├── kea-dhcp6.conf
+└── kea-dhcp-ddns.conf
+
+1 directory, 4 files
+```
+
 ## configuring kea for a simple local network
 
-The default configuration file contains a lot of comments and examples that are not needed for a simple local network. We suggest that you put it aside and start with the contents of `/usr/share/doc/kea/examples/kea4/single-subnet.json`.
+On EL, the default configuration file contains a lot of comments and examples that are not needed for a simple local network. We suggest that you put it aside and start with the contents of `/usr/share/doc/kea/examples/kea4/single-subnet.json`.
 
 ```console
 [vagrant@kea-el ~]$ sudo cp /etc/kea/kea-dhcp4.conf /usr/share/doc/kea/kea-dhcp4.conf.rpmnew
@@ -51,59 +82,57 @@ The configuration file should look like this:
 // Kea DHCPv4 configuration for a single subnet
 { "Dhcp4":
 
-{
-// Kea is told to only listen on eth1
-  "interfaces-config": {
-    "interfaces": [ "eth1" ]
-  },
-
-// Leases will be kept in memory.
-  "lease-database": {
-      "type": "memfile",
-      "lfc-interval": 3600
-  },
-
-// Addresses will be assigned with a default lease time of 8 hours,
-// minimal lease time of 4 hours and maximum 10 hours.
-  "valid-lifetime":     28800,
-  "min-valid-lifetime": 14400,
-  "max-valid-lifetime": 36000,
-
-// Subnet declaration for the LAN
-  "subnet4": [
     {
-       "pools": [ { "pool":  "192.168.42.101 - 192.168.42.252" } ],
-       "subnet": "192.168.42.0/24",
-       "interface": "eth1",
-       "option-data": [
-         {
-           "name": "domain-name-servers",
-           "data": "10.0.2.3"
-         },
-         {
-           "name": "routers",
-           "data": "192.168.42.254"
-         }
-       ]
+        // Kea is told to only listen on eth1
+        "interfaces-config": {
+            "interfaces": [ "eth1" ]
+        },
+
+        // Leases will be kept in memory.
+        "lease-database": {
+            "type": "memfile",
+            "lfc-interval": 3600
+        },
+
+        // Addresses will be assigned with a default lease time of 8 hours,
+        // minimal lease time of 4 hours and maximum 10 hours.
+        "valid-lifetime":     28800,
+        "min-valid-lifetime": 14400,
+        "max-valid-lifetime": 36000,
+
+        // Subnet declaration for the LAN
+        "subnet4": [
+            {
+                "pools": [ { "pool":  "192.168.42.101 - 192.168.42.252" } ],
+                "subnet": "192.168.42.0/24",
+                "interface": "eth1",
+                "option-data": [
+                    {
+                        "name": "domain-name-servers",
+                        "data": "10.0.2.3"
+                    },
+                    {
+                        "name": "routers",
+                        "data": "192.168.42.254"
+                    }
+                ]
+            }
+        ],
+
+        // Logging configuration. Messages with at least informational level (info,
+        // warn, error and fatal) are logged to syslog.
+        "loggers": [
+            {
+                "name": "kea-dhcp4",
+                "output_options": [
+                    {
+                        "output": "syslog"
+                    }
+                ],
+                "severity": "INFO"
+            }
+        ]
     }
-  ],
-
-
-// Logging configuration. Messages with at least informational level (info,
-// warn, error and fatal) are logged to syslog.
-    "loggers": [
-        {
-            "name": "kea-dhcp4",
-            "output_options": [
-                {
-                    "output": "syslog"
-                }
-            ],
-            "severity": "INFO"
-        }
-    ]
-}
-
 }
 ```
 
