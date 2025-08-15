@@ -65,7 +65,50 @@ Apart from the two big families of distributions, i.e. Red Hat and Debian famili
 
 - [Arch Linux](https://archlinux.org): another independent general purpose distribution. Arch Linux is a rolling release distribution, which means that you install it once and then continuously update individual packages when new versions become available. The distribution itself does not have an overarching (see what I did there?) release cycle. Arch has its own package manager, Pacman. One of the most notable features of Arch Linux is its outstanding documentation, which is very extensive and well written and even quite useful for users of other distributions. Installing Arch Linux is not as straightforward as installing other distributions: you start with a minimal system with the kernel and a shell, and then you build up the system to your own liking. This is not for novice users, but it is a great way to learn about the inner workings of a Linux system.
 
+    A notable variant on Arch Linux is [Omarchy](https://omarchy.org). It is a build script that installs a curated selection of packages and settings on a minimal Arch installation. The graphical environment is Hyprland, a so-called *tiling window manager*. Hyprland is optimized for keyboard use, so you don't have to switch between mouse and keyboard constantly.
+
+- [Gentoo Linux](https://www.gentoo.org) is a source-based Linux distribution. Instead of installing pre-built binary kernel images and packages, you build everything from source. The Gentoo Handbook guides you throughout the entire process. The installation process is complex and time-consuming, but it allows you to learn a lot about how a Linux system works and, you can optimize the build for your specific hardware.
+
 - [openSUSE](https://www.opensuse.org): a general purpose community driven distribution that is sponsored by SUSE, a German company that also offers commercial support for derivative distro's [SUSE Linux Enterprise Server](https://www.suse.com/products/server/) (SLES) and [Desktop](https://www.suse.com/products/desktop/) (SLED). openSUSE is known for its YaST (Yet another Setup Tool) configuration tool, which is a central place to configure many aspects of the system. openSUSE comes in two flavours: Leap and Tumbleweed. Leap is a regular release distribution with a fixed release cycle, while Tumbleweed is a rolling release distribution.
+
+## Immutable and container-based distributions
+
+Recently, so-called *immutable* Linux distributions have gained considerable interest in the community. The idea is that the base installation (i.e. the Linux kernel and core libraries and applications) is made read-only during normal use. Updates are typically downloaded and prepared in the background. To use the updated system, it is sufficient to reboot the machine. When an update is problematic, it is possible to roll back to the previous working version.
+
+This has a few advantages:
+
+- It is more difficult to tamper with the system. Malware can't easily persist since system files can't be overwritten or altered.
+- Upgrades are *atomic*, i.e. they either succeed completely or fail completely. This way, broken systems due to partially failed upgrades can be avoided.
+- The base image is identical in all deployments. This is advantageous for quality assurance and testing, because there are less "moving parts".
+
+Disadvantages include:
+
+- Less flexibility, especially for power users. All necessary kernel modules (e.g. to support specific hardware like NVIDIA graphics cards, or virtualization engines like VirtualBox) must be present in the base OS image. When a module that you need is not supported out-of-the-box, it is much more difficult to create a custom image that includes them.
+- It's not possible to update just a single system component, the entire OS image must be replaced with a new version.
+- Normal package management tools (`dnf`, `apt`, etc.) is typically not available.
+
+### Fedora Atomic Desktop and derivatives
+
+The Fedora project has several immutable spins under the [Atomic Desktop](https://fedoraproject.org/atomic-desktops/) brand, a.o. Silverblue (with the Gnome desktop), Kinoite (with the KDE Plasma desktop), Sway Atomic (with the tiling desktop manager Sway), etc.
+
+The Fedora Atomic Desktop spins allow you to install additional desktop applications through FlatPak, a container based package manager. Each application runs in a separate container that is isolated from the base system.
+
+The [Universal Blue](https://universal-blue.org) project builds on this technology by providing additional custom images. These typically include NVIDIA's own drivers (instead of the open source [nouveau drivers](https://nouveau.freedesktop.org) that are usually shipped with Fedora). Installing GUI applications is done with FlatPak and CLI applications with HomeBrew.
+
+They focus on specific use cases, like:
+
+- Aurora: a customized KDE Plasma 6 desktop, suited for all types of use.
+- Bluefin: includes the Gnome desktop and is designed with developers in mind with a focus on containerized workflows.
+- Bazzite: specific for gamers, includes Steam and Lutris, supports handheld PC's.
+- uCore: server image that includes ZFS support, tailscale, wireguard, etc., ready for running containerized workloads.
+
+### NixOS
+
+NixOS's first release dates from 2003 and was the result of a research project with the goal of designing a system for reliable software deployment. The complete configuration of a NixOS system is described declaratively in a unique configuration language.
+
+Upgrades are atomic (i.e. will either be applied completely or not at all) an can be rolled back. NixOS builds are reproducable, i.e. the same configuration will result in exactly the same system state (services, packages, settings).
+
+The Nix package manager is also unique in several ways. Instead of installing a package using a command like `apt` or `dnf`, you edit the configuration file describing the desired system state. Running `nixos-rebuild switch` applies the configuration in one atomic step. Packages are stored in isolation and are identified by a cryptographic hash that is generated from the package source and build options. This implies that several versions of the same package can coexist on a NixOS installation without interfering. Packages are built from source, but pre-built binaries are provided and are downloaded automatically when they are available.
 
 ## Which to choose?
 
