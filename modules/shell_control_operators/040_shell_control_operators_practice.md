@@ -1,10 +1,10 @@
 ## practice: control operators
 
-0. Each question can be answered by one command line!
+Each question can be answered by one command line!
 
-1. When you type `passwd`, which file is executed ?
+1. When you type `passwd`, which file is executed?
 
-2. What kind of file is that ?
+2. What kind of file is that?
 
 3. Execute the `pwd` command twice. (remember 0.)
 
@@ -16,7 +16,7 @@
 when the `touch` failed. All on one command line as a normal user (not
 root). Test this line in your home directory and in `/bin/` .
 
-7. Execute `sleep 6`, what is this command doing ?
+7. Execute `sleep 6`, what is this command doing?
 
 8. Execute `sleep 200` in background (do not wait for it to finish).
 

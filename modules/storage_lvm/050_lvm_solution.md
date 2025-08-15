@@ -1,10 +1,10 @@
 ## solution : lvm
 
-1. Create a volume group that contains a complete disk and a partition
-on another disk.
+1. Create a volume group that contains a complete disk and a partition on another disk.
 
-step 1: select disks:
+    step 1: select disks:
 
+    ```
     root@linux:~# fdisk -l | grep Disk
     Disk /dev/sda: 8589 MB, 8589934592 bytes
     Disk identifier: 0x00055ca0
@@ -13,11 +13,13 @@ step 1: select disks:
     Disk /dev/sdc: 1073 MB, 1073741824 bytes
     Disk identifier: 0x00000000
     ...
+    ```
 
-I choose /dev/sdb and /dev/sdc for now.
+    I choose /dev/sdb and /dev/sdc for now.
 
-step 2: partition /dev/sdc
+    step 2: partition /dev/sdc
 
+    ```
     root@linux:~# fdisk /dev/sdc
     Device contains neither a valid DOS partition table, nor Sun, SGI or OSF disk\
     label
@@ -47,19 +49,21 @@ step 2: partition /dev/sdc
 
     Calling ioctl() to re-read partition table.
     Syncing disks.
+    ```
 
-step 3: pvcreate and vgcreate
+    step 3: pvcreate and vgcreate
 
+    ```
     root@linux:~# pvcreate /dev/sdb /dev/sdc1
       Physical volume "/dev/sdb" successfully created
       Physical volume "/dev/sdc1" successfully created
     root@linux:~# vgcreate VG42 /dev/sdb /dev/sdc1
       Volume group "VG42" successfully created
+    ```
 
-2. Create two logical volumes (a small one and a bigger one) in this
-volumegroup. Format them wih ext3, mount them and copy some files to
-them.
+2. Create two logical volumes (a small one and a bigger one) in this volumegroup. Format them wih ext3, mount them and copy some files to them.
 
+    ```
     root@linux:~# lvcreate --size 200m --name LVsmall VG42
       Logical volume "LVsmall" created
     root@linux:~# lvcreate --size 600m --name LVbig VG42
@@ -118,21 +122,24 @@ them.
 
     This filesystem will be automatically checked every 25 mounts or
     180 days, whichever comes first.  Use tune2fs -c or -i to override.
+    ```
 
-The mounting and copying of files.
+    The mounting and copying of files.
 
+    ```
     root@linux:~# mkdir /srv/LVsmall
     root@linux:~# mkdir /srv/LVbig
     root@linux:~# mount /dev/mapper/VG42-LVsmall /srv/LVsmall
     root@linux:~# mount /dev/VG42/LVbig /srv/LVbig
     root@linux:~# cp -r /etc /srv/LVsmall/
     root@linux:~# cp -r /var/log /srv/LVbig/
+    ```
 
-3. Verify usage with fdisk, mount, pvs, vgs, lvs, pvdisplay, vgdisplay,
-lvdisplay and df. Does fdisk give you any information about lvm?
+3. Verify usage with fdisk, mount, pvs, vgs, lvs, pvdisplay, vgdisplay, lvdisplay and df. Does fdisk give you any information about lvm?
 
-Run all those commands (only two are shown below), then answer 'no'.
+    Run all those commands (only two are shown below), then answer 'no'.
 
+    ```
     root@linux:~# df -h 
     Filesystem            Size  Used Avail Use% Mounted on
     /dev/mapper/VolGroup-lv_root
@@ -146,10 +153,11 @@ Run all those commands (only two are shown below), then answer 'no'.
     root@linux:~# mount | grep VG42
     /dev/mapper/VG42-LVsmall on /srv/LVsmall type ext3 (rw)
     /dev/mapper/VG42-LVbig on /srv/LVbig type ext3 (rw)
+    ```
 
-4. Enlarge the small logical volume by 50 percent, and verify your
-work!
+4. Enlarge the small logical volume by 50 percent, and verify your work!
 
+    ```
     root@linux:~# lvextend VG42/LVsmall -l+50%LV
       Extending logical volume LVsmall to 300.00 MiB
       Logical volume LVsmall successfully resized
@@ -165,8 +173,9 @@ work!
     /dev/mapper/VG42-LVsmall
                           291M   31M  246M  12% /srv/LVsmall
     root@linux:~#
+    ```
 
-5. Take a look at other commands that start with vg\* , pv\* or lv\*.
+5. Take a look at other commands that start with `vg*`, `pv*` or `lv*`.
 
 6. Create a mirror and a striped Logical Volume.
 
@@ -174,13 +183,9 @@ work!
 
 8. Convert a mirror logical volume to a linear.
 
-9. Create a snapshot of a Logical Volume, take a backup of the
-snapshot. Then delete some files on the Logical Volume, then restore
-your backup.
+9. Create a snapshot of a Logical Volume, take a backup of the snapshot. Then delete some files on the Logical Volume, then restore your backup.
 
-10. Move your volume group to another disk (keep the Logical Volumes
-mounted).
+10. Move your volume group to another disk (keep the Logical Volumes mounted).
 
-11. If time permits, split a Volume Group with vgsplit, then merge it
-again with vgmerge.
+11. If time permits, split a Volume Group with vgsplit, then merge it again with vgmerge.
 

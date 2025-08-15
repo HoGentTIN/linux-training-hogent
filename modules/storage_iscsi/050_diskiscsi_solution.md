@@ -1,85 +1,83 @@
 ## solution: iSCSI devices
 
-1. Set up a target (using an LVM and a SCSI device) and an initiator
-that connects to both.
+1. set up a target (using an LVM and a SCSI device) and an initiator that connects to both.
 
-This solution was done on `Debian/ubuntu/Mint`. For RHEL/CentOS check
-the theory.
+    This solution was done on `Debian/ubuntu/Mint`. For RHEL/CentOS check the theory.
 
-Decide (with a partner) on a computer to be the Target and another
-computer to be the Initiator.
+    Decide (with a partner) on a computer to be the Target and another computer to be the Initiator.
 
-`On the Target computer:`
+    On the Target computer:
 
-First install iscsitarget using the standard tools for installing
-software in your distribution. Then use your knowledge from the previous
-chapter to setup a logical volume (/dev/vg/lvol0) and use the RAID
-chapter to setup /dev/md0. Then perform the following step:
+    First install iscsitarget using the standard tools for installing software in your distribution. Then use your knowledge from the previous chapter to setup a logical volume (/dev/vg/lvol0) and use the RAID chapter to setup /dev/md0. Then perform the following step:
 
-    vi /etc/default/iscsitarget (set enable to true)
+        vi /etc/default/iscsitarget (set enable to true)
 
-Add your devices to /etc/iet/ietf.conf
+    Add your devices to /etc/iet/ietf.conf
 
-    root@debby6:/etc/iet# cat ietd.conf
-    Target iqn.2010-02.be.linux-training:storage.lun1
-     IncomingUser isuser hunter2
-     OutgoingUser
-     Lun 0 Path=/dev/vg/lvol0,Type=fileio
-     Alias LUN1
-    Target iqn.2010-02.be.linux-training:storage.lun2
-     IncomingUser isuser hunter2
-     OutgoingUser
-     Lun 0 Path=/dev/md0,Type=fileio
-     Alias LUN2
+        ```console
+        root@debby6:/etc/iet# cat ietd.conf
+        Target iqn.2010-02.be.linux-training:storage.lun1
+        IncomingUser isuser hunter2
+        OutgoingUser
+        Lun 0 Path=/dev/vg/lvol0,Type=fileio
+        Alias LUN1
+        Target iqn.2010-02.be.linux-training:storage.lun2
+        IncomingUser isuser hunter2
+        OutgoingUser
+        Lun 0 Path=/dev/md0,Type=fileio
+        Alias LUN2
+        ```
 
-Add both devices to /etc/iet/initiators.allow
+    Add both devices to /etc/iet/initiators.allow
 
-    root@debby6:/etc/iet# cat initiators.allow
-    iqn.2010-02.be.linux-training:storage.lun1
-    iqn.2010-02.be.linux-training:storage.lun2
+        ```console
+        root@debby6:/etc/iet# cat initiators.allow
+        iqn.2010-02.be.linux-training:storage.lun1
+        iqn.2010-02.be.linux-training:storage.lun2
+        ```
 
-Now start the iscsitarget daemon and move over to the Initiator.
+    Now start the iscsitarget daemon and move over to the Initiator.
 
-`On the Initiator computer:`
+    On the Initiator computer:
 
-Install open-iscsi and start the daemon.
+    Install open-iscsi and start the daemon.
 
-Then use `iscsiadm -m discovery -t st -p 'target-ip'` to see the iscsi
-devices on the Target.
+    Then use `iscsiadm -m discovery -t st -p 'target-ip'` to see the iscsi devices on the Target.
 
-Edit the files `/etc/iscsi/nodes/` as shown in the book. Then restart
-the iSCSI daemon and rund `fdisk -l` to see the iSCSI devices.
+    Edit the files `/etc/iscsi/nodes/` as shown in the book. Then restart the iSCSI daemon and rund `fdisk -l` to see the iSCSI devices.
 
-2. Set up an iSCSI Target and Initiator on two CentOS7/RHEL7 computers
-with the following information:
+2. Set up an iSCSI Target and Initiator on two CentOS7/RHEL7 computers with the following information:
 
-  -------------------------------------------------------------
-  variable                     value
-  ---------------------------- --------------------------------
-  Target Server IP             192.168.1.143 (Adjust for your
-                               subnet!)
+    ```
+    -------------------------------------------------------------
+    variable                     value
+    ---------------------------- --------------------------------
+    Target Server IP             192.168.1.143 (Adjust for your
+                                subnet!)
 
-  shared devices on target     /dev/sdb /dev/sdc /dev/sdd
+    shared devices on target     /dev/sdb /dev/sdc /dev/sdd
 
-  shared device name sdb       target.disk1
+    shared device name sdb       target.disk1
 
-  shared device name sdc       target.disk2
+    shared device name sdc       target.disk2
 
-  shared device name sdd       target.disk3
+    shared device name sdd       target.disk3
 
-  target iqn                   iqn.2015-04.be.linux:target
+    target iqn                   iqn.2015-04.be.linux:target
 
-  initiator iqn                iqn.2015-04.be.linux:initiator
+    initiator iqn                iqn.2015-04.be.linux:initiator
 
-  username                     paul
+    username                     paul
 
-  password                     hunter2
-  -------------------------------------------------------------
+    password                     hunter2
+    -------------------------------------------------------------
 
-  : iSCSI Target and Initiator practice
+    : iSCSI Target and Initiator practice
+    ```
 
-On the iSCSI Target server:
+    On the iSCSI Target server:
 
+    ```console
     [root@linux ~]# targetcli
     targetcli shell version 2.1.fb37
     Copyright 2011-2013 by Datera, Inc and others.
@@ -171,9 +169,11 @@ On the iSCSI Target server:
     ln -s '/usr/lib/systemd/system/target.service' '/etc/systemd/system/multi-user.target.wants/target.service'
     [root@linux ~]# systemctl start target
     [root@linux ~]# setenforce 0
+    ```
 
-On the Initiator:
+    On the Initiator:
 
+    ```console
     [root@linux ~]# cat /etc/iscsi/initiatorname.iscsi
     InitiatorName=iqn.2015-04.be.linux:initiator
     [root@linux ~]# vi /etc/iscsi/iscsid.conf
@@ -215,4 +215,6 @@ On the Initiator:
     Disk /dev/sdh: 8589 MB, 8589934592 bytes, 16777216 sectors
     Disk /dev/sdi: 8589 MB, 8589934592 bytes, 16777216 sectors
     [root@linux ~]# 
+    ```
+
 

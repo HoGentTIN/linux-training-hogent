@@ -2,16 +2,16 @@
 
 1. Use `ps` to search for the `init` process by name.
 
-2. What is the `process id` of the `init` process ?
+2. What is the `process id` of the `init` process?
 
 3. Use the `who am i` command to determine your terminal name.
 
 4. Using your terminal name from above, use `ps` to find all processes
 associated with your terminal.
 
-5. What is the `process id` of your shell ?
+5. What is the `process id` of your shell?
 
-6. What is the `parent process id` of your shell ?
+6. What is the `parent process id` of your shell?
 
 7. Start two instances of the `sleep 3342` in background.
 
@@ -22,4 +22,5 @@ associated with your terminal.
 10. Use a `standard kill` to kill one of the `sleep` processes.
 
 11. Use one command to kill all `sleep` processes.
+
 

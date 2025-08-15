@@ -2,6 +2,7 @@
 
 1. Create a new directory and create six `pipes` in that directory.
 
+    ```console
     [student@linux ~]$ mkdir pipes ; cd pipes
     [student@linux pipes]$ mkfifo p1 p2 p3 p4 p5 p6
     [student@linux pipes]$ ls -l
@@ -12,19 +13,22 @@
     prw-rw-r-- 1 paul paul 0 Apr 12 22:15 p4
     prw-rw-r-- 1 paul paul 0 Apr 12 22:15 p5
     prw-rw-r-- 1 paul paul 0 Apr 12 22:15 p6
+    ```
 
 2. Bounce a character between two `pipes`.
 
+    ```
     [student@linux pipes]$ echo -n x | cat - p1 > p2 &
     [1] 4013
     [student@linux pipes]$ cat <p2 >p1 &
     [2] 4016
+    ```
 
-3. Use `top` and `ps` to display information (pid, ppid, priority, nice
-value, ...) about these two cat processes.
+3. Use `top` and `ps` to display information (pid, ppid, priority, nice value, ...) about these two cat processes.
 
-    top (probably the top two lines)
+    > top (probably the top two lines)
 
+    ```console
     [student@linux pipes]$ ps -C cat
       PID TTY          TIME CMD
      4013 pts/0    00:03:38 cat
@@ -34,28 +38,32 @@ value, ...) about these two cat processes.
      4013 pts/0    R      4:00  |           \_ cat - p1
      4016 pts/0    S      1:13  |           \_ cat
      4044 pts/0    S+     0:00  |           \_ grep cat
+     ```
 
 4. Bounce another character between two other pipes, but this time
 start the commands `nice`. Verify that all `cat` processes are battling
 for the cpu. (Feel free to fire up two more cats with the remaining
 pipes).
 
+    ```bash
     echo -n y | nice cat - p3 > p4 &
     nice cat <p4 >p3 &
+    ```
 
-5. Use `ps` to verify that the two new `cat` processes have a `nice`
-value. Use the -o and -C options of `ps` for this.
+5. Use `ps` to verify that the two new `cat` processes have a `nice` value. Use the `-o` and `-C` options of `ps` for this.
 
+    ```console
     [student@linux pipes]$ ps -C cat -o pid,ppid,pri,ni,comm
       PID  PPID PRI  NI COMMAND
      4013  3947  14   0 cat
      4016  3947  21   0 cat
      4025  3947  13  10 cat
      4026  3947  13  10 cat
+     ```
 
-6. Use `renice` te increase the nice value from 10 to 15. Notice the
-difference with the usual commands.
+6. Use `renice` to increase the nice value from 10 to 15. Notice the difference with the usual commands.
 
+    ```
     [student@linux pipes]$ renice +15 4025
     4025: old priority 10, new priority 15
     [student@linux pipes]$ renice +15 4026
@@ -67,4 +75,4 @@ difference with the usual commands.
      4016  3947  21   0 cat
      4025  3947   9  15 cat
      4026  3947   8  15 cat
-
+    ```
