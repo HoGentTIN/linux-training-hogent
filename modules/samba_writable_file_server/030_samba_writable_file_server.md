@@ -23,7 +23,7 @@ access to a share.
 
 Then we simply add a share to our file server by editing
 `smb.conf`. Below the check with testparm. (We could have
-changed the description of the server\...)
+changed the description of the server...)
 
     [root@linux samba]# testparm
     Load smb config files from /etc/samba/smb.conf

@@ -45,7 +45,7 @@ before the current line.
 
 ## replace and delete a character (r x X)
 
-When in command mode (it doesn\'t hurt to hit the escape key more than
+When in command mode (it doesn't hurt to hit the escape key more than
 once) you can use the x key to delete the current character. The big X
 key (or shift x) will delete the character left of the cursor. Also when
 in command mode, you can use the r key to replace one single character.
@@ -338,8 +338,8 @@ abbreviation.
   ---------------------------------------------------------
         command        action
   -------------------- ------------------------------------
-  :ab str long string  abbreviate `str` to be \'long
-                       string\'
+  :ab str long string  abbreviate `str` to be 'long
+                       string'
 
         :una str       un-abbreviate str
   ---------------------------------------------------------

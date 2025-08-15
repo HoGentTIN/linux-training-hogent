@@ -458,7 +458,7 @@ o is optional.
 
 You can demand an exact number of times the oprevious has to occur.
 
-This example wants exactly three o\'s.
+This example wants exactly three o's.
 
     student@linux:~$ cat list2
     ll

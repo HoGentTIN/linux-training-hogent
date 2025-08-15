@@ -158,7 +158,7 @@ The `winbind daemon` (winbindd) is only started to handle
 Microsoft Windows domain membership.
 
 Note that `winbindd` is started by the
-`/etc/init.d/winbind` script (two dd\'s for the daemon and
+`/etc/init.d/winbind` script (two dd's for the daemon and
 only one d for the script).
 
     [root@linux ~]# /etc/init.d/winbind start

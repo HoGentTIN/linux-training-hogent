@@ -41,7 +41,7 @@ owns this file now ?
 
     The file created by root is owned by root.
 
-5. Change the ownership of all files in \~/permissions to yourself.
+5. Change the ownership of all files in ~/permissions to yourself.
 
     ```console
     [student@linux ~]$ chown student ~/permissions/*

@@ -116,7 +116,7 @@ isdn module depends in the slhc module.
 The big advantage of `modprobe` over
 `insmod` is that modprobe will load all necessary modules,
 whereas insmod requires manual loading of dependencies. Another
-advantage is that you don\'t need to point to the filename with full
+advantage is that you don't need to point to the filename with full
 path.
 
 This screenshot shows how modprobe loads the isdn module, automatically

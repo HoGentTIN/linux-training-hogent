@@ -88,10 +88,10 @@ from a device to the CPU. A device raises an interrupt when it requires
 the attention of the CPU (could be because the device has data ready to
 be read by the CPU).
 
-Since the introduction of pci, irq\'s can be shared among devices.
+Since the introduction of pci, irq's can be shared among devices.
 
 Interrupt 0 is always reserved for the timer, interrupt 1 for the
-keyboard. IRQ 2 is used as a channel for IRQ\'s 8 to 15, and thus is the
+keyboard. IRQ 2 is used as a channel for IRQ's 8 to 15, and thus is the
 same as IRQ 9.
 
 ### /proc/interrupts
@@ -119,7 +119,7 @@ You can see a listing of interrupts on your system in
 
 ### dmesg
 
-You can also use `dmesg` to find irq\'s allocated at boot
+You can also use `dmesg` to find irq's allocated at boot
 time.
 
     student@linux:~$ dmesg | grep "irq 1[45]"
@@ -134,12 +134,12 @@ time.
 Communication in the other direction, from CPU to device, happens
 through `IO ports`. The CPU writes data or control codes
 to the IO port of the device. But this is not only a one way
-communication, the CPU can also use a device\'s IO port to read status
+communication, the CPU can also use a device's IO port to read status
 information about the device. Unlike interrupts, ports cannot be shared!
 
 ### /proc/ioports
 
-You can see a listing of your system\'s IO ports via
+You can see a listing of your system's IO ports via
 `/proc/ioports`.
 
     [root@linux ~]# cat /proc/ioports 

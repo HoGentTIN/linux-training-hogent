@@ -63,7 +63,7 @@ contains part of the hosts mac address:
               inet addr:192.168.1.29  Bcast:192.168.1.255  Mask:255.255.255.0
               inet6 addr: fe80::a00:27ff:feab:6730/64 Scope:Link
 
-Some people are concerned about privacy here\...
+Some people are concerned about privacy here...
 
 ## ipv4 mapped ipv6 address
 
@@ -73,7 +73,7 @@ ipv6 address then looks like this:
 
     ::ffff:192.168.1.42/96
 
-Indeed a mix of decimal and hexadecimal characters\...
+Indeed a mix of decimal and hexadecimal characters...
 
 ## link local addresses
 
@@ -109,7 +109,7 @@ first 16-bits.
 
 ## 6to4
 
-`6to4` is defined in rfc\'s 2893 and 3056 as one possible way to
+`6to4` is defined in rfc's 2893 and 3056 as one possible way to
 transition between ipv4 and ipv6 by creating an ipv6 tunnel.
 
 It encodes an ipv4 address in an ipv6 address that starts with `2002`.
@@ -139,7 +139,7 @@ are reserved for examples, and not routable on the internet.
 ## ping6
 
 Use `ping6` to test connectivity between ipv6 hosts. You need to specify
-the interface (there is no routing table for \'random\' generated ipv6
+the interface (there is no routing table for 'random' generated ipv6
 link local addresses).
 
     [root@fedora14 ~]# ping6 -I eth0 fe80::a00:27ff:fecd:7ffc

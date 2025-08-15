@@ -120,7 +120,7 @@ Een overzichtje met voorbeelden:
 
 ## oefening network id en host id
 
-1\. Noteer de `network id` en `host id` voor de volgende ip-adressen.
+1. Noteer de `network id` en `host id` voor de volgende ip-adressen.
 
     192.168.42.42
 
@@ -164,7 +164,7 @@ Een overzichtje met voorbeelden (gebruik standaard subnet mask):
 
 ## oefening lokale computer of niet?
 
-1\. Staan de volgende computers in hetzelfde netwerk ?
+1. Staan de volgende computers in hetzelfde netwerk ?
 
     192.168.1.42 en 192.168.1.33
 

@@ -102,7 +102,7 @@ made sure /etc/resolv.conf points to himself
 
 start windows 2003 server, enter the samba4 as DNS!
 
-ping the domain, if it doesn\'t work, then add your redhats hostname and
+ping the domain, if it doesn't work, then add your redhats hostname and
 your realm to windows/system32/drivers/etc/hosts
 
 join the windows computer to the domain

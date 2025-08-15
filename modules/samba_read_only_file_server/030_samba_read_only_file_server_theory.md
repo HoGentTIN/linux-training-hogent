@@ -1,6 +1,6 @@
 ## Setting up a directory to share
 
-Let\'s start with setting up a very simple read only file server with
+Let's start with setting up a very simple read only file server with
 Samba. Everyone (even anonymous guests) will receive read access.
 
 The first step is to create a directory and put some test files in it.
@@ -34,7 +34,7 @@ explorer or smbclient.
 You might have noticed the line with `security = share`.
 This line sets the default security mode for our samba server. Setting
 the security mode to `share` will allow clients (smbclient, any windows,
-another Samba server, \...) to provide a password for each share. This
+another Samba server, ...) to provide a password for each share. This
 is one way of using the SMB/CIFS protocol. The other way (called
 `user mode`) will allow the client to provide a username/password
 combination, before the server knows which share the client wants to
@@ -65,7 +65,7 @@ Here is a very similar configuration on Ubuntu 11.10.
     read only = yes
     guest ok = yes
 
-It doesn\'t really matter which Linux distribution you use. Below the
+It doesn't really matter which Linux distribution you use. Below the
 same config on Debian 6, as good as identical.
 
     root@linux:~# cat /etc/samba/smb.conf
@@ -80,7 +80,7 @@ same config on Debian 6, as good as identical.
 
 ## restart the server
 
-After testing with `testparm`, restart the samba server (so you don\'t
+After testing with `testparm`, restart the samba server (so you don't
 have to wait).
 
     [root@linux readonly]# service smb restart
@@ -148,7 +148,7 @@ Just to be on the safe side, let us try writing.
 
     K:\>
 
-Or you can use windows explorer\...
+Or you can use windows explorer...
 
 ![](assets/sambareadonly.jpg)
 

@@ -1,7 +1,7 @@
 ## solution: basic Unix tools
 
-1\. Explain the difference between these two commands. This question is
-very important. If you don\'t know the answer, then look back at the
+1. Explain the difference between these two commands. This question is
+very important. If you don't know the answer, then look back at the
 `shell` chapter.
 
     find /data -name "*.txt"
@@ -15,7 +15,7 @@ When `*.txt` is not quoted then the shell might expand this (when one or
 more files that ends in `.txt` exist in the current directory). The
 `find` might show a different result, or can result in a syntax error.
 
-2\. Explain the difference between these two statements. Will they both
+2. Explain the difference between these two statements. Will they both
 work when there are 200 `.odf` files in `/data` ? How about when there
 are 2 million .odf files ?
 
@@ -34,7 +34,7 @@ With two million files the command line would be expanded beyond the
 maximum that the shell can accept. The last part of the command line
 would be lost.
 
-3\. Write a find command that finds all files created after January 30th
+3. Write a find command that finds all files created after January 30th
 2010.
 
     touch -t 201001302359 marker_date
@@ -43,7 +43,7 @@ would be lost.
     There is another solution :
     find . -type f -newerat "20100130 23:59:59"
 
-4\. Write a find command that finds all \*.odf files created in
+4. Write a find command that finds all \*.odf files created in
 September 2009.
 
     touch -t 200908312359 marker_start
@@ -52,11 +52,11 @@ September 2009.
 
 The exclamation mark `! -newer` can be read as `not newer`.
 
-5\. Count the number of \*.conf files in /etc and all its subdirs.
+5. Count the number of \*.conf files in /etc and all its subdirs.
 
     find /etc -type f -name '*.conf' | wc -l
 
-6\. Here are two commands that do the same thing: copy \*.odf files to
+6. Here are two commands that do the same thing: copy \*.odf files to
 /backup/ . What would be a reason to replace the first command with the
 second ? Again, this is an important question.
 
@@ -67,14 +67,14 @@ second ? Again, this is an important question.
 The first might fail when there are too many files to fit on one command
 line.
 
-7\. Create a file called `loctest.txt`. Can you find this file with
+7. Create a file called `loctest.txt`. Can you find this file with
 `locate` ? Why not ? How do you make locate find this file ?
 
 You cannot locate this with `locate` because it is not yet in the index.
 
     updatedb
 
-8\. Use find and -exec to rename all .htm files to .html.
+8. Use find and -exec to rename all .htm files to .html.
 
     student@linux ~$ find . -name '*.htm'
     ./one.htm
@@ -84,11 +84,11 @@ You cannot locate this with `locate` because it is not yet in the index.
     ./one.html
     ./two.html
 
-9\. Issue the `date` command. Now display the date in YYYY/MM/DD format.
+9. Issue the `date` command. Now display the date in YYYY/MM/DD format.
 
     date +%Y/%m/%d
 
-10\. Issue the `cal` command. Display a calendar of 1582 and 1752.
+10. Issue the `cal` command. Display a calendar of 1582 and 1752.
 Notice anything special ?
 
     cal 1582

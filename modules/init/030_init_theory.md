@@ -126,7 +126,7 @@ of the seven will be executed, depending on the runlevel set by
 ### rc directories
 
 When you take a look any of the `/etc/rcX.d/` directories,
-then you will see a lot of (links to) scripts who\'s name start with
+then you will see a lot of (links to) scripts who's name start with
 either uppercase K or uppercase S.
 
     [root@linux rc3.d]# ls -l | tail -4
@@ -181,7 +181,7 @@ daemon will `respawn` a new mingetty. So even if you
 `kill` a mingetty daemon, it will be restarted automatically.
 
 This example shows that init respawns mingetty daemons. Look at the
-PID\'s of the last two mingetty processes.
+PID's of the last two mingetty processes.
 
     [root@linux ~]# ps -C mingetty
       PID TTY          TIME CMD
@@ -210,7 +210,7 @@ notice this and start them again (with a different PID).
 #### disabling a mingetty
 
 You can disable a mingetty for a certain tty by removing the runlevel
-from the second field in its line in /etc/inittab. Don\'t forget to tell
+from the second field in its line in /etc/inittab. Don't forget to tell
 init about the change of its configuration file with
 `kill -1 1`.
 
@@ -242,10 +242,10 @@ Handbook has the following to say about daemons:
 implying some kind of satanic connection between UNIX and the
 underworld. This is an egregious misunderstanding. \"Daemon\" is
 actually a much older form of \"demon\"; daemons have no particular bias
-towards good or evil, but rather serve to help define a person\'s
-character or personality. The ancient Greeks\' concept of a \"personal
+towards good or evil, but rather serve to help define a person's
+character or personality. The ancient Greeks' concept of a \"personal
 daemon\" was similar to the modern concept of a \"guardian angel\"
-\...*.
+...*.
 
 ## starting and stopping daemons
 
@@ -691,7 +691,7 @@ And here an example on how to see the status of the `sshd` service.
 
 ### systemd services
 
-The `chkconfig` and `service` commands are considered \'legacy\'. They
+The `chkconfig` and `service` commands are considered 'legacy'. They
 are replaced with `systemctl`.
 
 This screenshot shows the new way to start and stop a service.
@@ -795,7 +795,7 @@ other RHEL server.
 
 ### there is more systemd
 
-There are other tools\...
+There are other tools...
 
     systemd-analyze                 systemd-loginctl
     systemd-ask-password            systemd-machine-id-setup

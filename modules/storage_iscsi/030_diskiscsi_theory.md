@@ -23,7 +23,7 @@ Start with installing the `iSCSI Target` package.
     yum install scsi-target-utils
 
 We configure three local disks in `/etc/tgt/targets.conf` to become
-three LUN\'s.
+three LUN's.
 
     <target iqn.2008-09.com.example:server.target2>
         direct-store /dev/sdb
@@ -45,7 +45,7 @@ can verify this with `netstat`.
     tcp    0   0 :::3260            :::*               LISTEN      1670/tgtd
 
 The `tgt-admin -s` command should now give you a nice overview of the
-three LUN\'s (and also LUN 0 for the controller).
+three LUN's (and also LUN 0 for the controller).
 
     [root@server1 tgt]# tgt-admin -s
     Target 1: iqn.2014-04.be.linux-training:server1.target1
@@ -601,7 +601,7 @@ Enter the CHAP authentication in `/etc/iscsi/iscsid.conf`.
     node.session.auth.password = hunter2
     [root@linux ~]#
 
-There are no extra devices yet\...
+There are no extra devices yet...
 
     [root@linux ~]# fdisk -l | grep sd
     Disk /dev/sda: 22.0 GB, 22038806528 bytes, 43044544 sectors

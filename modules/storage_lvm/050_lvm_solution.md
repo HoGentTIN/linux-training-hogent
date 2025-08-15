@@ -1,6 +1,6 @@
 ## solution : lvm
 
-1\. Create a volume group that contains a complete disk and a partition
+1. Create a volume group that contains a complete disk and a partition
 on another disk.
 
 step 1: select disks:
@@ -56,7 +56,7 @@ step 3: pvcreate and vgcreate
     root@linux:~# vgcreate VG42 /dev/sdb /dev/sdc1
       Volume group "VG42" successfully created
 
-2\. Create two logical volumes (a small one and a bigger one) in this
+2. Create two logical volumes (a small one and a bigger one) in this
 volumegroup. Format them wih ext3, mount them and copy some files to
 them.
 
@@ -128,10 +128,10 @@ The mounting and copying of files.
     root@linux:~# cp -r /etc /srv/LVsmall/
     root@linux:~# cp -r /var/log /srv/LVbig/
 
-3\. Verify usage with fdisk, mount, pvs, vgs, lvs, pvdisplay, vgdisplay,
+3. Verify usage with fdisk, mount, pvs, vgs, lvs, pvdisplay, vgdisplay,
 lvdisplay and df. Does fdisk give you any information about lvm?
 
-Run all those commands (only two are shown below), then answer \'no\'.
+Run all those commands (only two are shown below), then answer 'no'.
 
     root@linux:~# df -h 
     Filesystem            Size  Used Avail Use% Mounted on
@@ -147,7 +147,7 @@ Run all those commands (only two are shown below), then answer \'no\'.
     /dev/mapper/VG42-LVsmall on /srv/LVsmall type ext3 (rw)
     /dev/mapper/VG42-LVbig on /srv/LVbig type ext3 (rw)
 
-4\. Enlarge the small logical volume by 50 percent, and verify your
+4. Enlarge the small logical volume by 50 percent, and verify your
 work!
 
     root@linux:~# lvextend VG42/LVsmall -l+50%LV
@@ -166,21 +166,21 @@ work!
                           291M   31M  246M  12% /srv/LVsmall
     root@linux:~#
 
-5\. Take a look at other commands that start with vg\* , pv\* or lv\*.
+5. Take a look at other commands that start with vg\* , pv\* or lv\*.
 
-6\. Create a mirror and a striped Logical Volume.
+6. Create a mirror and a striped Logical Volume.
 
-7\. Convert a linear logical volume to a mirror.
+7. Convert a linear logical volume to a mirror.
 
-8\. Convert a mirror logical volume to a linear.
+8. Convert a mirror logical volume to a linear.
 
-9\. Create a snapshot of a Logical Volume, take a backup of the
+9. Create a snapshot of a Logical Volume, take a backup of the
 snapshot. Then delete some files on the Logical Volume, then restore
 your backup.
 
-10\. Move your volume group to another disk (keep the Logical Volumes
+10. Move your volume group to another disk (keep the Logical Volumes
 mounted).
 
-11\. If time permits, split a Volume Group with vgsplit, then merge it
+11. If time permits, split a Volume Group with vgsplit, then merge it
 again with vgmerge.
 

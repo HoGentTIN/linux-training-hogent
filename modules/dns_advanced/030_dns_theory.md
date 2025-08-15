@@ -82,7 +82,7 @@ Then we add the delegation to our zone database:
     ns2     IN      A       10.104.33.31    ; the glue record
     root@linux:~#
 
-Don\'t forget to restart `bind` and verify `/var/log/syslog`.
+Don't forget to restart `bind` and verify `/var/log/syslog`.
 
     root@linux:~# service bind9 restart
     Stopping domain name service...: bind9.
@@ -164,7 +164,7 @@ A `split-horizon` setup can be used to redirect people to `local` copies
 of certain services.
 
 In this example we want to decide on specific answers for two networks
-(Jesse\'s and Keith\'s) and prevent them from using our dns server for
+(Jesse's and Keith's) and prevent them from using our dns server for
 `recursion`, while maintaining the capability to resolve the internet
 and our paul.local zone from our own network.
 
@@ -220,10 +220,10 @@ review.
 
 ### old example: reverse DNS
 
-1\. We can add ip to name resolution to our dns-server using a reverse
+1. We can add ip to name resolution to our dns-server using a reverse
 dns zone.
 
-2\. Start by adding a .arpa zone to /etc/bind/named.conf.local like this
+2. Start by adding a .arpa zone to /etc/bind/named.conf.local like this
 (we set notify to no to avoid sending of notify messages to other name
 servers):
 
@@ -234,7 +234,7 @@ servers):
         file "/etc/bind/db.192";
     };
 
-3\. Also create a zone database file for this reverse lookup zone.
+3. Also create a zone database file for this reverse lookup zone.
 
     root@linux:/etc/bind# cat db.192 
     ;
@@ -254,7 +254,7 @@ servers):
     30  IN  PTR mac.cobbaut.paul.
     root@linux:/etc/bind# 
 
-4\. Test with nslookup or dig:
+4. Test with nslookup or dig:
 
     root@linux:/etc/bind# dig 1.168.192.in-addr.arpa AXFR
 
@@ -322,7 +322,7 @@ billion (2 to the power 32) domains.
 With rfc 3596 came ipv6 extensions for DNS. There is the AAAA record for
 ipv6 hosts on the network, and there is the `ip6.int` domain for reverse
 lookup (having 16 child domains from 0.ip6.int to f.ip6.int, each of
-those having again 16 child domains\...and this 16 times.
+those having again 16 child domains...and this 16 times.
 
 ### old DNS security: file corruption
 
@@ -386,7 +386,7 @@ environment.
 ### old DNS security: DNSSEC
 
 DNSSEC uses public/private keys to secure communications, this is
-described in rfc\'s 4033, 4034 and 4035.
+described in rfc's 4033, 4034 and 4035.
 
 ### old DNS security: root
 

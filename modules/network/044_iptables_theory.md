@@ -14,7 +14,7 @@ command.
             
 
 The easy way to configure iptables, is to use a graphical tool like
-KDE\'s `kmyfirewall` or
+KDE's `kmyfirewall` or
 `Security Level Configuration Tool`. You can find the latter in the
 graphical menu, somewhere in System Tools - Security, or you can start
 it by typing `system-config-securitylevel` in bash. These

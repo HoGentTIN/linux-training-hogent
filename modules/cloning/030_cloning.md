@@ -3,14 +3,14 @@
 You can have distinct goals for cloning a server. For instance a clone
 can be a cold iron backup system used for manual disaster recovery of a
 service. Or a clone can be created to serve in a test environment. Or
-you might want to make an almost identical server. Let\'s take a look at
+you might want to make an almost identical server. Let's take a look at
 some offline and online ways to create a clone of a Linux server.
 
 ## About offline cloning
 
 The term offline cloning is used when you power off the running Linux
-server to create the clone. This method is easy since we don\'t have to
-consider open files and we don\'t have to skip virtual file systems like
+server to create the clone. This method is easy since we don't have to
+consider open files and we don't have to skip virtual file systems like
 `/dev` or `/sys` . The offline cloning method can be broken down into
 these steps:
 

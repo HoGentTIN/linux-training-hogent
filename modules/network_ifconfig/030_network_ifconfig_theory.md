@@ -226,7 +226,7 @@ line in RHEL7/CentOS8
 ### nmtui
 
 Another recommendation for RHEL7/CentOS8 is to use `nmtui`. This tool
-will use a \'windowed\' interface in command line to manage network
+will use a 'windowed' interface in command line to manage network
 interfaces.
 
     nmtui
@@ -484,7 +484,7 @@ You can use `arp -d` to remove an entry from the
 
 ## route
 
-You can see the computer\'s local routing table with the
+You can see the computer's local routing table with the
 `/sbin/route` command (and also with
 `netstat -r` ).
 
@@ -535,7 +535,7 @@ configured.
 
 To display or change network card settings, use `ethtool`.
 The results depend on the capabilities of your network card. The example
-shows a network that auto-negotiates it\'s bandwidth.
+shows a network that auto-negotiates it's bandwidth.
 
     root@linux:~# ethtool eth0
     Settings for eth0:

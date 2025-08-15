@@ -95,7 +95,7 @@ compile all the modules.
 ## make modules_install
 
 To copy all the compiled modules to `/lib/modules` just
-run `make modules_install` (takes about 20 seconds). Here\'s a
+run `make modules_install` (takes about 20 seconds). Here's a
 screenshot from before the command.
 
     [root@linux linux-2.6.18.i686]# ls -l /lib/modules/
@@ -139,6 +139,6 @@ correct kernel name!
 
 ## bootloader
 
-Compilation is now finished, don\'t forget to create an additional
+Compilation is now finished, don't forget to create an additional
 stanza in grub or lilo.
 

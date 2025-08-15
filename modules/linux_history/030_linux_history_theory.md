@@ -56,12 +56,12 @@ say, is history.
 
 ## 2015
 
-Today more than 97 percent of the world\'s supercomputers (including the
+Today more than 97 percent of the world's supercomputers (including the
 complete top 10), more than 80 percent of all smartphones, many millions
 of desktop computers, around 70 percent of all web servers, a large
 chunk of tablet computers, and several appliances (dvd-players, washing
 machines, dsl modems, routers, self-driving cars, space station
-laptops\...) run `Linux`. Linux is by far the most commonly used
+laptops...) run `Linux`. Linux is by far the most commonly used
 operating system in the world.
 
 Linux kernel version 4.0 was released in April 2015. Its source code

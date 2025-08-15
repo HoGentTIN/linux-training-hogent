@@ -85,7 +85,7 @@ A session history is saved to this file when you `exit`
 the session!
 
 *Closing a gnome-terminal with the mouse, or typing
-`reboot` as root will NOT save your terminal\'s history.*
+`reboot` as root will NOT save your terminal's history.*
 
 ## \$HISTFILESIZE
 

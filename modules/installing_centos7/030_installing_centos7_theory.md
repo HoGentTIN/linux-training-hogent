@@ -14,21 +14,21 @@ of a graphical `CentOS 7` desktop. You can select this because it should
 be easy and complete, and should get you started with a working
 `CentOS 7` virtual machine.
 
-But I clicked instead on \'alternative downloads\', selected `CentOS 7`
+But I clicked instead on 'alternative downloads', selected `CentOS 7`
 and `x86_64` and ended up on a `mirror list`. Each mirror is a server
 that contains copies of `CentOS 7` media. I selected a Belgian mirror
 because I currently am in Belgium.
 
 ![](assets/centos8_mirror.png)
 
-There is again the option for full DVD\'s and more. This demonstration
+There is again the option for full DVD's and more. This demonstration
 will use the `minimal` .iso file, because it is much smaller in size.
 The download takes a couple of minutes.
 
 ![](assets/centos8_downloading.png)
 
 Verify the size of the file after download to make sure it is complete.
-Probably a right click on the file and selecting \'properties\' (if you
+Probably a right click on the file and selecting 'properties' (if you
 use Windows or Mac OSX).
 
 I use Linux on the laptop already:
@@ -131,7 +131,7 @@ Select your time zone, and activate `ntp`.
 
 ![](assets/e_install_time.png)
 
-Choose a mirror that is close to you. If you can\'t find a local mirror,
+Choose a mirror that is close to you. If you can't find a local mirror,
 then you can copy the one from this screenshot (it is a general `CentOS`
 mirror).
 
@@ -166,7 +166,7 @@ Time to reboot the computer and start `CentOS 7` for the first time.
 ![](assets/k_install_done.png)
 
 This screen will appear briefly when the virtual machines starts. You
-don\'t have to do anything.
+don't have to do anything.
 
 ![](assets/l_install_reboot.png)
 
@@ -393,7 +393,7 @@ There is no `ssh` installed on MS Windows, but you can download
 Google it).
 
 Use `putty.exe` as shown in this screenshot (I saved the ip address by
-giving it a name \'server33\' and presing the \'save\' button).
+giving it a name 'server33' and presing the 'save' button).
 
 ![](assets/putty1.png)
 

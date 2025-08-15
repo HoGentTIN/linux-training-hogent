@@ -56,14 +56,14 @@ current working directory for a couple of command line programs.
     grep    3330 paul  cwd    DIR  253,0     4096  788024 /home/paul
     lsof    3331 paul  cwd    DIR  253,0     4096  788024 /home/paul
 
-The -u switch of `lsof` also supports the \^ character meaning \'not\'.
+The -u switch of `lsof` also supports the \^ character meaning 'not'.
 To see all open files, but not those open by root:
 
     lsof -u^root
 
 ## fuser
 
-The `fuser` command will display the \'user\' of a file
+The `fuser` command will display the 'user' of a file
 system.
 
 In this example we still have a vi process in background and we use
@@ -315,7 +315,7 @@ column), without swapping.
     ...
     [root@linux ~]#
 
-You can benefit from `vmstat`\'s ability to display memory in kilobytes,
+You can benefit from `vmstat`'s ability to display memory in kilobytes,
 megabytes or even kibibytes and mebibytes using -S (followed by k K m or
 M).
 

@@ -1,21 +1,21 @@
 ## solution: interface configuration
 
-1\. Verify whether `dhclient` is running.
+1. Verify whether `dhclient` is running.
 
     student@linux:~$ ps fax | grep dhclient
 
-2\. Display your current ip address(es).
+2. Display your current ip address(es).
 
     student@linux:~$ /sbin/ifconfig | grep 'inet '
           inet addr:192.168.1.31  Bcast:192.168.1.255  Mask:255.255.255.0
           inet addr:127.0.0.1  Mask:255.0.0.0
 
-3\. Display the configuration file where this `ip address` is defined.
+3. Display the configuration file where this `ip address` is defined.
 
     Ubuntu/Debian: cat /etc/network/interfaces
     Redhat/Fedora: cat /etc/sysconfig/network-scripts/ifcfg-eth*
 
-4\. Follow the `nic configuration` in the book to change your ip address
+4. Follow the `nic configuration` in the book to change your ip address
 from `dhcp client` to `fixed`. Keep the same `ip address` to avoid
 conflicts!
 
@@ -29,10 +29,10 @@ conflicts!
     vi /etc/sysconfig/network-scripts/ifcfg-eth0
     ifup eth0
 
-5\. Did you also configure the correct `gateway` in the previous
+5. Did you also configure the correct `gateway` in the previous
 question ? If not, then do this now.
 
-6\. Verify that you have a gateway.
+6. Verify that you have a gateway.
 
     student@linux:~$ /sbin/route
     Kernel IP routing table
@@ -40,7 +40,7 @@ question ? If not, then do this now.
     192.168.1.0   *             255.255.255.0  U     0      0      0 eth0
     default       192.168.1.1   0.0.0.0        UG    0      0      0 eth0
 
-7\. Verify that you can connect to the gateway, that it is alive.
+7. Verify that you can connect to the gateway, that it is alive.
 
     student@linux:~$ ping -c3 192.168.1.1
     PING 192.168.1.1 (192.168.1.1) 56(84) bytes of data.
@@ -52,11 +52,11 @@ question ? If not, then do this now.
     3 packets transmitted, 3 received, 0% packet loss, time 2008ms
     rtt min/avg/max/mdev = 2.283/2.524/2.941/0.296 ms
 
-8\. Change the last two digits of your `mac address`.
+8. Change the last two digits of your `mac address`.
 
     [root@linux ~]# ifconfig eth0 hw ether 08:00:27:ab:67:XX
 
-9\. Which ports are used by http, pop3, ssh, telnet, nntp and ftp ?
+9. Which ports are used by http, pop3, ssh, telnet, nntp and ftp ?
 
     root@linux ~# grep ^'http ' /etc/services 
     http       80/tcp          www www-http    # WorldWideWeb HTTP
@@ -77,11 +77,11 @@ question ? If not, then do this now.
     ftp        21/tcp
     ftp        21/udp          fsp fspd
 
-10\. Explain why e-mail and websites are sent over `tcp` and not `udp`.
+10. Explain why e-mail and websites are sent over `tcp` and not `udp`.
 
     Because tcp is reliable and udp is not.
 
-11\. Display the `hostname` of your computer.
+11. Display the `hostname` of your computer.
 
     pau@ldebian9:~$ hostnamectl status  
          Static hostname: vaio.labs
@@ -94,7 +94,7 @@ question ? If not, then do this now.
                 Kernel: Linux 4.19.13-200.fc28.x86_64
           Architecture: x86-64
 
-12\. Which ip-addresses did your computer recently have contact with ?
+12. Which ip-addresses did your computer recently have contact with ?
 
     root@linux ~# arp -a
     ? (192.168.1.1) at 00:02:cf:aa:68:f0 [ether] on eth2

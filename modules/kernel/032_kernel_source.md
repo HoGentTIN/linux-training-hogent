@@ -47,9 +47,9 @@ On your local computer, the kernel source is located in
 `/usr/src`. Note though that the structure inside /usr/src
 might be different depending on the distribution that you are using.
 
-First let\'s take a look at `/usr/src on Debian`. There appear to be two
+First let's take a look at `/usr/src on Debian`. There appear to be two
 versions of the complete Linux source code there. Looking for a specific
-file (e1000_main.c) with find reveals it\'s exact location.
+file (e1000_main.c) with find reveals it's exact location.
 
     student@linux:~$ ls -l /usr/src/
     drwxr-xr-x 20 root root     4096 2006-04-04 22:12 linux-source-2.6.15

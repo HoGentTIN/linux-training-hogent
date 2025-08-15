@@ -1,23 +1,23 @@
 ## solution : basic process management
 
-1\. Use `ps` to search for the `init` process by name.
+1. Use `ps` to search for the `init` process by name.
 
     root@linux ~# ps -C init
       PID TTY          TIME CMD
         1 ?        00:00:04 init
         
 
-2\. What is the `process id` of the `init` process ?
+2. What is the `process id` of the `init` process ?
 
     1
 
-3\. Use the `who am i` command to determine your terminal name.
+3. Use the `who am i` command to determine your terminal name.
 
     root@linux ~# who am i
     paul     pts/0        2010-04-12 17:44 (192.168.1.38)
         
 
-4\. Using your terminal name from above, use `ps` to find all processes
+4. Using your terminal name from above, use `ps` to find all processes
 associated with your terminal.
 
     oot@linux ~# ps fax | grep pts/0
@@ -40,37 +40,37 @@ or also
     root      3817  2973  0 21:25 pts/0    00:00:00 grep pts/0
         
 
-5\. What is the `process id` of your shell ?
+5. What is the `process id` of your shell ?
 
     2973 in the screenshot above, probably different for you
 
 `echo $$` should display same number as the one you found
 
-6\. What is the `parent process id` of your shell ?
+6. What is the `parent process id` of your shell ?
 
     2972 in the screenshot above, probably different for you
 
 in this example the PPID is from the `su -` command, but when inside
 gnome then for example gnome-terminal can be the parent process
 
-7\. Start two instances of the `sleep 3342` in background.
+7. Start two instances of the `sleep 3342` in background.
 
     sleep 3342 &
     sleep 3342 &
 
-8\. Locate the `process id` of all `sleep` commands.
+8. Locate the `process id` of all `sleep` commands.
 
     pidof sleep
 
-9\. Display only those two `sleep` processes in `top`. Then quit top.
+9. Display only those two `sleep` processes in `top`. Then quit top.
 
     top -p pidx,pidy (replace pidx pidy with the actual numbers)
 
-10\. Use a `standard kill` to kill one of the `sleep` processes.
+10. Use a `standard kill` to kill one of the `sleep` processes.
 
     kill pidx
 
-11\. Use one command to kill all `sleep` processes.
+11. Use one command to kill all `sleep` processes.
 
     pkill sleep
 

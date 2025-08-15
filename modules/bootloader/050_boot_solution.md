@@ -1,9 +1,9 @@
 ## solution: bootloader
 
-0\. Find out whether your system is using lilo, grub or grub2. Only do
+0. Find out whether your system is using lilo, grub or grub2. Only do
 the practices that are appropriate for your system.
 
-1\. Make a copy of the kernel, initrd and System.map files in /boot. Put
+1. Make a copy of the kernel, initrd and System.map files in /boot. Put
 the copies also in /boot but replace 2.x or 3.x with 4.0 (just imagine
 that Linux 4.0 is out.).
 
@@ -16,7 +16,7 @@ that Linux 4.0 is out.).
 
 Do not forget that the initrd (or initramfs) file ends in `.img` .
 
-2\. Add a stanza in grub for the 4.0 files. Make sure the title is
+2. Add a stanza in grub for the 4.0 files. Make sure the title is
 different.
 
     [root@linux grub]# cut -c1-70 menu.lst | tail -12
@@ -34,13 +34,13 @@ different.
             initrd /initramfs-2.6.32-431.el6.x86_64.img
     [root@linux grub]#
 
-3\. Set the boot menu timeout to 30 seconds.
+3. Set the boot menu timeout to 30 seconds.
 
     [root@linux grub]# vi menu.lst
     [root@linux grub]# grep timeout /boot/grub/grub.conf
     timeout=30
 
-4\. Reboot and test the new stanza.
+4. Reboot and test the new stanza.
 
     [root@linux grub]# reboot
 

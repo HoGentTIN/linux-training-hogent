@@ -102,7 +102,7 @@ Als we dit binair voorstellen wordt het duidelijk:
 
     vijfde ip     11000000.10101000.00000000.00000101      192.168.0.5
 
-       \...                       \...                        \...
+       ...                       ...                        ...
 
   voorlaatste ip  11000000.10101000.00000000.01111101     192.168.0.125
 
@@ -130,7 +130,7 @@ tabel ziet er dan als volgt uit:
 
      derde ip     11000000.10101000.00000000.00000011      192.168.0.3
 
-       \...                       \...                        \...
+       ...                       ...                        ...
 
   voorlaatste ip  11000000.10101000.00000000.00111101     192.168.0.61
 
@@ -253,8 +253,8 @@ We kunnen de tabel uitbreiden met een kolom die het aantal computers
 telt dat we in deze `binaire` netwerkjes kunnen plaatsen.
 
 De simpelste formule om het aantal computers in een
-`subnet` te berekenen is twee verheffen tot de macht \'het
-aantal bits op 0 in de subnet\' min twee. Bij 16 bits op 1 wordt dat dus
+`subnet` te berekenen is twee verheffen tot de macht 'het
+aantal bits op 0 in de subnet' min twee. Bij 16 bits op 1 wordt dat dus
 2 tot de zestiende min twee. In de tabel gebruiken we 256 i.p.v. twee
 tot de achtste.
 
@@ -386,7 +386,7 @@ Vul de volgende tabel aan voor `192.168.234.234/17`.
   ip                                                    
 
   aantal                                                
-  ip\'s                                                 
+  ip's                                                 
   -----------------------------------------------------------------------
 
   : oefening 192.168.234.234/17
@@ -410,7 +410,7 @@ Hieronder vind je de oplossing van bovenstaande oefening.
   ip                                                    
 
   aantal      van 0000000.00000001 tot 1111111.11111110  128\*256-2=32766
-  ip\'s                                                 
+  ip's                                                 
   ------------------------------------------------------------------------
 
   : oplossing 192.168.234.234/17
@@ -436,7 +436,7 @@ Het bovenstaande netwerk bevat exact de helft van alle ip-adressen in de
   ip                                                    
 
   aantal                                                
-  ip\'s                                                 
+  ip's                                                 
   -----------------------------------------------------------------------
 
   : andere helft van 192.168.234.234/17
@@ -460,7 +460,7 @@ Hieronder de oplossing van de andere helft.
   ip                                                    
 
   aantal      van 0000000.00000001 tot 1111111.11111110  128\*256-2=32766
-  ip\'s                                                 
+  ip's                                                 
   ------------------------------------------------------------------------
 
   : oplossing andere helft 192.168.234.234/17
@@ -474,7 +474,7 @@ Probeer nu dezelfde oefening voor:
     168.190.248.199/27
 
 Kan je de network id, subnet mask, eerste ip, laatste ip, broadcast ip
-en aantal ip\'s geven voor de subnets van die drie ip-adressen ? Zonder
+en aantal ip's geven voor de subnets van die drie ip-adressen ? Zonder
 naar de oplossing hieronder te kijken ?
 
 Hieronder eerst drie lege tabellen om te oefenen, dan de oplossing.
@@ -496,7 +496,7 @@ Hieronder eerst drie lege tabellen om te oefenen, dan de oplossing.
   ip                                                    
 
   aantal                                                
-  ip\'s                                                 
+  ip's                                                 
   -----------------------------------------------------------------------
 
   : lege tabel 168.186.240.192/11
@@ -518,7 +518,7 @@ Hieronder eerst drie lege tabellen om te oefenen, dan de oplossing.
   ip                                                    
 
   aantal                                                
-  ip\'s                                                 
+  ip's                                                 
   -----------------------------------------------------------------------
 
   : lege tabel 192.168.248.234/17
@@ -540,7 +540,7 @@ Hieronder eerst drie lege tabellen om te oefenen, dan de oplossing.
   ip                                                    
 
   aantal                                                
-  ip\'s                                                 
+  ip's                                                 
   -----------------------------------------------------------------------
 
   : lege tabel 168.190.248.199/27
@@ -562,7 +562,7 @@ Hieronder eerst drie lege tabellen om te oefenen, dan de oplossing.
   ip                                                    
 
   aantal           van 00000.00000000.00000001 tot       32\*256\*256-2
-  ip\'s                11111.11111111.11111110          
+  ip's                11111.11111111.11111110          
   -----------------------------------------------------------------------
 
   : oplossing 168.186.240.192/11
@@ -584,7 +584,7 @@ Hieronder eerst drie lege tabellen om te oefenen, dan de oplossing.
   ip                                                    
 
   aantal      van 0000000.00000001 tot 1111111.11111110    128\*256-2
-  ip\'s                                                 
+  ip's                                                 
   -----------------------------------------------------------------------
 
   : oplossing 192.168.248.234/17
@@ -606,7 +606,7 @@ Hieronder eerst drie lege tabellen om te oefenen, dan de oplossing.
   ip                                                    
 
   aantal                 van 00001 tot 11110                  32-2
-  ip\'s                                                 
+  ip's                                                 
   -----------------------------------------------------------------------
 
   : oplossing 168.190.248.199/27
@@ -640,7 +640,7 @@ We bekijken dit eerst binair:
 We moeten dus twee `bits` toevoegen aan de /24
 `netword id` om een /26 network id te maken. Twee bits
 kunnen exact vier mogelijke waarden hebben: 00, 01, 10 of 11. We komen
-dus tot de volgende vier nieuwe /26 network id\'s.
+dus tot de volgende vier nieuwe /26 network id's.
 
     /26 network id 1 == 11000000.10101000.00000101.00000000
     /26 network id 2 == 11000000.10101000.00000101.01000000

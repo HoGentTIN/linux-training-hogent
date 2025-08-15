@@ -43,8 +43,8 @@ Issue the `quotaoff` command to stop all complaints.
 
 ## Practice Disk quotas
 
-1\. Implement disk quotas on one of your new partitions. Limit one of
+1. Implement disk quotas on one of your new partitions. Limit one of
 your users to 10 megabyte.
 
-2\. Test that they work by copying many files to the quota\'d partition.
+2. Test that they work by copying many files to the quota'd partition.
 

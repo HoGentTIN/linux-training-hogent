@@ -34,7 +34,7 @@ used and free on mounted file systems.
     /dev/sdb6             100744      11  100733    1% /home/research
 
 In the `df -i` screenshot above you can see the `inode` usage for
-several mounted `file systems`. You don\'t see numbers for `/dev/sdb5`
+several mounted `file systems`. You don't see numbers for `/dev/sdb5`
 because it is a `fat` file system.
 
 ### inode number
@@ -59,7 +59,7 @@ is contained in the directory).
 
 ### inode and file contents
 
-Let\'s put some data in one of the files.
+Let's put some data in one of the files.
 
     student@linux:~/test$ ls -li
     total 16

@@ -107,8 +107,8 @@ document.
 Or verify that apache is running by opening a web browser, and browse to
 the ip-address of your server. An Apache test page should be shown.
 
-You can do the following to quickly avoid the \'could not reliably
-determine the fqdn\' message when restarting apache.
+You can do the following to quickly avoid the 'could not reliably
+determine the fqdn' message when restarting apache.
 
     root@linux:~# echo ServerName debian10 >> /etc/apache2/apache2.conf
     root@linux:~# service apache2 restart
@@ -146,7 +146,7 @@ To verify that `apache` is running, use `ps` or issue the
      2419 ?        00:00:00 httpd
     [root@linux ~]#
 
-To prevent the \'Could not reliably determine the fqdn\' message, issue
+To prevent the 'Could not reliably determine the fqdn' message, issue
 the following command.
 
     [root@linux ~]# echo ServerName Centos65 >> /etc/httpd/conf/httpd.conf
@@ -257,7 +257,7 @@ All configuration on RHEL/CentOS is done in `/etc/httpd`.
     lrwxrwxrwx. 1 root root   19 May  6 13:08 run -> ../../var/run/httpd
     [root@linux ~]#
 
-Debian (and ubuntu/mint/\...) use `/etc/apache2`.
+Debian (and ubuntu/mint/...) use `/etc/apache2`.
 
     root@linux:~# ls -l /etc/apache2/
     total 72
@@ -356,7 +356,7 @@ And we have to put some really simple website in those directories.
 The last step is to enable the websites with the `a2ensite` command.
 This command will create links in `sites-enabled`.
 
-The links are not there yet\...
+The links are not there yet...
 
     root@linux:~# cd /etc/apache2/ 
     root@linux:/etc/apache2# ls sites-available/ 
@@ -494,7 +494,7 @@ quickly add the three names to the `/etc/hosts` file.
     192.168.42.50 chessclub42.local
     192.168.42.50 hunter2.local
 
-Note that you may have another ip address\...
+Note that you may have another ip address...
 
 ### enabling virtual hosts
 
@@ -827,7 +827,7 @@ quickly add the three names to the `/etc/hosts` file.
     192.168.1.225 chessclub42.local
     192.168.1.225 hunter2.local
 
-Note that you may have another ip address\...
+Note that you may have another ip address...
 
 ### reload and verify
 
@@ -950,7 +950,7 @@ explanation of the error.
     The Apache error log may have more information.
      failed!
 
-Below you see the problem\... a missing / before on line 4.
+Below you see the problem... a missing / before on line 4.
 
     root@linux:~# cat /etc/apache2/sites-available/chessclub42
     <VirtualHost *:8000>

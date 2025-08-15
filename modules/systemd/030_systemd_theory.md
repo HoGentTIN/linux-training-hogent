@@ -4,14 +4,14 @@
 
 `systemd` is a software suite that provides an array of system
 components for Linux operating systems. Its main aim is to unify service
-configuration and behavior across Linux distributions; `systemd`\'s
+configuration and behavior across Linux distributions; `systemd`'s
 primary component is a \"system and service manager\"---an init system
 used to bootstrap user space and manage user processes. It also provides
 replacements for various daemons and utilities, including device
 management, login management, network connection management, and event
 logging. The name systemd adheres to the Unix convention of naming
 daemons by appending the letter d. It also plays on the term \"System
-D\", which refers to a person\'s ability to adapt quickly and improvise
+D\", which refers to a person's ability to adapt quickly and improvise
 to solve problems.
 
 `systemd` has replaced all the standard init/runlevel/rc functionality.
@@ -188,7 +188,7 @@ as pid 1.
 
 ### systemd services configuration
 
-The `chkconfig` and `service` commands are considered \'legacy\'. They
+The `chkconfig` and `service` commands are considered 'legacy'. They
 are replaced with `systemctl`.
 
 This screenshot shows the new way to start and stop a service.
@@ -292,7 +292,7 @@ other RHEL server.
 
 ### there is more systemd
 
-There are other tools\...
+There are other tools...
 
     systemd-analyze                 systemd-loginctl
     systemd-ask-password            systemd-machine-id-setup

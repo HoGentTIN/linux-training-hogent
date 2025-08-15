@@ -2,7 +2,7 @@
 
 This book assumes you have access to a working Linux computer. Most
 companies have one or more Linux servers, if you have already logged on
-to it, then you \'re all set (skip this chapter and go to the next).
+to it, then you 're all set (skip this chapter and go to the next).
 
 Another option is to insert a Ubuntu Linux CD in a computer with (or
 without) Microsoft Windows and follow the installation. Ubuntu will

@@ -257,7 +257,7 @@ The newheader branch can now be deleted.
     student@linux~/project42$ git branch
     * master
 
-## to be continued\...
+## to be continued...
 
 The `git` story is not finished.
 
@@ -272,7 +272,7 @@ you one Google query:
 Create an account on `github.com`. This website is a
 frontend for an immense git server with over two and a half million
 users and almost five million projects (including Fedora, Linux kernel,
-Android, Ruby on Rails, Wine, X.org, VLC\...)
+Android, Ruby on Rails, Wine, X.org, VLC...)
 
     https://github.com/signup/free
 

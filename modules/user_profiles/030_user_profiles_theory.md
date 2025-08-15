@@ -31,7 +31,7 @@ RHEL7/CentOS7.
 The `root user` can use this script to set aliases, functions, and
 variables for every user on the system.
 
-## \~/.bash_profile
+## ~/.bash_profile
 
 When this file exists in the home directory, then `bash` will source it.
 On Debian Linux 5/6/7 this file does not exist by default.
@@ -55,14 +55,14 @@ it. It also adds \$HOME/bin to the \$PATH variable.
     export PATH
     [root@linux ~]#
 
-## \~/.bash_login
+## ~/.bash_login
 
 When `.bash_profile` does not exist, then `bash` will check for
 `~/.bash_login` and source it.
 
 Neither Debian nor Red Hat have this file by default.
 
-## \~/.profile
+## ~/.profile
 
 When neither `~/.bash_profile` and `~/.bash_login` exist, then bash will
 verify the existence of `~/.profile` and execute it. This file does not
@@ -86,7 +86,7 @@ On Debian this script can execute `~/.bashrc` and will add
 
 RHEL/CentOS does not have this file by default.
 
-## \~/.bashrc
+## ~/.bashrc
 
 The `~/.bashrc` script is often sourced by other scripts. Let us take a
 look at what it does by default.
@@ -114,7 +114,7 @@ history variables and a number af active and inactive aliases.
     root@linux:~# wc -l /home/paul/.bashrc
     110 /home/paul/.bashrc
 
-## \~/.bash_logout
+## ~/.bash_logout
 
 When exiting `bash`, it can execute `~/.bash_logout`.
 
@@ -151,9 +151,9 @@ startup scripts.
   ----------------------------------------------
   script               su    su -   ssh    gdm
   ------------------ ------ ------ ------ ------
-  \~./bashrc           no    yes    yes    yes
+  ~./bashrc           no    yes    yes    yes
 
-  \~/.profile          no    yes    yes    yes
+  ~/.profile          no    yes    yes    yes
 
   /etc/profile         no    yes    yes    yes
 
@@ -170,9 +170,9 @@ any of these bash startup scripts.
   ----------------------------------------------
   script               su    su -   ssh    gdm
   ------------------ ------ ------ ------ ------
-  \~./bashrc          yes    yes    yes    yes
+  ~./bashrc          yes    yes    yes    yes
 
-  \~/.bash_profile     no    yes    yes    yes
+  ~/.bash_profile     no    yes    yes    yes
 
   /etc/profile         no    yes    yes    yes
 

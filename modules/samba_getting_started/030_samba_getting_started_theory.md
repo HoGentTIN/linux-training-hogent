@@ -251,7 +251,7 @@ network is `smbtree`. In its simplest form, smbtree will
 do an anonymous browsing on the local subnet. displaying all SMB
 computers and (if authorized) their shares.
 
-Let\'s take a look at two screenshots of smbtree in action (with blank
+Let's take a look at two screenshots of smbtree in action (with blank
 password). The first one is taken immediately after booting four
 different computers (one MS Windows 2000, one MS Windows xp, one MS
 Windows 2003 and one RHEL 4 with Samba 3.0.10).

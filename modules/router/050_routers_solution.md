@@ -2,9 +2,9 @@
 
 ![](assets/LAN_networks.png)
 
-1\. Set up two Linux machines, one on `leftnet`, the other on
+1. Set up two Linux machines, one on `leftnet`, the other on
 `rightnet`. Make sure they both get an ip-address in the correct subnet.
-These two machines will be \'left\' and \'right\' from the \'router\'.
+These two machines will be 'left' and 'right' from the 'router'.
 
 ![](assets/leftnet_rightnet_router2.png)
 
@@ -21,9 +21,9 @@ both machines to configure the interfaces.
     pkill dhclient
     ifconfig eth0 192.168.70.9 netmask 255.255.255.0
 
-2\. Set up a third Linux computer with three network cards, one on
+2. Set up a third Linux computer with three network cards, one on
 `leftnet`, the other on `rightnet`. This computer will be the
-\'router\'. Complete the table below with the relevant names,
+'router'. Complete the table below with the relevant names,
 ip-addresses and mac-addresses.
 
     root@router~# cat router.sh
@@ -44,7 +44,7 @@ table below.
 
   : Packet Forwarding Solution
 
-3\. How can you verify whether the `router` will allow packet forwarding
+3. How can you verify whether the `router` will allow packet forwarding
 by default or not ? Test that you can ping from the `router` to the two
 other machines, and from those two machines to the `router`. Use
 `arp -a` to make sure you are connected with the correct
@@ -56,7 +56,7 @@ enabled, 0 is disabled) or with `sysctl -a | grep ip_for`.
     root@router~# grep ip_for /etc/sysctl.conf 
     net.ipv4.ip_forward = 0
 
-4\. Ping from the leftnet computer to the rightnet computer. Enable
+4. Ping from the leftnet computer to the rightnet computer. Enable
 and/or disable packet forwarding on the `router` and verify what happens
 to the ping between the two networks. If you do not succeed in pinging
 between the two networks (on different subnets), then use a sniffer like
@@ -74,7 +74,7 @@ default gateways are properly configured). The ping will not work when
 packet forwarding is disabled or when gateways are not configured
 correctly.
 
-5\. Use wireshark or tcpdump -xx to answer the following questions. Does
+5. Use wireshark or tcpdump -xx to answer the following questions. Does
 the source MAC change when a packet passes through the filter ? And the
 destination MAC ? What about source and destination IP-addresses ?
 
@@ -85,8 +85,8 @@ Both MAC addresses are changed when passing the router. Use
 
     root@router~# tcpdump -xx -i eth2
 
-6\. Remember the third network card on the router ? Connect this card to
-a LAN with internet connection. On many LAN\'s the command
+6. Remember the third network card on the router ? Connect this card to
+a LAN with internet connection. On many LAN's the command
 `dhclient eth0` just works (replace `eth0` with the correct interface.
 
     root@router~# dhclient eth0
@@ -97,7 +97,7 @@ give internet access to `leftnet` and `rightnet`.
 ![](assets/leftnet_rightnet_router3.png)
 
 The clients on `leftnet` and `rightnet` need a working `dns server`. We
-use one of Google\'s dns servers here.
+use one of Google's dns servers here.
 
     echo nameserver 8.8.8.8 > /etc/resolv.conf
 

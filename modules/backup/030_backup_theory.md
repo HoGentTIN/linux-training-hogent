@@ -1,6 +1,6 @@
 ## About tape devices
 
-Don\'t forget that the name of a device strictly speaking has no meaning
+Don't forget that the name of a device strictly speaking has no meaning
 since the kernel will use the major and minor number to find the
 hardware! See the man page of `mknod` and the devices.txt
 file in the Linux kernel source for more info.
@@ -58,15 +58,15 @@ To receive information about the status of the tape.
 
     mt -f /dev/st0 status
 
-To rewind a tape\...
+To rewind a tape...
 
     mt -f /dev/st0 rewind
 
-To rewind and eject a tape\...
+To rewind and eject a tape...
 
     mt -f /dev/st0 eject
 
-To erase a tape\...
+To erase a tape...
 
     mt -f /dev/st0 erase
 
@@ -267,7 +267,7 @@ skip the file, even during a full backup. In the following example,
 
 To restore the complete file system with `restore`, use the -r option.
 This can be useful to change the size or block size of a file system.
-You should have a clean file system mounted and cd\'d into it. Like this
+You should have a clean file system mounted and cd'd into it. Like this
 example shows.
 
     mke2fs /dev/hda3
@@ -302,7 +302,7 @@ machine)
         
 
 find sends filenames to cpio \| cpio sends files to ssh \| ssh sends
-files to cpio \'cpio extracts files\'
+files to cpio 'cpio extracts files'
 
     find /etc -depth -print | cpio -oaV | ssh user@host 'cpio -imVd'
 

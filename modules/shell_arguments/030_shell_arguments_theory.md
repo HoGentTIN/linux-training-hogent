@@ -2,7 +2,7 @@
 
 One of the primary features of a shell is to perform a
 `command line scan`. When you enter a command at the
-shell\'s command prompt and press the enter key, then the shell will
+shell's command prompt and press the enter key, then the shell will
 start scanning that line, cutting it up in `arguments`. While scanning
 the line, the shell may make many changes to the `arguments` you typed.
 
@@ -181,7 +181,7 @@ below shows how to set the `-i` option default when typing
     [student@linux ~]$
 
 Some distributions enable default aliases to protect users from
-accidentally erasing files (\'rm -i\', \'mv -i\', \'cp -i\')
+accidentally erasing files ('rm -i', 'mv -i', 'cp -i')
 
 ### viewing aliases
 

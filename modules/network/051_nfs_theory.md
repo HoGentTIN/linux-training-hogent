@@ -65,7 +65,7 @@ authentication only takes place when mounting the share. `nfs` versions
 
 `nfs` is configured in `/etc/exports`. Here is a sample
 `/etc/exports` to explain the syntax. You need some way (NIS domain or
-LDAP) to synchronize userid\'s across computers when using `nfs` a lot.
+LDAP) to synchronize userid's across computers when using `nfs` a lot.
 The `rootsquash` option will change UID 0 to the UID of
 the nfsnobody user account. The `sync` option will write writes to disk
 before completing the client request.
@@ -87,7 +87,7 @@ before completing the client request.
     /var/upload   192.168.1.0/24(ro) 192.168.5.0/24(rw)
             
 
-You don\'t need to restart the nfs server to start exporting your newly
+You don't need to restart the nfs server to start exporting your newly
 created exports. You can use the `exportfs -va` command to
 do this. It will write the exported directories to
 `/var/lib/nfs/etab`, where they are immediately applied.

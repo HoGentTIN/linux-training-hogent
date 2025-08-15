@@ -39,7 +39,7 @@ when they are needed. When a connection request is received, `xinetd`
 will first check TCP wrappers (/etc/hosts.allow and /etc/hosts.deny) and
 then give control of the connection to the other daemon. This
 superdaemon is configured through `/etc/xinetd.conf` and
-the files in the directory `/etc/xinetd.d`. Let\'s first
+the files in the directory `/etc/xinetd.d`. Let's first
 take a look at /etc/xinetd.conf.
 
     student@linux:~$ cat /etc/xinetd.conf 
@@ -69,7 +69,7 @@ protocol linked to daemon) gets more than 25 cps (connections per
 second), it holds subsequent requests for 30 seconds.
 
 The directory `/etc/xinetd.d` contains more specific configuration
-files. Let\'s also take a look at one of them.
+files. Let's also take a look at one of them.
 
     student@linux:~$ ls /etc/xinetd.d
     amanda     chargen-udp  echo      klogin       rexec   talk

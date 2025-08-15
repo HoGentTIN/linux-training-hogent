@@ -4,7 +4,7 @@
 
 Windows NT4 works with single master replication domain controllers.
 There is exactly one PDC (Primary Domain Controller) in the domain, and
-zero or more BDC\'s (Backup Domain Controllers). Samba 3 has all
+zero or more BDC's (Backup Domain Controllers). Samba 3 has all
 features found in Windows NT4 PDC and BDC, and more. This includes file
 and print serving, domain control with single logon, logon scripts, home
 directories and roaming profiles.
@@ -19,7 +19,7 @@ Active Directory, it cannot manage group policies. Samba 4 can do this
 ### Samba 3
 
 Samba 3 can act as a domain controller in its own domain. In a Windows
-NT4 domain, with one Windows NT4 PDC and zero or more BDC\'s, Samba 3
+NT4 domain, with one Windows NT4 PDC and zero or more BDC's, Samba 3
 can only be a member server. The same is valid for Samba 3 in an Active
 Directory Domain. In short, a Samba 3 domain controller can not share
 domain control with Windows domain controllers.
@@ -34,7 +34,7 @@ released for production!
 
 ### security = share
 
-The \'Windows for Workgroups\' way of working, a client requests
+The 'Windows for Workgroups' way of working, a client requests
 connection to a share and provides a password for that connection.
 Aanyone who knows a password for a share can access that share. This
 security model was common in Windows 3.11, Windows 95, Windows 98 and
@@ -51,7 +51,7 @@ samba domain controllers.
 
 This mode will allow samba to verify user credentials using NTLM in
 Windows NT4 and in all Active Directory domains. This is similar to
-Windows NT4 BDC\'s joining a native Windows 2000/3 Active Directory
+Windows NT4 BDC's joining a native Windows 2000/3 Active Directory
 domain.
 
 ### security = ads
@@ -119,7 +119,7 @@ domain controller.
 ### domain master
 
 Setting the `domain master` parameter can cause samba to claim the
-`domain master browser` role for its workgroup. Don\'t use this
+`domain master browser` role for its workgroup. Don't use this
 parameter in a workgroup with an active NT4 PDC.
 
     domain master = yes
@@ -193,7 +193,7 @@ can first set up some groups on the Linux computer.
         
 
 This enables us to add group membership info to some new users for our
-samba domain. Don\'t forget to give them a password.
+samba domain. Don't forget to give them a password.
 
     [root@linux samba]# useradd -m -G ntadmins Administrator
     [root@linux samba]# useradd -m -G ntsports,nttennis venus

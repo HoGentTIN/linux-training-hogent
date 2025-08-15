@@ -1,6 +1,6 @@
 # solution : iptables
 
-1\. Verify whether the firewall is running.
+1. Verify whether the firewall is running.
 
     root@linux ~# service iptables status | head
     Table: filter
@@ -14,7 +14,7 @@
 
     Chain OUTPUT (policy ACCEPT)
 
-2\. Stop the running firewall.
+2. Stop the running firewall.
 
     root@linux ~# service iptables stop
     Flushing firewall rules:                                   [  OK  ]

@@ -23,7 +23,7 @@ command (Change Directory).
     student@linux$ pwd
     /home/paul
 
-### cd \~
+### cd ~
 
 The `cd` is also a shortcut to get back into your home directory. Just
 typing `cd` without a target directory, will put you in your home
@@ -73,7 +73,7 @@ to go to the previous directory.
 
 You should be aware of `absolute and relative paths` in
 the file tree. When you type a path starting with a `slash (/)`, then
-the `root` of the file tree is assumed. If you don\'t
+the `root` of the file tree is assumed. If you don't
 start your path with a slash, then the current directory is the assumed
 starting point.
 
@@ -142,7 +142,7 @@ You can list the contents of a directory with `ls`.
 A frequently used option with ls is `-a` to show all files. Showing all
 files means including the `hidden files`. When a file name
 on a Linux file system starts with a dot, it is considered a
-`hidden file` and it doesn\'t show up in regular file listings.
+`hidden file` and it doesn't show up in regular file listings.
 
     student@linux:~$ ls
     allfiles.txt  dmesg.txt  services  stuff  summer.txt

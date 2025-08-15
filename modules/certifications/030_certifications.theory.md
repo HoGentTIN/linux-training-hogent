@@ -63,10 +63,10 @@ exam.
 To become a `Suse Certified Linux Professional`, you have
 to take a live practicum. This is a VNC session to a set of real SLES
 servers. You have to perform several tasks and are free to choose your
-method (commandline or YaST or \...). No multiple choice involved.
+method (commandline or YaST or ...). No multiple choice involved.
 
 ### Other certifications
 
-There are many other lesser known certifications like EC council\'s
-Certified Ethical Hacker, CompTIA\'s Linux+, and Sair\'s Linux GNU.
+There are many other lesser known certifications like EC council's
+Certified Ethical Hacker, CompTIA's Linux+, and Sair's Linux GNU.
 

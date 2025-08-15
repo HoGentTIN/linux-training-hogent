@@ -65,7 +65,7 @@ The same `rpcinfo` command when `nfs` is started.
 ## server configuration
 
 `nfs` is configured in `/etc/exports`. You might want some
-way (`ldap`?) to synchronize userid\'s across computers
+way (`ldap`?) to synchronize userid's across computers
 when using `nfs` a lot.
 
 The `rootsquash` option will change UID 0 to the UID of a
@@ -109,7 +109,7 @@ like this:
 
 ## exportfs
 
-You don\'t need to restart the nfs server to start exporting your newly
+You don't need to restart the nfs server to start exporting your newly
 created exports. You can use the `exportfs -va` command to
 do this. It will write the exported directories to
 `/var/lib/nfs/etab`, where they are immediately applied.

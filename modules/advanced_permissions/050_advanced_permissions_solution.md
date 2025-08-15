@@ -25,9 +25,9 @@ sports group.
 1e. Test that this works!
 
 Log in with different users (group members and others and root), create
-files and watch the permissions. Try changing and deleting files\...
+files and watch the permissions. Try changing and deleting files...
 
-2\. Verify the permissions on `/usr/bin/passwd`. Remove the `setuid`,
+2. Verify the permissions on `/usr/bin/passwd`. Remove the `setuid`,
 then try changing your password as a normal user. Reset the permissions
 back and try again.
 
@@ -45,7 +45,7 @@ A normal user cannot change password now.
     -rwsr-xr-x 1 root root 31704 2009-11-14 15:41 /usr/bin/passwd
         
 
-3\. If time permits (or if you are waiting for other students to finish
+3. If time permits (or if you are waiting for other students to finish
 this practice), read about file attributes in the man page of `chattr` and
 `lsattr`. Try setting the `i` attribute on a file and test that it works.
 

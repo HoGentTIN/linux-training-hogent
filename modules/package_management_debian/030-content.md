@@ -4,7 +4,7 @@ Most people use `apt` or `apt-get` (APT = Advanced Package Tool) to manage their
 
 ## dpkg
 
-You could use `dpkg -i` to install a package and `dpkg -r` to remove a package, but you\'d have to manually download the packge and keep track of dependencies. Using `apt-get` or `apt` is much easier (see below).
+You could use `dpkg -i` to install a package and `dpkg -r` to remove a package, but you'd have to manually download the packge and keep track of dependencies. Using `apt-get` or `apt` is much easier (see below).
 
 ### dpkg -l
 

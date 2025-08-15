@@ -131,7 +131,7 @@ accepts several options that will allow you to remove any directory. The
 anything (providing that you have the permissions to do so). When you
 are logged on as root, be very careful with `rm -rf` (the `f` means
 `force` and the `r` means `recursive`) since being root implies that
-permissions don\'t apply to you. You can literally erase your entire
+permissions don't apply to you. You can literally erase your entire
 file system by accident.
 
     student@linux:~$ mkdir test
@@ -269,7 +269,7 @@ all file names ending in .txt.
 
     student@linux:~/test42$ ls
     abc.txt  file33.txt  file42.txt
-    student@linux:~/test42$ rename 's/\.txt/\.png/' *.txt
+    student@linux:~/test42$ rename 's/.txt/.png/' *.txt
     student@linux:~/test42$ ls
     abc.png  file33.png  file42.png
 

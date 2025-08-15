@@ -1,6 +1,6 @@
 ## solution: iSCSI devices
 
-1\. Set up a target (using an LVM and a SCSI device) and an initiator
+1. Set up a target (using an LVM and a SCSI device) and an initiator
 that connects to both.
 
 This solution was done on `Debian/ubuntu/Mint`. For RHEL/CentOS check
@@ -50,7 +50,7 @@ devices on the Target.
 Edit the files `/etc/iscsi/nodes/` as shown in the book. Then restart
 the iSCSI daemon and rund `fdisk -l` to see the iSCSI devices.
 
-2\. Set up an iSCSI Target and Initiator on two CentOS7/RHEL7 computers
+2. Set up an iSCSI Target and Initiator on two CentOS7/RHEL7 computers
 with the following information:
 
   -------------------------------------------------------------

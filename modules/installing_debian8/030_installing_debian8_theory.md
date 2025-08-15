@@ -33,7 +33,7 @@ version is released when it is ready.
 ## Downloading
 
 All these screenshots were made in November 2014, which means `Debian 8`
-was still in \'testing\' (but in \'freeze\', so there will be no major
+was still in 'testing' (but in 'freeze', so there will be no major
 changes when it is released).
 
 Download Debian here:
@@ -136,7 +136,7 @@ Give the `root` user a password. Remember this password (or use
 
 ![](assets/debian10_inst5_rootpw.png)
 
-It is adviced to also create a normal user account. I don\'t give my
+It is adviced to also create a normal user account. I don't give my
 full name, Debian 8 accepts an identical username and full name `paul`.
 
 ![](assets/debian10_inst5_newuser.png)
@@ -310,7 +310,7 @@ normal user account.
     Password:
     root@linux:~#
 
-TODO: putty screenshot here\...
+TODO: putty screenshot here...
 
 ## setting the hostname
 

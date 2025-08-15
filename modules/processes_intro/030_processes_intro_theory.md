@@ -56,7 +56,7 @@ Below we use `echo` to display the values of `$$` and
 
 ### pidof
 
-You can find all process id\'s by name using the `pidof`
+You can find all process id's by name using the `pidof`
 command.
 
     root@linux ~# pidof mingetty

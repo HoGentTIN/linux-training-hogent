@@ -58,7 +58,7 @@ deze werking aangetoond met behulp van het `ping` commando en de
 
 ## packetjes
 
-Op het bord heb ik regelmatig \'packetjes\' getekend. Technisch spreken
+Op het bord heb ik regelmatig 'packetjes' getekend. Technisch spreken
 we van een `ethernet frame` en van een `ip datagram`. Het exacte formaat
 (per bit of byte) van deze packetjes behoort niet tot de leerstof. Ik
 veronderstel hier enkel dat jullie weten dat een ethernet netwerkkaart
@@ -275,7 +275,7 @@ applicatie) naar beneden.
 Tussen haakjes, de `presentatie` van deze data aan de browser gebeurt
 met een `mime type`. Email berichten (en websites) bestaan al lang niet
 meer enkel uit `ascii` karakters, maar bevatten ook andere
-karakters, foto\'s, geluid en film.
+karakters, foto's, geluid en film.
 
 `MIME (Multipurpose Internet Mail Extensions)` defineert
 een mechanisme om deze inhoud te versturen over e-mail (of zoals in ons
@@ -299,22 +299,22 @@ boven door de lagen, totdat onze `browser` de webpagina kan tonen.
 
 ### vragen
 
-1\. Hoe weet de computer van de VRT dat het packetje naar de http-server
+1. Hoe weet de computer van de VRT dat het packetje naar de http-server
 moet ?
 
-2\. Hoe weet mijn laptop voor welke applicatie het packetje is ?
+2. Hoe weet mijn laptop voor welke applicatie het packetje is ?
 
 ## lagen oefening
 
-0\. Kies een netwerk voor de volgende vragen : thuis, werk, klas
+0. Kies een netwerk voor de volgende vragen : thuis, werk, klas
 
-1\. Maak een tekening (papier of pc) van je netwerk voor laag 1.
+1. Maak een tekening (papier of pc) van je netwerk voor laag 1.
 
-2\. Maak een tekening (papier of pc) van je netwerk voor laag 2.
+2. Maak een tekening (papier of pc) van je netwerk voor laag 2.
 
-3\. Maak een tekening (papier of pc) van je netwerk voor laag 3 (wanneer
+3. Maak een tekening (papier of pc) van je netwerk voor laag 3 (wanneer
 je een website bezoekt).
 
-4\. Maak een tekening (papier of pc) van je netwerk voor laag 7 (wanneer
+4. Maak een tekening (papier of pc) van je netwerk voor laag 7 (wanneer
 je een website bezoekt).
 

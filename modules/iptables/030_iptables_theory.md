@@ -110,7 +110,7 @@ inside a remote ssh shell.
 
 ### changing policy rules
 
-To start, let\'s set the default policy for all three chains to drop
+To start, let's set the default policy for all three chains to drop
 everything. Note that you might lose your connection when typing this
 over ssh ;-).
 

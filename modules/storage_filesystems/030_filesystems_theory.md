@@ -6,7 +6,7 @@ file-based storage, file systems usually include
 information about files like access times, modification times and file
 ownership.
 
-The properties (length, character set, \...) of filenames are determined
+The properties (length, character set, ...) of filenames are determined
 by the file system you choose. Directories are usually implemented as
 files, you will have to learn how this is implemented! Access control in
 file systems is tracked by user ownership (and group owner- and

@@ -23,7 +23,7 @@ computer.
 All Linux systems have a directory structure that starts at the
 `root directory`. The root directory is represented by a
 `forward slash`, like this: `/`. Everything that exists on
-your Linux system can be found below this root directory. Let\'s take a
+your Linux system can be found below this root directory. Let's take a
 brief look at the contents of the root directory.
 
     [student@linux ~]$ ls /
@@ -145,7 +145,7 @@ is called wp, then it installs in `/opt/wp`, putting binaries in
 ### /boot
 
 The `/boot` directory contains all files needed to boot
-the computer. These files don\'t change very often. On Linux systems you
+the computer. These files don't change very often. On Linux systems you
 typically find the `/boot/grub` directory here.
 `/boot/grub` contains `/boot/grub/grub.cfg` (older systems
 may still have `/boot/grub/grub.conf`) which defines the
@@ -293,7 +293,7 @@ this purpose.
 ### /media
 
 The `/media` directory serves as a mount point for
-`removable media devices` such as CD-ROM\'s, digital cameras, and
+`removable media devices` such as CD-ROM's, digital cameras, and
 various usb-attached devices. Since `/media` is rather new in the Unix
 world, you could very well encounter systems running without this
 directory. Solaris 9 does not have it, Solaris 10 does. Most Linux
@@ -353,8 +353,8 @@ These special devices can be very useful.
 #### /dev/tty and /dev/pts
 
 For example, `/dev/tty1` represents a terminal or console
-attached to the system. (Don\'t break your head on the exact terminology
-of \'terminal\' or \'console\', what we mean here is a command line
+attached to the system. (Don't break your head on the exact terminology
+of 'terminal' or 'console', what we mean here is a command line
 interface.) When typing commands in a terminal that is part of a
 graphical interface like Gnome or KDE, then your terminal will be
 represented as `/dev/pts/1` (1 can be another number).
@@ -410,7 +410,7 @@ and some interesting files (on Linux)
     2338   4704   5416  6568  7199  bus        modules
             
 
-Let\'s investigate the file properties inside `/proc`. Looking at the
+Let's investigate the file properties inside `/proc`. Looking at the
 date and time will display the current date and time showing the files
 are constantly updated (a view on the kernel).
 
@@ -454,7 +454,7 @@ of data. You can see this by executing cat on files like
     bogomips        : 4803.54
             
 
-*Just for fun, here is /proc/cpuinfo on a Sun Sunblade 1000\...*
+*Just for fun, here is /proc/cpuinfo on a Sun Sunblade 1000...*
 
     student@linux:~$ cat /proc/cpuinfo
     cpu : TI UltraSparc III (Cheetah)
@@ -476,7 +476,7 @@ of data. You can see this by executing cat on files like
 
 Most of the files in /proc are read only, some require root privileges,
 some files are writable, and many files in `/proc/sys` are
-writable. Let\'s discuss some of the files in /proc.
+writable. Let's discuss some of the files in /proc.
 
 #### /proc/interrupts
 
@@ -499,7 +499,7 @@ interrupts.
     ERR:          0
     MIS:          0
 
-On a machine with two CPU\'s, the file looks like this.
+On a machine with two CPU's, the file looks like this.
 
     student@linux:~$ cat /proc/interrupts 
               CPU0      CPU1       
@@ -703,7 +703,7 @@ information.
 Red Hat Enterprise Linux for example keeps files pertaining to
 `rpm` in `/var/lib/rpm/`.
 
-### /var/\...
+### /var/...
 
 `/var` also contains Process ID files in `/var/run` (soon
 to be replaced with `/run`) and temporary files that

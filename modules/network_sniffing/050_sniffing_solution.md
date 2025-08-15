@@ -1,26 +1,26 @@
 ## solution: network sniffing
 
-1\. Install wireshark on your computer (not inside a virtual machine).
+1. Install wireshark on your computer (not inside a virtual machine).
 
     Debian/Ubuntu: aptitude install wireshark
 
     Red Hat/Mandriva/Fedora: yum install wireshark
 
-2\. Start a ping between your computer and another computer.
+2. Start a ping between your computer and another computer.
 
     ping $ip_address
 
-3\. Start sniffing the network.
+3. Start sniffing the network.
 
     (sudo) wireshark
 
     select an interface (probably eth0)
 
-4\. Display only the ping echo\'s in the top pane using a filter.
+4. Display only the ping echo's in the top pane using a filter.
 
     type 'icmp' (without quotes) in the filter box, and then click 'apply'
 
-5\. Now ping to a name (like www.linux-training.be) and try to sniff the
+5. Now ping to a name (like www.linux-training.be) and try to sniff the
 DNS query and response. Which DNS server was used ? Was it a tcp or udp
 query and response ?
 
@@ -43,7 +43,7 @@ The wireshark screen should look something like this.
 
 The details in wireshark will say the DNS query was inside a udp packet.
 
-6\. Find an amateur/hobby/club website that features a login prompt.
-Attempt to login with user \'paul\' and password \'hunter2\' while your
+6. Find an amateur/hobby/club website that features a login prompt.
+Attempt to login with user 'paul' and password 'hunter2' while your
 sniffer is running. Now find this information in the sniffer.
 

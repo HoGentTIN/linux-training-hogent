@@ -1,76 +1,76 @@
 ## solution: working with directories
 
-1\. Display your current directory.
+1. Display your current directory.
 
     pwd
 
-2\. Change to the /etc directory.
+2. Change to the /etc directory.
 
     cd /etc
 
-3\. Now change to your home directory using only three key presses.
+3. Now change to your home directory using only three key presses.
 
     cd (and the enter key)
 
-4\. Change to the /boot/grub directory using only eleven key presses.
+4. Change to the /boot/grub directory using only eleven key presses.
 
     cd /boot/grub (use the tab key)
 
-5\. Go to the parent directory of the current directory.
+5. Go to the parent directory of the current directory.
 
     cd .. (with space between cd and ..)
 
-6\. Go to the root directory.
+6. Go to the root directory.
 
     cd /
 
-7\. List the contents of the root directory.
+7. List the contents of the root directory.
 
     ls
 
-8\. List a long listing of the root directory.
+8. List a long listing of the root directory.
 
     ls -l
 
-9\. Stay where you are, and list the contents of /etc.
+9. Stay where you are, and list the contents of /etc.
 
     ls /etc
 
-10\. Stay where you are, and list the contents of /bin and /sbin.
+10. Stay where you are, and list the contents of /bin and /sbin.
 
     ls /bin /sbin
 
-11\. Stay where you are, and list the contents of \~.
+11. Stay where you are, and list the contents of ~.
 
     ls ~
 
-12\. List all the files (including hidden files) in your home directory.
+12. List all the files (including hidden files) in your home directory.
 
     ls -al ~
 
-13\. List the files in /boot in a human readable format.
+13. List the files in /boot in a human readable format.
 
     ls -lh /boot
 
-14\. Create a directory testdir in your home directory.
+14. Create a directory testdir in your home directory.
 
     mkdir ~/testdir
 
-15\. Change to the /etc directory, stay here and create a directory
+15. Change to the /etc directory, stay here and create a directory
 newdir in your home directory.
 
     cd /etc ; mkdir ~/newdir
 
-16\. Create in one command the directories \~/dir1/dir2/dir3 (dir3 is a
+16. Create in one command the directories ~/dir1/dir2/dir3 (dir3 is a
 subdirectory from dir2, and dir2 is a subdirectory from dir1 ).
 
     mkdir -p ~/dir1/dir2/dir3
 
-17\. Remove the directory testdir.
+17. Remove the directory testdir.
 
     rmdir testdir
 
-18\. If time permits (or if you are waiting for other students to finish
+18. If time permits (or if you are waiting for other students to finish
 this practice), use and understand `pushd` and `popd`. Use the man page
 of `bash` to find information about these commands.
 

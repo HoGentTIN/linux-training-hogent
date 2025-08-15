@@ -82,7 +82,7 @@ use `elilo`, `IBM S/390` and `zSeries` use
 `z/IPL`, `Alpha` uses `milo` and `PowerPC` architectures
 use `yaboot` (yet another boot loader).
 
-Bootable cd\'s and dvd\'s often use `syslinux`.
+Bootable cd's and dvd's often use `syslinux`.
 
 ### kernel
 
@@ -155,7 +155,7 @@ The file currently (RHEL 6.5) looks like this:
 
 ### menu commands
 
-The `menu commands` must be at the top of `grub`\'s configuration file.
+The `menu commands` must be at the top of `grub`'s configuration file.
 
 #### default
 
@@ -303,7 +303,7 @@ with `grub`.
     root  (hd0,0)
     makeactive
 
-Chainloading refers to grub loading another operating system\'s
+Chainloading refers to grub loading another operating system's
 bootloader. The `chainloader` switch receives one option:
 the number of sectors to read and boot. For `DOS` and
 `OS/2` one sector is enough. Note that `DOS` requires the

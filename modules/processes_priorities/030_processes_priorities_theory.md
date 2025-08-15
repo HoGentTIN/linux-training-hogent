@@ -123,7 +123,7 @@ values.
 
 Important to remember is to always make less important processes nice to
 more important processes. Using `negative nice values` can have a severe
-impact on a system\'s usability.
+impact on a system's usability.
 
 ### nice
 

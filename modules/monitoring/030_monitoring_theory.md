@@ -13,7 +13,7 @@ To start monitoring, you can use `top`. This tool will
 monitor ram memory, cpu and swap. Top will automatically refresh. Inside
 `top` you can use many commands, like `k` to kill processes, or `t` and
 `m` to toggle displaying task and memory information, or the number `1`
-to have one line per cpu, or one summary line for all cpu\'s.
+to have one line per cpu, or one summary line for all cpu's.
 
     top - 12:23:16 up 2 days,  4:01, 2 users, load average: 0.00, 0.00, 0.00
     Tasks:  61 total,   1 running,  60 sleeping,   0 stopped,   0 zombie

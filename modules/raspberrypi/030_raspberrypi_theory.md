@@ -6,7 +6,7 @@ using them.
 
 ![](assets/raspberrypi_fourpis.jpg)
 
-The `Raspberry Pi` is advertised as a \'30 euro computer\'. This is not
+The `Raspberry Pi` is advertised as a '30 euro computer'. This is not
 a lie, but many people will end up spending around 50 euro for each
 fully working and connected `Raspberry Pi`.
 
@@ -35,7 +35,7 @@ module I continue with the `raspbian` and the `pidora` images.
 
 ![](assets/raspberrypi_downloads.png)
 
-This download may take a couple minutes to complete\...
+This download may take a couple minutes to complete...
 
 ![](assets/raspberrypi_downloading.png)
 
@@ -105,7 +105,7 @@ We will configure the network before inserting the `sd card` in the
     root@linux:~# mount /dev/sdb2 /mnt
     root@linux:~# vi /mnt/etc/network/interfaces
 
-Check the chapters in Debian network configuration if you don\'t know
+Check the chapters in Debian network configuration if you don't know
 what to do with this file. I added four lines (in bold below) to give
 this `Pi` a unique address in my ghost network (when connected via
 ethernet cable).
@@ -194,7 +194,7 @@ To disble the camera led:
 
 ![](assets/raspberrypi.png)
 
-## building a stack of pi\'s
+## building a stack of pi's
 
 Here are some pictures of a `Raspberry Pi` stack held together by Lego
 Technic.

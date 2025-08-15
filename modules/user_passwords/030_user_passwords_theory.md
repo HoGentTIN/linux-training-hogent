@@ -62,7 +62,7 @@ All the passwords in the screenshot above are hashes of `hunter2`.
 Passwords are stored in an encrypted format. This encryption is done by
 the `crypt` function. The easiest (and recommended) way to
 add a user with a password to the system is to add the user with the
-`useradd -m user` command, and then set the user\'s
+`useradd -m user` command, and then set the user's
 password with `passwd`.
 
     [root@RHEL4 ~]# useradd -m xavier

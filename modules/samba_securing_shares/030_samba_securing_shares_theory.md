@@ -55,7 +55,7 @@ Use the `write list` parameter.
 The `hosts allow` or `allow hosts` parameter
 is one of the key advantages of Samba. It allows access control of
 shares on the ip-address level. To allow only specific hosts to access a
-share, list the hosts, separated by comma\'s.
+share, list the hosts, separated by comma's.
 
     allow hosts = 192.168.1.5, 192.168.1.40
 

@@ -17,7 +17,7 @@ Use `yum` if you are on Red Hat/CentOS.
     2014/08/01 15:19:31| Creating Swap Directories
     Restarting Squid HTTP proxy: squid.
 
-`squid`\'s main configuration file is
+`squid`'s main configuration file is
 `/etc/squid/squid.conf`. The file explains every parameter
 in great detail.
 
@@ -166,7 +166,7 @@ The standard log file location for squid is
 
 The default squid setup only allows localhost access. To enable access
 for a private network range, look for the \"INSERT YOUR OWN RULE(S)
-HERE\...\" sentence in squid.conf and add two lines similar to the
+HERE...\" sentence in squid.conf and add two lines similar to the
 screenshot below.
 
     # INSERT YOUR OWN RULE(S) HERE TO ALLOW ACCESS FROM YOUR CLIENTS
@@ -202,7 +202,7 @@ simplify the screenshot).
 
 ## name resolution
 
-You need name resolution working on the `squid` server, but you don\'t
+You need name resolution working on the `squid` server, but you don't
 need name resolution on the clients.
 
     [student@linux ~]$ wget http://grep.be

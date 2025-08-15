@@ -57,7 +57,7 @@ The commands used to manage a `volume group` start with vg.
 A `logical volume` is created in a `volume group`. Logical volumes that
 contain a file system can be mounted. The use of `logical volumes` is
 similar to the use of `partitions` and is accomplished with the same
-standard commands (mkfs, mount, fsck, df, \...).
+standard commands (mkfs, mount, fsck, df, ...).
 
 The commands used to manage a `logical volume` start with lv.
 
@@ -391,7 +391,7 @@ snapshot volume has to keep more original data (10.22 percent).
       snapLV   vg42       swi-a- 100.00M bigLV   10.22                
     [root@linux ~]#
 
-You can now use regular backup tools (dump, tar, cpio, \...) to take a
+You can now use regular backup tools (dump, tar, cpio, ...) to take a
 backup of the snapshot Logical Volume. This backup will contain all data
 as it existed on bigLV at the time the snapshot was taken. When the
 backup is done, you can remove the snapshot.

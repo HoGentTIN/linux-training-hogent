@@ -85,14 +85,14 @@ screenshot explains how to open the man page in the correct section.
 If you want to know more about `man`, then Read The Fantastic Manual
 (RTFM).
 
-*Unfortunately, manual pages do not have the answer to everything\...*
+*Unfortunately, manual pages do not have the answer to everything...*
 
     student@linux:~$ man woman
     No manual entry for woman
 
 ## mandb
 
-Should you be convinced that a man page exists, but you can\'t access
+Should you be convinced that a man page exists, but you can't access
 it, then try running `mandb` on Debian/Mint.
 
     root@linux:~# mandb

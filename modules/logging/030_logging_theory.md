@@ -254,7 +254,7 @@ Below a sample configuration of custom local4 messages in
 
 ### restarting rsyslogd
 
-Don\'t forget to restart the server after changing its configuration.
+Don't forget to restart the server after changing its configuration.
 
     root@linux:/etc# service rsyslog restart
     Shutting down system logger:                               [  OK  ]

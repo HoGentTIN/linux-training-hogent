@@ -16,10 +16,10 @@ Directory domain controllers, so we set the `security` option to domain.
     security = Domain
             
 
-### Linux uid\'s
+### Linux uid's
 
 Linux requires a user account for every user accessing its file system,
-we need to provide Samba with a range of uid\'s and gid\'s that it can
+we need to provide Samba with a range of uid's and gid's that it can
 use to create these user accounts. The range is determined with the
 `idmap uid` and the `idmap gid` parameters.
 The first Active Directory user to connect will receive Linux uid 20000.

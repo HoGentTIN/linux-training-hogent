@@ -114,7 +114,7 @@ Solaris you can use `mkfile` instead of
 
 ### swap space in /etc/fstab
 
-If you like these swaps to be permanent, then don\'t forget to add them
+If you like these swaps to be permanent, then don't forget to add them
 to `/etc/fstab`. The lines in /etc/fstab will be similar
 to the following.
 
@@ -153,7 +153,7 @@ and out). There is no need for swapping here.
 
 Below a sample `vmstat` when executing (on RHEL6) a simple memory
 leaking program. Now you see a lot of memory being swapped (si is
-\'swapped in\').
+'swapped in').
 
     [student@linux ~]$ vmstat 2 100
 

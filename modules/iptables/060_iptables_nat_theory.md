@@ -77,7 +77,7 @@ network has access via SNAT to external (eth1) webservers (port 80).
 ### IP masquerading
 
 IP masquerading is very similar to SNAT, but is meant for dynamic
-interfaces. Typical example are broadband \'router/modems\' connected to
+interfaces. Typical example are broadband 'router/modems' connected to
 the internet and receiving a different ip-address from the isp, each
 time they are cold-booted.
 

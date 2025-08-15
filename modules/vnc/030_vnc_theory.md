@@ -6,7 +6,7 @@ used to run your desktop on another computer, and you can also use it to
 see and take over the Desktop of another user. The last part can be
 useful for help desks to show users how to do things. VNC has the added
 advantage of being operating system independent, a lot of products
-(realvnc, tightvnc, xvnc, \...) use the same protocol on Solaris, Linux,
+(realvnc, tightvnc, xvnc, ...) use the same protocol on Solaris, Linux,
 BSD and more.
 
 ## VNC Server
@@ -37,7 +37,7 @@ Starting the vnc server for the first time.
 
 You can now use the `vncviewer` from another machine to
 connect to your vnc server. It will default to a very simple graphical
-interface\...
+interface...
 
     student@linux:~$ vncviewer 192.168.1.49:2
     VNC viewer version 3.3.7 - built Nov 20 2006 13:05:04
@@ -52,7 +52,7 @@ interface\...
     ...
             
 
-If you don\'t like the simple twm window manager, you can comment out
+If you don't like the simple twm window manager, you can comment out
 the last two lines of `~/.vnc/xstartup` and add a
 `gnome-session &` line to have vnc default to gnome
 instead.
@@ -74,7 +74,7 @@ instead.
     [root@linux ~]#
             
 
-Don\'t forget to restart your vnc server after changing this file.
+Don't forget to restart your vnc server after changing this file.
 
     [root@linux ~]# vncserver -kill :2
     Killing Xvnc process ID 5785
@@ -88,5 +88,5 @@ Don\'t forget to restart your vnc server after changing this file.
 
 ## Practice VNC
 
-1\. Use VNC to connect from one machine to another.
+1. Use VNC to connect from one machine to another.
 

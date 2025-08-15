@@ -47,7 +47,7 @@ password.
 
 ## security = user
 
-Remember that we set samba\'s security mode to share with the
+Remember that we set samba's security mode to share with the
 `security = share` directive in the \[global\] section ?
 Since we now require users to always provide a userid and password for
 access to our samba server, we will need to change this. Setting
