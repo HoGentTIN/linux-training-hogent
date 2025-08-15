@@ -20,10 +20,4 @@ root). Test this line in your home directory and in `/bin/` .
 
 8. Execute `sleep 200` in background (do not wait for it to finish).
 
-9. Write a command line that executes `rm file55`. Your command line
-should print 'success' if file55 is removed, and print 'failed' if
-there was a problem.
-
-(optional)10. Use echo to display \"Hello World with strange'
-characters \\ \* \[ } ~ \\\\ .\" (including all quotes)
 

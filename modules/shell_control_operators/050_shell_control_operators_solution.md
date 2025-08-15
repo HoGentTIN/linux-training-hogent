@@ -46,12 +46,3 @@ there was a problem.
 
     rm file55 && echo success || echo failed
 
-(optional)10. Use echo to display \"Hello World with strange\'
-characters \\ \* \[ } ~ \\\\ .\" (including all quotes)
-
-    echo \"Hello World with strange\' characters \\ \* \[ \} ~ \\\\ . \"
-
-    or
-
-    echo \""Hello World with strange' characters \ * [ } ~ \\ . "\"
-
