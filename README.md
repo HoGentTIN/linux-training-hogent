@@ -8,25 +8,9 @@ So, the goal of this repository is to preserve the existing content in a format 
 
 To read about the methodology of converting the original Docbook XML to Markdown, and the tools used to generate the PDF and static HTML site, see [conversion.md](conversion.md).
 
-## Roadmap
-
-- [x] Conversion of the original Docbook XML to Markdown so that it can be more easily edited and maintained. The result is available in the [modules](modules/) directory.
-- [x] Reproducing and preserving Linux Fundamentals:
-    - [x] script for generating the books as a PDF (with [Pandoc](https://pandoc.org))
-    - [x] script for generating a static HTML site (with [mkdocs](https://www.mkdocs.org))
-    - [x] setting up Github Actions to publish the results to Github Pages
-- [x] Adding the other books in the series
-    - [x] Linux Fundamentals, Linux System Administration and Linux Servers have been successfully converted and are available.
-    - [ ] Adding the "complete" book published most recently
-    - [ ] Linux Security, Linux Storage, and Linux Networking are remixes of content already present in the other books, so we won't be adding those for the time being.
-- [x] Adding remixes for the benefit of the Linux courses given at HOGENT
-    - [x] Linux for Operations
-    - [x] Linux for Data Scientists
-- [ ] Updating existing and adding new content
-
 ## Contributing
 
-When we're ready with setting up the infrastructure for the project, we'll be happy to accept contributions. In the meantime, feel free to open an issue if you have any questions or suggestions.
+Feel free to open an issue if you have any questions or suggestions. PR's with improvements or additions to the content are also welcome!
 
 ## License information
 
