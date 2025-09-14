@@ -173,7 +173,7 @@ ermion
 
 ## paste
 
-The `paste` command will two files line by line. By default, it merges the first line of the first file with the first line of the second file, and so on. The screenshot below shows the result of merging two files.
+The `paste` command will combine two files line by line. By default, it merges the first line of the first file with the first line of the second file, and so on. The screenshot below shows the result of merging two files.
 
 ```console
 student@linux:~/pipes$ cat count.txt 
