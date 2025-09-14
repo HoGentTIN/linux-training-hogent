@@ -14,7 +14,7 @@
 
     > Installing games is also possible, but the selection is not as large as on Steam. However, you can install Steam on Linux and play many games that are available on that platform.
 
-3. Why would it be a bad idea to install Python packages with `pip` as root? When would you install a package (e.g. `pandas`) with `pip` instead of the package mnanager (e.g. `python3-pandas`)?
+3. Why would it be a bad idea to install Python packages with `pip` as root? When would you install a package (e.g. `pandas`) with `pip` instead of the package manager (e.g. `python3-pandas`)?
 
     > Installing Python packages with `pip` as root could interfere with the Python packages installed with the system package manager. Generally, if you need Python packages to be available system-wide, use the system package manager.
 
