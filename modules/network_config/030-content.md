@@ -83,7 +83,7 @@ On modern Linux systems, network interface names are provided by the `systemd` [
 
 It is still possible to disable this feature and revert to the traditional naming scheme, but this is beyond the scope of this course and we do not recommend this.
 
-More information about the network device naming scheme can be found in the manpage `man systemd.net-naming-scheme`.
+More information about the network device naming scheme can be found in the man-page `man systemd.net-naming-scheme`.
 
 - a name starting with `en` denotes an Ethernet device
 - a name starting with `wl` denotes a wireless LAN device
@@ -123,7 +123,7 @@ nameserver 10.0.2.3
 
 In this example, the DNS server has IP address 10.0.2.3 (which is typical for a VirtualBox NAT interface). The `domain` and `search` lines are used to append the domain name to hostnames that are not fully qualified.
 
-However, on recent versions of several Linux distribututions, the `/etc/resolv.conf` file is often managed by the `systemd-resolved` service. This service is part of the `systemd` suite and provides network name resolution to local applications. The `systemd-resolved` service is configured through the file `/etc/systemd/resolved.conf` and the `/etc/resolv.conf` file is a symlink to `/run/systemd/resolve/stub-resolv.conf`.
+However, on recent versions of several Linux distributions, the `/etc/resolv.conf` file is often managed by the `systemd-resolved` service. This service is part of the `systemd` suite and provides network name resolution to local applications. The `systemd-resolved` service is configured through the file `/etc/systemd/resolved.conf` and the `/etc/resolv.conf` file is a symlink to `/run/systemd/resolve/stub-resolv.conf`.
 
 The following example is a typical `/etc/resolv.conf` file on a system with `systemd-resolved`:
 
@@ -140,7 +140,7 @@ lrwxrwxrwx 1 root root 39 Jan 21 19:42 /etc/resolv.conf -> ../run/systemd/resolv
 
 The DNS server is set to 127.0.0.53, which seems to be a combination of the loopback address 127.0.0.1 and the port number 53 of the DNS service. Any IP address in the 127.0.0.0/8 range is considered to be a loopback address and will behave just like 127.0.0.1. `systemd-resolved` listens on a server socket with port 53 connected to the loopback interface.
 
-In the example below, we use the Show Sockets (`ss`) command to verify that `systemd-resolved` is listening on UDP port 53 and next, we send a DNS query to the IP address specified in `/etc/resolv.conf` (see below for more info on the `dig` command that is used here):
+In the example below, we use the Show Sockets (`ss`) command to verify that `systemd-resolved` is listening on UDP port 53. Next, we send a DNS query to the IP address specified in `/etc/resolv.conf` (see below for more info on the `dig` command that is used here):
 
 ```console
 student@linux:~$ sudo ss -ulnp  | grep 'resolve' 
@@ -363,7 +363,7 @@ See the man-page of `ip-neighbour(8)` for more information.
 
 ### what is my public IP address?
 
-Quite often, you find yourself behind a NAT router, and you have an IP address within a privat range (e.g. 192.168.0.0/24, 172.16.0.0/16 or 10.0.0.0/8). If you want to know what your public IP address is, you can use the `curl` command to get this information from a website that provides this service. The following example uses the `ifconfig.me` website (you can also use `icanhazip.com`):
+Quite often, you find yourself behind an NAT router, and you have an IP address within a private range (e.g. 192.168.0.0/24, 172.16.0.0/16 or 10.0.0.0/8). If you want to know what your public IP address is, you can use the `curl` command to get this information from a website that provides this service. The following example uses the `ifconfig.me` website (you can also use `icanhazip.com`):
 
 ```console
 student@linux:~$ curl ifconfig.me
@@ -471,7 +471,7 @@ On Enterprise Linux (Red Hat, Fedora, AlmaLinux, CentOS, etc.), the network sett
 
 Remark that Red Hat has been moving away from this system since RHEL 7 and is migrating to the *NetworkManager* service. However, for now, the old configuration files are still present and can be used. See the next section for more information on editing network settings with *NetworkManager*.
 
-An example of a network configuration file for a EL9 system with two network interfaces, one with a dynamic IP address and one with a static IP address, is shown below:
+An example of a network configuration file for an EL9 system with two network interfaces, one with a dynamic IP address and one with a static IP address, is shown below:
 
 ```console
 [student@el ~]$ ls /etc/sysconfig/network-scripts/
@@ -534,7 +534,7 @@ eth1      UP       192.168.56.9/24 fe80::a00:27ff:fec8:fbc4/64
 
 On recent versions of RHEL (since RHEL 7) and Fedora, and even Debian and derivatives, *NetworkManager* is used to manage network connections. The *NetworkManager* service is a dynamic network control and configuration system that attempts to keep network devices and connections up and active when they are available. It manages Ethernet, WiFi, mobile broadband (WWAN), and PPPoE devices, and provides VPN integration with a variety of different VPN services.
 
-An argument can be made that this is quite useful for laptops, who often move between networks and need to switch between wired and wireless connections. However, for servers, it is often considered overkill and unnecessary. Nevertheless, *NetworkManager* is installed and actiated on many systems, so it is necessary to know how to use it.
+An argument can be made that this is quite useful for laptops, who often move between networks and need to switch between wired and wireless connections. However, for servers, it is often considered overkill and unnecessary. Nevertheless, *NetworkManager* is installed and activated on many systems, so it is necessary to know how to use it.
 
 In this section, we'll discuss `nmcli`, the command-line interface to *NetworkManager*. There are alternative ways to configure *NetworkManager* (e.g. with the `nmtui` command or the graphical user interface), but we will focus on `nmcli` here. Reason is that `nmcli`-based configuration can be automated in scripts, while actions in an interactive user interface cannot.
 
@@ -722,7 +722,13 @@ To change the hostname, use the `hostnamectl set-hostname` command:
 
 Remark that the prompt hasn't changed yet! You will need to log out and log back in to see the new hostname in the prompt.
 
-`systemd-hostnamed` distinguishes three different hostnames: the high-level "pretty" hostname which might include all kinds of special characters (e.g. "Lennart's Laptop"), the "static" hostname which is the user-configured hostname (e.g. "lennarts-laptop"), and the transient hostname which is a fallback value received from network configuration (e.g. "node12345678"). If a static hostname is set to a valid value, then the transient hostname is not used.
+`systemd-hostnamed` distinguishes three different hostnames:
+
+- the high-level "pretty" hostname which might include all kinds of special characters (e.g. "Lennart's Laptop"),
+- the "static" hostname which is the user-configured hostname (e.g. "lennarts-laptop"), and
+- the transient hostname which is a fallback value received from network configuration (e.g. "node12345678").
+
+If a static hostname is set to a valid value, then the transient hostname is not used.
 
 ### changing the MAC address
 
