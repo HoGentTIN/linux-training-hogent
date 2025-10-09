@@ -63,9 +63,10 @@ content:
   # - title: "Workflow automation"
   #   chapters:
   #     # - makefiles # TODO
-  # - title: "Reproducible development environments"
-  #   chapters:
-  #     - vagrant # TODO
+  - title: "Reproducible development environments"
+    chapters:
+      - vagrant
+      # - python_venv
 
 backmatter:
   - git
