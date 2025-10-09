@@ -38,9 +38,7 @@ content:
       - package_management
       - package_management_el
       - package_management_debian
-      - general_networking
       - network_config
-      - dhcp
       - dhcp_kea
   - title: "Webserver; scripting 102"
     chapters:
