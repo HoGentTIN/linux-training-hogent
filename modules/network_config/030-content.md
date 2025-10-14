@@ -414,6 +414,21 @@ There's also a `del` option to remove an IP address from an interface:
 eth1       UP             192.168.56.9/24
 ```
 
+The `ip` command can also be used to add or remove a default gateway (or other routes). For example, on the system in the example below, a second default gateway was configured by mistake. We can remove it with the `ip route del` command:
+
+```console
+student@el:~$ ip r
+default via 10.0.2.2 dev enp0s3 proto dhcp src 10.0.2.15 metric 101 
+default via 192.168.56.1 dev enp0s8 proto static metric 102 
+10.0.2.0/24 dev enp0s3 proto kernel scope link src 10.0.2.15 metric 101 
+192.168.56.0/24 dev enp0s8 proto kernel scope link src 192.168.56.10 metric 102
+student@el:~$ sudo ip route del default via 192.168.56.1 dev enp0s8 
+student@el:~$ ip r
+default via 10.0.2.2 dev enp0s3 proto dhcp src 10.0.2.15 metric 101 
+10.0.2.0/24 dev enp0s3 proto kernel scope link src 10.0.2.15 metric 101 
+192.168.56.0/24 dev enp0s8 proto kernel scope link src 192.168.56.10 metric 102
+```
+
 ### /etc/network/interfaces (Debian)
 
 On Debian-based systems (including Ubuntu, Linux Mint, Raspberry Pi OS, etc.), the network settings are kept in the `/etc/network/interfaces` file. This file is used by the `ifup` and `ifdown` commands to configure and deconfigure network interfaces. The `ifup` and `ifdown` commands are part of the `ifupdown` package, which is installed by default on Debian-based systems. For more information about this configuration file, see its manpage with `man 5 interfaces`.
@@ -465,11 +480,11 @@ student@debian:~$ ip -br a show dev eth1
 eth1      UP      192.168.56.12/24 fe80::a00:27ff:fe0a:4636/64
 ```
 
-### /etc/sysconfig/network-scripts (Enterprise Linux)
+### /etc/sysconfig/network-scripts (Enterprise Linux <= EL9)
 
 On Enterprise Linux (Red Hat, Fedora, AlmaLinux, CentOS, etc.), the network settings are traditionally kept in the `/etc/sysconfig/network-scripts` directory. Each network interface has its own configuration file in this directory. The configuration files are named `ifcfg-<interface>`, where `<interface>` is the name of the network interface.
 
-Remark that Red Hat has been moving away from this system since RHEL 7 and is migrating to the *NetworkManager* service. However, for now, the old configuration files are still present and can be used. See the next section for more information on editing network settings with *NetworkManager*.
+Remark that Red Hat has been moving away from this system since RHEL 7 and is migrating to the *NetworkManager* service. However, the old configuration files are still present and can be used in versions up to EL9. Starting with EL10, the use of *NetworkManager* is mandatory and `/etc/sysconfig/network-scripts` no longer exists. See the next section for more information on editing network settings with *NetworkManager*.
 
 An example of a network configuration file for an EL9 system with two network interfaces, one with a dynamic IP address and one with a static IP address, is shown below:
 
