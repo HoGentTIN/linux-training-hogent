@@ -103,6 +103,7 @@ The configuration file should look like this:
         // Subnet declaration for the LAN
         "subnet4": [
             {
+                "id": 1,
                 "pools": [ { "pool":  "192.168.42.101 - 192.168.42.252" } ],
                 "subnet": "192.168.42.0/24",
                 "interface": "eth1",
