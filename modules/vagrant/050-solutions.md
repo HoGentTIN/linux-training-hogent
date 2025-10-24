@@ -1,5 +1,7 @@
 ## Solutions
 
+For a complete setup, see also <https://github.com/HoGentTIN/linux-training-labs/tree/main/vagrant>.
+
 1. Download the code by clicking the green button "Code" on the GitHub page and selecting "Download ZIP". Unpack the ZIP file in a directory of your choice and rename it to e.g. `vagrant-demo-env` (or any other name you like).
 
     Open a terminal in this directory and run `git init .` to initialize a new Git repository. This is not strictly necessary, but it's a good habit to keep your work under version control. You can now add the files to the repository with `git add .` and commit them with `git commit -m "Initial commit"`.
@@ -28,3 +30,4 @@
 3. Copy the file `srv001.sh` to `alma.sh`, `fedora.sh`, etc. and add any commands for installing packages or configuring the system.
 
     Don't forget to add the new files to the Git repository and commit your changes.
+

@@ -7,3 +7,4 @@
 3. Add install scripts to the `provisioning/` folder for each.
 
 You now have a multi-VM environment to experiment with the different Linux distributions. You can use this environment to practice the commands and concepts you learn in the other chapters of this book. If the VM is broken, you can easily destroy it and recreate it from scratch! If you want to experiment with other distros, feel free to add more VMs to your environment.
+
