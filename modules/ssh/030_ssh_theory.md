@@ -497,3 +497,4 @@ Restoring the setting in order to no longer allow SHA-1 can be done with:
 [student@linux ~]$ sudo update-crypto-policies --set DEFAULT
 Setting system policy to DEFAULT
 ```
+

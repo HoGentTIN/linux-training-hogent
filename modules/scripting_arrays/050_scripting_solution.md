@@ -1,3 +1,4 @@
 ## solution: scripting arrays
 
 TODO
+

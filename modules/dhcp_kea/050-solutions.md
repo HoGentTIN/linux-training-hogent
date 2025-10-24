@@ -185,3 +185,4 @@ An implementation of this exercise can be found at <https://github.com/HoGentTIN
 8. From the client VM, ping the default gateway/dhcp server on both interfaces (192.168.42.254 and 10.0.2.15), the DNS server 10.0.2.3 and the dhcp server's external gateway 10.0.2.2. Use `dig` to test that name resolution works. Access a website from the client VM to verify that Internet access is working.
 
 9. Add a client reservation the client VM. Find the MAC address and assign a fixed IP address to it. Give it a longer default and maximum lease time than the global settings (e.g. 4 and 10 hours, respectively). Restart the dhcp server and re-attach the client VM to the network. Check if the client gets the reserved IP address and can access the internet.
+
