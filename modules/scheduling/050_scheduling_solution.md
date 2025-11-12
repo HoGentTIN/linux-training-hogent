@@ -1,8 +1,8 @@
 ## solution : scheduling
 
-1. Schedule two jobs with `at`, display the `at queue` and remove a
-job.
+1. Schedule two jobs with `at`, display the `at queue` and remove a job.
 
+    ```console
     root@linux ~# at 9pm today
     at> echo go to bed >> /root/todo.txt  
     at> <EOT>
@@ -21,27 +21,32 @@ job.
     Sun Nov 14 17:31:01 CET 2010
     root@linux ~# cat /root/todo.txt 
     go to lunch
+    ```
 
-2. As normal user, use `crontab -e` to schedule a script to run every
-four minutes.
+2. As normal user, use `crontab -e` to schedule a script to run every four minutes.
 
+    ```console
     student@linux ~$ crontab -e
     no crontab for paul - using an empty one
     crontab: installing new crontab
+    ```
 
 3. As root, display the `crontab` file of your normal user.
 
+    ```console
     root@linux ~# crontab -l -u paul
     */4 * * * * echo `date` >> /home/paul/crontest.txt
+    ```
 
 4. As the normal user again, remove your `crontab` file.
 
+    ```console
     student@linux ~$ crontab -r
     student@linux ~$ crontab -l
     no crontab for paul
+    ```
 
-5. Take a look at the `cron` files and directories in `/etc` and
-understand them. What is the `run-parts` command doing ?
+5. Take a look at the `cron` files and directories in `/etc` and understand them. What is the `run-parts` command doing ?
 
-    run-parts runs a script in a directory
+    run-parts runs a script in a directory by executing all the scripts located in the specified directory, one of `/etc/cron.daily`, `/etc/cron.hourly`, `/etc/cron.weekly` and `/etc/cron.monthly`.
 
