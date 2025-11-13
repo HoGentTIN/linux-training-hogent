@@ -31,14 +31,14 @@ A *digital signature* is based on the same principle. Alice signs a message with
 
 ### public-key cryptosystems
 
-This chapter does not explain the technical implementation of cryptographic algorithms, it only explains how to use the ssh tools some common key exchange types. More information about these algorithms can be found here:
+This chapter does not explain the technical implementation of cryptographic algorithms, it only explains how to use the ssh tools with some common key exchange types. More information about these algorithms can be found here:
 
 - <https://en.wikipedia.org/wiki/RSA_(cryptosystem)>
 - <https://en.wikipedia.org/wiki/Digital_Signature_Algorithm>
 - <https://en.wikipedia.org/wiki/EdDSA>
 - <https://en.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm>
 
-### ssh remote login: autentication fingerprint
+### ssh remote login: authentication fingerprint
 
 The following screenshot shows how to use `ssh` to log on to a remote computer running Linux. The local user is named `paul` and he is logging on as user `admin42` on the remote system.
 
@@ -69,7 +69,7 @@ Last login: Wed Jun  6 19:25:57 2024 from 172.28.0.131
 admin42@ubuserver:~$
 ```
 
-The user can get log out of the remote server by typing `exit` or by using `Ctrl-d`.
+The user can log out of the remote server by typing `exit` or by using `Ctrl-d`.
 
 ```console
 admin42@ubuserver:~$ exit
@@ -101,11 +101,11 @@ Host key verification failed.
 
 ### ssh beyond remote login
 
-Next to 'simply' allowing  to log in on a remote node, `ssh` also allows for remote exection of commands, and transferring files.
+Next to 'simply' allowing a remote login, `ssh` also allows for remote command execution and file transfer.
 
 #### executing a command in remote
 
-This screenshot shows how to execute the `pwd` command on the remote server. There is no need to `exit` the server manually.
+This screenshot shows how to execute the `pwd` command on the remote server by passing it as an additional argument. There is no need to `exit` the server manually.
 
 ```console
 paul@linux:~$ ssh admin42@192.168.1.30 pwd
@@ -139,11 +139,11 @@ serverhosts                                  100%  809     0.8KB/s   00:00
 
 ## setting up passwordless ssh
 
-Above, the server-side authentication based on a fingerprint was explained. Client-side authentication is by default based on a user/password combination. However: we could use a pub/priv keypair to take care of this authentication - avoiding to type your password every time you want to log in.
+Above, the server-side authentication based on a fingerprint was explained. Client-side authentication is by default based on a user/password combination. However: we could use a public/private keypair to take care of this authentication - avoiding to type your password every time you want to log in.
 
-To set up passwordless ssh (client-side) authentication through public/private keys, use `ssh-keygen` to generate a key pair without a passphrase, and then copy your public key to the destination server.
+To set up passwordless ssh (client-side) authentication through public/private keys, use `ssh-keygen` to generate a key pair without a passphrase, then copy your public key to the destination server.
 
-Let's do this step by step. In the example that follows, we will set up ssh without password between Alice and Bob. Alice is using Ubuntu on her laptoph, and has as an account on an Enterprise Linux server named Bob. Server Bob wants to give Alice access using ssh and the public and private key system. This means that even if the password of Alice is changed on this server Bob, Alice will still have access.
+Let's do this step by step. In the example that follows, we will set up ssh without password between Alice and Bob. Alice is using Ubuntu on her personal laptop and has as an additional account on an Enterprise Linux server named Bob. Server Bob wants to give Alice access using ssh and the public and private key system. This means that even if the password of Alice is changed on server Bob, Alice will still have access.
 
 ### generate with ssh-keygen
 
@@ -165,24 +165,23 @@ The key fingerprint is:
 
 [^1]: It is possible to specify a passphrase when generating the keypair; that passphrase will be used to encrypt the private key part of this file using 128-bit AES.
 
-With the `-t` option, you can specify the type of key to create. The default is `rsa-sha2-512` (i.e. RSA-key with SHA-2 as hash algorithm).
+With the `-t` option, you can specify the type of key to create. The default is `ed25519` (Edwards-curve Digital Signature Algorithm).
 
-Safe key types include:
+Other safe key types include:
 
 - `rsa` (default)
 - `ecdsa` (Elliptic Curve Digital Signature Algorithm)
-- `ed25519` (Edwards-curve Digital Signature Algorithm)
 
 Key types to avoid include:
 
 - `dsa` (Digital Signature Algorithm) is considered weak and should not be used. In SSH, this keytype is called `ssh-dss` and has been deprecated as of August 2015 - see https://www.openssh.com/txt/release-7.0 .
 - `ssh-rsa` uses the SHA-1 hash algorithm, which is considered weak. The latter has been deprecated as af August 2021 - see https://www.openssh.com/txt/release-8.7 .
 
-It an older server is still using these keys, you should consider updating the keypairs. A workaround, e.g. to use the deprecated key one more time be able to log in to work on the updates, could be found on https://www.openssh.com/legacy.html . This is further elaborated in the 'Troubleshooting' section below.
+If an older server is still using these keys, you should consider updating the keypairs. A workaround, e.g. to use the deprecated key one more time be able to log in to work on the updates, could be found on https://www.openssh.com/legacy.html. This is further elaborated in the 'Troubleshooting' section below.
 
 ### id_rsa and id_rsa.pub
 
-The `ssh-keygen` command generate two keys in a hidden folder `.ssh`. The public key is named `~/.ssh/id_rsa.pub`. The private key is named `~/.ssh/id_rsa`.
+By default, the `ssh-keygen` command generates two keys in a hidden folder `~/.ssh`. The public key is named `~/.ssh/id_rsa.pub` while the private key is named `~/.ssh/id_rsa`.
 
 ```console
 [alice@linux ~]$ ls -l .ssh/id*
@@ -191,13 +190,13 @@ total 16
 -rw-r--r-- 1 alice alice  393 May  1 07:38 id_rsa.pub
 ```
 
-The files will be named `id_ecdsa` and `id_ecdsa.pub` when using `ecdsa` instead of `rsa`.
+The files will be named `id_ed25519` and `id_ed25519.pub` when using `id_ed25519` instead of `rsa`.
 
 ### ~/.ssh
 
 In general, the `.ssh` directory is used to store the user's `ssh` related files.
 If it doesn't exist, the hidden `.ssh` directory will be created automatically when generating the keypair.
-If you create the `.ssh` directory manually, then you need to chmod 700 it! Otherwise ssh will refuse to use the keys (world readable private keys are not secure!).
+If you create the `.ssh` directory manually, then you need to `chmod 700` it! Otherwise ssh will refuse to use the keys (world readable private keys are not secure!).
 
 As you can see, the `.ssh` directory is secure in Alice's home directory on her laptop.
 
@@ -215,7 +214,7 @@ drwxr-xr-x 2 bob bob 4096 2024-05-14 16:53 .ssh
 bob@linux:~$ chmod 700 .ssh/
 ```
 
-Next to storing the keypair(s) generated by a user, it can also contain other files. Most notably is the file `known_hosts`, containing an entry for each fingerprint that has been accepted before when connecting to a new server. 
+Next to storing the keypair(s) generated by a user, it can also contain other files. Most notably is the file `known_hosts`, containing an entry for each fingerprint that has been accepted when connecting to a new server. 
 
 ### .ssh/authorized_keys
 
