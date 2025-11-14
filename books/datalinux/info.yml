@@ -53,6 +53,7 @@ content:
   #     - vagrant # TODO
   - title: "Scripting 201; job scheduling"
     chapters:
+      - scripting_functions
       - scripting_adv
       - processes_jobs
       - scheduling
