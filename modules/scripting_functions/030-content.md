@@ -100,7 +100,7 @@ The first two lines of the function indicate that it expects two arguments, the 
  
 ## return status
 
-As stated before, it is not possible to specify a return type and in fact, a Bash function only has an *exit status* like a command. The exit (or return) status of a function is either the status of the last command that was executed inside the function, or the status specified with the builtin command `return STATUS`, with `STATUS` an integer value between 0 and 255. Return status 0 is interpreted as *success* or a logical *true*, any other value as *failure* or a logical *false* (just like commands!).
+As stated before, it is not possible to specify a return type and in fact, a Bash function only has an *exit status*, just like a command. The exit (or return) status of a function is either the status of the last command that was executed inside the function, or the status specified with the builtin command `return STATUS`, with `STATUS` an integer value between 0 and 255. Return status 0 is interpreted as *success* or a logical *true*, any other value as *failure* or a logical *false* (also just like commands!).
 
 In the example below, the functions `true_f` and `false_f` behave like the corresponding boolean commands `true` and `false`:
 
@@ -156,7 +156,7 @@ Hello Paul!
 
 ```
 
-The variable `${user}` was defined inside the function, so you would expect that once the function call has ended, this variable is no longer accessible. However, in Bash, all variables are added to the context of the current shell. So, the output will in fact be:
+The variable `${user}` was defined inside the function, so you would expect that once the function call has ended, this variable is no longer accessible. However, in Bash, all variables are added to the context of the current shell and calling a function does not create a subshell. So, the output will in fact be:
 
 ```text
 Hello Paul!
