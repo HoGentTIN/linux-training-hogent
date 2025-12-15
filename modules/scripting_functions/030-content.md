@@ -140,7 +140,7 @@ A variable that is declared within a function has the same scope as a "global" v
 #! /bin/bash
 
 greet() {
-  name="${1}"
+  user="${1}"
   printf 'Hello %s!\n' "${user}"
 }
 
@@ -169,7 +169,7 @@ You can limit the scope of a variable to the function where it is declared with 
 #! /bin/bash
 
 greet() {
-  local name="${1}"
+  local user="${1}"
   printf 'Hello %s!\n' "${user}"
 }
 
@@ -178,7 +178,7 @@ greet Paul
 echo "${user}"
 ```
 
-In this case the output will be as expected, since the variable `${name}` will be unset at the end of the function execution.
+In this case the output will be as expected, since the variable `${user}` will be unset at the end of the function execution.
 
 It is recommended to declare all variables defined in functions as `local` 
 
