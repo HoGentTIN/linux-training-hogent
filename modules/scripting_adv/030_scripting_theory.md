@@ -1,11 +1,13 @@
 ## eval
 
-`eval` reads arguments as input to the shell (the resulting commands are executed). This allows using the value of a variable as a variable.
+`eval` reads arguments as input to the shell, i.e. dynamically evaluates and executes code that is constructed or stored in a variable. 
+
+This allows e.g. using the value of a variable as a variable.
 
 ```console
 student@linux:~/test42$ answer=42
 student@linux:~/test42$ word=answer
-student@linux:~/test42$ eval x=$$word ; echo $x
+student@linux:~/test42$ eval x=\$$word ; echo $x
 42
 ```
 
@@ -14,8 +16,14 @@ Both in `bash` and `Korn` the arguments can be quoted.
 ```console
 kahlan@solexp11$ answer=42
 kahlan@solexp11$ word=answer
-kahlan@solexp11$ eval "y=$$word" ; echo $y
+kahlan@solexp11$ eval "y=\$$word" ; echo $y
 42
+```
+
+For this use case, Bash has specific syntax, referred to as *indirect substitution*. This may be preferrable to using `eval`, but it is less portable as it won't work in `sh` or `zsh`.
+
+```console
+student@linux:~/test42$ x="${!word}" ; echo $x
 ```
 
 Sometimes the `eval` is needed to have correct parsing of arguments. Consider this example where the `date` command receives one parameter `1 week ago`.
@@ -35,6 +43,8 @@ Try `date --help' for more information.
 student@linux~$ eval $lastweek
 Thu Mar  8 21:36:39 CET 2012
 ```
+
+Be aware that using `eval` is a security risk. Evaluating code based on user input opens the door to command injection and has been the root cause of real-world vulnerabilities.
 
 ## (( ))
 
