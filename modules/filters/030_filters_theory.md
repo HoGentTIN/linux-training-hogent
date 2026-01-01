@@ -244,6 +244,8 @@ Queen
 
 But the `sort` filter has many options to tweak its usage. This example shows sorting different columns (column 1 or column 2).
 
+Option ``-t`` specifies the delimiter character.
+
 ```console
 [student@linux pipes]$ sort -k1 -t, country.txt 
 Belgium,Brussels,10
