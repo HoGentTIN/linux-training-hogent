@@ -245,13 +245,13 @@ Queen
 But the `sort` filter has many options to tweak its usage. This example shows sorting different columns (column 1 or column 2).
 
 ```console
-[student@linux pipes]$ sort -k1 country.txt 
+[student@linux pipes]$ sort -k1 -t, country.txt 
 Belgium,Brussels,10
 France,Paris,60
 Germany,Berlin,100
 Iran,Teheran,70
 Italy,Rome,50
-[student@linux pipes]$ sort -k2 country.txt 
+[student@linux pipes]$ sort -k2 -t, country.txt 
 Germany,Berlin,100
 Belgium,Brussels,10
 France,Paris,60
@@ -262,13 +262,13 @@ Iran,Teheran,70
 The screenshot below shows the difference between an alphabetical sort and a numerical sort (both on the third column).
 
 ```console
-[student@linux pipes]$ sort -k3 country.txt 
+[student@linux pipes]$ sort -k3 -t, country.txt 
 Belgium,Brussels,10
 Germany,Berlin,100
 Italy,Rome,50
 France,Paris,60
 Iran,Teheran,70
-[student@linux pipes]$ sort -n -k3 country.txt 
+[student@linux pipes]$ sort -n -k3 -t, country.txt 
 Belgium,Brussels,10
 Italy,Rome,50
 France,Paris,60
