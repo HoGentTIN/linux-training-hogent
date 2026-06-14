@@ -138,7 +138,7 @@ create_mkdocs() {
 
   num_parts=$(${shyaml_cmd} get-length content < "${source_dir}/info.yml")
   for (( i=0; i<"${num_parts}"; i++ )); do
-    log "  - Adding part ${i}"
+    log "  - Adding part $((i+1))"
 
     chapters=$(${shyaml_cmd} get-values "content.${i}.chapters" < "${source_dir}/info.yml")
     for chapter in ${chapters}; do
