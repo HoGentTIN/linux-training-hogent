@@ -136,7 +136,7 @@ create_book() {
 
   for (( i=0; i<"${num_parts}"; i++ )); do
     part=$(${shyaml_cmd} get-value "content.${i}.title" < "${source_dir}/info.yml")
-    log "  - Adding part ${i}. ${part}"
+    log "  - Adding part $((i+1)). ${part}"
     printf '\part{%s}\n' "${part}" >> "${book_dir}/content.md"
 
     chapters=$(${shyaml_cmd} get-values "content.${i}.chapters" < "${source_dir}/info.yml")
