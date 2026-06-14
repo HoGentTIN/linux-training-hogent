@@ -5,6 +5,7 @@ authors:
   - name: "Thomas Parmentier"
   - name: "Andy Van Maele"
   - name: "Bert Van Vreckem"
+  - name: "Jan Willem"
 date: "\\today"
 
 frontmatter:
@@ -12,20 +13,26 @@ frontmatter:
   - 02_abstract.md
 
 content:
+
   - title: "First Linux VM"
     chapters:
       - virtualbox
+      - ssh
+
   - title: "Software management; curl"
     chapters:
+      - git
       - package_management
       - package_management_debian
-      #- curl # TODO
+      - curl
+
   - title: "Scripting 101"
     chapters:
       - ioredirection
       - filters
       - shell_variables
       - scripting_intro
+
   - title: "Organising users"
     chapters:
       - file_permissions
@@ -35,41 +42,42 @@ content:
       - user_passwords
       - user_profiles
       - groups
+
   - title: "Webserver; scripting 102"
     chapters:
       - apache
       - mysql
+      - shell_control_operators
       - scripting_loops
-      - scripting_params
+
   - title: "Advanced text processing"
     chapters:
       - shell_globbing
       - regular_expressions
       # - awk # TODO
       # - jq # TODO
-  # - title: "Scripting 103"
-  #   chapters:
-  #     - scripting_test # TODO Bestaat dit al niet in linuxfun?
-  #     - vagrant # TODO
+
+  - title: "Scripting 103"
+    chapters:
+      - scripting_params
+
   - title: "Scripting 201; job scheduling"
     chapters:
       - scripting_functions
-      - scripting_adv
       - processes_jobs
       - scheduling
-  - title: "SSH; Docker"
-    chapters:
-      - ssh
-      - docker
-  # - title: "Workflow automation"
-  #   chapters:
-  #     # - makefiles # TODO
+
   - title: "Reproducible development environments"
     chapters:
+      - docker
       - vagrant
       - python_venv
 
+  # TODO:
+  # - title: "Workflow automation"
+  #   chapters:
+  #     - makefiles
+
 backmatter:
-  - git
   - intro_vi
   - license
