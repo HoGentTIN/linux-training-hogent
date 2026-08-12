@@ -492,7 +492,22 @@ This command should not return any output, which means that the `apache` service
 
 ### testing the three websites (Debian)
 
-TODO: check server ports with ss -tlnp
+To chech whether Apache is listening on the three additional ports, you can use the command `ss -tln`:
+
+```console
+vagrant@debian:~$ ss -tln
+State    Recv-Q  Send-Q  Local Address:Port  Peer Address:Port
+LISTEN   0       4096          0.0.0.0:111        0.0.0.0:*
+LISTEN   0       128           0.0.0.0:22         0.0.0.0:*
+LISTEN   0       4096             [::]:111           [::]:*
+LISTEN   0       511                 *:80               *:*
+LISTEN   0       128              [::]:22            [::]:*
+LISTEN   0       511                 *:7000             *:*
+LISTEN   0       511                 *:9000             *:*
+LISTEN   0       511                 *:8000             *:*
+```
+
+To be sure that `apache2` (an not another process) is listening on ports 7000, 8000 and 9000, add option `-p` to the command and precede it with `sudo` to see the process name and PID. The output is too verbose to show it here.
 
 Testing the several websites can be done with `curl` or `wget`. The following transcript shows the output of three `curl` commands, each sending a request to the three configured ports. The output is the content of the `index.html` file in the `DocumentRoot` of each website.
 
@@ -539,7 +554,7 @@ student@debian:/etc/apache2/sites-available$ cat *.local.conf
 </VirtualHost>
 ```
 
-Notice that they all listen on `port 80` and have an extra `ServerName` directive.
+Notice that they all listen on port 80 and have an extra `ServerName` directive.
 
 ### name resolution (Debian)
 
@@ -554,14 +569,16 @@ eth0             UP             10.0.2.15/24 fe80::e845:83b0:bc1:ed0d/64
 eth1             UP             192.168.56.13/24 fe80::a00:27ff:fe09:b99/64 
 student@debian:~$ sudo nano /etc/hosts
 student@debian:~$ grep ^192 /etc/hosts
-192.168.56.13   choochoo.local
-192.168.56.13   chessclub42.local
-192.168.56.13   hunter2.local
+192.168.56.13  debian.local  choochoo.local  chessclub42.local  hunter2.local
 ```
 
 You can check if the names are resolved correctly with the `getent ahosts` command.
 
 ```console
+student@debian:~$ getent ahosts debian.local
+192.168.56.13   STREAM debian.local
+192.168.56.13   DGRAM  
+192.168.56.13   RAW    
 student@debian:~$ getent ahosts choochoo.local
 192.168.56.13   STREAM choochoo.local
 192.168.56.13   DGRAM  
@@ -597,6 +614,14 @@ After a `systemctl reload apache2` the websites should be available by name.
 
 ```console
 student@debian:~$ sudo systemctl reload apache2.service 
+student@debian:~$ curl http://debian.local/
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Apache2 Debian Default Page: It works</title>
+[... output omitted ...]
 student@debian:~$ curl http://choochoo.local/
 Choo Choo model train Choo Choo
 student@debian:~$ curl http://chessclub42.local/
@@ -646,7 +671,7 @@ require valid-user
 
 Note that we are only protecting the website of the hackerspace hunter2 that we created earlier.
 
-And because we put this website in a subdirectory of the default website, we will need to adjust the `AllowOvveride` parameter in the configuration. Open `/etc/apache2/apache2.conf` in a text editor and search for the line with `<Directory /var/www/>`. It will look like this:
+And because we put this website in a subdirectory of the default website, we will need to adjust the `AllowOverride` parameter in the configuration. Open `/etc/apache2/apache2.conf` in a text editor and search for the line with `<Directory /var/www/>`. It will look like this:
 
 ```apacheconf
 <Directory /var/www/>
@@ -706,6 +731,8 @@ HaCkInG iS fUn At HuNtEr2
 ```
 
 If you try to access the website from a web browser, you will see a pop-up window asking for a username and password. You can enter either `cliff` or `rob` as the username, and `hunter2` as the password.
+
+![Pop-up window asking for a username and password in the browser](assets/apache_auth.png)
 
 The other sites should still be accessible without authentication.
 
@@ -846,6 +873,8 @@ http_port_t        udp      80, 443
 student@el:~$ sudo systemctl start httpd
 ```
 
+### testing the three websites (EL)
+
 You can check the status of the service with `systemctl status httpd` and you should see that it is running. Additionaly, you can check the ports that are being listened to with `ss -tln`:
 
 ```console
@@ -860,9 +889,7 @@ LISTEN    0         511                  *:80                *:*
 LISTEN    0         511                  *:8000              *:*
 ```
 
-To be sure that `httpd` is listening on ports 7000, 8000 and 9000, add option `-p` to the command and precede it with `sudo` to see the process name and PID. The output is too verbose to show it here.
-
-### testing the three websites (EL)
+To be sure that `httpd` (an not another process) is listening on ports 7000, 8000 and 9000, add option `-p` to the command and precede it with `sudo` to see the process name and PID. The output is too verbose to show it here.
 
 Testing the three new websites on their respective ports:
 
@@ -987,14 +1014,16 @@ enp0s3           UP             10.0.2.15/24 fe80::a00:27ff:fec1:d0d8/64
 enp0s8           UP             192.168.56.10/24 fe80::9289:9d6f:72a6:599d/64 
 student@el:~$ sudo vi /etc/hosts
 student@el:~$ grep ^192 /etc/hosts
-192.168.56.10 choochoo.local
-192.168.56.10 chessclub42.local
-192.168.56.10 hunter2.local
+192.168.56.10  el.local  choochoo.local  chessclub42.local  hunter2.local
 ```
 
 You can check if the names are resolved correctly with the `getent ahosts` command.
 
 ```console
+student@el:~$ getent ahosts el.local
+192.168.56.10   STREAM el.local
+192.168.56.10   DGRAM  
+192.168.56.10   RAW   
 student@el:~$ getent ahosts choochoo.local
 192.168.56.10   STREAM choochoo.local
 192.168.56.10   DGRAM  
@@ -1067,7 +1096,7 @@ require valid-user
 
 Note that we are only protecting the website of the hackerspace hunter2 that we created earlier.
 
-And because we put this website in a subdirectory of the default website, we will need to adjust the `AllowOvveride` parameter in the configuration. Open `/etc/httpd/conf/httpd.conf` in a text editor and search for the line with `<Directory "/var/www/html">` directive. It will look approximately like this (the config file has a lot of comments, which are omitted here for clarity):
+And because we put this website in a subdirectory of the default website, we will need to adjust the `AllowOverride` parameter in the configuration. Open `/etc/httpd/conf/httpd.conf` in a text editor and search for the line with `<Directory "/var/www/html">` directive. It will look approximately like this (the config file has a lot of comments, which are omitted here for clarity):
 
 ```apacheconf
 <Directory "/var/www/html">
@@ -1131,9 +1160,9 @@ If you try to access the website from a web browser, you will see a pop-up windo
 The other sites should still be accessible without authentication.
 
 ```console
-student@el:/etc/httpd/conf.d$ curl http://localhost/
+student@el:~$ curl http://localhost/
 <html><body><h1>It works!</h1></body></html>
-student@el:/etc/httpd/conf.d$ curl http://chessclub42.local/
+student@el:~$ curl http://chessclub42.local/
 Welcome to chess club 42
 ```
 
@@ -1304,8 +1333,8 @@ student@debian:~$ sudo tail -5 /var/log/apache2/other_vhosts_access.log
 hunter2.local:80 192.168.56.13 - rob [12/Aug/2026:09:56:47 +0000] "GET / HTTP/1.1" 200 253 "-" "curl/8.14.1"
 choochoo.local:80 192.168.56.13 - - [12/Aug/2026:09:58:26 +0000] "GET / HTTP/1.1" 200 259 "-" "curl/8.14.1"
 choochoo.local:80 192.168.56.13 - - [12/Aug/2026:10:50:54 +0000] "GET / HTTP/1.1" 200 259 "-" "curl/8.14.1"
-debian.localdomain:9000 127.0.0.1 - - [12/Aug/2026:10:51:03 +0000] "GET / HTTP/1.1" 401 712 "-" "curl/8.14.1"
-debian.localdomain:7000 127.0.0.1 - - [12/Aug/2026:10:51:08 +0000] "GET / HTTP/1.1" 200 259 "-" "curl/8.14.1"
+debian.local:9000 127.0.0.1 - - [12/Aug/2026:10:51:03 +0000] "GET / HTTP/1.1" 401 712 "-" "curl/8.14.1"
+debian.local:7000 127.0.0.1 - - [12/Aug/2026:10:51:08 +0000] "GET / HTTP/1.1" 200 259 "-" "curl/8.14.1"
 ```
 
 An example on Enterprise Linux:
@@ -1382,192 +1411,454 @@ RewriteCond %{HTTP_REFERER} ^http://(www\.)?www.healthinsurancehelp.net.*$ [NC]
 RewriteRule .* - [F,L]
 ```
 
-## self signed cert on Debian
+## self signed certificate
 
-Below is a very quick guide on setting up Apache2 on Debian 7 with a
-self-signed certificate.
+Nowadays, it is no longer acceptable to run a website over plain HTTP. Production websites should always use HTTPS so traffic between the client and the server is encrypted. HTTPS is built on the concept of asymmetric encryption, which uses a public and a private key. Additionaly, the identity of the server is verified with a certificate, which is basically a digital signature of the public key by a trusted third party (the certificate authority).
 
-Chances are these packages are already installed.
+For a production website, the procedure is approximately as follows:
 
-    root@linux:~# aptitude install apache2 openssl
-    No packages will be installed, upgraded, or removed.
-    0 packages upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
-    Need to get 0 B of archives. After unpacking 0 B will be used.
+1. Generate a **private key** and a **certificate signing request** (CSR) on the server.
+2. Send the CSR to a **certificate authority** (CA) for signing.
+3. The CA will verify the identity of the server and return a **signed certificate**.
+4. Install the signed certificate on the server and configure the web server to use it.
 
-Create a directory to store the certs, and use `openssl` to create a
-self signed cert that is valid for 999 days.
+For step 2, it is a necessary condition that the host name of the web server is publicly resolvable by DNS. In a test scenario like our lab setup, this is not possible. In this case, we can sign the certificate ourselves (i.e. a self-signed certificate). The disadvantage of a self-signed certificate is that the client cannot verify the identity of the server, so the browser will warn the user that the certificate is not trusted. For a production website, this is not acceptable, but for a test website, there is no way around this limitation.
 
-    root@linux:~# mkdir /etc/ssl/localcerts
-    root@linux:~# openssl req -new -x509 -days 999 -nodes -out /etc/ssl/local\
-    certs/apache.pem -keyout /etc/ssl/localcerts/apache.key
-    Generating a 2048 bit RSA private key
-    ...
-    ...
-    writing new private key to '/etc/ssl/localcerts/apache.key'
-    -----
-    You are about to be asked to enter information that will be incorporated
-    into your certificate request.
-    What you are about to enter is what is called a Distinguished Name or a DN.
-    There are quite a few fields but you can leave some blank
-    For some fields there will be a default value,
-    If you enter '.', the field will be left blank.
-    -----
-    Country Name (2 letter code) [AU]:BE
-    State or Province Name (full name) [Some-State]:Antwerp
-    Locality Name (eg, city) []:Antwerp
-    Organization Name (eg, company) [Internet Widgits Pty Ltd]:linux-training.be
-    Organizational Unit Name (eg, section) []:
-    Common Name (e.g. server FQDN or YOUR name) []:Paul
-    Email Address []:
+### self signed cert on Debian
 
-A little security never hurt anyone.
+Below is a very quick guide on setting up Apache2 on Debian with a self-signed certificate.
 
-    root@linux:~# ls -l /etc/ssl/localcerts/
-    total 8
-    -rw-r--r-- 1 root root 1704 Sep 16 18:24 apache.key
-    -rw-r--r-- 1 root root 1302 Sep 16 18:24 apache.pem
-    root@linux:~# chmod 600 /etc/ssl/localcerts/*
-    root@linux:~# ls -l /etc/ssl/localcerts/
-    total 8
-    -rw------- 1 root root 1704 Sep 16 18:24 apache.key
-    -rw------- 1 root root 1302 Sep 16 18:24 apache.pem
+Chances are the necessary packages are already installed. In the following example, `openssl` was already installed, but it is upgraded to the latest version.
 
-Enable the `apache ssl mod`.
+```console
+student@debian:~$ sudo apt install openssl
+Upgrading:                      
+  libssl3t64  openssl  openssl-provider-legacy
 
-    root@linux:~# a2enmod ssl
-    Enabling module ssl.
-    See /usr/share/doc/apache2.2-common/README.Debian.gz on how to configure SSL\
-     and create self-signed certificates.
-    To activate the new configuration, you need to run:
-      service apache2 restart
+Summary:
+  Upgrading: 3, Installing: 0, Removing: 0, Not Upgrading: 84
+  Download size: 4,263 kB
+  Space needed: 39.9 kB / 58.7 GB available
 
-Create the website configuration.
+Continue? [Y/n] y
+[... output omitted ...]
+```
 
-    root@linux:~# vi /etc/apache2/sites-available/choochoos
-    root@linux:~# cat /etc/apache2/sites-available/choochoos
-    <VirtualHost *:7000>
-            ServerAdmin webmaster@localhost
-            DocumentRoot /var/www/choochoos
-            SSLEngine On
-            SSLCertificateFile /etc/ssl/localcerts/apache.pem
-            SSLCertificateKeyFile /etc/ssl/localcerts/apache.key
-    </VirtualHost>
-    root@linux:~#
+The place to store private keys and certificates is the directory `/etc/ssl`. The subdirectory `certs` is used for certificates (both of our own server and of known CAs), while the subdirectory `private` is used for private keys. Here are the contents of `/etc/ssl` on a Debian system. Note the permissions of the subdirectories!
 
-And create the website itself.
+```console
+student@debian:~$ sudo ls -l /etc/ssl
+[sudo] password for student: 
+total 36
+drwxr-xr-x 2 root root     16384 Aug 12 08:55 certs
+-rw-r--r-- 1 root root     12411 Sep 26  2025 openssl.cnf
+drwx--x--- 2 root ssl-cert  4096 Aug 12 08:55 private
+```
 
-    root@linux:/var/www/choochoos# vi index.html
-    root@linux:/var/www/choochoos# cat index.html
-    Choo Choo HTTPS secured model train Choo Choo
+During installation, a self-signed certificate is created for the default website. The certificate is stored in `/etc/ssl/certs/ssl-cert-snakeoil.pem` and the private key in `/etc/ssl/private/ssl-cert-snakeoil.key`. The snakeoil certificate is valid for 365 days. We are going to replace these with our own.
 
-Enable the website and restart (or reload) apache2.
+We use `openssl` to create a private key and self signed certificate that is valid for 999 days.
 
-    root@linux:/var/www/choochoos# a2ensite choochoos
-    Enabling site choochoos.
-    To activate the new configuration, you need to run:
-      service apache2 reload
-    root@linux:/var/www/choochoos# service apache2 restart
-    Restarting web server: apache2 ... waiting .
+```console
+student@debian:~$ sudo openssl req -new -x509 -days 999 -nodes -out /etc/ssl/certs/debian.local.pem -keyout /etc/ssl/private/debian.local.key
+..+...+...+...........+.........+...............+.+........+...............+...+.........+...+..................+...+....+........+.............+.................+++++++++++++++++++++++++++++++++++++++*.+++++++++++++++++++++++++++++++++++++++*......+.+......+...+...+..+.+...........+...............+.+..+.................................+.........+................+...+..+............+.+.....................+.....+.+.....+....+......+..............+.+...+.........+..+...+.......+...........+....+...+..+.+..+...............+.+.........+.....+......+.+......+.................+...+.......+...........+...............+......+...................+.....+.+...........+..........+...+..+...+.........+.......+...+......+.....+....+...+..+.+..+...+....+...........+.........+.+.........+..+...+......+.......+...+..............+.+..............+...+.......+......+...........+.+........+.+.....+.+........+....+...........+....+..+....+.........+...+.................+..........+...++++++
+....+.+..................+...+.......................+.+...............+...+...........+++++++++++++++++++++++++++++++++++++++*....+...+..+.+.....+++++++++++++++++++++++++++++++++++++++*..+..+......++++++
+-----
+You are about to be asked to enter information that will be incorporated
+into your certificate request.
+What you are about to enter is what is called a Distinguished Name or a DN.
+There are quite a few fields but you can leave some blank
+For some fields there will be a default value,
+If you enter '.', the field will be left blank.
+-----
+Country Name (2 letter code) [AU]:BE
+State or Province Name (full name) [Some-State]:Flanders
+Locality Name (eg, city) []:Ghent
+Organization Name (eg, company) [Internet Widgits Pty Ltd]:Linux Training    
+Organizational Unit Name (eg, section) []:
+Common Name (e.g. server FQDN or YOUR name) []:debian.local
+Email Address []:webmaster@debian.local
+```
 
-Chances are your browser will warn you about the self signed
-certificate.
+Let's check the permissions of the files we just created.
 
-![](assets/apache_selfsigned.png)
+```console
+student@debian:~$ sudo ls -l /etc/ssl/*/debian*
+-rw-r--r-- 1 root root 1346 Aug 12 15:16 /etc/ssl/certs/debian.local.pem
+student@debian:~$ sudo ls -l /etc/ssl/private/debian.local.key
+-rw------- 1 root root 1704 Aug 12 15:15 /etc/ssl/private/debian.local.key
+```
 
-## self signed cert on RHEL/CentOS
+The private key is only readable by root (which is what we want!), while the certificate is readable by everyone. This is important, because the web server runs as a non-privileged user and needs to be able to read the certificate. On a production server, one would protect the private key with additional security measures (e.g. by encrypting it with a passphrase, or by storing it on an external hardware security module so it is not even accessible during operation). For our lab setup, this is not necessary.
 
-Below is a quick way to create a self signed cert for https on
-RHEL/CentOS. You may need these packages:
+Enable Apache's SSL module.
 
-    [root@paulserver ~]# dnf install httpd openssl mod_ssl
-    Loaded plugins: fastestmirror
-    Loading mirror speeds from cached hostfile
-     * base: ftp.belnet.be
-     * extras: ftp.belnet.be
-     * updates: mirrors.vooservers.com
-    base                                                         | 3.7 kB     00:00
-    Setting up Install Process
-    Package httpd-2.2.15-31.el6.centos.x86_64 already installed and latest version
-    Package openssl-1.0.1e-16.el6_5.15.x86_64 already installed and latest version
-    Package 1:mod_ssl-2.2.15-31.el6.centos.x86_64 already ins... and latest version
-    Nothing to do
+```console
+student@debian:~$ sudo a2enmod ssl 
+Considering dependency mime for ssl:
+Module mime already enabled
+Considering dependency socache_shmcb for ssl:
+Enabling module socache_shmcb.
+Enabling module ssl.
+See /usr/share/doc/apache2/README.Debian.gz on how to configure SSL and create self-signed certificates.
+To activate the new configuration, you need to run:
+  systemctl restart apache2
+```
 
-We use `openssl` to create the certificate.
+There is already a default SSL virtual host configuration file that we can modify to use our own certificate and private key. At this time, the automatically generated "snakeoil" certificate is used.
 
-    [root@paulserver ~]# mkdir certs
-    [root@paulserver ~]# cd certs
-    [root@paulserver certs]# openssl genrsa -out ca.key 2048
-    Generating RSA private key, 2048 bit long modulus
-    .........+++
-    .........................................................+++
-    e is 65537 (0x10001)
-    [root@paulserver certs]# openssl req -new -key ca.key -out ca.csr
-    You are about to be asked to enter information that will be incorporated
-    into your certificate request.
-    What you are about to enter is what is called a Distinguished Name or a DN.
-    There are quite a few fields but you can leave some blank
-    For some fields there will be a default value,
-    If you enter '.', the field will be left blank.
-    -----
-    Country Name (2 letter code) [XX]:BE
-    State or Province Name (full name) []:antwerp
-    Locality Name (eg, city) [Default City]:antwerp
-    Organization Name (eg, company) [Default Company Ltd]:antwerp
-    Organizational Unit Name (eg, section) []:
-    Common Name (eg, your name or your server's hostname) []:paulserver
-    Email Address []:
+```console
+student@debian:~$ grep '^[^#]*SSLCertificate' /etc/apache2/sites-available/default-ssl.conf
+        SSLCertificateFile      /etc/ssl/certs/ssl-cert-snakeoil.pem
+        SSLCertificateKeyFile   /etc/ssl/private/ssl-cert-snakeoil.key
+```
 
-    Please enter the following 'extra' attributes
-    to be sent with your certificate request
-    A challenge password []:
-    An optional company name []:
-    [root@paulserver certs]# openssl x509 -req -days 365 -in ca.csr -signkey ca.ke\
-    y -out ca.crt
-    Signature ok
-    subject=/C=BE/ST=antwerp/L=antwerp/O=antwerp/CN=paulserver
-    Getting Private key
+Change these lines to point to our own certificate and private key, and then enable the site. Don't forget to check the syntax!
 
-We copy the keys to the right location (You may be missing SELinux info
-here).
+```console
+student@debian:~$ grep '^[^#]*SSLCertificate' /etc/apache2/sites-available/default-ssl.conf
+        SSLCertificateFile      /etc/ssl/certs/debian.local.pem
+        SSLCertificateKeyFile   /etc/ssl/private/debian.local.key
+student@debian:~$ sudo a2ensite default-ssl.conf 
+Enabling site default-ssl.
+To activate the new configuration, you need to run:
+  systemctl reload apache2
+student@debian:~$ sudo apachectl configtest
+Syntax OK
+```
 
-    [root@paulserver certs]# cp ca.crt /etc/pki/tls/certs/
-    [root@paulserver certs]# cp ca.key ca.csr /etc/pki/tls/private/
+Restart the Apache service to apply the changes and test the changes. The output of the `ss` command should now also include port 443 (the default port for HTTPS).
 
-We add the location of our keys to this file, and also add the
-`NameVirtualHost *:443` directive.
+```console
+student@debian:~$ sudo systemctl restart apache2
+student@debian:~$ ss -tln | grep 443
+LISTEN 0      511                *:443             *:*   
+```
 
-    [root@paulserver certs]# vi /etc/httpd/conf.d/ssl.conf
-    [root@paulserver certs]# grep ^SSLCerti /etc/httpd/conf.d/ssl.conf
-    SSLCertificateFile /etc/pki/tls/certs/ca.crt
-    SSLCertificateKeyFile /etc/pki/tls/private/ca.key
+The `curl` command will also test the validity of the website's certificate. Since we are using a self-signed certificate, the test will fail. The `-k` option (or `--insecure`) tells `curl` to ignore the certificate validation.
 
-Create a website configuration.
+```console
+student@debian:~$ curl -I https://localhost/
+curl: (60) SSL certificate problem: self-signed certificate
+More details here: https://curl.se/docs/sslcerts.html
 
-    [root@paulserver certs]# vi /etc/httpd/conf.d/choochoos.conf
-    [root@paulserver certs]# cat /etc/httpd/conf.d/choochoos.conf
-    <VirtualHost *:443>
-            SSLEngine on
-            SSLCertificateFile /etc/pki/tls/certs/ca.crt
-            SSLCertificateKeyFile /etc/pki/tls/private/ca.key
-            DocumentRoot /var/www/choochoos
-            ServerName paulserver
-    </VirtualHost>
-    [root@paulserver certs]#
+curl failed to verify the legitimacy of the server and therefore could not
+establish a secure connection to it. To learn more about this situation and
+how to fix it, please visit the webpage mentioned above.
+student@debian:~$ curl -I --insecure https://localhost/
+HTTP/1.1 200 OK
+Date: Wed, 12 Aug 2026 15:34:09 GMT
+Server: Apache/2.4.68 (Debian)
+Last-Modified: Wed, 12 Aug 2026 08:55:03 GMT
+ETag: "29cf-658d5be3d1757"
+Accept-Ranges: bytes
+Content-Length: 10703
+Vary: Accept-Encoding
+Content-Type: text/html
+```
 
-Create a simple website and restart apache.
+We should also implement HTTPS support for our customer websites. As an example, we will show how to modify the configuration of the "choochoo.local" site to support HTTPS. You can use the same procedure for the other two websites. To protect our customers, we will redirect all HTTP traffic to HTTPS. This is done with the `Redirect` directive in the virtual host configuration for port 80.
 
-    [root@paulserver certs]# mkdir /var/www/choochoos
-    [root@paulserver certs]# echo HTTPS model train choochoos > /var/www/choochoos/\
-    index.html
-    [root@paulserver httpd]# service httpd restart
-    Stopping httpd:                                            [  OK  ]
-    Starting httpd:                                            [  OK  ]
+Edit the configuration file for the choochoos website `choochoos.local.conf` and change it to the following:
 
-And your browser will probably warn you that this certificate is self
-signed.
+```apacheconf
+<VirtualHost choochoo.local:80>
+        ServerAdmin webmaster@localhost
+        ServerName choochoo.local
+        Redirect permanent / https://choochoo.local/
+</VirtualHost>
+<VirtualHost choochoo.local:443>
+        ServerAdmin webmaster@localhost
+        ServerName choochoo.local
+        DocumentRoot /var/www/choochoo
+        SSLEngine On
+        SSLCertificateFile /etc/ssl/certs/debian.local.pem
+        SSLCertificateKeyFile /etc/ssl/private/debian.local.key
+</VirtualHost>
+```
 
-![](assets/apache_selfsigned_centos.png)
+Test the configuration, restart Apache and test.
 
-TODO: replace all remaining occurences of CENTOS with EL
+```console
+student@debian:~$ sudo nano /etc/apache2/sites-available/choochoo.local.conf 
+student@debian:~$ sudo apachectl configtest
+Syntax OK
+student@debian:~$ sudo systemctl restart apache2
+student@debian:~$ curl http://choochoo.local/
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html><head>
+<title>301 Moved Permanently</title>
+</head><body>
+<h1>Moved Permanently</h1>
+<p>The document has moved <a href="https://choochoo.local/">here</a>.</p>
+<hr>
+<address>Apache/2.4.68 (Debian) Server at choochoo.local Port 80</address>
+</body></html>
+```
 
+The `curl` command shows that the HTTP request is redirected, but it does not follow the redirect. You can add the `-L` option to follow the redirect and `-k` to ignore the certificate validation. In the example below, we also added `-i` to show the HTTP headers of the response, which also shows how the redirect is handled.
+
+```console
+student@debian:~$ curl -iLk http://choochoo.local/
+HTTP/1.1 301 Moved Permanently
+Date: Wed, 12 Aug 2026 15:55:51 GMT
+Server: Apache/2.4.68 (Debian)
+Location: https://choochoo.local/
+Content-Length: 351
+Content-Type: text/html; charset=iso-8859-1
+
+HTTP/1.1 200 OK
+Date: Wed, 12 Aug 2026 15:55:51 GMT
+Server: Apache/2.4.68 (Debian)
+Last-Modified: Wed, 12 Aug 2026 09:13:11 GMT
+ETag: "20-658d5ff198597"
+Accept-Ranges: bytes
+Content-Length: 32
+Content-Type: text/html
+
+Choo Choo model train Choo Choo
+```
+
+### self signed cert on Enterprise Linux
+
+Below is a very quick guide on setting up Apache2 on Enterprise Linux with a self-signed certificate.
+
+Chances are the necessary packages are already installed. In the following example, `openssl` was already installed, but it is upgraded to the latest version. We also need the `mod_ssl` package to enable SSL support in Apache. On Debian, this module is included in the base package, but not activated by default. On Enterprise Linux, it is a separate package.
+
+```console
+student@el:~$ sudo dnf install openssl mod_ssl
+Last metadata expiration check: 0:18:16 ago on Wed 12 Aug 2026 04:09:10 PM UTC.
+Package openssl-1:3.5.1-3.el10.alma.1.x86_64 is already installed.
+Dependencies resolved.
+=====================================================================================
+ Package                 Architecture   Version                   Repository    Size
+=====================================================================================
+Installing:                                                                           
+ mod_ssl                 x86_64         1:2.4.63-13.el10_2.5      appstream    108 k
+Upgrading:                                                                           
+ openssl                 x86_64         1:3.5.5-6.el10_2.alma.1   baseos       1.2 M
+ openssl-fips-provider   x86_64         1:3.5.5-6.el10_2.alma.1   baseos       812 k
+ openssl-libs            x86_64         1:3.5.5-6.el10_2.alma.1   baseos       2.2 M
+                                                                                      
+Transaction Summary                                                                           
+=====================================================================================
+Install  1 Package
+Upgrade  3 Packages
+
+Total download size: 4.3 M
+Is this ok [y/N]: y
+Downloading Packages:
+[... output omitted ...]
+
+Upgraded:
+  openssl-1:3.5.5-6.el10_2.alma.1.x86_64              openssl-fips-provider-1:3.5.5-6.el10_2.alma.1.x86_64        
+  openssl-libs-1:3.5.5-6.el10_2.alma.1.x86_64        
+Installed:
+  mod_ssl-1:2.4.63-13.el10_2.5.x86_64                                                                             
+
+Complete!
+```
+
+After this, you can immediately restart `httpd` to enable SSL support. In `/etc/httpd/conf.d/`, a new configuration file, `ssl.conf`, has been added. It points to a self-signed certificate and private key that will be generated on server startup. These are stored in `/etc/pki/tls/certs/localhost.crt` and `/etc/pki/tls/private/localhost.key`, respectively. We will replace these below with our own self-signed certificate and private key.
+
+After restart, the output of the `ss` command should now also include port 443 (the default port for HTTPS).
+
+```console
+student@el:~$ sudo systemctl restart httpd
+student@el:~$ ss -tln | grep 443
+LISTEN 0      511                *:443             *:*   
+student@el:~$ ls -l /etc/pki/tls/*/localhost*
+-rw-r--r--. 1 root root 3712 Aug 12 16:33 /etc/pki/tls/certs/localhost.crt
+-rw-------. 1 root root 1700 Aug 12 16:33 /etc/pki/tls/private/localhost.key
+```
+
+Note the permissions of the files!
+
+The `curl` command will also test the validity of the website's certificate. Since we are using a self-signed certificate, the test will fail. The `-k` option (or `--insecure`) tells `curl` to ignore the certificate validation.
+
+```console
+student@el:~$ curl https://localhost/
+curl: (60) SSL certificate problem: self-signed certificate in certificate chain
+More details here: https://curl.se/docs/sslcerts.html
+
+curl failed to verify the legitimacy of the server and therefore could not
+establish a secure connection to it. To learn more about this situation and
+how to fix it, please visit the webpage mentioned above.
+student@el:~$ curl -k https://localhost/
+<html><body><h1>It works!</h1></body></html>
+```
+
+The place to store private keys and certificates is the directory `/etc/pki/tls`. The subdirectory `certs` is used for certificates (both of our own server and of known CAs), while the subdirectory `private` is used for private keys. Here are the contents of `/etc/pki/tls` on an AlmaLinux system.
+
+```console
+student@el:~$ ls -l /etc/pki/tls/
+total 32
+lrwxrwxrwx. 1 root root    49 Oct 29  2025 cert.pem -> /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+drwxr-xr-x. 2 root root  8192 Jul 27 00:00 certs
+-rw-r--r--. 1 root root   412 Jul 27 00:00 ct_log_list.cnf
+lrwxrwxrwx. 1 root root    50 Jul 27 00:00 fips_local.cnf -> /etc/crypto-policies/back-ends/openssl_fips.config
+drwxr-xr-x. 2 root root     6 Jul 27 00:00 misc
+-rw-r--r--. 1 root root 12412 Jul 27 00:00 openssl.cnf
+drwxr-xr-x. 2 root root     6 Jul 27 00:00 openssl.d
+drwxr-xr-x. 2 root root     6 Jul 27 00:00 private
+```
+
+We use `openssl` to create a private key and self signed certificate that is valid for 999 days.
+
+```console
+student@el:~$ sudo openssl req -new -x509 -days 999 -nodes -out /etc/pki/tls/certs/el.local.pem -keyout /etc/pki/tls/private/el.local.key
+.+++++++++++++++++++++++++++++++++++++++*....+...+........+...+....+..+...+.......+...........+.........+.+.....+++++++++++++++++++++++++++++++++++++++*....+...+.+...+.................+.+.....+.........+...+.......+...+..+.........+.+......+...+......+.....+.........+...............+.+...+..+...+...+...+......+......+...+..........+...............+.....+.......+.........+...+..+.+........+.......+..+.+..............+............+.+.....+............+.+.........+...........+.+...+......+.....+................+.........+.........+...++++++
+.+.....+.+.....+......+.........+.+.....+++++++++++++++++++++++++++++++++++++++*..+.+......+.....+.......+...+.........+.......................+............+.+++++++++++++++++++++++++++++++++++++++*...+.+.....+............+.+..+....+...........+...+.........+.+..+.........+................+..+.+..+....+.....++++++
+-----
+You are about to be asked to enter information that will be incorporated
+into your certificate request.
+What you are about to enter is what is called a Distinguished Name or a DN.
+There are quite a few fields but you can leave some blank
+For some fields there will be a default value,
+If you enter '.', the field will be left blank.
+-----
+Country Name (2 letter code) [XX]:BE
+State or Province Name (full name) []:Flanders
+Locality Name (eg, city) [Default City]:Ghent
+Organization Name (eg, company) [Default Company Ltd]:Linux Training
+Organizational Unit Name (eg, section) []:
+Common Name (eg, your name or your server's hostname) []:el.local
+Email Address []:webmaster@el.local
+student@el:~$ ls -l /etc/pki/tls/*/el.local*
+-rw-r--r--. 1 root root 1403 Aug 12 19:28 /etc/pki/tls/certs/el.local.pem
+-rw-------. 1 root root 1708 Aug 12 19:27 /etc/pki/tls/private/el.local.key
+```
+
+The private key is only readable by root (which is what we want!), while the certificate is readable by everyone. This is important, because the web server runs as a non-privileged user and needs to be able to read the certificate. On a production server, one would protect the private key with additional security measures (e.g. by encrypting it with a passphrase, or by storing it on an external hardware security module so it is not even accessible during operation). For our lab setup, this is not necessary.
+
+We add the location of our new keys to the `ssl.conf` configuration file. Don't forget to check the syntax!
+
+```console
+student@el:~$ sudo vim /etc/httpd/conf.d/ssl.conf 
+student@el:~$ grep '^[^#]*SSLCert' /etc/httpd/conf.d/ssl.conf
+SSLCertificateFile /etc/pki/tls/certs/el.local.pem
+SSLCertificateKeyFile /etc/pki/tls/private/el.local.key
+student@el:~$ sudo apachectl configtest
+Syntax OK
+student@el:~$ sudo systemctl restart httpd
+student@el:~$ curl -k https://localhost/
+<html><body><h1>It works!</h1></body></html>
+```
+
+We should also implement HTTPS support for our customer websites. As an example, we will show how to modify the configuration of the "choochoo.local" site to support HTTPS. You can use the same procedure for the other two websites. To protect our customers, we will redirect all HTTP traffic to HTTPS. This is done with the `Redirect` directive in the virtual host configuration for port 80.
+
+```apacheconf
+<VirtualHost choochoo.local:80>
+        ServerAdmin webmaster@localhost
+        ServerName choochoo.local
+        Redirect permanent / https://choochoo.local/
+</VirtualHost>
+<VirtualHost choochoo.local:443>
+        ServerAdmin webmaster@localhost
+        ServerName choochoo.local
+        DocumentRoot /var/www/html/choochoo
+        SSLEngine on
+        SSLCertificateFile /etc/pki/tls/certs/el.local.pem
+        SSLCertificateKeyFile /etc/pki/tls/private/el.local.key
+</VirtualHost>
+```
+
+Test the configuration, restart Apache and test.
+
+```console
+student@el:$ sudo vim /etc/httpd/conf.d/choochoo.local.conf 
+student@el:~$ sudo apachectl configtest
+Syntax OK
+student@el:~$ sudo systemctl restart httpd
+student@el:~$ curl http://choochoo.local/
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<html><head>
+<title>301 Moved Permanently</title>
+</head><body>
+<h1>Moved Permanently</h1>
+<p>The document has moved <a href="https://choochoo.local/">here</a>.</p>
+</body></html>
+```
+
+The `curl` command shows that the HTTP request is redirected, but it does not follow the redirect. You can add the `-L` option to follow the redirect and `-k` to ignore the certificate validation. In the example below, we also added `-i` to show the HTTP headers of the response, which also shows how the redirect is handled.
+
+```console
+student@el:~$ curl -iLk http://choochoo.local/
+HTTP/1.1 301 Moved Permanently
+Date: Wed, 12 Aug 2026 19:46:39 GMT
+Server: Apache/2.4.63 (AlmaLinux) OpenSSL/3.5.5
+Location: https://choochoo.local/
+Content-Length: 231
+Content-Type: text/html; charset=iso-8859-1
+
+HTTP/1.1 200 OK
+Date: Wed, 12 Aug 2026 19:46:39 GMT
+Server: Apache/2.4.63 (AlmaLinux) OpenSSL/3.5.5
+Last-Modified: Tue, 11 Aug 2026 22:00:04 GMT
+ETag: "20-658cc97de3981"
+Accept-Ranges: bytes
+Content-Length: 32
+Content-Type: text/html; charset=UTF-8
+
+Choo Choo model train Choo Choo
+```
+
+### certificate for a production website
+
+Remark that the procedure above will create a private key and self-signed certificate in a single step. For a production website, this is obviously not acceptable. In that case, you should generate a Certificate Signing Request (CSR) and send it to a trusted Certificate Authority (CA) for signing. The CA will verify the identity of the server and return a signed certificate. The procedure is as follows:
+
+```console
+student@el:~$ openssl genrsa -out el.local.key
+student@el:~$ openssl req -new -key el.local.key -out el.local.csr
+You are about to be asked to enter information that will be incorporated
+into your certificate request.
+What you are about to enter is what is called a Distinguished Name or a DN.
+There are quite a few fields but you can leave some blank
+For some fields there will be a default value,
+If you enter '.', the field will be left blank.
+-----
+Country Name (2 letter code) [XX]:BE
+State or Province Name (full name) []:Flanders
+Locality Name (eg, city) [Default City]:Ghent
+Organization Name (eg, company) [Default Company Ltd]:Linux Training
+Organizational Unit Name (eg, section) []:
+Common Name (eg, your name or your server's hostname) []:el.local
+Email Address []:webmaster@el.local
+
+Please enter the following 'extra' attributes
+to be sent with your certificate request
+A challenge password []:
+An optional company name []:
+student@el:~$ ls -l
+total 8
+-rw-r--r--. 1 student student 1037 Aug 12 19:50 el.local.csr
+-rw-------. 1 student student 1704 Aug 12 19:49 el.local.key
+```
+
+Send the .csr file to the CA for signing. The CA will return a signed certificate, which you can then install on the server. Signing a CSR with a CA is not possible in our lab setup, because the host name of the server is not publicly resolvable by DNS.
+
+To complete the example, we will sign the CSR ourselves, resulting in another self-signed certificate.
+
+```console
+student@el:~$ openssl x509 -req -days 999 -in el.local.csr -signkey el.local.key -out el.local.pem
+Certificate request self-signature ok
+subject=C=BE, ST=Flanders, L=Ghent, O=Linux Training, CN=el.local, emailAddress=webmaster@el.local
+student@el:~$ ls -l
+total 12
+-rw-r--r--. 1 student student 1037 Aug 12 19:50 el.local.csr
+-rw-------. 1 student student 1704 Aug 12 19:49 el.local.key
+-rw-r--r--. 1 student student 1334 Aug 12 19:54 el.local.pem
+```
+
+You only need the .key and .pem files on the server. The .csr file is only needed to send to the CA for signing.
+
+### self signed cert in the browser
+
+When you access a website with a self-signed certificate in your browser, you will get a warning that the certificate is not trusted. The screenshot below is from Firefox, but other browsers will show a similar warning. You can click on "Advanced" and then "Accept the Risk and Continue" to proceed to the website.
+
+![Invalid certificate warning in Firefox](assets/apache_cert_warning.png)
+
+You can view the certificate by clicking the link "View site's certificate" in the warning message. The screenshot below shows the details of the self-signed certificate we created for the choochoo.local website.
+
+![Details of the self-signed certificate in Firefox](assets/apache_cert_content.png)
 
