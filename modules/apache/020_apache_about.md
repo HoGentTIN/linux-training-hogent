@@ -4,7 +4,7 @@ The origins of Apache can be traced back to 1995, when the National Center for S
 
 Apache is a key component of the LAMP stack, consisting of Linux, Apache, MySQL, and Perl/PHP/Python. The LAMP stack is a widely used platform for web development and lies at the base of the web 2.0 revolution.
 
-Between about 1996 and 2016, Apache was market leader in web servers. In its peak period around 2005, about 70% of all web servers were running on Apache (see <https://www.netcraft.com/blog/june-2024-web-server-survey/>).
+Between about 1996 and 2016, Apache was market leader in web servers. In its peak period around 2005, about 70% of all web servers were running on Apache (see <https://www.netcraft.com/blog/july-2026-web-server-survey>).
 
-Nowadays, Apache shares the leading market position with the Nginx web server, but it is still widely used and supported.
+These days, Apache has had to cede its leading position to Nginx and Cloudflare, but it is still widely used and supported.
 
