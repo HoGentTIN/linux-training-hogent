@@ -1,18 +1,15 @@
 ## practice: systemd
 
-1.determine on which target you are at the moment
+You can repeat these exercises on different Linux distributions, e.g. Debian, Ubuntu, AlmaLinux, Fedora, Gentoo, Arch, etc. The commands should be the same, but the service names may differ and the behaviour of the system may be different.
 
-2.list all systemctl units with type of service
+1. Determine on which target you are at the moment
 
-3.check what is the status of cron service.
+2. List all systemctl units with type of service. Do the same for units with type of socket. In which man page can you find information about this type of unit?What does this type of unit do? What other types of units are there?
 
-4.disable cron service
+3. Check the status of the cron service.
 
-5.1 on RedHat based system, disable networkmanager and enable networking
-service.
+4. Disable the cron service
 
-5.2 on Debian based system, disable networkmanager and enable netconf
-serice
+5. Install apache, and check the status. If necessary, enable and start the service (with a single command). Now install nginx. Check the status of both services right after installation. Try this both on a Debian based and a RedHat based system and observe the difference in behaviour. Can you start both services at the same time? Check the status. Disable and stop Apache, then enable and start nginx, using a minimum of commands.
 
-6.use one command, to eneable and start cron service
 
