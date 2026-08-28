@@ -8,7 +8,7 @@
 
 4. What is the difference between locking a user account and disabling a user account's password like we just did with `usermod -L` and `passwd -d`?
 
-5. Try changing the password of serena to serena as serena.
+5. Try changing the password of `serena` to `serena` as `serena`.
 
 6. Make sure `serena` has to change her password in 10 days.
 
@@ -18,7 +18,7 @@
 
 9. Why use `vipw` instead of `vi` ? What could be the problem when using `vi` or `vim` ?
 
-10. Use `chsh` to list all shells (only works on RHEL/CentOS/Fedora), and compare to `cat /etc/shells`.
+10. Use `chsh` to list all shells (only works on Enterprise Linux), and compare to `cat /etc/shells`.
 
 11. Which `useradd` option allows you to name a home directory ?
 
