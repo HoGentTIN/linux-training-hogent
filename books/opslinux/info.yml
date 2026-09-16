@@ -23,7 +23,6 @@ content:
       - users
       - user_management
       - user_passwords
-      - user_profiles
       - groups
   - title: "Scripting 101"
     chapters:
