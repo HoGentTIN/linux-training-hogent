@@ -1,6 +1,6 @@
 ## solution: git
 
-1.Crate local project called `git_practice`.
+1.Create local project called `git_practice`.
 
     aschapelle@vaio3:~$ mkdir git_practice; cd git_practice
 

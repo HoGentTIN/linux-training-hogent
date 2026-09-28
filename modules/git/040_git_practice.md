@@ -1,6 +1,6 @@
 ## practice: git
 
-1.Crate local project called `git_practice`.
+1.Create local project called `git_practice`.
 
 2.Create a project on `gitlab.com` to host a local project that you have
 created.
