@@ -553,7 +553,28 @@ An argument can be made that this is quite useful for laptops, who often move be
 
 In this section, we'll discuss `nmcli`, the command-line interface to *NetworkManager*. There are alternative ways to configure *NetworkManager* (e.g. with the `nmtui` command or the graphical user interface), but we will focus on `nmcli` here. Reason is that `nmcli`-based configuration can be automated in scripts, while actions in an interactive user interface cannot.
 
-With *NetworkManager*, you can provide a connection profile for each network interface. A connection profile is a set of properties that describe how the network interface should be configured. The connection profiles are stored in the `/etc/NetworkManager/system-connections` directory.
+With *NetworkManager*, you can provide a connection profile for each network interface. The unconfigured interface is called a *device*.  A connection profile is a set of properties that describe how the network interface should be configured. A connection is linked to a device. The connection profiles are stored in the `/etc/NetworkManager/system-connections` directory.
+
+An overview of all the devices on your system is given by the `nmcli device` command.
+```console
+[student@el ~]$ nmcli device
+DEVICE  TYPE      STATE                   CONNECTION
+eth0    ethernet  connected               eth0
+lo      loopback  connected (externally)  lo
+eth1    ethernet  disconnected            --
+```
+
+As you might notice, the second network interface - device `eth1` - isn't configured yet and hence disconnected from the NetworkManagers configuration. To create a new connection profile for this device you could use `add con-name`. The connection by default is set to using DHCP(v4).
+
+```console
+[student@el ~]$ nmcli connection add con-name "System eth1" type ethernet ifname eth1
+Connection 'System eth1' (9c92fad9-6ecb-3e6c-eb4d-8a47c6f50c04) successfully added.
+[student@el ~]$ nmcli device
+DEVICE  TYPE      STATE                                  CONNECTION
+eth0    ethernet  connected                              eth0
+eth1    ethernet  connecting (getting IP configuration)  System eth1
+lo      loopback  connected (externally)                 lo
+```
 
 To show the connection profiles, use the `nmcli connection show` command. If you want to see specific details of a connection profile, use the `nmcli connection show <name>` command. 
 
