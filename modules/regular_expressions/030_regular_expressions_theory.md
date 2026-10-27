@@ -363,10 +363,10 @@ be handy in some cases to improve readability.
     echo Sunday | sed 's|Sun|Mon|'
     Monday
 
-### interactive editor
+### in place editing
 
-While `sed` is meant to be used in a stream, it can also be used
-interactively on a file.
+While `sed` is meant to be used in a stream, it can also be used on a
+file without any pipes, using the `-i` or `--in-place` option.
 
     student@linux:~/files$ echo Sunday > today
     student@linux:~/files$ cat today 
