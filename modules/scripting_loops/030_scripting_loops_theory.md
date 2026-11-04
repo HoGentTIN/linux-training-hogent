@@ -175,7 +175,7 @@ This `for loop` uses file globbing (from the shell expansion). Putting the instr
 ```bash
 [student@linux ~]$ ls
 count.sh  go.sh
-[student@linux ~]$ for file in *.sh ; do cp "${file}" "${file.backup}" ; done
+[student@linux ~]$ for file in *.sh ; do cp "${file}" "${file}.backup" ; done
 [student@linux ~]$ ls                                                 
 count.sh  count.sh.backup  go.sh  go.sh.backup 
 ```

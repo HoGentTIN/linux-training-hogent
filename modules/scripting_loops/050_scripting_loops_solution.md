@@ -33,7 +33,7 @@
     while [ "${i}" -le '7' ]
     do
        echo "Counting from 3 to 7, now at ${i}"
-       i=(( i+1 ))   # or (( i++ ))
+       i=$(( i+1 ))   # or (( i++ ))
     done
     ```
 
