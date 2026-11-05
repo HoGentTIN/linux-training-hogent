@@ -1,6 +1,39 @@
+## true and false
+
+In Bash, boolean values *do not exist* as a data type. It is consequently impossible to assign a boolean value to a variable!
+
+Instead, the concepts of *true* and *false* are represented by the exit status of commands. *True* is represented by the exit status `0` (denoting that the command finished successfully), and *false* is represented by any other exit status (1-255, denoting a failure).
+
+In fact, there are two commands, `true` and `false` (typically part of the coreutils package), that return a suitable exit status to represent these concepts:
+
+```console
+[student@linux ~]$ true
+[student@linux ~]$ echo $?
+0
+[student@linux ~]$ false
+[student@linux ~]$ echo $?
+1
+```
+
+You could write your own implementation of `true` and `false` in Bash as follows:
+
+```bash
+#!/bin/bash
+# true.sh
+exit 0
+```
+
+```bash
+#!/bin/bash
+# false.sh
+exit 1
+```
+
+The actual implementation (in C) of the `true` and `false` commands is more complex and can be found in the [coreutils package source code repository](https://github.com/coreutils/coreutils/blob/master/src/true.c), if you're interested.
+
 ## test
 
-The `test` command can evaluate **logical expressions** and indicate through their *exit status* whether the expression was *true* or *false*. In Bash, boolean values *do not exist* as a data type and are represented by the exit status of commands. *True* is represented by the exit status `0` (denoting that the command finished successfully), and *false* is represented by any other exit status (1-255, denoting any failure).
+The `test` command can evaluate **logical expressions** and indicate through their *exit status* whether the expression was *true* or *false*.
 
 Let's start by testing whether 10 is greater than 55, and then show the exit status.
 
