@@ -33,7 +33,7 @@ Which would produce the output `Hello world!`
 ## passing arguments to functions
 
 You can pass arguments to a function like you pass arguments to a command. Inside a function, the positional parameters and related variables (`$#`, `$*`, `$@`, `${1}`, `${2}`, ...) will be re-initialized to the arguments added to the function call.
- 
+
 Consider the following script, `greeter.sh`:
 
 ```bash
@@ -58,7 +58,7 @@ will not produce an error and will in fact result in the same output as the orig
 
 ## documenting the expected number of arguments
 
-In larger functions that expect multiple arguments, the positional parameter variables make the code harder to read. For example, the following function will generate a passphrase selecting the specified number (second argument) of random words from a dictionary file (first argument). 
+In larger functions that expect multiple arguments, the positional parameter variables make the code harder to read. For example, the following function will generate a passphrase selecting the specified number (second argument) of random words from a dictionary file (first argument).
 
 ```bash
 generate_passphrase() {
@@ -97,7 +97,7 @@ generate_passphrase() {
 ```
 
 The first two lines of the function indicate that it expects two arguments, the first being a dictionary and the second the number of words. In the function body, using the more descriptive variable names makes the code more readable.
- 
+
 ## return status
 
 As stated before, it is not possible to specify a return type and in fact, a Bash function only has an *exit status*, just like a command. The exit (or return) status of a function is either the status of the last command that was executed inside the function, or the status specified with the builtin command `return STATUS`, with `STATUS` an integer value between 0 and 255. Return status 0 is interpreted as *success* or a logical *true*, any other value as *failure* or a logical *false* (also just like commands!).
@@ -180,7 +180,7 @@ echo "${user}"
 
 In this case the output will be as expected, since the variable `${user}` will be unset at the end of the function execution.
 
-It is recommended to declare all variables defined in functions as `local` 
+It is recommended to declare all variables defined in functions as `local`.
 
 ## dynamic scope
 
