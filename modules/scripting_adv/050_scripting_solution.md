@@ -1,102 +1,97 @@
 ## solution : more scripting
 
-1. Write a script that asks for two numbers, and outputs the sum and product (as shown here).
-
-    ```
-    Enter a number: 5
-    Enter another number: 2
-
-    Sum:       5 + 2 = 7
-    Product:   5 x 2 = 10
-    ```
-        
+1. Write a script that uses a case statement to check whether the first positional parameter has one of the given properties and outputs an appropriate message.
 
     ```bash
-    #!/bin/bash
+    #! /bin/bash
 
-    echo -n "Enter a number : "
-    read n1
-
-    echo -n "Enter another number : "
-    read n2
-
-    let sum="$n1+$n2"
-    let pro="$n1*$n2"
-
-    echo -e "Sum\t: $n1 + $n2 = $sum" 
-    echo -e "Product\t: $n1 * $n2 = $pro"
+    case "${1}" in
+        [0-9] | [0-9][0-9] | [0-9][0-9][0-9] )
+            echo "number (0-999)" ;;
+        [Tt] | [Tt][Rr][Uu][Ee] | [Yy][Ee][Ss] | [Oo][Nn] )
+            echo "true" ;;
+        [Ff] | [Ff][Aa][Ll][Ss][Ee] | [Nn][Oo] | [Oo][Ff][Ff] )
+            echo "false" ;;
+        [A-Z]* )
+            echo "capitalized word" ;;
+        [a-z]* )
+            echo "lowercase word" ;;
+        --* )
+            echo "long option" ;;
+        -* )
+            echo "short option" ;;
+        '' )
+            echo "empty string" ;;
+        * )
+            echo "something else" ;;
+    esac
     ```
 
-2. Improve the previous script to test that the numbers are between 1 and 100, exit with an error if necessary.
+2. Is it possible to use a case statement to check whether a string is a positive or negative integer value of arbitrary length? Why (not)?
+
+    No, it is not. Globbing patterns do not allow you to specify a minimum or maximum number of specific characters. For example, the pattern `[0-9]*` would match the string '1abc', which is not a valid integer.
+
+3. Write a script that asks for two numbers, and outputs the sum and product (as shown here). Use Bash's arithmetic capabilities whenever possible.
 
     ```bash
-    echo -n "Enter a number between 1 and 100 : "
-    read n1
+    #! /bin/bash
 
-    if [ $n1 -lt 1 -o $n1 -gt 100 ]
-    then
-        echo Wrong number... 
+    read -rp "Enter a number       : " n1
+    read -rp "Enter another number : " n2
+
+    sum=$(( n1 + n2 ))
+    pro=$(( n1 * n2 ))
+
+    printf "Sum\t: %d + %d = %d\n" "${n1}" "${n2}" "${sum}"
+    printf "Product\t: %d * %d = %d\n" "${n1}" "${n2}" "${pro}"
+    ```
+
+4. Rewrite the previous script to test that the numbers are between 0 and 100, exit with an error if necessary.
+
+    Add the following lines after the `read` commands:
+
+    ```bash
+    if (( n1 < 0 || n1 > 100 || n2 < 0 || n2 > 100 )); then
+        echo "Value out of range, exiting" >&2
         exit 1
     fi
     ```
 
-3. Improve the previous script to congratulate the user if the sum equals the product.
+5. Rewrite the previous script to congratulate the user if the sum equals the product.
+
+    Add as the last lines of the script:
 
     ```bash
-    if [ $sum -eq $pro ]
-    then
-        echo Congratulations $sum == $pro
+    if (( sum == pro )); then
+        echo "Congratulations ${sum} == ${pro}"
     fi
     ```
 
-4. Write a script with a case insensitive case statement, using the shopt nocasematch option. The nocasematch option is reset to the value it had before the scripts started.
+6. Rewrite the previous script to take the two numbers as command line arguments. Exit with an error message if not exactly two arguments are given.
+
+    In this solution, we continue using `$1` and `$2` throughout the script. Remark that you could also assign them to the variables from the previous versions, e.g. `n1=${1}` and `n2=${2}`.
 
     ```bash
-    #!/bin/bash
-    #
-    # Wild Animals Case Insensitive Helpdesk Advice
-    #
+    #! /bin/bash
 
-    if shopt -q nocasematch; then
-      nocase=yes;
-    else
-      nocase=no;
-      shopt -s nocasematch;
+    if (( $# != 2)); then
+        printf 'Expected 2 arguments, got %d\n' "$#" >&2
+        exit 1
     fi
 
-    echo -n "What animal did you see? "
-    read animal
+    sum=$(( ${1} + ${2} ))
+    pro=$(( ${1} * ${2} ))
 
-    case $animal in
-            "lion" | "tiger")
-                    echo "You better start running fast!"
-            ;;
-            "cat")
-                    echo "Let that mouse go..."
-            ;;
-            "dog")
-                    echo "Don't worry, give it a cookie."
-            ;;
-            "chicken" | "goose" | "duck" )
-                    echo "Eggs for breakfast!"
-            ;;
-            "liger")
-                    echo "Approach and say 'Ah you big fluffy kitty.'"
-            ;;
-            "babelfish")
-                    echo "Did it fall out your ear?"
-            ;;
-            *)
-                    echo "You discovered an unknown animal, name it!"
-            ;;
-    esac
+    if (( ${1} < 0 || ${1} > 100 || ${2} < 0 || ${2} > 100 )); then
+        printf 'Value out of range (0 - 100), exiting\n' >&2
+        exit 1
+    fi
 
-    if [ nocase = yes ] ; then
-            shopt -s nocasematch;
-    else
-            shopt -u nocasematch;
+    printf 'Sum\t: %d + %d = %d\n' "${1}" "${2}" "${sum}"
+    printf 'Product\t: %d * %d = %d\n' "${1}" "${2}" "${pro}"
+
+    if (( sum == pro )); then
+        printf 'Congrats, %d == %d\n' "${sum}" "${pro}"
     fi
     ```
-
-5. If time permits (or if you are waiting for other students to finish this practice), take a look at Linux system scripts in /etc/init.d and /etc/rc.d and try to understand them. Where does execution of a script start in /etc/init.d/samba? There are also some hidden scripts in ~, we will discuss them later.
 

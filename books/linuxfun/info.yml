@@ -49,6 +49,7 @@ content:
       - scripting_loops
       - scripting_params
       - scripting_adv
+      - scripting_functions
   - title: "Local user management"
     chapters:
       - users
