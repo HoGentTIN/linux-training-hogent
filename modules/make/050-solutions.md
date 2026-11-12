@@ -1,31 +1,38 @@
-## solutions: Workflow automation with Makefiles
+## solutions: make
 
-The resulting `Makefile` after exercise 2 should look something like this:
+The resulting `Makefile` after exercise 3 could look something like this:
 
 ```makefile
 # Generic Makefile for C development. All .c files in the current directory
 # will be compiled into binaries with the same name (without the .c
 # extension)
 
-# Preliminaries
+#
+# Special targets
+#
+
 .POSIX:     # Get reliable POSIX behaviour
 .SUFFIXES:  # Clear built-in inference rules
 .SECONDARY: # Don't delete intermediate files
 
 .PHONY: help all clean mrproper install uninstall
 
+#
 # Variables
+#
 CC := gcc            # Compiler
 CFLAGS := -Wall -O   # Compiler options
 
-sources := $(wildcard *.c)
-executables := $(patsubst %.c,%,$(sources))
-objects := $(patsubst %.c,%.o,$(sources))
 headers := $(wildcard *.h)
+sources := $(wildcard *.c)
+objects := $(patsubst %.c,%.o,$(sources))
+executables := $(patsubst %.c,%,$(sources))
 
 install_dir := /usr/local/bin
 
+#
 # Targets
+#
 
 help: ## Show this help message (default)
         @awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)

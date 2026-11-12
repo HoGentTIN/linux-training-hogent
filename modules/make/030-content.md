@@ -4,7 +4,7 @@ Since `make` is part of the POSIX standard, there exist multiple implementations
 
 The disadvantage of having multiple implementations is that they are not all fully compatible with each other. Indeed, GNU Make has several extensions to the POSIX standard that are not supported by other implementations. This means that a `Makefile` written for GNU Make may not work with other implementations of `make`.
 
-In this chapter, we will limit the use of these extensions to a minimum to keep the `Makefile' as portable as possible.
+In this chapter, we will limit the use of these extensions to a minimum to keep the `Makefile` as portable as possible.
 
 To follow the examples in the following sections, ensure that you have GNU Make and the GNU Compiler Collection installed on your system. On both Debian and Enterprise Linux, the package names are `make` and `gcc`, respectively. Of course, this is not a C course, so we will keep the examples as simple as possible.
 
@@ -22,14 +22,18 @@ target: source1 source2 ...
 ```
 
 - `target` is the name of the file that you want to generate (e.g. `output.pdf`).
-- `source1`, `source2`, ... are the names of the files that are used as input for generating the target (e.g. `input.tex`).
-- `command1`, `command2`, ... are the commands that are executed to generate the target from the sources (e.g. `pdflatex input.tex`).
-    - When executing a Makefile, the commands are printed to the terminal, so you can see what is happening. If you want to suppress this output, you can prefix the command with `@` (e.g. `@pdflatex input.tex`).
+
+- `source1`, `source2`, ... are the names of the files that are used as input for generating the target (e.g. `input.tex`), also called *preliminaries* or *dependencies*.
+
+- `command1`, `command2`, ... are the commands that are executed to generate the *target* from their preliminaries (e.g. `pdflatex input.tex`).
+
+    - When executing a Makefile, the commands are printed to the terminal, so you can see what is happening (just like `set -x` in Bash). If you want to suppress this output, you can prefix the command with `@` (e.g. `@pdflatex input.tex`).
+
 - The commands must be indented with a tab character, not spaces.
 
 ## a simple example
 
-We will start with a simple example to illustrate the use of `make`. The goal is to compile a C program that prints "Hello World" to the terminal.
+We will start with a simple example to illustrate the use of `make`, the classic "Hello World" implementation in C.
 
 Create a directory `hello` and create a file `hello.c` in it with the following content:
 
@@ -42,7 +46,7 @@ int main()
 }
 ```
 
-The command needed to compile this program is `gcc -o hello hello.c`. It takes the .c file as input and compiles it in to the executable binary file `hello`.
+The command needed to compile this program is `gcc -o hello hello.c`. It takes the .c file as input and compiles it to the executable binary file `hello`.
 
 To avoid having to remember this command, we can create a `Makefile` with the following content:
 
@@ -74,7 +78,7 @@ Hello Worldstudent@linux:~/hello$ make
 make: 'hello' is up to date.
 ```
 
-The command `make` will look for a file named `Makefile` in the current directory. It will read the first target in the file (in this case `hello`) and check if it is up to date. If it is not, it will execute the commands to build it. If it is up to date, it will print a message and do nothing.
+The command `make` will look for a file named `Makefile` in the current directory. It will read the first target in the file (in this case `hello`) and check if it is up to date, i.e. if the change date of the target is newer than the change date of its dependencies. If it is not, it will execute the commands to build it. If it is up to date, it will print a message and do nothing.
 
 Do you get an error like this?
 
@@ -91,10 +95,11 @@ We see that the output of our little program doesn't have a newline at the end. 
 printf("Hello World\n");
 ```
 
-Next, we run `make` again. This time, it will detect that `hello.c` has changed and will recompile the program.
+Next, we run `make` again. This time, it will detect that `hello.c` has changed (its timestamp is newer than that of the binary) and will recompile the program.
 
 ```console
 student@linux:~/hello$ nano hello.c 
+[ ... make the necessary changes ... ]
 student@linux:~/hello$ make
 gcc -o hello hello.c
 student@linux:~/hello$ ./hello 
@@ -113,7 +118,9 @@ int EXIT_TRUE  = 0;
 int EXIT_FALSE = 2;
 ```
 
-This file defines two constants that we will use in our programs. The exit status of our `true` implementation should be zero and the exit status of `false` should be nonzero. For now, the exit status of `false` is set to 2, which is not wrong, but we will change it to the more standard value of 1 later.
+This file defines two constants that we will use in our programs. The exit status of our `true` implementation should be zero and the exit status of `false` should be nonzero.
+
+For demonstration purposes, the exit status of `false` is now set to 2. This is not "wrong", albeit a bit strange. We will change it to the more standard value of 1 later.
 
 Next, create a file `true.c` with the following content:
 
@@ -130,7 +137,9 @@ The program loads the constants defined in `booleans.h` and returns the value of
 
 You can write the `false.c` yourself!
 
-Now, let's define the recipe to build the `true` and `false` binaries. The command to compile `true.c` is `gcc -o true true.c`. We don't need to specify `booleans.h` on the command line, because it is included in `true.c`. However, when we change the definition of one of the constants in `booleans.h`, we want to recompile `true.c` and `false.c`. Therefore, we will need to add `booleans.h` as a prerequisite for both targets. In the `Makefile`, this looks like:
+Now, let's define the recipe to build the `true` and `false` binaries. The command to compile `true.c` is `gcc -o true true.c`. We don't need to specify `booleans.h` on the command line, because it is included in `true.c`. However, when we change the definition of one of the constants in `booleans.h`, we need to recompile `true.c` and `false.c`. Therefore, we will have to add `booleans.h` as a prerequisite for both targets.
+
+In the `Makefile`, this looks like:
 
 ```makefile
 true: true.c booleans.h
@@ -139,22 +148,24 @@ false: false.c booleans.h
     gcc -o false false.c
 ```
 
-Executing `make true` will compile the `true` binary and executing `make false` will compile the `false` binary. Executing `make` without any arguments will build the first target in the `Makefile`, which is `true`. For convenience, we can add a `all` target that builds both binaries at the start of our `Makefile`.
+Executing `make true` will compile the `true` binary and executing `make false` will compile the `false` binary. Executing `make` without any arguments will build the first target in the `Makefile`, which is `true`.
+
+## phony targets
+
+For convenience, we can add a `all` target that builds both binaries at the start of our `Makefile`.
 
 ```makefile
 all: true false
 ```
 
-Another common convenience is to add a `clean` target that removes the generated binaries. This is useful when you want to start from a clean slate, for example when you want to test if your `Makefile` works correctly.
+Another common convenience is to add a `clean` target that removes the generated binaries. This is useful when you want to start from a clean slate, for example when you want to test if your `Makefile` works correctly, or if you made significant changes to the source code.
 
 ```makefile
 clean:
     rm -f true false
 ```
 
-## phony targets
-
-Now, `all` and `clean` are not the names of files that can be generated by their corresponding recipes. We can tell `make` that they are "phony" targets, and that the commands should always be executed.
+Now, `all` and `clean` are not the names of files that can be generated by their corresponding recipes. We can tell `make` that they are "phony" targets, which implies that the commands should always be executed.
 
 This is done by adding the following line to the `Makefile`:
 
@@ -197,12 +208,13 @@ student@linux:~/bool$ if ./false; then echo "yes!"; else echo "no!"; fi
 no!
 ```
 
-Both binaries give the expected exit status ánd behave as expected when you use them in a conditional statement!
+Both binaries give the expected exit status *and* behave as expected when you use them in a conditional statement!
 
 If you only want to build one of the binaries, specify the target on the command line. For example:
 
 ```console
-student@linux:~/bool$ touch *.c
+student@linux:~/bool$ make clean
+rm -f true false
 student@linux:~/bool$ make true
 gcc -o true true.c
 student@linux:~/bool$ make false
@@ -213,6 +225,7 @@ Let's change the exit status of `false` to the more standard value for indicatin
 
 ```console
 student@linux:~/bool$ nano booleans.h 
+[ ... make the necessary changes ... ]
 student@linux:~/bool$ make
 gcc -o true true.c
 gcc -o false false.c
@@ -232,17 +245,6 @@ student@linux:~/bool$ make
 gcc -o true true.c
 ```
 
-To clean up the directory, you can run `make clean`, which will remove the generated binaries.
-
-```console
-student@linux:~/bool$ ls
-booleans.h  false  false.c  Makefile  true  true.c
-student@linux:~/bool$ make clean
-rm -f true false
-student@linux:~/bool$ ls
-booleans.h  false.c  Makefile  true.c
-```
-
 ## pattern rules
 
 Our `Makefile` works fine, but it already contains some copy/paste patterns. The commands to compile `true.c` and `false.c` are basically the same, except for the name of the target and the source file. In a `Makefile`, you can use so-called pattern rules to avoid this duplication. Pattern rules are the heart of a `Makefile` and allow you to write very generic recipes that can be used for multiple targets.
@@ -255,9 +257,9 @@ all: true false
     gcc -o $@ $<
 ```
 
-The `%` is a wildcard that matches any string. Make won't know with which value(s) it can replace the `%`, but since we defined the `all` target with prerequisites `true` and `false` and we don't have any other rules for these targets, `make` will use the pattern rule to build them.
+The `%` is a wildcard that matches any string. Make won't know which value(s) it can replace the `%` with, but since we defined the `all` target with prerequisites `true` and `false` and we don't have any other rules for these targets, `make` will use the pattern rule to attempt tobuild them.
 
-The `$@` is a special variable that expands to the name of the target (e.g. `true` or `false`) and the `$<` expands to the name of the first prerequisite (e.g. `true.c` or `false.c`). There are several other special variables that you can use in your `Makefile`. You can find a complete list in the [GNU Make manual](https://www.gnu.org/software/make/manual/make.html#Automatic-Variables). Unfortunately, the names of these variables are not very descriptive, which is inconvenient.
+The `$@` is a special *automatic variable* that expands to the name of the target (e.g. `true` or `false`) and the `$<` expands to the name of the first prerequisite (e.g. `true.c` or `false.c`). There are several other automatic variables that you can use in your `Makefile`. You can find a complete list in the [GNU Make manual](https://www.gnu.org/software/make/manual/make.html#Automatic-Variables). Unfortunately, the names of these variables are not very descriptive, which is inconvenient, especially for beginners.
 
 Replace the two rules for `true` and `false` in your `Makefile` with the pattern rule above and check if everything still works as expected.
 
@@ -306,16 +308,16 @@ The options `-Wall` and `-O` are now passed to the compiler.
 As our project grows, we will probably add more source files. Instead of having to add each source file to the `all` target, we can define a variable `sources` that contains a list of all the source files (*.c) and a variable `executables` with a list of all the binaries that we want to generate. Make has built-in functions that help us to generate these lists:
 
 ```makefile
+headers := $(wildcard *.h)
 sources := $(wildcard *.c)
 executables := $(patsubst %.c,%,$(sources))
-headers := $(wildcard *.h)
 ```
 
-The `wildcard` function returns a list of all files that match the given pattern (in this case, all .c files in the current directory). The `patsubst` function (short for *pattern substitution*) replaces the pattern `%.c` with `%` in each element of the list of sources, effectively removing the .c extension and giving us a list of executables.
+The `wildcard` function returns a list of all files that match the given pattern (in this case, all .h and .c files in the current directory). The `patsubst` function (short for *pattern substitution*) replaces the pattern `%.c` with `%` in each element of the list of sources, effectively removing the .c extension and giving us a list of executables.
 
 For other built-in functions, see the GNU Make manual chapter on [Functions for Transformating Text](https://www.gnu.org/software/make/manual/make.html#Functions).
 
-Update the `Makefile` to use these variables, use the value of `$(executables)` where appropriate and check if everything still works as expected.
+Update the `Makefile` to use these variables wherever possible, and check if everything still works as expected.
 
 ```console
 student@linux:~/bool$ nano Makefile 
@@ -326,7 +328,7 @@ gcc -Wall -O -o false false.c
 gcc -Wall -O -o true true.c
 ```
 
-This version of our `Makefile` is very generic. Without ever explicitly mentioning the names of the source files or the binaries, it correctly deduces that it needs to compile `true.c` and `false.c` into the binaries `true` and `false`. If we add a new source file, for example `maybe.c`, it will automatically be included in the build process.
+This version of our `Makefile` is quite generic. Without ever explicitly mentioning the names of the source files or the binaries in the build rules, `make` correctly deduces that it needs to compile `true.c` and `false.c` into the binaries `true` and `false`. If we add a new source file, for example `maybe.c`, it will automatically be included in the build process.
 
 Create a file `maybe.c` with the content given below. It will return either a success (0) or failure (1) exit status at random.
 
@@ -339,7 +341,7 @@ int main(void)
 {
         srand(time(NULL)); // seed rng with current time
 
-        // Generate a random integer.
+        // Generate a random integer value.
         // If even, return TRUE, else FALSE
         if (rand() % 2 == 0) {
                 return EXIT_TRUE;
@@ -369,7 +371,7 @@ The binaries `true`, `false` were up to date, so they were not recompiled. Howev
 
 The line starting with `.PHONY` is an example of a special built-in target. There are several other special built-in targets that you can use in your `Makefile`. You can find a complete list in the [GNU Make manual](https://www.gnu.org/software/make/manual/make.html#Special-Targets).
 
-The following built-in targets are particularly useful:
+The following built-in targets may be particularly useful:
 
 - `.POSIX:` This target tells `make` to follow the POSIX standard as closely as possible. This can be useful if you want to write a `Makefile` that is portable across different platforms or implementations of `make`.
 
@@ -439,7 +441,7 @@ Here are some other common targets that you may want to add to your `Makefile`:
     /usr/local/bin/maybe
     ```
 
-    On this system, from now on, our own implementations of `true`, `false` and `maybe` will be used instead of the system-wide versions!
+    On this system, from now on, our own implementations of `true`, `false` and `maybe` will be used instead of the original versions!
 
 - An `uninstall` target can be added to remove the installed binaries, e.g.:
 
@@ -470,5 +472,5 @@ This is not necessarily a bad thing, but it is worth considering if there are ot
 
 Examples include [Grunt](https://gruntjs.com), [Gulp](https://gulpjs.com), [Invoke](https://www.pyinvoke.org/), [just](https://just.systems/), [Rake](https://ruby.github.io/rake/), etc.
 
-They are not part of the POSIX standard, so they are not available on all systems. Therefore, they are out of the scope of this course. However, if you are interested in using one of these tools, installing is easy and you can find plenty of documentation and tutorials online.
+These tools are not part of the POSIX standard, so they are not available on all systems. Therefore, they are out of the scope of this course. However, if you are interested in using one of these tools, installing is easy and you can find plenty of documentation and tutorials online.
 
