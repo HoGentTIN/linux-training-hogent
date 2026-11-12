@@ -74,10 +74,9 @@ content:
       - vagrant
       - python_venv
 
-  # TODO:
-  # - title: "Workflow automation"
-  #   chapters:
-  #     - makefiles
+  - title: "Workflow automation with Makefiles"
+    chapters:
+      - make
 
 backmatter:
   - intro_vi
