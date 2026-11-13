@@ -2,6 +2,9 @@
 
 To retrieve the value of a **shell variable**, prefix the variable name with a dollar sign `$`. When you use the dollar sign syntax in a command, the shell will look for an existing variable named like the word following the `$` and replace it with the value of that variable. This is called **parameter substitution**. When the variable does not exist, the shell will replace it with an empty string.
 
+*The shell does NOT complain about undefined variables. It quietly replaces them
+to an empty string and carries on without any error message.*
+
 When you open a terminal, several variables are already set. These are some examples using `$HOSTNAME`, `$USER`, `$UID`, `$SHELL`, and
 `$HOME`.
 
@@ -11,7 +14,7 @@ This is the /bin/bash shell
 [student@linux ~]$ echo "This is $SHELL on computer $HOSTNAME"
 This is /bin/bash on computer linux.localdomain
 [student@linux ~]$ echo "The userid of $USER is $UID"
-The userid of studemt is 1000
+The userid of student is 1000
 [student@linux ~]$ echo "My homedir is $HOME"
 My homedir is /home/student
 ```
@@ -19,23 +22,23 @@ My homedir is /home/student
 The variable name can also be **enclosed in curly braces** `{}`, e.g. `${HOME}`, `${USER}`, etc. This is less ambiguous and in some situations even required to separate the variable name from text immediately following it. For example:
 
 ```console
-[student@linux ~]$ prefix=Super
+[student@linux ~]$ prefix='Super'
 [student@linux ~]$ echo "Hello $prefixman and $prefixgirl"
 Hello  and
 [student@linux ~]$ echo "Hello ${prefix}man and ${prefix}girl"
 Hello Superman and Supergirl
 ```
 
-In a script, it's actually a best practice to *always* use the notation with the curly braces `${var}`.
+In a script, it's actually a best practice to **always use the notation with the curly braces `${var}`**.
 
 ## case sensitive
 
 This example shows that shell variables are case sensitive!
 
 ```console
-[student@linux ~]$ echo "Hello $USER"
+[student@linux ~]$ echo "Hello ${USER}"
 Hello student
-[student@linux ~]$ echo "Hello $user"
+[student@linux ~]$ echo "Hello ${user}"
 Hello 
 ```
 
@@ -44,8 +47,8 @@ Hello
 This example creates the variable `$my_var` and sets its value. It then uses `echo` to verify the value.
 
 ```console
-[student@linux gen]$ my_var=555
-[student@linux gen]$ echo "$my_var"
+[student@linux gen]$ my_var='555'
+[student@linux gen]$ echo "${my_var}"
 555
 ```
 
@@ -62,7 +65,7 @@ This example creates the variable `$my_var` and sets its value. It then uses `ec
 Notice that double quotes still allow the parsing of variables, whereas single quotes prevent this.
 
 ```console
-[student@linux ~]$ my_var=555
+[student@linux ~]$ my_var='555'
 [student@linux ~]$ echo ${my_var}
 555
 [student@linux ~]$ echo "${my_var}"
@@ -74,14 +77,14 @@ ${my_var}
 The bash shell will replace variables with their value in double quoted lines, but not in single quoted lines.
 
 ```console
-student@linux:~$ city=Burtonville
+student@linux:~$ city='Burtonville'
 student@linux:~$ echo "We are in ${city} today."
 We are in Burtonville today.
 student@linux:~$ echo 'We are in ${city} today.'
 We are in ${city} today. 
 ```
 
-In most cases, it is best practice to **always enclose variables in double quotes**. For example, if a variable contains a file name that has spaces in it, the shell may interpret this incorrectly:
+In most cases, it is best practice to **always enclose variables in quotes**: single quotes for fixed text or double quotes to allow parsing. For example, if a variable contains a file name that has spaces in it, the shell may interpret this incorrectly:
 
 ```console
 student@linux:~/temp$ file_name='My file.txt'
@@ -106,8 +109,6 @@ Because there were no quotes in the command, word splitting occured and `My` and
 student@linux:~/temp$ touch "${file_name}"
 student@linux:~/temp$ ls -l
 total 0
--rw-r--r-- 1 student student 0 Nov 21 19:28  file.txt
--rw-r--r-- 1 student student 0 Nov 21 19:28  My
 -rw-r--r-- 1 student student 0 Nov 21 19:28 'My file.txt'
 ```
 
@@ -150,7 +151,7 @@ For other uses of the `set` command, see the `builtins(7)` man page.
 Use the `unset` command to remove a variable from your shell environment.
 
 ```console
-[student@linux ~]$ my_var=8472
+[student@linux ~]$ my_var='8472'
 [student@linux ~]$ echo "${my_var}"
 8472
 [student@linux ~]$ unset my_var
@@ -166,7 +167,7 @@ The `$PS1` variable determines your shell prompt. You can use backslash escaped 
 In this example we change the value of `$PS1` a couple of times.
 
 ```console
-student@linux:~$ PS1=prompt
+student@linux:~$ PS1='prompt'
 prompt
 promptPS1='prompt '
 prompt 
@@ -186,7 +187,7 @@ RED='\[\033[01;31m\]'
 WHITE='\[\033[01;00m\]'
 GREEN='\[\033[01;32m\]'
 BLUE='\[\033[01;34m\]'
-export PS1="${debian_chroot:+($debian_chroot)}${GREEN}\u${WHITE}@${BLUE}\h${WHITE}\w\$ "
+export PS1="${debian_chroot:+(${debian_chroot})}${GREEN}\u${WHITE}@${BLUE}\h${WHITE}\w\$ "
 ```
 
 ## `$PATH`
@@ -194,15 +195,15 @@ export PS1="${debian_chroot:+($debian_chroot)}${GREEN}\u${WHITE}@${BLUE}\h${WHIT
 The `$PATH` variable is determines where the shell is looking for commands to execute (unless the command is builtin or aliased). This variable contains a list of directories, separated by colons.
 
 ```console
-[student@linux ~]$ echo $PATH
+[student@linux ~]$ echo "${PATH}"
 /usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games
 ```
 
 The shell will not look in the current directory for commands to execute! (Looking for executables in the current directory provided an easy way to hack PC-DOS computers). If you want the shell to look in the current directory, then add a `.` at the end of your `$PATH` (which is a shortcut to *the current working directory*). This is not recommended, though!
 
 ```console
-[student@linux ~]$ PATH=$PATH:.
-[student@linux ~]$ echo $PATH
+[student@linux ~]$ PATH="${PATH}:."
+[student@linux ~]$ echo "${PATH}"
 /usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:.
 ```
 
@@ -211,12 +212,12 @@ Your path might be different when using `su` instead of `su -` because the latte
 ```console
 [student@linux ~]$ su
 Password: 
-[root@linux student]# echo $PATH
+[root@linux student]# echo "${PATH}"
 /usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games
 [root@linux student]# exit
 [student@linux ~]$ su -
 Password: 
-[root@linux ~]# echo $PATH
+[root@linux ~]# echo "${PATH}"
 /usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:
 ```
 
@@ -225,25 +226,25 @@ Password:
 When you initialize a variable in some shell, it will not be available in child shells (also called *subshells*):
 
 ```console
-[student@linux ~]$ penguin=tux
-[student@linux ~]$ echo $penguin
+[student@linux ~]$ penguin='tux'
+[student@linux ~]$ echo "${penguin}"
 tux
 [student@linux ~]$ bash          #<---- this is where we create a subshell
-[student@linux ~]$ echo $penguin
+[student@linux ~]$ echo "${penguin}"
 
 [student@linux ~]$ exit
-[student@linux ~]$ echo $penguin
+[student@linux ~]$ echo "${penguin}"
 tux
 ```
 
 We can use the `export` command to turn the variable into an **environment variable**. This will make the variable available in child shells.
 
 ```console
-[student@linux ~]$ export penguin=tux
-[student@linux ~]$ echo $penguin
+[student@linux ~]$ export penguin='tux'
+[student@linux ~]$ echo "${penguin}"
 tux
 [student@linux ~]$ bash
-[student@linux ~]$ echo $penguin
+[student@linux ~]$ echo "${penguin}"
 tux
 [student@linux ~]$ exit
 ```
@@ -256,7 +257,7 @@ If you try this example, first `unset` the variable `$penguin`.
 
 ```console
 [student@linux ~]$ unset penguin
-[student@linux ~]$ penguin=pingu
+[student@linux ~]$ penguin='pingu'
 [student@linux ~]$ echo 'echo "${penguin}"' > script.sh
 [student@linux ~]$ bash script.sh
 
@@ -268,14 +269,14 @@ pingu
 Beware that exported variables cannot be seen in the parent shell! Assume the variable `$penguin` is unset:
 
 ```console
-[student@linux ~]$ echo $penguin
+[student@linux ~]$ echo "${penguin}"
 
 [student@linux ~]$ bash
-[student@linux ~]$ export penguin=pingu
-[student@linux ~]$ echo $penguin
+[student@linux ~]$ export penguin='pingu'
+[student@linux ~]$ echo "${penguin}"
 pingu
 [student@linux ~]$ exit
-[student@linux ~]$ echo $penguin
+[student@linux ~]$ echo "${penguin}"
 
 [student@linux ~]$
 ```
@@ -289,9 +290,9 @@ But `env` can also be used to start a clean shell (a shell without any inherited
 Notice in this screenshot that `bash` will set the `$SHELL` variable on startup.
 
 ```console
-[student@linux ~]$ bash -c 'echo $SHELL $HOME $USER'
+[student@linux ~]$ bash -c 'echo ${SHELL} ${HOME} ${USER}'
 /bin/bash /home/student student
-[student@linux ~]$ env -i bash -c 'echo $SHELL $HOME $USER'
+[student@linux ~]$ env -i bash -c 'echo ${SHELL} ${HOME} ${USER}'
 /bin/bash
 [student@linux ~]$
 ```
@@ -300,9 +301,9 @@ You can use the `env` command to set the `$LANG`, or any other, variable for jus
 
 ```console
 student@linux:~/test$ touch Filea Fileb FileA FileB
-student@linux:~/test$ env LANG=C bash -c 'ls File[[:alpha:]]'
+student@linux:~/test$ env LANG='C' bash -c 'ls File[[:alpha:]]'
 FileA  FileB  Filea  Fileb
-student@linux:~/test$ env LANG=en_US.UTF-8 bash -c 'ls File[[:alpha:]]'
+student@linux:~/test$ env LANG='en_US.UTF-8' bash -c 'ls File[[:alpha:]]'
 Filea  FileA  Fileb  FileB
 ```
 

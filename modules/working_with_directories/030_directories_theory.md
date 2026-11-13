@@ -1,9 +1,9 @@
 ## pwd
 
-The `you are here` sign can be displayed with the `pwd`
+The "*you are here*" sign can be displayed with the `pwd`
 command (Print Working Directory). Go ahead, try it: Open a command line
 interface (also called a terminal, console or xterm) and type `pwd`. The
-tool displays your `current directory`.
+tool displays your current directory.
 
     student@linux:~$ pwd
     /home/paul
@@ -29,19 +29,27 @@ The `cd` is also a shortcut to get back into your home directory. Just
 typing `cd` without a target directory, will put you in your home
 directory. Typing `cd ~` has the same effect.
 
-    student@linux$ cd /etc
-    student@linux$ pwd
-    /etc
-    student@linux$ cd
-    student@linux$ pwd
-    /home/paul
-    student@linux$ cd ~
-    student@linux$ pwd
-    /home/paul
+```console
+student@linux$ cd /etc
+student@linux$ pwd
+/etc
+student@linux$ cd
+student@linux$ pwd
+/home/paul
+```
+
+```console
+student@linux$ cd /etc
+student@linux$ pwd
+/etc
+student@linux$ cd ~
+student@linux$ pwd
+/home/paul
+```
 
 ### cd ..
 
-To go to the `parent directory` (the one just above your
+To go to the parent directory (the one just above your
 current directory in the directory tree), type `cd ..` .
 
     student@linux$ pwd
@@ -71,7 +79,7 @@ to go to the previous directory.
 
 ## absolute and relative paths
 
-You should be aware of `absolute and relative paths` in
+You should be aware of absolute and relative paths in
 the file tree. When you type a path starting with a `slash (/)`, then
 the `root` of the file tree is assumed. If you don't
 start your path with a slash, then the current directory is the assumed
@@ -120,14 +128,14 @@ Later in this book we will explain how the shell variable
 
 ## path completion
 
-The `tab key` can help you in typing a path without
-errors. Typing `cd /et` followed by the `tab key` will expand the
+The `tab` key can help you in typing a path without
+errors. Typing `cd /et` followed by the `tab` key will expand the
 command line to `cd /etc/`. When typing `cd /Et` followed by the
-`tab key`, nothing will happen because you typed the wrong
-`path` (upper case E).
+`tab` key, nothing will happen because you typed the wrong
+`path` (upper case `E`, the shell is case sensitive).
 
-You will need fewer key strokes when using the `tab key`, and you will
-be sure your typed `path` is correct!
+You will need fewer key strokes when using the `tab` key, and you will
+be sure your typed path is correct!
 
 ## ls
 
@@ -156,8 +164,10 @@ on a Linux file system starts with a dot, it is considered a
 Many times you will be using options with `ls` to display the contents
 of the directory in different formats or to display different parts of
 the directory. Typing just `ls` gives you a list of files in the
-directory. Typing `ls -l` (that is a letter L, not the
-number 1) gives you a long listing.
+directory. Typing `ls -l` gives you a long listing.
+
+*Note that we use the letter `L` as an option in this screenshot, not the
+number `1`.*
 
     student@linux:~$ ls -l
     total 17296
@@ -169,13 +179,10 @@ number 1) gives you a long listing.
 
 ### ls -lh
 
-Another frequently used ls option is `-h`. It shows the numbers (file
+Another frequently used `ls` option is `-h`. It shows the numbers (file
 sizes) in a more human readable format. Also shown below is some
 variation in the way you can give the options to `ls`. We will explain
 the details of the output later in this book.
-
-*Note that we use the letter L as an option in this screenshot, not the
-number 1.*
 
     student@linux:~$ ls -l -h
     total 17M
@@ -230,15 +237,14 @@ created. Think before you type a leading `/` .
 
 ### mkdir -p
 
-The following command will fail, because the `parent directory` of
-`threedirsdeep` does not exist.
+The following command will fail, because the parent directory
+`/home/paul/mydir2/mysubdir2/` of `threedirsdeep` does not exist.
 
     student@linux:~$ mkdir mydir2/mysubdir2/threedirsdeep
-    mkdir: cannot create directory ‘mydir2/mysubdir2/threedirsdeep’: No such fi\
-    le or directory
+    mkdir: cannot create directory ‘mydir2/mysubdir2/threedirsdeep’: No such file or directory
 
 When given the option `-p`, then `mkdir` will create
-`parent directories` as needed.
+parent directories as needed.
 
     student@linux:~$ mkdir -p mydir2/mysubdir2/threedirsdeep
     student@linux:~$ cd mydir2

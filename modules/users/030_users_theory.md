@@ -22,7 +22,7 @@ venus    pts/3        2024-10-15 18:57 (192.168.56.15)
 
 In this example, the `who` command shows that the user `yanina` is logged in on the physical machine (no IP address is shown), the other students are logged in via SSH. The IP addresses are shown in the output.
 
-In the second column, `tty` is short for *teletype*. This term refers to a [teleprinter](https://en.wikipedia.org/wiki/Teleprinter#Teleprinters_in_computing), a device that was in the past used to interact with a computer. The `pts` stands for *pseudo terminal slave* and refers to a virtual terminal that is used to interact with the system over a network connection.
+In the second column, `tty` is short for *teletype*. This term refers to a [teleprinter](https://en.wikipedia.org/wiki/Teleprinter#Teleprinters_in_computing), a device that was in the past used to interact with a computer. The `pts` stands for *pseudo terminal slave* and refers to a virtual terminal that is used to interact with the system over a network connection or through a terminal emulator in the GUI.
 
 ## who am i
 
@@ -144,7 +144,7 @@ The default configuration of the `sudoers` file on *Enterprise Linux* is to give
 
 ## sudo su -
 
-On most modern Linux systems, the `root` user does not have a password set. This means that it is not possible to login as `root` from the login screen, or via SSH. In order to get a root prompt, one of the users with `sudo` rights can type `sudo su -` and become root without having to enter the root password.
+On most modern Linux systems, the `root` user does not have a password set. This means that it is not possible to login as `root` from the login screen: the account is *locked*. In order to get a root prompt, one of the users with `sudo` rights can type `sudo su -` and become root without having to enter the root password.
 
 ```console
 student@linux:~$ sudo su -
@@ -179,12 +179,12 @@ student@debian:~$ sudo journalctl -et sudo
 Oct 15 19:21:30 debian sudo[1669]:    paul : user NOT in sudoers ; TTY=pts/0 ; PWD=/home/paul ; USER=root ; COMMAND=/usr/bin/su -
 ```
 
-On *Enterprise Linux*, there is a separate log file for `sudo`, `/var/log/secure`:
+On *Enterprise Linux*, there is also a separate log file for `sudo`, `/var/log/secure`:
 
 ```console
 [vagrant@el ~]$ sudo grep 'NOT in sudoers' /var/log/secure 
 Oct 16 07:00:19 el sudo[7458]:  paul : user NOT in sudoers ; TTY=pts/1 ; PWD=/home/paul ; USER=root ; COMMAND=/bin/su -
 ```
 
-On older *Debian* systems, the log file is `/var/log/auth.log`, with similar content. If this file does not exist, this is an indication that you're on a newer system and that `journalct` should be used.
+On older *Debian* systems, the log file is `/var/log/auth.log` with similar content. If this file does not exist, this is an indication that you're on a newer system and that `journalct` should be used.
 

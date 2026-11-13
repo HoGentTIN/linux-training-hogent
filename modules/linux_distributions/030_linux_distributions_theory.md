@@ -10,7 +10,7 @@ Writing a comprehensive overview of all Linux distributions is way beyond the sc
 
 One of the central and identifying components of a Linux Distribution is the default selection of software and the package management system to install, update and remove software. For most applications, there is choice in the open source world, so different distributions will make different decisions on what to include and what to avoid. Sometimes this is regrettably the cause of dispute and drama in the Linux community, but on the other hand, it is also the driver of a lot of innovation and diversity and it empowers the user with a lot of freedom of choice and control.
 
-The package manager was actually one of the most important innovations that Linux pioneered in. It is a system that keeps track of all the software installed on a computer and allows the user to select and install new applications from online package repositories. Hotfixes or new releases of the software included in a distribution are made available in these repositories and can be downloaded and installed with a single command. This makes it very easy to keep a Linux system up to date and secure. When Apple introduced the App Store in 2008, it was actually a latecomer to the concept of a central secure software repository.
+The package manager was actually one of the most important innovations that Linux pioneered in. It is a system that keeps track of all the software installed on a computer and allows the user to select and install new applications from online package repositories. Hotfixes or new releases of the software included in a distribution are made available in these repositories and can be downloaded and installed with a single command. This makes it very easy to keep a Linux system up to date and secure. When Apple introduced the App Store in 2008 and Windows introduced WinGet in 2020, they were actually latecomers to the concept of a central secure software repository.
 
 The concept of an open source package repository also enables reuse of software and libraries. Applications don't have to write their own code to do things like read and write files, manage memory, etc. They can use libraries that are already available on the system and that are used by other applications. The package manager also takes care of dependencies, which are other software packages that are required for the software to work. This makes it very easy to install complex software with a single command.
 
@@ -85,7 +85,7 @@ Disadvantages include:
 
 - Less flexibility, especially for power users. All necessary kernel modules (e.g. to support specific hardware like NVIDIA graphics cards, or virtualization engines like VirtualBox) must be present in the base OS image. When a module that you need is not supported out-of-the-box, it is much more difficult to create a custom image that includes them.
 - It's not possible to update just a single system component, the entire OS image must be replaced with a new version.
-- Normal package management tools (`dnf`, `apt`, etc.) is typically not available.
+- Normal package management tools (`dnf`, `apt`, etc.) are typically not available.
 
 ### Fedora Atomic Desktop and derivatives
 
@@ -108,7 +108,7 @@ NixOS's first release dates from 2003 and was the result of a research project w
 
 Upgrades are atomic (i.e. will either be applied completely or not at all) an can be rolled back. NixOS builds are reproducable, i.e. the same configuration will result in exactly the same system state (services, packages, settings).
 
-The Nix package manager is also unique in several ways. Instead of installing a package using a command like `apt` or `dnf`, you edit the configuration file describing the desired system state. Running `nixos-rebuild switch` applies the configuration in one atomic step. Packages are stored in isolation and are identified by a cryptographic hash that is generated from the package source and build options. This implies that several versions of the same package can coexist on a NixOS installation without interfering. Packages are built from source, but pre-built binaries are provided and are downloaded automatically when they are available.
+The Nix package manager is also unique in several ways. Instead of installing a package using a command like `apt` or `dnf`, you edit the configuration file describing the desired system state. Running `nixos-rebuild switch` applies the configuration in one atomic step. Packages are stored in isolation and are identified by a cryptographic hash that is generated from the package source and build options. This implies that several versions of the same package can coexist on a NixOS installation without interfering. Packages are built from source, but pre-built binaries are provided and are downloaded automatically when they are available. The Nix package manager is also available for install on other distro's like Ubuntu or Fedora.
 
 ## Which to choose?
 
@@ -120,8 +120,8 @@ Below are some very personal opinions (albeit informed by experience) on some of
 | :---------------- | :----------------------------------------------------------------------------- |
 | AlmaLinux         | You want a stable Red Hat-like server OS without commercial support contract.  |
 | Arch              | You want to know how Linux *really* works and want to take your time to learn. |
-| Debian            | An excellent choice for servers, laptops, and any other device.                |
-| Fedora            | You want a Red Hat-like OS on your laptop/desktop.                             |
+| Debian            | An excellent choice for servers due to its stability.                          |
+| Fedora            | You want a Red Hat-like OS on your laptop/desktop with cutting edge software.  |
 | Kali              | You want a pointy-clicky hacking interface.                                    |
 | Linux Mint        | You want a personal graphical desktop to play movies, music and games.         |
 | RHEL              | You are a manager and need good commercial support.                            |
@@ -129,7 +129,7 @@ Below are some very personal opinions (albeit informed by experience) on some of
 | Ubuntu Desktop    | Very popular, suited for beginners and based on Debian.                        |
 | Ubuntu Server     | (LTS particulary) You want a Debian-like OS with commercial support.           |
 
-When you are new to Linux, and are looking for a distribution with a graphical desktop and all the tools that you need as a daily driver, check out the latest Linux Mint (suitable for computer novices and experienced computer users alike) or Fedora (recommended for power users and IT professionals).
+When you are new to Linux, and are looking for a distribution with a graphical desktop and all the tools that you need as a daily driver, check out the latest Linux Mint (suitable for computer novices and experienced computer users alike) or Fedora KDE (recommended for power users and IT professionals).
 
 If you only want to practice the Linux command line, or are interested in the use of Linux as a server, then install a VM with the latest release of either Debian stable and/or AlmaLinux (without graphical interface)[^distro_advice].
 

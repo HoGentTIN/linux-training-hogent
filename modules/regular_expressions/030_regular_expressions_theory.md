@@ -2,21 +2,23 @@
 
 There are three different versions of regular expression syntax:
 
-    BRE: Basic Regular Expressions
-    ERE: Extended Regular Expressions
-    PRCE: Perl Regular Expressions
+- BRE: Basic Regular Expressions
+- ERE: Extended Regular Expressions
+- PRCE: Perl Regular Expressions
 
 Depending on the tool being used, one or more of these syntaxes can be
 used.
 
-For example the `grep` tool has the `-E` option to force a
-string to be read as ERE while `-G` forces BRE and `-P` forces PRCE.
+For example the `grep` tool has the `-E`/`--extended-regexp` option to force a
+string to be read as ERE while `-G`/`--basic-regexp` forces BRE and
+`-P`/`--perl-regexp` forces PRCE.
 
-Note that `grep` also has `-F` to force the string to be read literally.
+Note that `grep` also has `-F`/`--fixed-strings` to force the string to be
+read literally.
 
 The `sed` tool also has options to choose a regex syntax.
 
-`Read the manual of the tools you use!`
+*Read the manual of the tools you use!*
 
 ## grep
 
@@ -24,10 +26,10 @@ The `sed` tool also has options to choose a regex syntax.
 
 `grep` is a popular Linux tool to search for lines that
 match a certain pattern. Below are some examples of the simplest
-`regular expressions`.
+*regular expressions*.
 
 This is the content of the test file. This file contains three lines
-(or three `newline` characters).
+(or three *newline* (`\n`) characters).
 
     student@linux:~$ cat names
     Tania
@@ -78,10 +80,10 @@ PRCE and ERE both use the pipe symbol to signify OR. In this example we
     Tania
     Laura
 
-Note that we use the `-E` switch of grep to force interpretion of our
+Note that we use the `-E` switch of grep to force interpretation of our
 string as an ERE.
 
-We need to `escape` the pipe symbol in a BRE to get the same logical OR.
+We need to *escape* the pipe symbol in a BRE to get the same logical OR.
 
     student@linux:~$ grep -G 'i|a' list 
     student@linux:~$ grep -G 'i\|a' list 
@@ -120,7 +122,7 @@ For the following examples, we will use this file.
     Fleur
     Floor
 
-The two examples below show how to use the `dollar character` to match
+The two examples below show how to use the *dollar character* (`$`) to match
 the end of a string.
 
     student@linux:~$ grep a$ names 
@@ -133,7 +135,7 @@ the end of a string.
 
 ### match the start of a string
 
-The `caret character (^)` will match a string at the start (or the
+The *caret character* (`^`) will match a string at the start (or the
 beginning) of a line.
 
 Given the same file as above, here are two examples.
@@ -144,7 +146,7 @@ Given the same file as above, here are two examples.
     Fleur
     Floor
 
-Both the dollar sign and the little hat are called `anchors` in a regex.
+Both the dollar sign and the little hat are called *anchors* in a regex.
 
 ### separating words
 
@@ -164,8 +166,9 @@ Simply grepping for `over` will give too many results.
     Can you get over there?
 
 Surrounding the searched word with spaces is not a good solution
-(because other characters can be word separators). This screenshot below
-show how to use `\b` to find only the searched word:
+(because other characters can be word separators, e.g. `.` in
+`The winter is over.`). This screenshot below shows how to use `\b` to find
+only the searched word:
 
     student@linux:~$ grep '\bover\b' text
     The winter is over.
@@ -186,21 +189,21 @@ Note that `grep` also has a `-w` option to grep for words.
 ### grep features
 
 Sometimes it is easier to combine a simple regex with `grep` options,
-than it is to write a more complex regex. These options where discussed
-before:
+than it is to write a more complex regex, e.g.:
 
-    grep -i
-    grep -v
-    grep -w
-    grep -A5
-    grep -B5
-    grep -C5
+    grep -i     # Case insensitive search.
+    grep -v     # Invert match.
+    grep -w     # Match whole words.
+    grep -A5    # Print 5 lines after the match.
+    grep -B5    # Print 5 lines before the match.
+    grep -C5    # Print 5 lines before and after the match, similar to `-A5 -B5`.
 
 ### preventing shell expansion of a regex
 
 The dollar sign is a special character, both for the regex and also for
 the shell (remember variables and embedded shells). Therefore it is
-advised to always quote the regex, this prevents shell expansion.
+advised to always quote the regex with single quotes, this prevents shell
+expansion.
 
     student@linux:~$ grep 'r$' names 
     Fleur
@@ -219,9 +222,12 @@ package.
 
 Red Hat derived systems do not install the same `rename` command, so
 this section does not describe `rename` on Red Hat (unless you copy the
-perl script manually).
+perl script manually). On Red Hat, the `prename` command must be installed
+explicitly.
 
-`There is often confusion on the internet about the rename command because solutions that work fine in Debian (and Ubuntu, xubuntu, Mint, ...) cannot be used in Red Hat (and CentOS, Fedora, ...).`
+*There is often confusion on the internet about the rename command because
+solutions that work fine in Debian (and Ubuntu, xubuntu, Mint, ...) cannot be
+used in Red Hat (and CentOS, Fedora, ...).*
 
 ### perl
 
@@ -249,8 +255,8 @@ by typing `perldoc perlrequick` (after installing
 ### well known syntax
 
 The most common use of the `rename` is to search for
-filenames matching a certain `string` and replacing this string with an
-`other string`.
+filenames matching a certain string and replacing this string with an
+*other* string.
 
 This is often presented as `s/string/other string/` as seen in this
 example:
@@ -288,13 +294,13 @@ The next example shows what can go wrong with this syntax.
     abc.conf  aproblem.txt  bllfiles.txt  Scratch       tennis2.txt
     student@linux ~ $
 
-Only the first occurrence of the searched string is replaced.
+Only the first occurrence of the searched string in the filename is replaced.
 
 ### a global replace
 
 The syntax used in the previous example can be described as
 `s/regex/replacement/`. This is simple and straightforward, you enter a
-`regex` between the first two slashes and a `replacement string` between
+regex between the first two slashes and a *replacement* string between
 the last two.
 
 This example expands this syntax only a little, by adding a `modifier`.
@@ -304,14 +310,14 @@ This example expands this syntax only a little, by adding a `modifier`.
     student@linux ~ $
 
 The syntax we use now can be described as `s/regex/replacement/g` where
-s signifies `switch` and g stands for `global`.
+`s` signifies *switch* and `g` stands for *global*.
 
 Note that this example used the `-n` switch to show what is being done
 (instead of actually renaming the file).
 
 ### case insensitive replace
 
-Another `modifier` that can be useful is `i`. this example shows how to
+Another *modifier* that can be useful is `i`. This example shows how to
 replace a case insensitive string with another string.
 
     student@linux:~/files$ ls
@@ -345,7 +351,7 @@ dollar sign this command would fail on the really.txt.txt file.
 
 ### stream editor
 
-The `stream editor` or short `sed` uses `regex` for stream
+The *stream editor* or short `sed` uses regex for stream
 editing.
 
 In this example `sed` is used to replace a string.
@@ -377,10 +383,10 @@ file without any pipes, using the `-i` or `--in-place` option.
 
 ### simple back referencing
 
-The `ampersand` character can be used to reference the searched (and
+The *ampersand* (`&`) character can be used to reference the searched (and
 found) string.
 
-In this example the `ampersand` is used to double the occurence of the
+In this example the ampersand is used to double the occurrence of the
 found string.
 
     echo Sunday | sed 's/Sun/&&/'
@@ -390,8 +396,8 @@ found string.
 
 ### back referencing
 
-Parentheses (often called round brackets) are used to group sections of
-the regex so they can leter be referenced.
+Parentheses (often called round brackets, `(` and `)`) are used to group sections of
+the regex so they can later be referenced.
 
 Consider this simple example:
 
@@ -400,9 +406,12 @@ Consider this simple example:
     student@linux:~$ echo Sunday | sed 's_\(Sun\)_\1ny \1_'
     Sunny Sunday
 
+`sed` uses basic regular expressions (BRE), where a bare `(` is a literal
+parenthesis character. Escaping it as `\(` turns it into a grouping operator.
+
 ### a dot for any character
 
-In a `regex` a simple dot can signify any character.
+In a regex a simple dot (`.`) can signify any character.
 
     student@linux:~$ echo 2014-04-01 | sed 's/....-..-../YYYY-MM-DD/'
     YYYY-MM-DD
@@ -411,7 +420,7 @@ In a `regex` a simple dot can signify any character.
 
 ### multiple back referencing
 
-When more than one pair of `parentheses` is used, each of them can be
+When more than one pair of parentheses is used, each of them can be
 referenced separately by consecutive numbers.
 
     student@linux:~$ echo 2014-04-01 | sed 's/\(....\)-\(..\)-\(..\)/\1+\2+\3/'
@@ -419,13 +428,13 @@ referenced separately by consecutive numbers.
     student@linux:~$ echo 2014-04-01 | sed 's/\(....\)-\(..\)-\(..\)/\3:\2:\1/'
     01:04:2014
 
-This feature is called `grouping`.
+This feature is called *grouping*.
 
 ### white space
 
 The `\s` can refer to white space such as a space or a tab.
 
-This example looks for white spaces (\\s) globally and replaces them
+This example looks for white spaces (`\s`) globally and replaces them
 with 1 space.
 
     student@linux:~$ echo -e 'today\tis\twarm'
@@ -435,10 +444,10 @@ with 1 space.
 
 ### optional occurrence
 
-A question mark signifies that the previous is `optional`.
+A question mark signifies that the previous is *optional*.
 
-The example below searches for three consecutive letter o, but the third
-o is optional.
+The example below searches for three consecutive letter `o`, but the third
+`o` is optional.
 
     student@linux:~$ cat list2
     ll
@@ -456,9 +465,9 @@ o is optional.
 
 ### exactly n times
 
-You can demand an exact number of times the oprevious has to occur.
+You can demand an exact number of times the previous has to occur.
 
-This example wants exactly three o's.
+This example wants exactly three `o`'s.
 
     student@linux:~$ cat list2
     ll
@@ -498,7 +507,7 @@ And here we demand exactly from minimum 2 to maximum 3 times.
 
 ## bash history
 
-The `bash shell` can also interprete some regular
+The bash shell can also interprete some regular
 expressions.
 
 This example shows how to manipulate the exclamation mask history

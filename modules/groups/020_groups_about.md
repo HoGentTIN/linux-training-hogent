@@ -1,4 +1,4 @@
-Users can be listed in `groups`. Groups allow you to set
+Users can be listed in *groups*. Groups allow you to set
 permissions on the group level instead of having to set permissions for
 every individual user.
 

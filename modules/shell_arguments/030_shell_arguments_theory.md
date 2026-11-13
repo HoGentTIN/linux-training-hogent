@@ -208,6 +208,16 @@ You can undo an alias with the `unalias` command.
     /bin/rm
     [student@linux ~]$
 
+### shell functions vs aliases
+
+> For almost every purpose, shell functions are preferable to aliases.
+> ~ https://www.gnu.org/software/bash/manual/html_node/Aliases.html
+
+> Almost invariably, whatever we would like an alias to do could be accomplished much more effectively with a function.
+> ~ https://tldp.org/LDP/abs/html/aliases.html
+
+Aliases are handy in a pinch, but often have some drawbacks compared to shell functions. Know when to use them and when not.
+
 ## displaying shell expansion
 
 You can display shell expansion with `set -x`, and stop
