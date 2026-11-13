@@ -9,14 +9,16 @@ There are three different versions of regular expression syntax:
 Depending on the tool being used, one or more of these syntaxes can be
 used.
 
-For example the `grep` tool has the `-E` option to force a
-string to be read as ERE while `-G` forces BRE and `-P` forces PRCE.
+For example the `grep` tool has the `-E`/`--extended-regexp` option to force a
+string to be read as ERE while `-G`/`--basic-regexp` forces BRE and
+`-P`/`--perl-regexp` forces PRCE.
 
-Note that `grep` also has `-F` to force the string to be read literally.
+Note that `grep` also has `-F`/`--fixed-strings` to force the string to be
+read literally.
 
 The `sed` tool also has options to choose a regex syntax.
 
-`Read the manual of the tools you use!`
+*Read the manual of the tools you use!*
 
 ## grep
 
@@ -24,10 +26,10 @@ The `sed` tool also has options to choose a regex syntax.
 
 `grep` is a popular Linux tool to search for lines that
 match a certain pattern. Below are some examples of the simplest
-`regular expressions`.
+*regular expressions*.
 
 This is the content of the test file. This file contains three lines
-(or three `newline` characters).
+(or three *newline* (`\n`) characters).
 
     student@linux:~$ cat names
     Tania
@@ -120,7 +122,7 @@ For the following examples, we will use this file.
     Fleur
     Floor
 
-The two examples below show how to use the `dollar character` to match
+The two examples below show how to use the *dollar character* (`$`) to match
 the end of a string.
 
     student@linux:~$ grep a$ names 
@@ -133,7 +135,7 @@ the end of a string.
 
 ### match the start of a string
 
-The `caret character (^)` will match a string at the start (or the
+The *caret character* (`^`) will match a string at the start (or the
 beginning) of a line.
 
 Given the same file as above, here are two examples.
@@ -144,7 +146,7 @@ Given the same file as above, here are two examples.
     Fleur
     Floor
 
-Both the dollar sign and the little hat are called `anchors` in a regex.
+Both the dollar sign and the little hat are called *anchors* in a regex.
 
 ### separating words
 

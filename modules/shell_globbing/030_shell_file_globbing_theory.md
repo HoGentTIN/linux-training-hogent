@@ -116,7 +116,7 @@ Let us change the locale to `da_DK.UTF-8` (Danish/Denmark with UTF-8 support) an
 ```console
 student@linux:~/gen$ sudo localectl set-locale da_DK.UTF-8
 [... log out and log in again ...]
-student@linux:~/gen$ echo $LANG
+student@linux:~/gen$ echo "${LANG}"
 da_DK.UTF-8
 student@linux:~/gen$ ls
 file1  file2  file3  File4  File55  FileA  FileAB  Fileab  fileab  fileabc  filex  filey  filez  fileæ  fileø  fileå
@@ -131,7 +131,7 @@ In the `en_US.UTF-8` locale (US English, with UTF-8 support), the Danish charact
 ```console
 student@linux:~/gen$ sudo localectl set-locale en_US.UTF-8
 [... log out and log in again ...]
-student@linux:~/gen$ echo $LANG
+student@linux:~/gen$ echo "${LANG}"
 en_US.UTF-8
 student@linux:~/gen$ ls
 file1  file2  file3  File4  File55  FileA  fileå  fileab  Fileab  FileAB  fileabc  fileæ  fileø  filex  filey  filez

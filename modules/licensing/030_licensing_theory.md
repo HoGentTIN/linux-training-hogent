@@ -124,8 +124,8 @@ apply to the output.
 ## BSD license
 
 There are several versions of the original Berkeley Distribution
-License. The most common one is the 3-clause license (\"New BSD
-License\" or \"Modified BSD License\").
+License. The most common one is the 3-clause license (`New BSD License` or
+`Modified BSD License`).
 
 This is a permissive free software license. The license places minimal
 restrictions on how the software can be redistributed. This is in
@@ -140,6 +140,11 @@ software or your own modified versions.
 
 FOSS or not, there are many kind of licenses on software. You should
 read and understand them before using any software.
+
+Some good resources that help you to compare and choose licenses are:
+
+- https://choosealicense.com/
+- https://opensource.org/education/how-to-choose-a-license
 
 ## combination of software licenses
 

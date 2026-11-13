@@ -7,6 +7,15 @@ examples (near the end).
     student@linux:~$ man whois
     Reformatting whois(1), please wait...
 
+Man pages can be long, so it pays to learn how to search them to find what you
+need. Press `/`, type a search term, and press Enter. Then press `n` to jump to
+the next match or `N` to go back to the previous one.
+
+The search supports regular expressions. A handy trick for finding an option's
+description is to search for a space followed by the option, such as `/ -h`.
+This skips most places where the option is only mentioned in passing and
+usually lands right on its explanation.
+
 ## man \$configfile
 
 Most `configuration files` have their own manual.
@@ -84,11 +93,6 @@ screenshot explains how to open the man page in the correct section.
 
 If you want to know more about `man`, then Read The Fantastic Manual
 (RTFM).
-
-*Unfortunately, manual pages do not have the answer to everything...*
-
-    student@linux:~$ man woman
-    No manual entry for woman
 
 ## mandb
 

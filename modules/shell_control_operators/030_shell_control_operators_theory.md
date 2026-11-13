@@ -51,6 +51,16 @@ variable, since you cannot assign a value to `$?`.
     1
     student@linux:~/test$
 
+*In the shell, an exit code of `0` means success, and any other value means
+failure. This is the opposite of many programming languages, where `0` is
+treated as false and non-zero values as true.*
+
+The reason is that a command can usually succeed in only one way, but fail in
+many. Reserving `0` for success leaves all the other values free to describe
+what went wrong. For example, `grep` exits with `1` when it finds no match
+and `2` when an error occurs, and the shell itself uses 127 for
+`command not found`.
+
 ## && double ampersand
 
 The shell will interpret `&&` as a `logical AND`. When
@@ -107,6 +117,17 @@ whether the `rm` command was successful.
     student@linux:~/test$ rm file1 && echo It worked! || echo It failed!
     rm: cannot remove `file1': No such file or directory
     It failed!
+    student@linux:~/test$
+
+As you can see, combining a lot of logical operators make the logic hard to follow. To mitigate this, you can use `(` and `)` or `{` and `}`:
+
+- `(` and `)`: creates a subshell for the commands between the parentheses.
+- `{` and `}`: spaces are required around `{` and `}`, and the statements in the brackets must end with a `;`, but no subshell is created.
+
+    student@linux:~/test$ { rm file1 && echo "It worked!"; } || echo "It failed!"
+    rm: cannot remove `file1': No such file or directory
+    student@linux:~/test$ (rm file1 && echo It worked!) || echo It failed!`
+    rm: cannot remove `file1': No such file or directory
     student@linux:~/test$
 
 ## \# pound sign

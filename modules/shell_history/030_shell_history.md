@@ -20,6 +20,15 @@ those characters.
     touch file42
     student@linux:~/test42$
 
+## repeating the last argument
+
+You can also repeat the last argument with `!?`.
+
+    student@linux:~/test42$ mkdir -p ~/projects/client-site/assets/images
+    student@linux:~/test42$ cd !$
+    cd ~/projects/client-site/assets/images
+    student@linux:~/projects/client-site/assets/images$
+
 ## history
 
 To see older commands, use `history` to display the shell
@@ -50,12 +59,18 @@ execute it.
 ## Ctrl-r
 
 Another option is to use `ctrl-r` to search in the
-history. In the screenshot below i only typed `ctrl-r` followed by four
-characters `apti` and it finds the last command containing these four
+history. In the screenshot below I only typed `ctrl-r` followed by four
+characters `apti` and it finds the last used command containing these four
 consecutive characters.
 
     student@linux:~$ 
     (reverse-i-search)`apti': sudo aptitude install screen
+
+If this result isn't what you are looking for, you can type `ctrl-r` again to
+jump to the next older match or type additional characters to further narrow
+the search. `enter` runs the selected command entry, `esc` exits the search
+with the command on the prompt so you can edit it. `ctrl-g` cancels
+the search
 
 ## \$HISTSIZE
 
@@ -110,6 +125,10 @@ prefix.
      9501  echo abc
      9502  echo ghi
      9503  history 3
+
+*This is NOT default behavior on every distro, so make sure you test this
+before entering sensitive commands! It is enabled if \$HISTCONTROL is set
+to `ignorespace` or `ignoreboth`.*
 
 ## (optional)regular expressions
 

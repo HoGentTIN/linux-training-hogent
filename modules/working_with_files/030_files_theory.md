@@ -1,6 +1,6 @@
 ## all files are case sensitive
 
-Files on Linux (or any Unix) are `case sensitive`. This
+Files on Linux (or any Unix) are *case sensitive*. This
 means that `FILE1` is different from `file1`, and `/etc/hosts` is
 different from `/etc/Hosts` (the latter one does not exist on a typical
 Linux computer).
@@ -17,11 +17,11 @@ case `W`, the other with lower case `w`.
 
 ## everything is a file
 
-A `directory` is a special kind of `file`, but it is still a (case
-sensitive!) `file`. Each terminal window (for example `/dev/pts/4`), any
+A *directory* is a special kind of *file*, but it is still a (case
+sensitive!) file. Each terminal window (for example `/dev/pts/4`), any
 hard disk or partition (for example `/dev/sdb1`) and any process are all
-represented somewhere in the `file system` as a `file`. It will become
-clear throughout this course that everything on Linux is a `file`.
+represented somewhere in the *file system* as a file. It will become
+clear throughout this course that everything on Linux is a file.
 
 ## file
 
@@ -97,7 +97,7 @@ check the manual for `touch`.
 
 When you no longer need a file, use `rm` to remove it.
 Unlike some graphical user interfaces, the command line in general does
-not have a `waste bin` or `trash can` to recover files. When you use
+not have a *waste bin* or *trash can* to recover files. When you use
 `rm` to remove a file, the file is gone. Therefore, be careful when
 removing files!
 
@@ -131,7 +131,7 @@ accepts several options that will allow you to remove any directory. The
 anything (providing that you have the permissions to do so). When you
 are logged on as root, be very careful with `rm -rf` (the `f` means
 `force` and the `r` means `recursive`) since being root implies that
-permissions don't apply to you. You can literally erase your entire
+permissions don't apply to you. You can literally erase a whole part of your
 file system by accident.
 
     student@linux:~$ mkdir test
@@ -304,3 +304,4 @@ The second example renames all (\*) files replacing one with ONE.
     ONE.backup  three.backup  two.backup
     [student@linux ~]$
 
+If you want to use the exact same `rename` as in Debian/Ubuntu, you can often install `prename` on RHEL-based distro's.
