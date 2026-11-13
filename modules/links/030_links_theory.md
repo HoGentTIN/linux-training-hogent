@@ -2,12 +2,12 @@
 
 ### inode contents
 
-An `inode` is a data structure that contains metadata about a file. When
+An *inode* is a data structure that contains metadata about a file. When
 the file system stores a new file on the hard disk, it stores not only
 the contents (data) of the file, but also extra properties like the name
 of the file, the creation date, its permissions, the owner of the file,
 and more. All this information (except the name of the file and the
-contents of the file) is stored in the `inode` of the file.
+contents of the file) is stored in the inode of the file.
 
 The `ls -l` command will display some of the inode
 contents, as seen in this screenshot.
@@ -17,9 +17,9 @@ contents, as seen in this screenshot.
 
 ### inode table
 
-The `inode table` contains all of the `inodes` and is
+The *inode table* contains all of the inodes and is
 created when you create the file system (with `mkfs`). You
-can use the `df -i` command to see how many `inodes` are
+can use the `df -i` command to see how many inodes are
 used and free on mounted file systems.
 
     root@linux ~# df -i
@@ -33,14 +33,14 @@ used and free on mounted file systems.
     /dev/sdb5                  0       0       0    -  /home/sales
     /dev/sdb6             100744      11  100733    1% /home/research
 
-In the `df -i` screenshot above you can see the `inode` usage for
+In the `df -i` screenshot above you can see the inode usage for
 several mounted `file systems`. You don't see numbers for `/dev/sdb5`
 because it is a `fat` file system.
 
 ### inode number
 
-Each `inode` has a unique number (the inode number). You can see the
-`inode` numbers with the `ls -li` command.
+Each inode has a unique number (the *inode number*). You can see the
+inode numbers with the `ls -li` command.
 
     student@linux:~/test$ touch file1
     student@linux:~/test$ touch file2
@@ -53,8 +53,8 @@ Each `inode` has a unique number (the inode number). You can see the
     student@linux:~/test$
 
 These three files were created one after the other and got three
-different `inodes` (the first column). All the information you see with
-this `ls` command resides in the `inode`, except for the filename (which
+different inodes (the first column). All the information you see with
+this `ls` command resides in the inode, except for the filename (which
 is contained in the directory).
 
 ### inode and file contents
@@ -71,15 +71,15 @@ Let's put some data in one of the files.
     We do not like the cold, we prefer hot summer nights.
     student@linux:~/test$
 
-The data that is displayed by the `cat` command is not in the `inode`,
-but somewhere else on the disk. The `inode` contains a pointer to that
+The data that is displayed by the `cat` command is not in the inode,
+but somewhere else on the disk. The inode contains a *pointer* to that
 data.
 
 ## about directories
 
 ### a directory is a table
 
-A `directory` is a special kind of file that contains a
+A *directory* is a special kind of file that contains a
 table which maps filenames to inodes. Listing our current directory with
 `ls -ali` will display the contents of the directory file.
 
@@ -95,15 +95,15 @@ table which maps filenames to inodes. Listing our current directory with
 ### . and ..
 
 You can see five names, and the mapping to their five inodes. The dot
-`.` is a mapping to itself, and the dotdot
-`..` is a mapping to the parent directory. The three other
+`.` is a mapping to itself, and the `dot dot`
+(`..`) is a mapping to the parent directory. The three other
 names are mappings to different inodes.
 
 ## hard links
 
 ### creating hard links
 
-When we create a `hard link` to a file with
+When we create a *hard link* to a file with
 `ln`, an extra entry is added in the directory. A new file
 name is mapped to an existing inode.
 
@@ -127,8 +127,8 @@ drops to zero, then the inode is emptied.
 
 You can use the `find` command to look for files with a
 certain inode. The screenshot below shows how to search for all
-filenames that point to `inode` 817270. Remember that an
-`inode` number is unique to its partition.
+filenames that point to inode 817270. Remember that an
+inode number is unique to its partition.
 
     student@linux:~/test$ find / -inum 817270 2> /dev/null
     /home/paul/test/file2
@@ -136,10 +136,10 @@ filenames that point to `inode` 817270. Remember that an
 
 ## symbolic links
 
-Symbolic links (sometimes called `soft links`) do not link
+*Symbolic links* (sometimes called *soft links*) do not link
 to inodes, but create a name to name mapping. Symbolic links are created
-with `ln -s`. As you can see below, the
-`symbolic link` gets an inode of its own.
+with `ln -s`. As you can see below, the `symbolic link` gets an inode of its
+own: they are each a different file.
 
     student@linux:~/test$ ln -s file2 symlink_to_file2
     student@linux:~/test$ ls -li
@@ -155,6 +155,11 @@ Permissions on a symbolic link have no meaning, since the permissions of
 the target apply. Hard links are limited to their own partition (because
 they point to an inode), symbolic links can link anywhere (other file
 systems, even networked).
+
+If we delete `file2`, `symlink_to_file2` will point to a file that no longer
+exists, because a symbolic link refers to a file name rather than an inode. A
+symbolic link whose target has been removed like this is called a *broken link*
+or *dangling link*.
 
 ## removing links
 

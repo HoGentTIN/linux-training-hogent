@@ -21,11 +21,11 @@ Find files of type file (not directory, pipe or etc.) that end in .conf.
 
     find . -type f -name "*.conf"
 
-Find files of type directory that end in .bak .
+Find files of type directory that end in .bak.
 
     find /data -type d -name "*.bak"
 
-Find files that are newer than file42.txt
+Find files that are newer than file42.txt.
 
     find . -newer file42.txt
 
@@ -170,7 +170,7 @@ You can get the original back with `gunzip`.
 ## zcat - zmore
 
 Text files that are compressed with `gzip` can be viewed
-with `zcat` and `zmore`.
+with `zcat` and `zmore`. Some people prefer the more recent `zless` command to `zmore`.
 
     student@linux ~$ head -4 text.txt 
     /
@@ -203,6 +203,7 @@ Files can be uncompressed again with `bunzip2`.
 
 And in the same way `bzcat` and `bzmore` can
 display files compressed with `bzip2`.
+Again, some people prefer the more recent `zless` command to `zmore`.
 
     student@linux ~$ bzip2 text.txt 
     student@linux ~$ bzcat text.txt.bz2 | head -4

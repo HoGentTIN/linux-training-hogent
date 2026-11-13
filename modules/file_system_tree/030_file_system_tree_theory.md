@@ -4,11 +4,12 @@ Many Linux distributions partially follow the
 `Filesystem Hierarchy Standard`. The `FHS` may help make
 more Unix/Linux file system trees conform better in the future. The
 `FHS` is available online at
-`http://www.pathname.com/fhs/` where we read: \"The
-filesystem hierarchy standard has been designed to be used by Unix
-distribution developers, package developers, and system implementers.
-However, it is primarily intended to be a reference and is not a
-tutorial on how to manage a Unix filesystem or directory hierarchy.\"
+`http://www.pathname.com/fhs/` where we read:
+
+> The filesystem hierarchy standard has been designed to be used by Unix
+> distribution developers, package developers, and system implementers.
+> However, it is primarily intended to be a reference and is not a
+> tutorial on how to manage a Unix filesystem or directory hierarchy.
 
 ## man hier
 
@@ -82,12 +83,12 @@ themselves in `/opt`. A `samba server` installation can use
 system. Many of the `system binaries` require `root`
 privilege to perform certain tasks.
 
-Below a screenshot containing `system binaries` to change the ip
+Below a screenshot containing `system binaries` to find the ip
 address, partition a disk and create an ext4 file system.
 
-    student@linux:~$ ls -l /sbin/ifconfig /sbin/fdisk /sbin/mkfs.ext4
+    student@linux:~$ ls -l /sbin/ip /sbin/fdisk /sbin/mkfs.ext4
     -rwxr-xr-x 1 root root 97172 2011-02-02 09:56 /sbin/fdisk
-    -rwxr-xr-x 1 root root 65708 2010-07-02 09:27 /sbin/ifconfig
+    -rwxr-xr-x 1 root root 65708 2010-07-02 09:27 /sbin/ip
     -rwxr-xr-x 5 root root 55140 2010-08-18 18:01 /sbin/mkfs.ext4
 
 ### /lib
@@ -179,23 +180,22 @@ There is much more to be found in `/etc`.
 
 #### /etc/init.d/
 
-A lot of Unix/Linux distributions have an `/etc/init.d`
-directory that contains scripts to start and stop `daemons`. This
-directory could disappear as Linux migrates to systems that replace the
-old `init` way of starting all `daemons`.
+Some older Unix/Linux distributions have an `/etc/init.d`
+directory that contains scripts to start and stop `daemons`.
+More recent Linux distributions have replaced the old `init` way of
+starting `daemons` with `systemd`.
 
 #### /etc/X11/
 
-The graphical display (aka `X Window System` or just
-`X`) is driven by software from the X.org foundation. The
-configuration file for your graphical display is
-`/etc/X11/xorg.conf`.
+older Unix/Linux distributions us the `X Window System` (`X11`, or just
+ simply `X`) graphical display driven by software from the X.org foundation.
+More recent Linux distributions have replaced `X` with `Wayland`.
 
 #### /etc/skel/
 
 The `skeleton` directory `/etc/skel` is
 copied to the home directory of a newly created user. It usually
-contains hidden files like a `.bashrc` script.
+contains files like a `.bashrc` script.
 
 #### /etc/sysconfig/
 
@@ -277,15 +277,15 @@ files of the Unix user profiles contain settings specific for that user.
 ### /root
 
 On many systems `/root` is the default location for
-personal data and profile of the `root user`. If it does not exist by
+personal data and profile of the `root` user. If it does not exist by
 default, then some administrators create it.
 
 ### /srv
 
 You may use `/srv` for data that is
-`served by your system`. The FHS allows locating cvs, rsync, ftp and www
+served by your system. The FHS allows locating `cvs`, `rsync`, `ftp` and `www`
 data in this location. The FHS also approves administrative naming in
-/srv, like /srv/project55/ftp and /srv/sales/www.
+`/srv`, like `/srv/project55/ftp` and `/srv/sales/www`.
 
 On Sun Solaris (or Oracle Solaris) `/export` is used for
 this purpose.
@@ -293,8 +293,8 @@ this purpose.
 ### /media
 
 The `/media` directory serves as a mount point for
-`removable media devices` such as CD-ROM's, digital cameras, and
-various usb-attached devices. Since `/media` is rather new in the Unix
+removable media devices such as CD-ROM's, digital cameras, and
+various USB-attached devices. Since `/media` is rather new in the Unix
 world, you could very well encounter systems running without this
 directory. Solaris 9 does not have it, Solaris 10 does. Most Linux
 distributions today mount all removable media in `/media`.
@@ -316,8 +316,12 @@ various local and remote filesystems.
 
 Applications and users should use `/tmp` to store
 temporary data when needed. Data stored in `/tmp` may use either disk
-space or RAM. Both of which are managed by the operating system. Never
-use `/tmp` to store data that is important or which you wish to archive.
+space or RAM. Both of which are managed by the operating system. 
+
+*Never use `/tmp` to store data that is important or which you wish to archive.
+Files in `/tmp` are not meant to survive system reboots. Most Linux
+distributions automatically clear the directory when the machine restarts or
+via scheduled background jobs.*
 
 ## in memory directories
 
@@ -379,7 +383,7 @@ interact with it directly. `/proc` is a proc filesystem.
     none on /proc type proc (rw)
             
 
-When listing the /proc directory you will see many numbers (on any Unix)
+When listing the `/proc` directory you will see many numbers (on any Unix)
 and some interesting files (on Linux)
 
     mul@linux:~$ ls /proc
@@ -427,8 +431,8 @@ are constantly updated (a view on the kernel).
     -r--r--r--  1 root root 0 Jan 29 18:10 /proc/cpuinfo
             
 
-Most files in /proc are 0 bytes, yet they contain data\--sometimes a lot
-of data. You can see this by executing cat on files like
+Most files in `/proc` are 0 bytes, yet they contain data (sometimes a lot
+of data). You can see this by executing `cat` on files like
 `/proc/cpuinfo`, which contains information about the CPU.
 
     student@linux:~$ file /proc/cpuinfo 
@@ -454,7 +458,7 @@ of data. You can see this by executing cat on files like
     bogomips        : 4803.54
             
 
-*Just for fun, here is /proc/cpuinfo on a Sun Sunblade 1000...*
+*Just for fun, here is `/proc/cpuinfo` on a Sun Sunblade 1000...*
 
     student@linux:~$ cat /proc/cpuinfo
     cpu : TI UltraSparc III (Cheetah)
@@ -474,9 +478,9 @@ of data. You can see this by executing cat on files like
     CPU1: online 
             
 
-Most of the files in /proc are read only, some require root privileges,
+Most of the files in `/proc` are read only, some require root privileges,
 some files are writable, and many files in `/proc/sys` are
-writable. Let's discuss some of the files in /proc.
+writable. Let's discuss some of the files in `/proc`.
 
 #### /proc/interrupts
 
@@ -524,8 +528,7 @@ On a machine with two CPU's, the file looks like this.
 #### /proc/kcore
 
 The physical memory is represented in `/proc/kcore`. Do
-not try to cat this file, instead use a debugger. The size of
-/proc/kcore is the same as your physical memory, plus four bytes.
+not try to cat this file, instead use a debugger.
 
     student@linux:~$ ls -lh /proc/kcore 
     -r-------- 1 root root 2.0G 2007-01-30 08:57 /proc/kcore
@@ -677,6 +680,10 @@ The file is called `/var/log/syslog` on Debian and Ubuntu.
     Jul 30 05:14:01 fstab-sync[3646]: added mount point /media/floppy for...
     Jul 30 05:16:46 sshd(pam_unix)[3662]: session opened for user paul by... 
     Jul 30 06:06:37 su(pam_unix)[3904]: session opened for user root by paul
+
+*On modern distributions that use `systemd`, `/var/log/messages` or
+`/var/log/syslog` may no longer exist. In that case, use `journalctl`
+(provided by `systemd`) to read the system logs.*
 
 ### /var/cache
 
