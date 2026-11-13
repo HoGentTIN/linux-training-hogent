@@ -154,7 +154,10 @@ own: they are each a different file.
 Permissions on a symbolic link have no meaning, since the permissions of
 the target apply. Hard links are limited to their own partition (because
 they point to an inode), symbolic links can link anywhere (other file
-systems, even networked).
+systems, even networked) because a symbolic link refers to a file name rather
+than an inode..
+
+![](assets/hl-vs-sl.png)
 
 If we delete `file2`, `symlink_to_file2` will point to a file that no longer
 exists, because a symbolic link refers to a file name rather than an inode. A
@@ -170,4 +173,3 @@ Links can be removed with `rm`.
     student@linux:~$ ln data.txt hl_data.txt
     student@linux:~$ rm sl_data.txt 
     student@linux:~$ rm hl_data.txt
-
