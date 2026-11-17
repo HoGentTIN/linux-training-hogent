@@ -1,6 +1,6 @@
 ## passwd
 
-Passwords of users can be set with the `passwd` command. Users will have to provide their old password before twice entering the new one.
+Passwords of users can be set with the `passwd` command. Users will have to provide their old password before entering the new password twice.
 
 ```console
 tania@linux:~$ passwd
@@ -16,7 +16,7 @@ BAD PASSWORD: The password is too similar to the old one
 passwd: Have exhausted maximum number of retries for service
 ```
 
-As you can see, the passwd tool will do some basic verification to prevent users from using too simple passwords. The `root` user does not have to follow these rules (there will be a warning though). The `root` user also does not have to provide the old password before entering the new password twice.
+As you can see, `passwd` will do some basic verification to prevent users from using too simple passwords. The `root` user does not have to follow these rules (there will be a warning though). The `root` user also does not have to provide the old password before entering the new password twice.
 
 ```console
 admin@linux:~$ sudo passwd tania
@@ -29,21 +29,21 @@ passwd: password updated successfully
 
 User passwords are encrypted and kept in `/etc/shadow`, and -despite the name- *not* in `/etc/passwd`. The second field of `/etc/passwd` used to contain the encrypted password, way back when computer systems still had a limited number of users and security was not a concern. The problem with this file is that it is readable by all users. Even if passwords are stored in an encrypted format, this is not acceptable, as techniques exist to crack them.
 
-The `/etc/shadow` file has limited access rights and can only be read by the `root` user. The exact permissions depend on the Linux distribution: For example, Debian has the following permissions (640 in octal notation):
+The `/etc/shadow` file has limited access rights and can only be read by the `root` user. The exact permissions depend on the Linux distribution: For example, Debian has the following permissions (`640` in octal notation):
 
 ```console
 student@debian:~$ ls -l /etc/shadow
 -rw-r----- 1 root shadow 891 Aug 26 18:51 /etc/shadow
 ```
 
-On Enterprise Linux, the shadow file even has all permissions removed (000 in octal notation):
+On Enterprise Linux, the shadow file even has all permissions removed (`000` in octal notation):
 
 ```console
 student@el:~$ ls -l /etc/shadow
 ----------. 1 root root 984 Aug 10 14:46 /etc/shadow
 ```
 
-The `/etc/shadow` file contains nine colon separated columns (see man page `shadow(5)` for details):
+The `/etc/shadow` file contains nine colon (`:`) separated columns (see man page `shadow(5)` for details):
 
 ```console
 student@linux:~$ tail -4 /etc/shadow
@@ -87,7 +87,7 @@ The following table shows some common formats that are supported on Linux system
 | `$7$`  | Colin Percival's scrypt function        |
 | `$y$`  | Yescrypt (currently recommended format) |
 
-A **hash** is a type of cryptographic function that takes some input (in this case the password issued by the user) and produces a fixed-length output. A good hash function should have the following properties:
+A *hash* is a type of cryptographic function that takes some input (in this case the password issued by the user) and produces a fixed-length output. A good hash function should have the following properties:
 
 - it must be deterministic, meaning that the *same input* will always produce the *same output*,
 - it must be *quick to compute* the hash for any given input,
@@ -98,9 +98,9 @@ To validate a password, the system will take the password entered by the user, c
 
 The MD5 hash function, for example, is no longer considered secure, as it is easy to find collisions with modern off-the-shelf hardware. Unfortunately, it is still widely used in many applications. If you manage a system that still uses MD5 for password hashing, the only responsible course of action is to upgrade to a more secure hash function like SHA-512 or yescrypt.
 
-Even if we use a strong hash function, fact is that users often choose weak and predictable passwords. An attacker that knows which algorithm is used for hashing can precompute the hashes of a large number of common passwords and store them in a lookup table. This is called a **rainbow table**, which can be easily found online or created by the attacker. If an attacker can get access to user's password hashes, they can look up them up in this table and quickly find out what the original password was.
+Even if we use a strong hash function, fact is that users often choose weak and predictable passwords. An attacker that knows which algorithm is used for hashing can precompute the hashes of a large number of common passwords and store them in a lookup table. This is called a *rainbow table*, which can be easily found online or created by the attacker. If an attacker can get access to user's password hashes, they can look up them up in this table and quickly find out what the original password was.
 
-To avoid this, a random string of characters is added to the password before hashing. This string is called a **salt**. For example, in the password hash of user `paul` shown above, the salt is `ikp2Xta5BT.Tml.p`, a value generated at random when the user was created. In order to verify a password issued by the user, the system will combine the salt with the password and then compute the hash. The salt makes it infeasible to use precomputed rainbow tables, as the attacker would have to compute a new table for every possible salt.
+To avoid this, a random string of characters is added to the password before hashing. This string is called a *salt*. For example, in the password hash of user `paul` shown above, the salt is `ikp2Xta5BT.Tml.p`, a value generated at random when the user was created. In order to verify a password issued by the user, the system will combine the salt with the password and then compute the hash. The salt makes it infeasible to use precomputed rainbow tables, as the attacker would have to compute a new table for every possible salt.
 
 This forces an attacker to use brute-force attacks, which are much slower than looking up a hash in a table. Now only the length and complexity of the password itself determines how long it may take to crack it.
 
@@ -194,6 +194,13 @@ $6$42q7KreV3ygmX0wc$y9cZxz9ZC1y38dQT20E6dGc2v56kZkl.PE.DesbsExoqt0i0eixLrmX9qZeS
 
 Implementations of the most common hashing algorithms used for password encryption are also available in Python. For example, to generate a SHA-512 hash of the password `hunter2`, you can use the following Python code:
 
+```python
+from passlib.hash import sha512_crypt
+print(sha512_crypt.hash("hunter2"))
+```
+
+This little python snippet can also be run from the command line:
+
 ```console
 student@linux:~$ python3
 Python 3.14.7 (main, Aug 10 2026, 00:00:00) [GCC 16.1.1 20260515 (Red Hat 16.1.1-2)] on linux
@@ -203,11 +210,11 @@ Type "help", "copyright", "credits" or "license" for more information.
 '$6$rounds=656000$LmK9I4ShcFO6CqiU$N./ZC63aJ05yhHKLEXK7zsDAZdsa0A0xnpjrSENX0DSoV.sVueOlR.ffeaEJWLHk3g0CALxFJ3jhQtA/CDGbX/'
 ```
 
-The Python `passlib` library supports many other hashing algorithms as well. You can find a list of supported algorithms in the [Passlib documentation](https://passlib.readthedocs.io/en/stable/lib/passlib.hash.html). Unfortunately, the `yescrypt` algorithm is not among them as of yet.
+The Python `passlib` library supports many other hashing algorithms as well. You can find a list of supported algorithms in the [Passlib documentation](https://notypecheck.github.io/passlib/api/passlib.hash/). Unfortunately, the `yescrypt` algorithm is not among them as of yet (see this [GitHub issue](https://github.com/notypecheck/passlib/issues/34)).
 
 ## encryption with crypt
 
-Yet another is to use the C API for the supported cryptographic functions on Linux and to create a custom command. This is certainly not the most practical way to generate password hashes, but it is a nice example on how to use the program libraries that are available on Linux.
+Yet another way is to use the C API for the supported cryptographic functions on Linux and to create a custom command. This is certainly not the most practical way to generate password hashes, but it is a nice example on how to use the program libraries that are available on Linux.
 
 We basically need two C functions from the crypt library: `crypt_gensalt()` and `crypt()`. With the first function, we can select the hashing algorithm and generate a random salt. The second function will then combine the salt with the password and compute the hash.
 
@@ -257,27 +264,23 @@ Let's extend the program to allow the user to specify the prefix of the hashing 
 #include <string.h>
 
 // Prints the usage message
-void usage(char* cmd) {
-  printf("Usage: %s [-TYPE] [PASSWORD]\n", cmd);
-  printf("       %s -h (show this help message)\n", cmd);
-  printf("\n     -TYPE: The hash type (will result in $TYPE$salt$hash)\n");
-  printf("  PASSWORD: The password to hash (if not provided, will be read from stdin)\n");
+void usage(FILE* out, char* cmd) {
+  fprintf(out, "Usage: %s [-TYPE] [PASSWORD]\n", cmd);
+  fprintf(out, "       %s -h (show this help message)\n", cmd);
+  fprintf(out, "\n     -TYPE: The hash type (will result in $TYPE$salt$hash)\n");
+  fprintf(out, "  PASSWORD: The password to hash (if not provided, will be read from stdin)\n");
 }
 
 int main(int argc, char** argv) {
 
   // Check for help flag
-  if( argc == 2 && strcmp(argv[1], "-h") == 0 ) {
-    usage(argv[0]);
+  if( argc >= 2 && strcmp(argv[1], "-h") == 0 ) {
+    usage(stdout, argv[0]);
     return 0;
   }
 
-  // Check if the number of arguments is valid
-  if( argc > 3 ) {
-    printf("Error: Too many arguments provided.\n");
-    usage(argv[0]);
-    return 1;
-  }
+  // Remember the command name before argv is shifted
+  char *cmd = argv[0];
 
   // Check if the type option (any string starting with -) is provided
   // If so, set the variable type to the string after the dash
@@ -292,36 +295,57 @@ int main(int argc, char** argv) {
     type = "6"; // Default to SHA-512
   }
 
+  // Check if the number of arguments is valid (at most one password left)
+  if( argc > 2 ) {
+    fprintf(stderr, "Error: Too many arguments provided.\n");
+    usage(stderr, cmd);
+    return 1;
+  }
+
   // Add leading and trailing $ to the type string
   char type_str[10];
-  snprintf(type_str, sizeof(type_str), "$%s$", type);
+  int len = snprintf(type_str, sizeof(type_str), "$%s$", type);
+
+  // Raise an error if the type string did not fit
+  if( len < 0 || (size_t)len >= sizeof(type_str) ) {
+    fprintf(stderr, "Error: Hash type '%s' is too long.\n", type);
+    return 1;
+  }
 
   // Generate a random salt for the specified algorithm
   const char *salt = crypt_gensalt(type_str, 0, NULL, 0);
 
   // Raise an error if the function call failed.
   if( salt == NULL ) {
-    printf("Generating salt failed. Maybe the hash type is not supported.\n");
-    return -1;
+    fprintf(stderr, "Generating salt failed. Maybe the hash type is not supported.\n");
+    return 1;
   }
 
   // If no password is provided, read it from stdin
-  char password[256];
+  char buffer[256];
+  const char *password;
   if( argc < 2 ) {
-    printf("Enter password: ");
-    if( fgets(password, sizeof(password), stdin) == NULL ) {
-      printf("Error reading password from stdin\n");
-      return -1;
+    fprintf(stdout, "Enter password: ");
+    if( fgets(buffer, sizeof(buffer), stdin) == NULL ) {
+      fprintf(stderr, "Error reading password from stdin\n");
+      return 1;
     }
     // Remove the newline character from the password if present
-    password[strcspn(password, "\n")] = 0;
+    buffer[strcspn(buffer, "\n")] = 0;
+    password = buffer;
   } else {
     // Use the password provided as an argument
-    strcpy(password, argv[1]);
+    password = argv[1];
   }
 
   // Generate the hashed password with the given salt.
   const char *hashed_password = crypt(password, salt);
+
+  // crypt() returns NULL or a string starting with '*' on failure
+  if( hashed_password == NULL || hashed_password[0] == '*' ) {
+    fprintf(stderr, "Hashing the password failed.\n");
+    return 1;
+  }
 
   printf("%s\n", hashed_password);
 
@@ -353,7 +377,7 @@ student@linux:~$ ./my-crypt -y hunter2
 $y$j9T$DJ8xql9fs0.kI.55aWkPn1$YwpUNvLA7y6xieM5N3WMPXOLqsvNz7o3gu742zd.u/A
 ```
 
-You can now set the password of a user either with `usermod -p HASHED_PASSWORD USER_NAME`. You could also edit `/etc/shadow` directly, and paste the hash as the second field in the line for that user. Be careful, though, as it is easy to make a mistake when editing this file directly.
+You can now set the password of a user either with `usermod -p HASHED_PASSWORD USER_NAME`. You could also edit `/etc/shadow` directly, and paste the hash as the second field in the line for that user. *Be careful, though, as it is easy to make a mistake when editing this file directly.*
 
 ## /etc/login.defs
 
@@ -487,7 +511,7 @@ Watch out for tiny differences in the command line options of `passwd`, `usermod
 
 ## editing local files
 
-If you still want to manually edit the `/etc/passwd` or `/etc/shadow`, after knowing these commands for password management, then use `vipw` instead of vi(m) directly. The `vipw` tool will do proper locking of the file.
+If you still want to manually edit the `/etc/passwd` or `/etc/shadow`, after knowing these commands for password management, then use `vipw` instead of `vi`(`m`) directly. The `vipw` tool will do proper locking of the file.
 
 ```console
 student@el:~$ sudo vipw -h

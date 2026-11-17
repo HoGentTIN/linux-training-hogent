@@ -49,14 +49,14 @@ content:
       - working_with_file_contents
       - ioredirection
       - regular_expressions
-  - title: "user group management"
-    chapters:
-      - groups
   - title: "user management"
     chapters:
       - users
       - user_management
       - user_passwords
+  - title: "user group management"
+    chapters:
+      - groups
   - title: "file permissions"
     chapters:
       - file_permissions

@@ -54,7 +54,7 @@ root@linux:/home/student# ls -l FileForStudent
 
 ## list of special files
 
-When you use `ls -l`, for each file you can see ten characters before the user and group owner. The first character tells us the type of file. Regular files get a `-`, directories get a `d`, symbolic links are shown with an `l`, pipes get a `p`, character devices a `c`, block devices a `b`, and sockets an `s`.
+When you use `ls -l`, for each file you can see ten characters before the user and group owner. The first character tells us the type of file:
 
 | first character | file type        |
 | :-------------: | :--------------- |
@@ -134,7 +134,9 @@ dr-xr-x--- 2 student student 4.0K 2007-02-07 22:25 UserAndGroupEnter
 dr-x------ 2 student student 4.0K 2007-02-07 22:25 OnlyUserEnter
 ```
 
-To summarise, the first `rwx` triplet represents the permissions for the *user owner*. The second triplet corresponds to the *group owner*; it specifies permissions for all members of that group. The third triplet defines permissions for all *other* users that are not the *user owner* and are not a member of the *group owner*. The `root` user ignores all restrictions and can do anything with any file.
+To summarise, the first `rwx` triplet represents the permissions for the *user owner*. The second triplet corresponds to the *group owner*; it specifies permissions for all members of that group. The third triplet defines permissions for all *other* users that are not the *user owner* and are not a member of the *group owner*.
+
+The `root` user ignores all restrictions and can do anything with any file.
 
 ### setting permissions with symbolic notation
 
@@ -204,16 +206,16 @@ student@linux:~/perms$ ls -l permissions.txt
 -rwxrw-r-- 1 student student 0 2007-02-07 22:34 permissions.txt
 ```
 
-**Summarized**, in order to change permissions with `chmod` using symbolic notation:
+Summarized, in order to change permissions with `chmod` using symbolic notation:
 
 - first specify who the permissions are for: `u` for the user owner, `g` for the group owner, `o` for others, and `a` for all. `a` is the default and can be omitted.
 - then specify the operation: `+` to add permissions, `-` to remove permissions, and `=` to set permissions.
 - finally specify the permission(s): `r` for read, `w` for write, and `x` for execute.
-- multiple operations can be combined with a comma (no spaces!)
+- multiple operations can be combined with a comma (no spaces!).
 
 ### setting permissions with octal notation
 
-Most Unix administrators will use the "old school" octal system to talk about and set permissions. Consider the triplet to be a binary number with 0 indicating the permission is not set and 1 indicating the permission is set. You then have $2^3=8$ possible combinations, hence the name *octal*. You can then convert the binary number to an octal number, equating `r` to 4, `w` to 2, and `x` to 1.
+Most Unix administrators will use the "old school" octal system to talk about and set permissions. Consider the triplet to be a binary number with 0 indicating the permission is not set and 1 indicating the permission is set. You then have $2^3=8$ possible combinations, hence the name *octal*. You can then convert the binary number to an octal number, equating `r` to `4`, `w` to `2`, and `x` to `1`.
 
 | permission | binary | octal |
 | :--------: | :----: | :---: |
@@ -226,7 +228,7 @@ Most Unix administrators will use the "old school" octal system to talk about an
 |   `rw-`    |  110   |   6   |
 |   `rwx`    |  111   |   7   |
 
-Since we have three triplets, we can use three octal digits to represent the permissions. This makes 777 equal to `rwxrwxrwx` and by the same logic, 654 mean `rw-r-xr--`. The `chmod` command will accept these numbers.
+Since we have three triplets, we can use three octal digits to represent the permissions. This makes `777` equal to `rwxrwxrwx` and by the same logic, `654` mean `rw-r-xr--`. The `chmod` command will accept these numbers.
 
 ```console
 student@linux:~/perms$ chmod 777 permissions.txt 
@@ -243,7 +245,7 @@ student@linux:~/perms$ ls -l permissions.txt
 Remark that in practice, some combinations will never occur:
 
 - The permissions of a user will never be smaller than the permissions of the group owner or others. Consequently, the digits will always be in descending order.
-- Setting the write or execute permission without read access is useless. Consequently, you will never use 1, 2, or 3 in an octal permission code
+- Setting the write or execute permission without read access is useless. Consequently, you will never use `1`, `2`, or `3` in an octal permission code
 - A directory will always have the read and execute permission set or unset together. It is useless to allow a user to read the directory contents, but not let them `cd` into that directory. Allowing `cd` without read access is also useless. The permission code for a directory will therefore always be odd.
 
 Here's a little tip: you can print the permissions of a file in either octal or symbolic notation with the `stat` command (check the man page of `stat` to see how this works).
@@ -270,17 +272,17 @@ When creating a file or directory, a set of default permissions are applied. The
 [student@linux ~]$
 ```
 
-As you can also see, the file is also not executable by default. This is a general security feature among Unixes; newly created files are never executable by default. You have to explicitly do a `chmod +x` to make a file executable. This also means that the 1 bit in the `umask` has no meaning. A `umask` value of 0022 has the same effect as 0033.
+As you can also see, the file is also not executable by default. This is a general security feature among Unixes; newly created files are never executable by default. You have to explicitly do a `chmod +x` to make a file executable. This also means that the 1 bit in the `umask` has no meaning. A `umask` value of `0022` has the same effect as `0033`.
 
 In practice, you will only use umask values:
 
-- 0: don't take away any permissions
-- 2: take away write permissions
-- 7: take away all permissions
+- `0`: don't take away any permissions
+- `2`: take away write permissions
+- `7`: take away all permissions
 
-You can set the `umask` value to a new value with the `umask` command. The `umask` value is a four-digit octal number. The first digit is for special permissions (and is always zero), the second for the user permissions (is in practice always 0, since there is no use in taking away the user's permissions), the third for the group owner (sometimes 0, but usually 2 or 7), and the last for others (usually 2 or 7, 0 is very uncommon and can be considered to be a security risk).
+You can set the `umask` value to a new value with the `umask` command. The `umask` value is a four-digit octal number. The first digit is for special permissions (and is always `0`), the second for the user permissions (is in practice always `0`, since there is no use in taking away the user's permissions), the third for the group owner (sometimes `0`, but usually `2` or `7`), and the last for others (usually `2` or `7`, `0` is very uncommon and can be considered to be a security risk).
 
-The `umask` value is subtracted from 777 to get the default permissions and in the case of a file, the execute bit is removed.
+The `umask` value is subtracted from `777` to get the default permissions and in the case of a file, the execute bit is removed.
 
 ```console
 [student@linux ~]$ umask 0002
@@ -305,7 +307,7 @@ drwx------. 2 student student 6 Mar  8 10:51 dir0077
 
 ### mkdir -m
 
-When creating directories with `mkdir` you can use the `-m` option to set the `mode`. This example explains.
+When creating directories with `mkdir` you can use the `-m` option to set the `mode`.
 
 ```console
 student@linux~$ mkdir -m 700 MyDir

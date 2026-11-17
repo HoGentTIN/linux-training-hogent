@@ -54,10 +54,10 @@ Group membership can be modified with the useradd or
     salsa:x:1010:katrien
     root@linux:~#
 
-Be careful when using `usermod` to add users to groups. By default, the
+*Be careful when using `usermod` to add users to groups. By default, the
 `usermod` command will `remove` the user from every group of which he is
 a member if the group is not listed in the command! Using the `-a`
-(append) switch prevents this behaviour.
+(append) switch prevents this behaviour.*
 
 ## groupmod
 
@@ -130,10 +130,10 @@ the `newgrp` command.
     root@linux:~/prigroup# ls -l
     total 0
     -rw-r--r--. 1 root root 0 Apr 13 17:49 standard.txt
-    root@linux:~/prigroup# echo $SHLVL
+    root@linux:~/prigroup# echo "${SHLVL}"
     1
     root@linux:~/prigroup# newgrp tennis
-    root@linux:~/prigroup# echo $SHLVL
+    root@linux:~/prigroup# echo "${SHLVL}"
     2
     root@linux:~/prigroup# touch newgrp.txt
     root@linux:~/prigroup# ls -l
@@ -146,7 +146,7 @@ the `newgrp` command.
 
 ## vigr
 
-Similar to vipw, the `vigr` command can be used to
+Similar to `vipw`, the `vigr` command can be used to
 manually edit the `/etc/group` file, since it will do proper locking of
 the file. Only experienced senior administrators should use
 `vi` or `vigr` to manage groups.

@@ -1,10 +1,10 @@
 ## user management
 
-User management on Linux can be done in three complementary ways. You can use the `graphical` tools provided by your distribution. These tools have a look and feel that depends on the distribution. If you are a novice Linux user on your home system, then use the graphical tool that is provided by your distribution. This will make sure that you do not run into problems.
+User management on Linux can be done in three complementary ways. You can use the graphical tools provided by your distribution. These tools have a look and feel that depends on the distribution. If you are a novice Linux user on your home system, then use the graphical tool that is provided by your distribution. This will make sure that you do not run into problems.
 
-Another option is to use *command line tools* like `useradd`, `usermod`, `passwd`, `gpasswd` and others. Server administrators are likely to use these tools, since they are familiar and very similar across many different distributions. This chapter will focus on these command line tools.
+Another option is to use command line tools like `useradd`, `usermod`, `passwd`, `gpasswd` and others. Server administrators are likely to use these tools since servers often do not have a GUI, and the commands are familiar and very similar across many different distributions. This chapter will focus on these command line tools.
 
-A third and rather extremist way is to *edit the local configuration files* directly using a text editor like `vi` or `nano`. This is strongly discouraged, though, since a small mistake in the configuration file format may make your system unusable.
+A third and rather extremist way is to edit the local configuration files directly using a text editor like `vi` or `nano`. **This is strongly discouraged, though, since a small mistake in the configuration file format may make your system unusable**.
 
 ## /etc/passwd
 
@@ -24,7 +24,7 @@ tcpdump:x:104:109::/nonexistent:/usr/sbin/nologin
 polkitd:x:994:994:polkit:/nonexistent:/usr/sbin/nologin
 ```
 
-This file contains seven columns separated by a colon. The columns contain the username, an x, the user id (a number that uniquely identifies a user), the primary group id, a description, the name of the user's home directory, and the login shell.
+This file contains seven columns separated by a colon. The columns contain the username, an `x`, the user id (a number that uniquely identifies a user), the primary group id, a description, the name of the user's home directory, and the login shell.
 
 More information can be found in man page `passwd(5)`:
 
@@ -46,7 +46,7 @@ student@linux:~$ grep student /etc/passwd
 student:x:1001:1001::/home/student:/bin/bash
 ```
 
-It may be counterintuitive, but the `passwd` file does *not* contain the field it's named after, viz. the user's password. Originally, it was kept in the second field. Since the `passwd` file is world readable, realisation dawned that this was a bad idea, even if the password is stored in an encrypted (hashed) format. The password is now stored in the `shadow` file.
+It may be counterintuitive, but the `passwd` file does *not* contain the field it's named after: the user's password. Originally, it was kept in the second field. Since the `passwd` file is world readable, realisation dawned that this was a bad idea, even if the password is stored in an encrypted (hashed) format. The password is now stored in the `shadow` file.
 
 ## /etc/shadow
 
@@ -81,7 +81,7 @@ The second field is the hashed password, with the other fields you can configure
 
 ## root
 
-The `root` user also called the `superuser` is the most powerful account on your Linux system. This user can do almost anything, including the creation of other users. The root user always has user id 0 (regardless of the name of the account).
+The `root` user, also called the *superuser*, is the most powerful account on your Linux system. This user can do almost anything, including the creation of other users. The root user always has user id `0` (regardless of the name of the account).
 
 ```console
 student@linux:~$ getent passwd root
@@ -100,9 +100,9 @@ student@debian:~$ getent passwd yanina
 yanina:x:1002:1002:Yanina Wickmayer:/home/yanina:/bin/bash
 ```
 
-The user named yanina received userid 1002 and `primary group` id 1002 (a newly created group with name `yanina`).
+The user named `yanina` received userid `1002` and primary group id `1002` (a newly created group with name `yanina`).
 
-Remark that on **Debian**-based systems, the `useradd` command does **not** automatically create a home directory and sets the login shell to `/bin/sh`. Consequently, the `-m` and `-s` options are necessary for creating a user that can log in. On **Enterprise Linux**, `useradd` does create a home directory and `/bin/bash` is the default login shell, so `useradd <user>` is sufficient.
+*Remark that on various Linux distributions, the `useradd` command does not automatically create a home directory and sets the login shell to `/bin/sh`. Consequently, the `-m` and `-s` options are necessary for creating a user that can log in.*
 
 At this time, the user is not yet able to log in.
 
@@ -111,7 +111,7 @@ student@debian:~$ getent shadow yanina
 yanina:!:20011:0:99999:7:::
 ```
 
-The password field contains a `!`, which means that the account is locked. The password must be set with the `passwd` command.
+The password field contains a `!`, which means that the account is *locked*. The password must be set with the `passwd` command.
 
 ```console
 student@debian:~$ sudo passwd yanina
@@ -133,7 +133,7 @@ yanina@debian:~$ pwd
 
 ### /etc/default/useradd
 
-Both *Enterprise Linux* and *Debian/Ubuntu* have a file called `/etc/default/useradd` that contains some default user options. Besides using cat to display this file, you can also use `useradd -D`.
+Both Enterprise Linux and Debian/Ubuntu have a file called `/etc/default/useradd` that contains some default user options. Besides using `cat` to display this file, you can also use `useradd -D`.
 
 ```console
 student@debian:~$ /sbin/useradd -D
@@ -185,7 +185,7 @@ Password:
 su: Authentication failure
 ```
 
-To re-enable the account, use the `-U` option.
+Use the `-U` option to unlock the account.
 
 ```console
 student@debian:~$ sudo usermod -U tux
@@ -214,11 +214,13 @@ student@debian:~$ getent passwd annelies
 annelies:x:1006:1006:sword fighter:/home/annelies:/bin/ksh
 ```
 
+*Many new shells (zsh, fish, nushell, xonsh, elvish, ...) are available today, offering quality-of-life features such as syntax highlighting, autosuggestions and better tab completion. However, if you change your login shell, make sure it is POSIX-compliant. Much of the system's internal plumbing assumes the login shell understands POSIX syntax. One example is the emergency shell: with a non-POSIX login shell, you may be unable to log in when something goes wrong, such as during a critical boot failure. Best practice is therefore to keep a POSIX-compliant shell (such as /bin/bash) as your login shell and use the non-POSIX shell only interactively. You can do this using your `.bashrc` or through your terminal emulator's settings.*
+
 ## chsh
 
 Users can change their own login shell with the `chsh` command. 
 
-In the example below, user `yanina` obtains a list of available shells and then changes their login shell to the Z shell (`/bin/zsh`). First install `zsh` before trying this yourself.
+In the example below, user yanina obtains a list of available shells and then changes their login shell to the Z shell (`/bin/zsh`). First install `zsh` before trying this yourself.
 
 ```console
 yanina@debian:~$ cat /etc/shells
@@ -242,7 +244,7 @@ yanina@debian:~$ exit
 logout
 student@debian:~$ su - yanina
 Password: 
-yanina@debian ~ % echo $SHELL
+yanina@debian ~ % echo "${SHELL}"
 /usr/bin/zsh
 yanina@debian ~ % getent passwd yanina 
 yanina:x:1002:1002:Yanina Wickmayer:/home/yanina:/usr/bin/zsh
@@ -270,7 +272,7 @@ student@debian:~$ sudo userdel -r yanina
 
 ## managing home directories
 
-The easiest way to create a home directory is to supply the `-m` option with `useradd`. If you forgot the option on a Debian system, you could delete the user and start again, or create the directory yourself. This also requires setting the owner and the permissions on the directory with `chmod` and `chown` (both commands are discussed in detail in another chapter).
+The easiest way to create a home directory is to supply the `-m` option with `useradd`. If you forgot the option on a Debian system, you could delete the user and start again, or create the directory yourself. This also requires setting the owner and the permissions on the directory with `chown` and `chmod` (both commands are discussed in detail in another chapter).
 
 ```console
 student@debian:~$ sudo useradd -s /bin/bash laura
@@ -278,7 +280,7 @@ student@debian:~$ getent passwd laura
 laura:x:1004:1004::/home/laura:/bin/bash
 student@debian:~$ sudo mkdir /home/laura
 student@debian:~$ sudo chown laura:laura /home/laura
-student@debian:~$ sudo chmod -R 700 /home/laura
+student@debian:~$ sudo chmod 700 /home/laura
 student@debian:~$ ls -ld /home/laura/
 drwx------ 2 laura laura 4096 Jun 24 15:17 /home/laura/
 ```
@@ -310,10 +312,9 @@ student@debian:~$ ls -ld /home/wim/
 ls: cannot access '/home/wim/': No such file or directory
 ```
 
-## adduser, deluser (debian/ubuntu)
+## adduser, deluser
 
-On Debian/Ubuntu, an additional command to manage users is available: `adduser`
-and `deluser`. The `adduser` command is a more user-friendly frontend to `useradd` and does all that is necessary to create a new user that can immediately log in to the system. The disadvantage is that it's an interactive command, so it's not suited to use in a script to automate the installation of a machine.
+On recent Linux distributions, additional commands to manage users are available: `adduser` and `deluser`. The `adduser` command is a more user-friendly frontend to `useradd` and does all that is necessary to create a new user that can immediately log in to the system. The disadvantage is that it's an interactive command, so it's not suited to use in a script to automate the installation of a machine.
 
 ```console
 student@debian:~$ sudo adduser kim
@@ -341,7 +342,7 @@ kim@debian:~$ pwd
 /home/kim
 ```
 
-The `deluser` command is a frontend to `userdel` and `groupdel` and removes a user and the associated group. The home directory is not removed by default.
+The `deluser` command is a frontend to `userdel` and `groupdel`, and removes a user and the associated group. The home directory is not removed by default.
 
 ```console
 student@debian:~$ sudo deluser kim
@@ -352,4 +353,6 @@ student@debian:~$ ls /home/
 kim  student  yanina
 student@debian:~$ sudo rm -rf /home/kim/
 ```
+
+`addgroup` and `delgroup` also exists as frontends to `groupadd` and `groupdel`.
 

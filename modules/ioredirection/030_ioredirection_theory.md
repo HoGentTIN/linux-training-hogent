@@ -1,13 +1,13 @@
 ## stdin, stdout, and stderr
 
-The bash shell has three basic streams; it takes input from `stdin`
-(stream `0`), it sends output to `stdout` (stream `1`)
- and it sends error messages to `stderr` (stream `2`)
-.
+The bash shell has three basic streams; it takes input from the standard input
+`stdin` (stream `0`), it sends output to the standard output `stdout`
+(stream `1`) and it sends error messages to the standard error `stderr`
+(stream `2`).
 
 The drawing below has a graphical interpretation of these three streams.
 
-![](assets/bash_stdin_stdout_stderr.png){width="14cm"}
+![](assets/bash_stdin_stdout_stderr.png)
 
 The keyboard often serves as `stdin`, whereas `stdout` and `stderr` both
 go to the display. This can be confusing to new Linux users because
@@ -38,7 +38,7 @@ referred to as stream `1`).
     It is cold today!
     [student@linux ~]$
 
-Note that the bash shell effectively `removes` the redirection from the
+Note that the bash shell effectively *removes* the redirection from the
 command line before argument 0 is executed. This means that in the case
 of this command:
 
@@ -50,7 +50,7 @@ the shell only counts two arguments (echo = argument 0, hello = argument
 ### output file is erased
 
 While scanning the line, the shell will see the \> sign and
-`will clear the file`! Since this happens before resolving `argument 0`,
+**will clear the file**! Since this happens before resolving `argument 0`,
 this means that even when the command fails, the file will have been
 cleared!
 
@@ -76,7 +76,7 @@ Erasing a file while using \> can be prevented by setting the
 
 ### overruling noclobber
 
-The `noclobber` can be overruled with `>|`.
+The `noclobber` option can be overruled with `>|`.
 
     [student@linux ~]$ set -o noclobber
     [student@linux ~]$ echo It is cold today! > winter.txt
@@ -88,7 +88,7 @@ The `noclobber` can be overruled with `>|`.
 
 ### \>\> append
 
-Use `>>` to `append` output to a file.
+Use `>>` to *append* output to a file.
 
     [student@linux ~]$ echo It is cold today! > winter.txt
     [student@linux ~]$ cat winter.txt 
@@ -167,10 +167,62 @@ You need a third stream to switch stdout and stderr after a pipe symbol.
     student@linux:~$ rm file42 3>&1 1>&2 2>&3 | sed 's/file42/FILE42/' 
     rm: cannot remove ‘FILE42’: No such file or directory
 
+## output redirection and pipes
+
+Pipes only pass `stdout` by default. For example, you cannot grep inside
+`stderr` when using pipes on the command line, because only `stdout` is passed.
+
+    student@linux:~$ rm file42 file33 file1201 | grep file42
+    rm: cannot remove ‘file42’: No such file or directory
+    rm: cannot remove ‘file33’: No such file or directory
+    rm: cannot remove ‘file1201’: No such file or directory
+
+With `2>&1` you can force `stderr` to go to `stdout`. This enables the
+next command in the pipe to act on both streams. In our example, it
+allows `grep` to filter the `stderr` + `stdout` data.
+
+    student@linux:~$ rm file42 file33 file1201 2>&1 | grep file42
+    rm: cannot remove ‘file42’: No such file or directory
+
+You cannot use both `1>&2` and `2>&1` to switch `stdout` and `stderr`.
+Redirections are applied from left to right, and `a>&b` means "make stream
+`a` point to wherever stream `b` points right *now*". It copies the destination,
+it does not link the two streams.
+
+The examples below use a command that writes one line to each stream,
+and pipes the results into a file with `| cat > piped.txt`. Whatever appears
+on screen went straight to the terminal before the pipe, and whatever ends up
+in the file went through the pipe. By default only `stdout` goes through the
+pipe.
+
+    student@linux:~$ { echo "I am stdout"; echo "I am stderr" >&2; } | cat > piped.txt
+    I am stderr
+    student@linux:~$ cat piped.txt
+    I am stdout
+
+When you try to switch `stdout` and `stderr` by using both  `2>&1` and `1>&2`,
+everything will be redirected to `stdout` and will be passed through the pipe.
+Nothing will be redirected to the terminal.
+
+    student@linux:~$ { echo "I am stdout"; echo "I am stderr" >&2; } 2>&1 1>&2 | cat > piped.txt
+    student@linux:~$ cat piped.txt
+    I am stdout
+    I am stderr
+
+You need a third stream to switch `stdout` and `stderr` after a pipe
+symbol. Stream 3 works like a temporary variable when swapping two
+values.
+
+    student@linux:~$ { echo "I am stdout"; echo "I am stderr" >&2; } 3>&1 1>&2 2>&3 | cat > piped.txt
+    I am stdout
+    student@linux:~$ cat piped.txt
+    I am stderr
+
+Now `stdout` goes to the terminal and `stderr` goes through the pipe.
+
 ## joining stdout and stderr
 
-The `&>` construction will put both `stdout` and `stderr` in one stream
-(to a file).
+The `&>` construction will put both `stdout` and `stderr` in one stream similar to `2>&1`.
 
     student@linux:~$ rm file42 &> out_and_err
     student@linux:~$ cat out_and_err 

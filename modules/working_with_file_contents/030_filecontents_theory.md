@@ -18,7 +18,7 @@ file.
 
 The `head` command can also display the first `n` lines of a file.
 
-    student@linux~$ head -4 /etc/passwd
+    student@linux~$ head -n 4 /etc/passwd
     root:x:0:0:root:/root:/bin/bash
     daemon:x:1:1:daemon:/usr/sbin:/bin/sh
     bin:x:2:2:bin:/bin:/bin/sh
@@ -27,7 +27,7 @@ The `head` command can also display the first `n` lines of a file.
 
 And `head` can also display the first `n bytes`.
 
-    student@linux~$ head -c14 /etc/passwd
+    student@linux~$ head -c 14 /etc/passwd
     root:x:0:0:roostudent@linux~$
 
 ## tail
@@ -62,8 +62,8 @@ during this course.
 ## cat
 
 The `cat` command is one of the most universal tools, yet
-all it does is copy `standard input` to
-`standard output`. In combination with the shell this can
+all it does is copy *standard input* (`stdin`) to
+*standard output* (`stdout`). In combination with the shell this can
 be very powerful and diverse. Some examples will give a glimpse into the
 possibilities. The first example is simple, you can use cat to display a
 file on the screen. If the file is longer than the screen, it will
@@ -164,11 +164,11 @@ backwards).
 The `more` command is useful for displaying files that
 take up more than one screen. More will allow you to see the contents of
 the file page by page. Use the space bar to see the next page, or `q` to
-quit. Some people prefer the `less` command to `more`.
+quit. Some people prefer the more recent `less` command to `more`.
 
 ## strings
 
-With the `strings` command you can display readable ascii
+With the `strings` command you can display readable ASCII
 strings found in (binary) files. This example locates the `ls` binary
 then displays readable strings in the binary file (output is truncated).
 
